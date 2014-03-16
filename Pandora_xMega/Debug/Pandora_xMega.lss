@@ -1,0 +1,1649 @@
+
+Pandora_xMega.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         000009f8  00000000  00000000  00000094  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .data         00000008  00802000  000009f8  00000a8c  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  2 .bss          00000004  00802008  00802008  00000a94  2**0
+                  ALLOC
+  3 .comment      00000030  00000000  00000000  00000a94  2**0
+                  CONTENTS, READONLY
+  4 .debug_aranges 000001c0  00000000  00000000  00000ac8  2**3
+                  CONTENTS, READONLY, DEBUGGING
+  5 .debug_info   00004ecf  00000000  00000000  00000c88  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_abbrev 00000e96  00000000  00000000  00005b57  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_line   00004023  00000000  00000000  000069ed  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_frame  0000033c  00000000  00000000  0000aa10  2**2
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_str    00025689  00000000  00000000  0000ad4c  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_loc    00002d37  00000000  00000000  000303d5  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 11 .debug_ranges 000002d8  00000000  00000000  0003310c  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 12 .debug_macro  000094d3  00000000  00000000  000333e4  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	f9 c0       	rjmp	.+498    	; 0x1f4 <__ctors_end>
+   2:	00 00       	nop
+   4:	1b c1       	rjmp	.+566    	; 0x23c <__bad_interrupt>
+   6:	00 00       	nop
+   8:	19 c1       	rjmp	.+562    	; 0x23c <__bad_interrupt>
+   a:	00 00       	nop
+   c:	17 c1       	rjmp	.+558    	; 0x23c <__bad_interrupt>
+   e:	00 00       	nop
+  10:	15 c1       	rjmp	.+554    	; 0x23c <__bad_interrupt>
+  12:	00 00       	nop
+  14:	13 c1       	rjmp	.+550    	; 0x23c <__bad_interrupt>
+  16:	00 00       	nop
+  18:	11 c1       	rjmp	.+546    	; 0x23c <__bad_interrupt>
+  1a:	00 00       	nop
+  1c:	0f c1       	rjmp	.+542    	; 0x23c <__bad_interrupt>
+  1e:	00 00       	nop
+  20:	0d c1       	rjmp	.+538    	; 0x23c <__bad_interrupt>
+  22:	00 00       	nop
+  24:	0b c1       	rjmp	.+534    	; 0x23c <__bad_interrupt>
+  26:	00 00       	nop
+  28:	09 c1       	rjmp	.+530    	; 0x23c <__bad_interrupt>
+  2a:	00 00       	nop
+  2c:	07 c1       	rjmp	.+526    	; 0x23c <__bad_interrupt>
+  2e:	00 00       	nop
+  30:	05 c1       	rjmp	.+522    	; 0x23c <__bad_interrupt>
+  32:	00 00       	nop
+  34:	03 c1       	rjmp	.+518    	; 0x23c <__bad_interrupt>
+  36:	00 00       	nop
+  38:	01 c1       	rjmp	.+514    	; 0x23c <__bad_interrupt>
+  3a:	00 00       	nop
+  3c:	ff c0       	rjmp	.+510    	; 0x23c <__bad_interrupt>
+  3e:	00 00       	nop
+  40:	fd c0       	rjmp	.+506    	; 0x23c <__bad_interrupt>
+  42:	00 00       	nop
+  44:	fb c0       	rjmp	.+502    	; 0x23c <__bad_interrupt>
+  46:	00 00       	nop
+  48:	f9 c0       	rjmp	.+498    	; 0x23c <__bad_interrupt>
+  4a:	00 00       	nop
+  4c:	f7 c0       	rjmp	.+494    	; 0x23c <__bad_interrupt>
+  4e:	00 00       	nop
+  50:	f5 c0       	rjmp	.+490    	; 0x23c <__bad_interrupt>
+  52:	00 00       	nop
+  54:	f3 c0       	rjmp	.+486    	; 0x23c <__bad_interrupt>
+  56:	00 00       	nop
+  58:	f1 c0       	rjmp	.+482    	; 0x23c <__bad_interrupt>
+  5a:	00 00       	nop
+  5c:	ef c0       	rjmp	.+478    	; 0x23c <__bad_interrupt>
+  5e:	00 00       	nop
+  60:	ed c0       	rjmp	.+474    	; 0x23c <__bad_interrupt>
+  62:	00 00       	nop
+  64:	eb c0       	rjmp	.+470    	; 0x23c <__bad_interrupt>
+  66:	00 00       	nop
+  68:	e9 c0       	rjmp	.+466    	; 0x23c <__bad_interrupt>
+  6a:	00 00       	nop
+  6c:	e7 c0       	rjmp	.+462    	; 0x23c <__bad_interrupt>
+  6e:	00 00       	nop
+  70:	e5 c0       	rjmp	.+458    	; 0x23c <__bad_interrupt>
+  72:	00 00       	nop
+  74:	e3 c0       	rjmp	.+454    	; 0x23c <__bad_interrupt>
+  76:	00 00       	nop
+  78:	e1 c0       	rjmp	.+450    	; 0x23c <__bad_interrupt>
+  7a:	00 00       	nop
+  7c:	df c0       	rjmp	.+446    	; 0x23c <__bad_interrupt>
+  7e:	00 00       	nop
+  80:	dd c0       	rjmp	.+442    	; 0x23c <__bad_interrupt>
+  82:	00 00       	nop
+  84:	db c0       	rjmp	.+438    	; 0x23c <__bad_interrupt>
+  86:	00 00       	nop
+  88:	d9 c0       	rjmp	.+434    	; 0x23c <__bad_interrupt>
+  8a:	00 00       	nop
+  8c:	d7 c0       	rjmp	.+430    	; 0x23c <__bad_interrupt>
+  8e:	00 00       	nop
+  90:	d5 c0       	rjmp	.+426    	; 0x23c <__bad_interrupt>
+  92:	00 00       	nop
+  94:	d3 c0       	rjmp	.+422    	; 0x23c <__bad_interrupt>
+  96:	00 00       	nop
+  98:	d1 c0       	rjmp	.+418    	; 0x23c <__bad_interrupt>
+  9a:	00 00       	nop
+  9c:	cf c0       	rjmp	.+414    	; 0x23c <__bad_interrupt>
+  9e:	00 00       	nop
+  a0:	cd c0       	rjmp	.+410    	; 0x23c <__bad_interrupt>
+  a2:	00 00       	nop
+  a4:	cb c0       	rjmp	.+406    	; 0x23c <__bad_interrupt>
+  a6:	00 00       	nop
+  a8:	c9 c0       	rjmp	.+402    	; 0x23c <__bad_interrupt>
+  aa:	00 00       	nop
+  ac:	c7 c0       	rjmp	.+398    	; 0x23c <__bad_interrupt>
+  ae:	00 00       	nop
+  b0:	c5 c0       	rjmp	.+394    	; 0x23c <__bad_interrupt>
+  b2:	00 00       	nop
+  b4:	c3 c0       	rjmp	.+390    	; 0x23c <__bad_interrupt>
+  b6:	00 00       	nop
+  b8:	c1 c0       	rjmp	.+386    	; 0x23c <__bad_interrupt>
+  ba:	00 00       	nop
+  bc:	bf c0       	rjmp	.+382    	; 0x23c <__bad_interrupt>
+  be:	00 00       	nop
+  c0:	bd c0       	rjmp	.+378    	; 0x23c <__bad_interrupt>
+  c2:	00 00       	nop
+  c4:	bb c0       	rjmp	.+374    	; 0x23c <__bad_interrupt>
+  c6:	00 00       	nop
+  c8:	b9 c0       	rjmp	.+370    	; 0x23c <__bad_interrupt>
+  ca:	00 00       	nop
+  cc:	b7 c0       	rjmp	.+366    	; 0x23c <__bad_interrupt>
+  ce:	00 00       	nop
+  d0:	b5 c0       	rjmp	.+362    	; 0x23c <__bad_interrupt>
+  d2:	00 00       	nop
+  d4:	b3 c0       	rjmp	.+358    	; 0x23c <__bad_interrupt>
+  d6:	00 00       	nop
+  d8:	b1 c0       	rjmp	.+354    	; 0x23c <__bad_interrupt>
+  da:	00 00       	nop
+  dc:	af c0       	rjmp	.+350    	; 0x23c <__bad_interrupt>
+  de:	00 00       	nop
+  e0:	ad c0       	rjmp	.+346    	; 0x23c <__bad_interrupt>
+  e2:	00 00       	nop
+  e4:	ab c0       	rjmp	.+342    	; 0x23c <__bad_interrupt>
+  e6:	00 00       	nop
+  e8:	a9 c0       	rjmp	.+338    	; 0x23c <__bad_interrupt>
+  ea:	00 00       	nop
+  ec:	a7 c0       	rjmp	.+334    	; 0x23c <__bad_interrupt>
+  ee:	00 00       	nop
+  f0:	a5 c0       	rjmp	.+330    	; 0x23c <__bad_interrupt>
+  f2:	00 00       	nop
+  f4:	a3 c0       	rjmp	.+326    	; 0x23c <__bad_interrupt>
+  f6:	00 00       	nop
+  f8:	a1 c0       	rjmp	.+322    	; 0x23c <__bad_interrupt>
+  fa:	00 00       	nop
+  fc:	9f c0       	rjmp	.+318    	; 0x23c <__bad_interrupt>
+  fe:	00 00       	nop
+ 100:	9d c0       	rjmp	.+314    	; 0x23c <__bad_interrupt>
+ 102:	00 00       	nop
+ 104:	9b c0       	rjmp	.+310    	; 0x23c <__bad_interrupt>
+ 106:	00 00       	nop
+ 108:	99 c0       	rjmp	.+306    	; 0x23c <__bad_interrupt>
+ 10a:	00 00       	nop
+ 10c:	97 c0       	rjmp	.+302    	; 0x23c <__bad_interrupt>
+ 10e:	00 00       	nop
+ 110:	95 c0       	rjmp	.+298    	; 0x23c <__bad_interrupt>
+ 112:	00 00       	nop
+ 114:	93 c0       	rjmp	.+294    	; 0x23c <__bad_interrupt>
+ 116:	00 00       	nop
+ 118:	91 c0       	rjmp	.+290    	; 0x23c <__bad_interrupt>
+ 11a:	00 00       	nop
+ 11c:	8f c0       	rjmp	.+286    	; 0x23c <__bad_interrupt>
+ 11e:	00 00       	nop
+ 120:	8d c0       	rjmp	.+282    	; 0x23c <__bad_interrupt>
+ 122:	00 00       	nop
+ 124:	8b c0       	rjmp	.+278    	; 0x23c <__bad_interrupt>
+ 126:	00 00       	nop
+ 128:	89 c0       	rjmp	.+274    	; 0x23c <__bad_interrupt>
+ 12a:	00 00       	nop
+ 12c:	87 c0       	rjmp	.+270    	; 0x23c <__bad_interrupt>
+ 12e:	00 00       	nop
+ 130:	85 c0       	rjmp	.+266    	; 0x23c <__bad_interrupt>
+ 132:	00 00       	nop
+ 134:	83 c0       	rjmp	.+262    	; 0x23c <__bad_interrupt>
+ 136:	00 00       	nop
+ 138:	81 c0       	rjmp	.+258    	; 0x23c <__bad_interrupt>
+ 13a:	00 00       	nop
+ 13c:	7f c0       	rjmp	.+254    	; 0x23c <__bad_interrupt>
+ 13e:	00 00       	nop
+ 140:	7d c0       	rjmp	.+250    	; 0x23c <__bad_interrupt>
+ 142:	00 00       	nop
+ 144:	7b c0       	rjmp	.+246    	; 0x23c <__bad_interrupt>
+ 146:	00 00       	nop
+ 148:	79 c0       	rjmp	.+242    	; 0x23c <__bad_interrupt>
+ 14a:	00 00       	nop
+ 14c:	77 c0       	rjmp	.+238    	; 0x23c <__bad_interrupt>
+ 14e:	00 00       	nop
+ 150:	75 c0       	rjmp	.+234    	; 0x23c <__bad_interrupt>
+ 152:	00 00       	nop
+ 154:	73 c0       	rjmp	.+230    	; 0x23c <__bad_interrupt>
+ 156:	00 00       	nop
+ 158:	71 c0       	rjmp	.+226    	; 0x23c <__bad_interrupt>
+ 15a:	00 00       	nop
+ 15c:	6f c0       	rjmp	.+222    	; 0x23c <__bad_interrupt>
+ 15e:	00 00       	nop
+ 160:	6d c0       	rjmp	.+218    	; 0x23c <__bad_interrupt>
+ 162:	00 00       	nop
+ 164:	6b c0       	rjmp	.+214    	; 0x23c <__bad_interrupt>
+ 166:	00 00       	nop
+ 168:	69 c0       	rjmp	.+210    	; 0x23c <__bad_interrupt>
+ 16a:	00 00       	nop
+ 16c:	67 c0       	rjmp	.+206    	; 0x23c <__bad_interrupt>
+ 16e:	00 00       	nop
+ 170:	65 c0       	rjmp	.+202    	; 0x23c <__bad_interrupt>
+ 172:	00 00       	nop
+ 174:	63 c0       	rjmp	.+198    	; 0x23c <__bad_interrupt>
+ 176:	00 00       	nop
+ 178:	61 c0       	rjmp	.+194    	; 0x23c <__bad_interrupt>
+ 17a:	00 00       	nop
+ 17c:	5f c0       	rjmp	.+190    	; 0x23c <__bad_interrupt>
+ 17e:	00 00       	nop
+ 180:	5d c0       	rjmp	.+186    	; 0x23c <__bad_interrupt>
+ 182:	00 00       	nop
+ 184:	5b c0       	rjmp	.+182    	; 0x23c <__bad_interrupt>
+ 186:	00 00       	nop
+ 188:	59 c0       	rjmp	.+178    	; 0x23c <__bad_interrupt>
+ 18a:	00 00       	nop
+ 18c:	57 c0       	rjmp	.+174    	; 0x23c <__bad_interrupt>
+ 18e:	00 00       	nop
+ 190:	55 c0       	rjmp	.+170    	; 0x23c <__bad_interrupt>
+ 192:	00 00       	nop
+ 194:	53 c0       	rjmp	.+166    	; 0x23c <__bad_interrupt>
+ 196:	00 00       	nop
+ 198:	51 c0       	rjmp	.+162    	; 0x23c <__bad_interrupt>
+ 19a:	00 00       	nop
+ 19c:	4f c0       	rjmp	.+158    	; 0x23c <__bad_interrupt>
+ 19e:	00 00       	nop
+ 1a0:	4d c0       	rjmp	.+154    	; 0x23c <__bad_interrupt>
+ 1a2:	00 00       	nop
+ 1a4:	4b c0       	rjmp	.+150    	; 0x23c <__bad_interrupt>
+ 1a6:	00 00       	nop
+ 1a8:	49 c0       	rjmp	.+146    	; 0x23c <__bad_interrupt>
+ 1aa:	00 00       	nop
+ 1ac:	47 c0       	rjmp	.+142    	; 0x23c <__bad_interrupt>
+ 1ae:	00 00       	nop
+ 1b0:	45 c0       	rjmp	.+138    	; 0x23c <__bad_interrupt>
+ 1b2:	00 00       	nop
+ 1b4:	43 c0       	rjmp	.+134    	; 0x23c <__bad_interrupt>
+ 1b6:	00 00       	nop
+ 1b8:	41 c0       	rjmp	.+130    	; 0x23c <__bad_interrupt>
+ 1ba:	00 00       	nop
+ 1bc:	3f c0       	rjmp	.+126    	; 0x23c <__bad_interrupt>
+ 1be:	00 00       	nop
+ 1c0:	3d c0       	rjmp	.+122    	; 0x23c <__bad_interrupt>
+ 1c2:	00 00       	nop
+ 1c4:	3b c0       	rjmp	.+118    	; 0x23c <__bad_interrupt>
+ 1c6:	00 00       	nop
+ 1c8:	39 c0       	rjmp	.+114    	; 0x23c <__bad_interrupt>
+ 1ca:	00 00       	nop
+ 1cc:	37 c0       	rjmp	.+110    	; 0x23c <__bad_interrupt>
+ 1ce:	00 00       	nop
+ 1d0:	35 c0       	rjmp	.+106    	; 0x23c <__bad_interrupt>
+ 1d2:	00 00       	nop
+ 1d4:	33 c0       	rjmp	.+102    	; 0x23c <__bad_interrupt>
+ 1d6:	00 00       	nop
+ 1d8:	31 c0       	rjmp	.+98     	; 0x23c <__bad_interrupt>
+ 1da:	00 00       	nop
+ 1dc:	2f c0       	rjmp	.+94     	; 0x23c <__bad_interrupt>
+ 1de:	00 00       	nop
+ 1e0:	2d c0       	rjmp	.+90     	; 0x23c <__bad_interrupt>
+ 1e2:	00 00       	nop
+ 1e4:	2b c0       	rjmp	.+86     	; 0x23c <__bad_interrupt>
+ 1e6:	00 00       	nop
+ 1e8:	29 c0       	rjmp	.+82     	; 0x23c <__bad_interrupt>
+ 1ea:	00 00       	nop
+ 1ec:	27 c0       	rjmp	.+78     	; 0x23c <__bad_interrupt>
+ 1ee:	00 00       	nop
+ 1f0:	25 c0       	rjmp	.+74     	; 0x23c <__bad_interrupt>
+	...
+
+000001f4 <__ctors_end>:
+ 1f4:	11 24       	eor	r1, r1
+ 1f6:	1f be       	out	0x3f, r1	; 63
+ 1f8:	cf ef       	ldi	r28, 0xFF	; 255
+ 1fa:	cd bf       	out	0x3d, r28	; 61
+ 1fc:	df e3       	ldi	r29, 0x3F	; 63
+ 1fe:	de bf       	out	0x3e, r29	; 62
+ 200:	00 e0       	ldi	r16, 0x00	; 0
+ 202:	0c bf       	out	0x3c, r16	; 60
+ 204:	18 be       	out	0x38, r1	; 56
+ 206:	19 be       	out	0x39, r1	; 57
+ 208:	1a be       	out	0x3a, r1	; 58
+ 20a:	1b be       	out	0x3b, r1	; 59
+
+0000020c <__do_copy_data>:
+ 20c:	10 e2       	ldi	r17, 0x20	; 32
+ 20e:	a0 e0       	ldi	r26, 0x00	; 0
+ 210:	b0 e2       	ldi	r27, 0x20	; 32
+ 212:	e8 ef       	ldi	r30, 0xF8	; 248
+ 214:	f9 e0       	ldi	r31, 0x09	; 9
+ 216:	00 e0       	ldi	r16, 0x00	; 0
+ 218:	0b bf       	out	0x3b, r16	; 59
+ 21a:	02 c0       	rjmp	.+4      	; 0x220 <__do_copy_data+0x14>
+ 21c:	07 90       	elpm	r0, Z+
+ 21e:	0d 92       	st	X+, r0
+ 220:	a8 30       	cpi	r26, 0x08	; 8
+ 222:	b1 07       	cpc	r27, r17
+ 224:	d9 f7       	brne	.-10     	; 0x21c <__do_copy_data+0x10>
+ 226:	1b be       	out	0x3b, r1	; 59
+
+00000228 <__do_clear_bss>:
+ 228:	20 e2       	ldi	r18, 0x20	; 32
+ 22a:	a8 e0       	ldi	r26, 0x08	; 8
+ 22c:	b0 e2       	ldi	r27, 0x20	; 32
+ 22e:	01 c0       	rjmp	.+2      	; 0x232 <.do_clear_bss_start>
+
+00000230 <.do_clear_bss_loop>:
+ 230:	1d 92       	st	X+, r1
+
+00000232 <.do_clear_bss_start>:
+ 232:	ac 30       	cpi	r26, 0x0C	; 12
+ 234:	b2 07       	cpc	r27, r18
+ 236:	e1 f7       	brne	.-8      	; 0x230 <.do_clear_bss_loop>
+ 238:	af d3       	rcall	.+1886   	; 0x998 <main>
+ 23a:	dc c3       	rjmp	.+1976   	; 0x9f4 <_exit>
+
+0000023c <__bad_interrupt>:
+ 23c:	e1 ce       	rjmp	.-574    	; 0x0 <__vectors>
+
+0000023e <pc_start_com>:
+const uint8_t start_seq[] = "PANDORA";
+const uint8_t start_length = 7;
+uint8_t	*rx_buf;
+uint8_t *tx_buf; 
+
+void pc_start_com(){
+ 23e:	cf 93       	push	r28
+ 240:	60 91 08 20 	lds	r22, 0x2008
+ 244:	70 91 09 20 	lds	r23, 0x2009
+	uint8_t received_byte;
+	Bool success = false;
+	uint8_t matched = 0;
+ 248:	c0 e0       	ldi	r28, 0x00	; 0
+ 24a:	15 c0       	rjmp	.+42     	; 0x276 <pc_start_com+0x38>
+	
+	while(!success){
+		usart_serial_read_packet(USART_SERIAL, rx_buf, start_length);
+		for(int i=0;i<start_length;i++){
+			if (rx_buf[i] == start_seq[i]){matched+=1;}
+ 24c:	81 81       	ldd	r24, Z+1	; 0x01
+ 24e:	81 34       	cpi	r24, 0x41	; 65
+ 250:	11 f1       	breq	.+68     	; 0x296 <pc_start_com+0x58>
+ 252:	82 81       	ldd	r24, Z+2	; 0x02
+ 254:	8e 34       	cpi	r24, 0x4E	; 78
+ 256:	19 f1       	breq	.+70     	; 0x29e <pc_start_com+0x60>
+ 258:	83 81       	ldd	r24, Z+3	; 0x03
+ 25a:	84 34       	cpi	r24, 0x44	; 68
+ 25c:	21 f1       	breq	.+72     	; 0x2a6 <pc_start_com+0x68>
+ 25e:	84 81       	ldd	r24, Z+4	; 0x04
+ 260:	8f 34       	cpi	r24, 0x4F	; 79
+ 262:	29 f1       	breq	.+74     	; 0x2ae <pc_start_com+0x70>
+ 264:	85 81       	ldd	r24, Z+5	; 0x05
+ 266:	82 35       	cpi	r24, 0x52	; 82
+ 268:	31 f1       	breq	.+76     	; 0x2b6 <pc_start_com+0x78>
+ 26a:	86 81       	ldd	r24, Z+6	; 0x06
+ 26c:	81 34       	cpi	r24, 0x41	; 65
+ 26e:	39 f1       	breq	.+78     	; 0x2be <pc_start_com+0x80>
+void pc_start_com(){
+	uint8_t received_byte;
+	Bool success = false;
+	uint8_t matched = 0;
+	
+	while(!success){
+ 270:	c7 30       	cpi	r28, 0x07	; 7
+ 272:	41 f1       	breq	.+80     	; 0x2c4 <pc_start_com+0x86>
+ 274:	bf 01       	movw	r22, r30
+		usart_serial_read_packet(USART_SERIAL, rx_buf, start_length);
+ 276:	47 e0       	ldi	r20, 0x07	; 7
+ 278:	50 e0       	ldi	r21, 0x00	; 0
+ 27a:	80 ea       	ldi	r24, 0xA0	; 160
+ 27c:	99 e0       	ldi	r25, 0x09	; 9
+ 27e:	7e d0       	rcall	.+252    	; 0x37c <usart_serial_read_packet>
+		for(int i=0;i<start_length;i++){
+			if (rx_buf[i] == start_seq[i]){matched+=1;}
+ 280:	e0 91 08 20 	lds	r30, 0x2008
+ 284:	f0 91 09 20 	lds	r31, 0x2009
+ 288:	80 81       	ld	r24, Z
+ 28a:	80 35       	cpi	r24, 0x50	; 80
+ 28c:	f9 f6       	brne	.-66     	; 0x24c <pc_start_com+0xe>
+ 28e:	cf 5f       	subi	r28, 0xFF	; 255
+ 290:	81 81       	ldd	r24, Z+1	; 0x01
+ 292:	81 34       	cpi	r24, 0x41	; 65
+ 294:	f1 f6       	brne	.-68     	; 0x252 <pc_start_com+0x14>
+ 296:	cf 5f       	subi	r28, 0xFF	; 255
+ 298:	82 81       	ldd	r24, Z+2	; 0x02
+ 29a:	8e 34       	cpi	r24, 0x4E	; 78
+ 29c:	e9 f6       	brne	.-70     	; 0x258 <pc_start_com+0x1a>
+ 29e:	cf 5f       	subi	r28, 0xFF	; 255
+ 2a0:	83 81       	ldd	r24, Z+3	; 0x03
+ 2a2:	84 34       	cpi	r24, 0x44	; 68
+ 2a4:	e1 f6       	brne	.-72     	; 0x25e <pc_start_com+0x20>
+ 2a6:	cf 5f       	subi	r28, 0xFF	; 255
+ 2a8:	84 81       	ldd	r24, Z+4	; 0x04
+ 2aa:	8f 34       	cpi	r24, 0x4F	; 79
+ 2ac:	d9 f6       	brne	.-74     	; 0x264 <pc_start_com+0x26>
+ 2ae:	cf 5f       	subi	r28, 0xFF	; 255
+ 2b0:	85 81       	ldd	r24, Z+5	; 0x05
+ 2b2:	82 35       	cpi	r24, 0x52	; 82
+ 2b4:	d1 f6       	brne	.-76     	; 0x26a <pc_start_com+0x2c>
+ 2b6:	cf 5f       	subi	r28, 0xFF	; 255
+ 2b8:	86 81       	ldd	r24, Z+6	; 0x06
+ 2ba:	81 34       	cpi	r24, 0x41	; 65
+ 2bc:	c9 f6       	brne	.-78     	; 0x270 <pc_start_com+0x32>
+ 2be:	cf 5f       	subi	r28, 0xFF	; 255
+void pc_start_com(){
+	uint8_t received_byte;
+	Bool success = false;
+	uint8_t matched = 0;
+	
+	while(!success){
+ 2c0:	c7 30       	cpi	r28, 0x07	; 7
+ 2c2:	c1 f6       	brne	.-80     	; 0x274 <pc_start_com+0x36>
+			if (rx_buf[i] == start_seq[i]){matched+=1;}
+		}
+		success = (matched == start_length);
+	}
+	//usart_serial_write_packet(USART_SERIAL, rx_buf, start_length); 
+	usart_putchar(USART_SERIAL, ACK );
+ 2c4:	66 e0       	ldi	r22, 0x06	; 6
+ 2c6:	80 ea       	ldi	r24, 0xA0	; 160
+ 2c8:	99 e0       	ldi	r25, 0x09	; 9
+}
+ 2ca:	cf 91       	pop	r28
+			if (rx_buf[i] == start_seq[i]){matched+=1;}
+		}
+		success = (matched == start_length);
+	}
+	//usart_serial_write_packet(USART_SERIAL, rx_buf, start_length); 
+	usart_putchar(USART_SERIAL, ACK );
+ 2cc:	57 c3       	rjmp	.+1710   	; 0x97c <usart_putchar>
+
+000002ce <rs232_initialization>:
+		.paritytype = USART_SERIAL_PARITY,
+		.stopbits = USART_SERIAL_STOP_BIT
+};
+
+void rs232_initialization(){
+	sysclk_enable_module(SYSCLK_PORT_D, PR_USART0_bm);
+ 2ce:	60 e1       	ldi	r22, 0x10	; 16
+ 2d0:	84 e0       	ldi	r24, 0x04	; 4
+ 2d2:	48 d0       	rcall	.+144    	; 0x364 <sysclk_enable_module>
+	usart_init_rs232(USART_SERIAL, &USART_SERIAL_OPTIONS);
+ 2d4:	60 e0       	ldi	r22, 0x00	; 0
+ 2d6:	70 e2       	ldi	r23, 0x20	; 32
+ 2d8:	80 ea       	ldi	r24, 0xA0	; 160
+ 2da:	99 e0       	ldi	r25, 0x09	; 9
+ 2dc:	70 c0       	rjmp	.+224    	; 0x3be <usart_init_rs232>
+
+000002de <system_init>:
+
+Bool rs232_com_success;
+
+void system_init (){
+/* Initialize Fsys clock to use external XTAL and PLL for Fsys=32MHz*/
+	board_init();
+ 2de:	02 d0       	rcall	.+4      	; 0x2e4 <board_init>
+	sysclk_init();
+ 2e0:	02 d0       	rcall	.+4      	; 0x2e6 <sysclk_init>
+	rs232_initialization();
+ 2e2:	f5 cf       	rjmp	.-22     	; 0x2ce <rs232_initialization>
+
+000002e4 <board_init>:
+#include <asf.h>
+#include <board.h>
+#include <conf_board.h>
+
+void board_init(void)
+{
+ 2e4:	08 95       	ret
+
+000002e6 <sysclk_init>:
+#  include <nvm.h>
+#endif
+
+
+void sysclk_init(void)
+{
+ 2e6:	47 e0       	ldi	r20, 0x07	; 7
+ 2e8:	50 e0       	ldi	r21, 0x00	; 0
+ 2ea:	6f ef       	ldi	r22, 0xFF	; 255
+ 2ec:	7f ef       	ldi	r23, 0xFF	; 255
+ 2ee:	80 e7       	ldi	r24, 0x70	; 112
+ 2f0:	90 e0       	ldi	r25, 0x00	; 0
+ 2f2:	79 d3       	rcall	.+1778   	; 0x9e6 <memset>
+ * \param psbcdiv The prescaler B and C settings (one of the \c SYSCLK_PSBCDIV_*
+ * definitions). These determine the clkPER2, clkPER and clkCPU frequencies.
+ */
+static inline void sysclk_set_prescalers(uint8_t psadiv, uint8_t psbcdiv)
+{
+	ccp_write_io((uint8_t *)&CLK.PSCTRL, psadiv | psbcdiv);
+ 2f4:	61 e0       	ldi	r22, 0x01	; 1
+ 2f6:	81 e4       	ldi	r24, 0x41	; 65
+ 2f8:	90 e0       	ldi	r25, 0x00	; 0
+ 2fa:	5b d0       	rcall	.+182    	; 0x3b2 <ccp_write_io>
+
+static inline bool pll_is_locked(unsigned int pll_id)
+{
+	Assert(pll_id < NR_PLLS);
+
+	return OSC.STATUS & OSC_PLLRDY_bm;
+ 2fc:	80 91 51 00 	lds	r24, 0x0051
+
+static inline void pll_enable_config_defaults(unsigned int pll_id)
+{
+	struct pll_config pllcfg;
+
+	if (pll_is_locked(pll_id)) {
+ 300:	84 fd       	sbrc	r24, 4
+ 302:	13 c0       	rjmp	.+38     	; 0x32a <sysclk_init+0x44>
+
+static inline bool osc_is_ready(uint8_t id)
+{
+	Assert(id != OSC_ID_USBSOF);
+
+	return OSC.STATUS & id;
+ 304:	80 91 51 00 	lds	r24, 0x0051
+#endif
+		}
+		break;
+
+	case PLL_SRC_XOSC:
+		if (!osc_is_ready(OSC_ID_XOSC)) {
+ 308:	83 ff       	sbrs	r24, 3
+ 30a:	1c c0       	rjmp	.+56     	; 0x344 <sysclk_init+0x5e>
+
+typedef uint8_t irqflags_t;
+
+static inline irqflags_t cpu_irq_save(void)
+{
+	irqflags_t flags = SREG;
+ 30c:	9f b7       	in	r25, 0x3f	; 63
+	cpu_irq_disable();
+ 30e:	f8 94       	cli
+static inline void pll_config_write(const struct pll_config *cfg,
+		unsigned int pll_id)
+{
+	Assert(pll_id < NR_PLLS);
+
+	OSC.PLLCTRL = cfg->ctrl;
+ 310:	84 ec       	ldi	r24, 0xC4	; 196
+ 312:	80 93 55 00 	sts	0x0055, r24
+
+	Assert(pll_id < NR_PLLS);
+
+	flags = cpu_irq_save();
+	pll_config_write(cfg, pll_id);
+	OSC.CTRL |= OSC_PLLEN_bm;
+ 316:	80 91 50 00 	lds	r24, 0x0050
+ 31a:	80 61       	ori	r24, 0x10	; 16
+ 31c:	80 93 50 00 	sts	0x0050, r24
+}
+
+static inline void cpu_irq_restore(irqflags_t flags)
+{
+	barrier();
+	SREG = flags;
+ 320:	9f bf       	out	0x3f, r25	; 63
+
+static inline bool pll_is_locked(unsigned int pll_id)
+{
+	Assert(pll_id < NR_PLLS);
+
+	return OSC.STATUS & OSC_PLLRDY_bm;
+ 322:	80 91 51 00 	lds	r24, 0x0051
+	default:
+		Assert(false);
+		break;
+	}
+	pll_enable(&pllcfg, pll_id);
+	while (!pll_is_locked(pll_id));
+ 326:	84 ff       	sbrs	r24, 4
+ 328:	fc cf       	rjmp	.-8      	; 0x322 <sysclk_init+0x3c>
+		default:
+			//unhandled_case(CONFIG_SYSCLK_SOURCE);
+			return;
+		}
+
+		ccp_write_io((uint8_t *)&CLK.CTRL, CONFIG_SYSCLK_SOURCE);
+ 32a:	64 e0       	ldi	r22, 0x04	; 4
+ 32c:	80 e4       	ldi	r24, 0x40	; 64
+ 32e:	90 e0       	ldi	r25, 0x00	; 0
+ 330:	40 d0       	rcall	.+128    	; 0x3b2 <ccp_write_io>
+
+typedef uint8_t irqflags_t;
+
+static inline irqflags_t cpu_irq_save(void)
+{
+	irqflags_t flags = SREG;
+ 332:	9f b7       	in	r25, 0x3f	; 63
+	cpu_irq_disable();
+ 334:	f8 94       	cli
+	irqflags_t flags;
+
+	Assert(id != OSC_ID_USBSOF);
+
+	flags = cpu_irq_save();
+	OSC.CTRL &= ~id;
+ 336:	80 91 50 00 	lds	r24, 0x0050
+ 33a:	8e 7f       	andi	r24, 0xFE	; 254
+ 33c:	80 93 50 00 	sts	0x0050, r24
+}
+
+static inline void cpu_irq_restore(irqflags_t flags)
+{
+	barrier();
+	SREG = flags;
+ 340:	9f bf       	out	0x3f, r25	; 63
+ 342:	08 95       	ret
+
+#ifndef CONFIG_XOSC_32KHZ_LPM
+#  if (XMEGA_E && (BOARD_XOSC_TYPE == XOSC_TYPE_EXTERNAL) && defined(CONFIG_XOSC_EXTERNAL_PC4))
+	OSC.XOSCCTRL = OSC_XOSCSEL4_bm;
+#  else
+	OSC.XOSCCTRL = BOARD_XOSC_TYPE | (CONFIG_XOSC_STARTUP << 2) |
+ 344:	8b e4       	ldi	r24, 0x4B	; 75
+ 346:	80 93 52 00 	sts	0x0052, r24
+
+typedef uint8_t irqflags_t;
+
+static inline irqflags_t cpu_irq_save(void)
+{
+	irqflags_t flags = SREG;
+ 34a:	9f b7       	in	r25, 0x3f	; 63
+	cpu_irq_disable();
+ 34c:	f8 94       	cli
+	OSC.XOSCCTRL = BOARD_XOSC_TYPE | (CONFIG_XOSC_STARTUP << 2) |
+			CONFIG_XOSC_RANGE | OSC_X32KLPM_bm;
+#endif /* CONFIG_XOSC_32KHZ_LPM */
+
+	flags = cpu_irq_save();
+	OSC.CTRL |= id;
+ 34e:	80 91 50 00 	lds	r24, 0x0050
+ 352:	88 60       	ori	r24, 0x08	; 8
+ 354:	80 93 50 00 	sts	0x0050, r24
+}
+
+static inline void cpu_irq_restore(irqflags_t flags)
+{
+	barrier();
+	SREG = flags;
+ 358:	9f bf       	out	0x3f, r25	; 63
+
+static inline bool osc_is_ready(uint8_t id)
+{
+	Assert(id != OSC_ID_USBSOF);
+
+	return OSC.STATUS & id;
+ 35a:	80 91 51 00 	lds	r24, 0x0051
+ *
+ * \param id A number identifying the oscillator to wait for.
+ */
+static inline void osc_wait_ready(uint8_t id)
+{
+	while (!osc_is_ready(id)) {
+ 35e:	83 ff       	sbrs	r24, 3
+ 360:	fc cf       	rjmp	.-8      	; 0x35a <sysclk_init+0x74>
+ 362:	d4 cf       	rjmp	.-88     	; 0x30c <sysclk_init+0x26>
+
+00000364 <sysclk_enable_module>:
+
+typedef uint8_t irqflags_t;
+
+static inline irqflags_t cpu_irq_save(void)
+{
+	irqflags_t flags = SREG;
+ 364:	9f b7       	in	r25, 0x3f	; 63
+	cpu_irq_disable();
+ 366:	f8 94       	cli
+
+void sysclk_enable_module(enum sysclk_port_id port, uint8_t id)
+{
+	irqflags_t flags = cpu_irq_save();
+
+	*((uint8_t *)&PR.PRGEN + port) &= ~id;
+ 368:	e8 2f       	mov	r30, r24
+ 36a:	f0 e0       	ldi	r31, 0x00	; 0
+ 36c:	e0 59       	subi	r30, 0x90	; 144
+ 36e:	ff 4f       	sbci	r31, 0xFF	; 255
+ 370:	60 95       	com	r22
+ 372:	80 81       	ld	r24, Z
+ 374:	86 23       	and	r24, r22
+ 376:	80 83       	st	Z, r24
+}
+
+static inline void cpu_irq_restore(irqflags_t flags)
+{
+	barrier();
+	SREG = flags;
+ 378:	9f bf       	out	0x3f, r25	; 63
+ 37a:	08 95       	ret
+
+0000037c <usart_serial_read_packet>:
+ * \param len    Length of data
+ *
+ */
+status_code_t usart_serial_read_packet(usart_if usart, uint8_t *data,
+		size_t len)
+{
+ 37c:	ef 92       	push	r14
+ 37e:	ff 92       	push	r15
+ 380:	0f 93       	push	r16
+ 382:	1f 93       	push	r17
+ 384:	cf 93       	push	r28
+ 386:	df 93       	push	r29
+ 388:	7c 01       	movw	r14, r24
+ 38a:	8b 01       	movw	r16, r22
+ 38c:	ea 01       	movw	r28, r20
+	while (len) {
+ 38e:	20 97       	sbiw	r28, 0x00	; 0
+ 390:	41 f0       	breq	.+16     	; 0x3a2 <usart_serial_read_packet+0x26>
+ * \param data   Data to read
+ *
+ */
+static inline void usart_serial_getchar(usart_if usart, uint8_t *data)
+{
+	*data = usart_getchar(usart);
+ 392:	c7 01       	movw	r24, r14
+ 394:	fb d2       	rcall	.+1526   	; 0x98c <usart_getchar>
+ 396:	f8 01       	movw	r30, r16
+ 398:	81 93       	st	Z+, r24
+ 39a:	8f 01       	movw	r16, r30
+		usart_serial_getchar(usart, data);
+		len--;
+ 39c:	21 97       	sbiw	r28, 0x01	; 1
+ *
+ */
+status_code_t usart_serial_read_packet(usart_if usart, uint8_t *data,
+		size_t len)
+{
+	while (len) {
+ 39e:	20 97       	sbiw	r28, 0x00	; 0
+ 3a0:	c1 f7       	brne	.-16     	; 0x392 <usart_serial_read_packet+0x16>
+		usart_serial_getchar(usart, data);
+		len--;
+		data++;
+	}
+	return STATUS_OK;
+}
+ 3a2:	80 e0       	ldi	r24, 0x00	; 0
+ 3a4:	df 91       	pop	r29
+ 3a6:	cf 91       	pop	r28
+ 3a8:	1f 91       	pop	r17
+ 3aa:	0f 91       	pop	r16
+ 3ac:	ff 90       	pop	r15
+ 3ae:	ef 90       	pop	r14
+ 3b0:	08 95       	ret
+
+000003b2 <ccp_write_io>:
+
+	PUBLIC_FUNCTION(ccp_write_io)
+
+#if defined(__GNUC__)
+
+	out     RAMPZ, r1               // Reset bits 23:16 of Z
+ 3b2:	1b be       	out	0x3b, r1	; 59
+	movw    r30, r24                // Load addr into Z
+ 3b4:	fc 01       	movw	r30, r24
+	ldi     r18, CCP_IOREG          // Load magic CCP value
+ 3b6:	28 ed       	ldi	r18, 0xD8	; 216
+	out     CCP, r18                // Start CCP handshake
+ 3b8:	24 bf       	out	0x34, r18	; 52
+	st      Z, r22                  // Write value to I/O register
+ 3ba:	60 83       	st	Z, r22
+	ret                             // Return to caller
+ 3bc:	08 95       	ret
+
+000003be <usart_init_rs232>:
+		sck_pin = IOPORT_CREATE_PIN(PORTE, 1);
+#  endif
+	}
+#endif
+#ifdef USARTE1
+	if ((uint16_t)usart == (uint16_t)&USARTE1) {
+ 3be:	8f 92       	push	r8
+ 3c0:	9f 92       	push	r9
+ 3c2:	af 92       	push	r10
+ 3c4:	bf 92       	push	r11
+ 3c6:	cf 92       	push	r12
+ 3c8:	df 92       	push	r13
+ 3ca:	ef 92       	push	r14
+ 3cc:	ff 92       	push	r15
+ 3ce:	0f 93       	push	r16
+ 3d0:	1f 93       	push	r17
+ 3d2:	cf 93       	push	r28
+ 3d4:	df 93       	push	r29
+ 3d6:	ec 01       	movw	r28, r24
+ 3d8:	8b 01       	movw	r16, r22
+ 3da:	00 97       	sbiw	r24, 0x00	; 0
+ 3dc:	09 f4       	brne	.+2      	; 0x3e0 <usart_init_rs232+0x22>
+ 3de:	c2 c0       	rjmp	.+388    	; 0x564 <usart_init_rs232+0x1a6>
+ 3e0:	80 3c       	cpi	r24, 0xC0	; 192
+ 3e2:	91 05       	cpc	r25, r1
+ 3e4:	09 f4       	brne	.+2      	; 0x3e8 <usart_init_rs232+0x2a>
+ 3e6:	ac c1       	rjmp	.+856    	; 0x740 <usart_init_rs232+0x382>
+ 3e8:	80 34       	cpi	r24, 0x40	; 64
+ 3ea:	24 e0       	ldi	r18, 0x04	; 4
+ 3ec:	92 07       	cpc	r25, r18
+ 3ee:	09 f4       	brne	.+2      	; 0x3f2 <usart_init_rs232+0x34>
+ 3f0:	ab c1       	rjmp	.+854    	; 0x748 <usart_init_rs232+0x38a>
+ 3f2:	81 15       	cp	r24, r1
+ 3f4:	34 e0       	ldi	r19, 0x04	; 4
+ 3f6:	93 07       	cpc	r25, r19
+ 3f8:	09 f4       	brne	.+2      	; 0x3fc <usart_init_rs232+0x3e>
+ 3fa:	aa c1       	rjmp	.+852    	; 0x750 <usart_init_rs232+0x392>
+ 3fc:	80 38       	cpi	r24, 0x80	; 128
+ 3fe:	41 e0       	ldi	r20, 0x01	; 1
+ 400:	94 07       	cpc	r25, r20
+ 402:	09 f4       	brne	.+2      	; 0x406 <usart_init_rs232+0x48>
+ 404:	a9 c1       	rjmp	.+850    	; 0x758 <usart_init_rs232+0x39a>
+ 406:	81 15       	cp	r24, r1
+ 408:	51 e0       	ldi	r21, 0x01	; 1
+ 40a:	95 07       	cpc	r25, r21
+ 40c:	09 f4       	brne	.+2      	; 0x410 <usart_init_rs232+0x52>
+ 40e:	a8 c1       	rjmp	.+848    	; 0x760 <usart_init_rs232+0x3a2>
+ 410:	c0 38       	cpi	r28, 0x80	; 128
+ 412:	83 e0       	ldi	r24, 0x03	; 3
+ 414:	d8 07       	cpc	r29, r24
+ 416:	09 f4       	brne	.+2      	; 0x41a <usart_init_rs232+0x5c>
+ 418:	a7 c1       	rjmp	.+846    	; 0x768 <usart_init_rs232+0x3aa>
+ 41a:	c0 39       	cpi	r28, 0x90	; 144
+ 41c:	93 e0       	ldi	r25, 0x03	; 3
+ 41e:	d9 07       	cpc	r29, r25
+ 420:	09 f4       	brne	.+2      	; 0x424 <usart_init_rs232+0x66>
+ 422:	a6 c1       	rjmp	.+844    	; 0x770 <usart_init_rs232+0x3b2>
+ 424:	c1 15       	cp	r28, r1
+ 426:	a2 e0       	ldi	r26, 0x02	; 2
+ 428:	da 07       	cpc	r29, r26
+ 42a:	09 f4       	brne	.+2      	; 0x42e <usart_init_rs232+0x70>
+ 42c:	a5 c1       	rjmp	.+842    	; 0x778 <usart_init_rs232+0x3ba>
+ 42e:	c0 34       	cpi	r28, 0x40	; 64
+ 430:	b2 e0       	ldi	r27, 0x02	; 2
+ 432:	db 07       	cpc	r29, r27
+ 434:	09 f4       	brne	.+2      	; 0x438 <usart_init_rs232+0x7a>
+ 436:	a4 c1       	rjmp	.+840    	; 0x780 <usart_init_rs232+0x3c2>
+ 438:	c1 15       	cp	r28, r1
+ 43a:	e3 e0       	ldi	r30, 0x03	; 3
+ 43c:	de 07       	cpc	r29, r30
+ 43e:	09 f4       	brne	.+2      	; 0x442 <usart_init_rs232+0x84>
+ 440:	a3 c1       	rjmp	.+838    	; 0x788 <usart_init_rs232+0x3ca>
+ 442:	c0 32       	cpi	r28, 0x20	; 32
+ 444:	f3 e0       	ldi	r31, 0x03	; 3
+ 446:	df 07       	cpc	r29, r31
+ 448:	09 f4       	brne	.+2      	; 0x44c <usart_init_rs232+0x8e>
+ 44a:	a2 c1       	rjmp	.+836    	; 0x790 <usart_init_rs232+0x3d2>
+ 44c:	c1 15       	cp	r28, r1
+ 44e:	28 e0       	ldi	r18, 0x08	; 8
+ 450:	d2 07       	cpc	r29, r18
+ 452:	09 f4       	brne	.+2      	; 0x456 <usart_init_rs232+0x98>
+ 454:	a1 c1       	rjmp	.+834    	; 0x798 <usart_init_rs232+0x3da>
+ 456:	c1 15       	cp	r28, r1
+ 458:	39 e0       	ldi	r19, 0x09	; 9
+ 45a:	d3 07       	cpc	r29, r19
+ 45c:	09 f4       	brne	.+2      	; 0x460 <usart_init_rs232+0xa2>
+ 45e:	a0 c1       	rjmp	.+832    	; 0x7a0 <usart_init_rs232+0x3e2>
+ 460:	c1 15       	cp	r28, r1
+ 462:	4a e0       	ldi	r20, 0x0A	; 10
+ 464:	d4 07       	cpc	r29, r20
+ 466:	09 f4       	brne	.+2      	; 0x46a <usart_init_rs232+0xac>
+ 468:	5f c1       	rjmp	.+702    	; 0x728 <usart_init_rs232+0x36a>
+ 46a:	c1 15       	cp	r28, r1
+ 46c:	5b e0       	ldi	r21, 0x0B	; 11
+ 46e:	d5 07       	cpc	r29, r21
+ 470:	09 f4       	brne	.+2      	; 0x474 <usart_init_rs232+0xb6>
+ 472:	9a c1       	rjmp	.+820    	; 0x7a8 <usart_init_rs232+0x3ea>
+ 474:	c0 34       	cpi	r28, 0x40	; 64
+ 476:	88 e0       	ldi	r24, 0x08	; 8
+ 478:	d8 07       	cpc	r29, r24
+ 47a:	09 f4       	brne	.+2      	; 0x47e <usart_init_rs232+0xc0>
+ 47c:	99 c1       	rjmp	.+818    	; 0x7b0 <usart_init_rs232+0x3f2>
+ 47e:	c0 34       	cpi	r28, 0x40	; 64
+ 480:	99 e0       	ldi	r25, 0x09	; 9
+ 482:	d9 07       	cpc	r29, r25
+ 484:	09 f4       	brne	.+2      	; 0x488 <usart_init_rs232+0xca>
+ 486:	98 c1       	rjmp	.+816    	; 0x7b8 <usart_init_rs232+0x3fa>
+ 488:	c0 34       	cpi	r28, 0x40	; 64
+ 48a:	aa e0       	ldi	r26, 0x0A	; 10
+ 48c:	da 07       	cpc	r29, r26
+ 48e:	09 f4       	brne	.+2      	; 0x492 <usart_init_rs232+0xd4>
+ 490:	97 c1       	rjmp	.+814    	; 0x7c0 <usart_init_rs232+0x402>
+ 492:	c0 34       	cpi	r28, 0x40	; 64
+ 494:	bb e0       	ldi	r27, 0x0B	; 11
+ 496:	db 07       	cpc	r29, r27
+ 498:	09 f4       	brne	.+2      	; 0x49c <usart_init_rs232+0xde>
+ 49a:	96 c1       	rjmp	.+812    	; 0x7c8 <usart_init_rs232+0x40a>
+ 49c:	c0 39       	cpi	r28, 0x90	; 144
+ 49e:	e8 e0       	ldi	r30, 0x08	; 8
+ 4a0:	de 07       	cpc	r29, r30
+ 4a2:	09 f4       	brne	.+2      	; 0x4a6 <usart_init_rs232+0xe8>
+ 4a4:	c7 c1       	rjmp	.+910    	; 0x834 <usart_init_rs232+0x476>
+ 4a6:	c0 39       	cpi	r28, 0x90	; 144
+ 4a8:	f9 e0       	ldi	r31, 0x09	; 9
+ 4aa:	df 07       	cpc	r29, r31
+ 4ac:	09 f4       	brne	.+2      	; 0x4b0 <usart_init_rs232+0xf2>
+ 4ae:	02 c2       	rjmp	.+1028   	; 0x8b4 <usart_init_rs232+0x4f6>
+ 4b0:	c0 39       	cpi	r28, 0x90	; 144
+ 4b2:	2a e0       	ldi	r18, 0x0A	; 10
+ 4b4:	d2 07       	cpc	r29, r18
+ 4b6:	09 f4       	brne	.+2      	; 0x4ba <usart_init_rs232+0xfc>
+ 4b8:	03 c2       	rjmp	.+1030   	; 0x8c0 <usart_init_rs232+0x502>
+ 4ba:	c0 39       	cpi	r28, 0x90	; 144
+ 4bc:	3b e0       	ldi	r19, 0x0B	; 11
+ 4be:	d3 07       	cpc	r29, r19
+ 4c0:	09 f4       	brne	.+2      	; 0x4c4 <usart_init_rs232+0x106>
+ 4c2:	02 c2       	rjmp	.+1028   	; 0x8c8 <usart_init_rs232+0x50a>
+ 4c4:	c0 3c       	cpi	r28, 0xC0	; 192
+ 4c6:	48 e0       	ldi	r20, 0x08	; 8
+ 4c8:	d4 07       	cpc	r29, r20
+ 4ca:	09 f4       	brne	.+2      	; 0x4ce <usart_init_rs232+0x110>
+ 4cc:	03 c2       	rjmp	.+1030   	; 0x8d4 <usart_init_rs232+0x516>
+ 4ce:	c0 3c       	cpi	r28, 0xC0	; 192
+ 4d0:	59 e0       	ldi	r21, 0x09	; 9
+ 4d2:	d5 07       	cpc	r29, r21
+ 4d4:	09 f4       	brne	.+2      	; 0x4d8 <usart_init_rs232+0x11a>
+ 4d6:	06 c2       	rjmp	.+1036   	; 0x8e4 <usart_init_rs232+0x526>
+ 4d8:	c0 3c       	cpi	r28, 0xC0	; 192
+ 4da:	8a e0       	ldi	r24, 0x0A	; 10
+ 4dc:	d8 07       	cpc	r29, r24
+ 4de:	09 f4       	brne	.+2      	; 0x4e2 <usart_init_rs232+0x124>
+ 4e0:	07 c2       	rjmp	.+1038   	; 0x8f0 <usart_init_rs232+0x532>
+ 4e2:	c0 3c       	cpi	r28, 0xC0	; 192
+ 4e4:	9b e0       	ldi	r25, 0x0B	; 11
+ 4e6:	d9 07       	cpc	r29, r25
+ 4e8:	09 f4       	brne	.+2      	; 0x4ec <usart_init_rs232+0x12e>
+ 4ea:	10 c2       	rjmp	.+1056   	; 0x90c <usart_init_rs232+0x54e>
+ 4ec:	c0 3a       	cpi	r28, 0xA0	; 160
+ 4ee:	a8 e0       	ldi	r26, 0x08	; 8
+ 4f0:	da 07       	cpc	r29, r26
+ 4f2:	09 f4       	brne	.+2      	; 0x4f6 <usart_init_rs232+0x138>
+ 4f4:	11 c2       	rjmp	.+1058   	; 0x918 <usart_init_rs232+0x55a>
+ 4f6:	c0 3a       	cpi	r28, 0xA0	; 160
+ 4f8:	b9 e0       	ldi	r27, 0x09	; 9
+ 4fa:	db 07       	cpc	r29, r27
+ 4fc:	09 f4       	brne	.+2      	; 0x500 <usart_init_rs232+0x142>
+ 4fe:	10 c2       	rjmp	.+1056   	; 0x920 <usart_init_rs232+0x562>
+ 500:	c0 3a       	cpi	r28, 0xA0	; 160
+ 502:	ea e0       	ldi	r30, 0x0A	; 10
+ 504:	de 07       	cpc	r29, r30
+ 506:	09 f4       	brne	.+2      	; 0x50a <usart_init_rs232+0x14c>
+ 508:	13 c2       	rjmp	.+1062   	; 0x930 <usart_init_rs232+0x572>
+ 50a:	c0 3a       	cpi	r28, 0xA0	; 160
+ 50c:	fb e0       	ldi	r31, 0x0B	; 11
+ 50e:	df 07       	cpc	r29, r31
+ 510:	09 f4       	brne	.+2      	; 0x514 <usart_init_rs232+0x156>
+ 512:	14 c2       	rjmp	.+1064   	; 0x93c <usart_init_rs232+0x57e>
+ 514:	c0 3b       	cpi	r28, 0xB0	; 176
+ 516:	28 e0       	ldi	r18, 0x08	; 8
+ 518:	d2 07       	cpc	r29, r18
+ 51a:	09 f4       	brne	.+2      	; 0x51e <usart_init_rs232+0x160>
+ 51c:	15 c2       	rjmp	.+1066   	; 0x948 <usart_init_rs232+0x58a>
+ 51e:	c0 3b       	cpi	r28, 0xB0	; 176
+ 520:	39 e0       	ldi	r19, 0x09	; 9
+ 522:	d3 07       	cpc	r29, r19
+ 524:	09 f4       	brne	.+2      	; 0x528 <usart_init_rs232+0x16a>
+ 526:	16 c2       	rjmp	.+1068   	; 0x954 <usart_init_rs232+0x596>
+ 528:	c0 3b       	cpi	r28, 0xB0	; 176
+ 52a:	4a e0       	ldi	r20, 0x0A	; 10
+ 52c:	d4 07       	cpc	r29, r20
+ 52e:	09 f4       	brne	.+2      	; 0x532 <usart_init_rs232+0x174>
+ 530:	03 c1       	rjmp	.+518    	; 0x738 <usart_init_rs232+0x37a>
+ 532:	c0 3b       	cpi	r28, 0xB0	; 176
+ 534:	5b e0       	ldi	r21, 0x0B	; 11
+ 536:	d5 07       	cpc	r29, r21
+ 538:	09 f4       	brne	.+2      	; 0x53c <usart_init_rs232+0x17e>
+ 53a:	10 c2       	rjmp	.+1056   	; 0x95c <usart_init_rs232+0x59e>
+ 53c:	c0 38       	cpi	r28, 0x80	; 128
+ 53e:	84 e0       	ldi	r24, 0x04	; 4
+ 540:	d8 07       	cpc	r29, r24
+ 542:	09 f4       	brne	.+2      	; 0x546 <usart_init_rs232+0x188>
+ 544:	0f c2       	rjmp	.+1054   	; 0x964 <usart_init_rs232+0x5a6>
+ 546:	c0 39       	cpi	r28, 0x90	; 144
+ 548:	94 e0       	ldi	r25, 0x04	; 4
+ 54a:	d9 07       	cpc	r29, r25
+ 54c:	09 f4       	brne	.+2      	; 0x550 <usart_init_rs232+0x192>
+ 54e:	0e c2       	rjmp	.+1052   	; 0x96c <usart_init_rs232+0x5ae>
+ 550:	c0 3a       	cpi	r28, 0xA0	; 160
+ 552:	a4 e0       	ldi	r26, 0x04	; 4
+ 554:	da 07       	cpc	r29, r26
+ 556:	09 f4       	brne	.+2      	; 0x55a <usart_init_rs232+0x19c>
+ 558:	0d c2       	rjmp	.+1050   	; 0x974 <usart_init_rs232+0x5b6>
+ 55a:	c0 3b       	cpi	r28, 0xB0	; 176
+ 55c:	b4 e0       	ldi	r27, 0x04	; 4
+ 55e:	db 07       	cpc	r29, r27
+ 560:	09 f4       	brne	.+2      	; 0x564 <usart_init_rs232+0x1a6>
+ 562:	e6 c0       	rjmp	.+460    	; 0x730 <usart_init_rs232+0x372>
+ 564:	8d 81       	ldd	r24, Y+5	; 0x05
+ 566:	8f 73       	andi	r24, 0x3F	; 63
+ 568:	8d 83       	std	Y+5, r24	; 0x05
+ 56a:	f8 01       	movw	r30, r16
+ 56c:	84 81       	ldd	r24, Z+4	; 0x04
+ 56e:	95 81       	ldd	r25, Z+5	; 0x05
+ 570:	89 2b       	or	r24, r25
+ 572:	96 81       	ldd	r25, Z+6	; 0x06
+ 574:	91 11       	cpse	r25, r1
+ 576:	d1 c0       	rjmp	.+418    	; 0x71a <usart_init_rs232+0x35c>
+ 578:	90 e0       	ldi	r25, 0x00	; 0
+ 57a:	89 2b       	or	r24, r25
+ 57c:	8d 83       	std	Y+5, r24	; 0x05
+ 57e:	d8 01       	movw	r26, r16
+ 580:	cd 90       	ld	r12, X+
+ 582:	dd 90       	ld	r13, X+
+ 584:	ed 90       	ld	r14, X+
+ 586:	fc 90       	ld	r15, X
+ 588:	8c 81       	ldd	r24, Y+4	; 0x04
+ 58a:	82 ff       	sbrs	r24, 2
+ 58c:	bd c0       	rjmp	.+378    	; 0x708 <usart_init_rs232+0x34a>
+ 58e:	40 e8       	ldi	r20, 0x80	; 128
+ 590:	54 e8       	ldi	r21, 0x84	; 132
+ 592:	6e e1       	ldi	r22, 0x1E	; 30
+ 594:	70 e0       	ldi	r23, 0x00	; 0
+ 596:	03 e0       	ldi	r16, 0x03	; 3
+ 598:	10 e0       	ldi	r17, 0x00	; 0
+ 59a:	20 e0       	ldi	r18, 0x00	; 0
+ 59c:	30 e0       	ldi	r19, 0x00	; 0
+ 59e:	4c 15       	cp	r20, r12
+ 5a0:	5d 05       	cpc	r21, r13
+ 5a2:	6e 05       	cpc	r22, r14
+ 5a4:	7f 05       	cpc	r23, r15
+ 5a6:	08 f4       	brcc	.+2      	; 0x5aa <usart_init_rs232+0x1ec>
+ 5a8:	9b c0       	rjmp	.+310    	; 0x6e0 <usart_init_rs232+0x322>
+ 5aa:	c0 16       	cp	r12, r16
+ 5ac:	d1 06       	cpc	r13, r17
+ 5ae:	e2 06       	cpc	r14, r18
+ 5b0:	f3 06       	cpc	r15, r19
+ 5b2:	08 f4       	brcc	.+2      	; 0x5b6 <usart_init_rs232+0x1f8>
+ 5b4:	95 c0       	rjmp	.+298    	; 0x6e0 <usart_init_rs232+0x322>
+ 5b6:	8c 81       	ldd	r24, Y+4	; 0x04
+ 5b8:	82 ff       	sbrs	r24, 2
+ 5ba:	b1 c0       	rjmp	.+354    	; 0x71e <usart_init_rs232+0x360>
+ 5bc:	81 2c       	mov	r8, r1
+ 5be:	b4 e2       	ldi	r27, 0x24	; 36
+ 5c0:	9b 2e       	mov	r9, r27
+ 5c2:	b4 ef       	ldi	r27, 0xF4	; 244
+ 5c4:	ab 2e       	mov	r10, r27
+ 5c6:	b1 2c       	mov	r11, r1
+ 5c8:	c5 01       	movw	r24, r10
+ 5ca:	b4 01       	movw	r22, r8
+ 5cc:	a7 01       	movw	r20, r14
+ 5ce:	96 01       	movw	r18, r12
+ 5d0:	e8 d1       	rcall	.+976    	; 0x9a2 <__udivmodsi4>
+ 5d2:	2f 3f       	cpi	r18, 0xFF	; 255
+ 5d4:	31 05       	cpc	r19, r1
+ 5d6:	41 05       	cpc	r20, r1
+ 5d8:	51 05       	cpc	r21, r1
+ 5da:	08 f4       	brcc	.+2      	; 0x5de <usart_init_rs232+0x220>
+ 5dc:	f9 c0       	rjmp	.+498    	; 0x7d0 <usart_init_rs232+0x412>
+ 5de:	2f 3f       	cpi	r18, 0xFF	; 255
+ 5e0:	b1 e0       	ldi	r27, 0x01	; 1
+ 5e2:	3b 07       	cpc	r19, r27
+ 5e4:	41 05       	cpc	r20, r1
+ 5e6:	51 05       	cpc	r21, r1
+ 5e8:	08 f4       	brcc	.+2      	; 0x5ec <usart_init_rs232+0x22e>
+ 5ea:	28 c1       	rjmp	.+592    	; 0x83c <usart_init_rs232+0x47e>
+ 5ec:	2f 3f       	cpi	r18, 0xFF	; 255
+ 5ee:	e3 e0       	ldi	r30, 0x03	; 3
+ 5f0:	3e 07       	cpc	r19, r30
+ 5f2:	41 05       	cpc	r20, r1
+ 5f4:	51 05       	cpc	r21, r1
+ 5f6:	08 f4       	brcc	.+2      	; 0x5fa <usart_init_rs232+0x23c>
+ 5f8:	61 c1       	rjmp	.+706    	; 0x8bc <usart_init_rs232+0x4fe>
+ 5fa:	2f 3f       	cpi	r18, 0xFF	; 255
+ 5fc:	f7 e0       	ldi	r31, 0x07	; 7
+ 5fe:	3f 07       	cpc	r19, r31
+ 600:	41 05       	cpc	r20, r1
+ 602:	51 05       	cpc	r21, r1
+ 604:	08 f4       	brcc	.+2      	; 0x608 <usart_init_rs232+0x24a>
+ 606:	64 c1       	rjmp	.+712    	; 0x8d0 <usart_init_rs232+0x512>
+ 608:	2f 3f       	cpi	r18, 0xFF	; 255
+ 60a:	8f e0       	ldi	r24, 0x0F	; 15
+ 60c:	38 07       	cpc	r19, r24
+ 60e:	41 05       	cpc	r20, r1
+ 610:	51 05       	cpc	r21, r1
+ 612:	08 f4       	brcc	.+2      	; 0x616 <usart_init_rs232+0x258>
+ 614:	63 c1       	rjmp	.+710    	; 0x8dc <usart_init_rs232+0x51e>
+ 616:	2e 3f       	cpi	r18, 0xFE	; 254
+ 618:	9f e1       	ldi	r25, 0x1F	; 31
+ 61a:	39 07       	cpc	r19, r25
+ 61c:	41 05       	cpc	r20, r1
+ 61e:	51 05       	cpc	r21, r1
+ 620:	08 f4       	brcc	.+2      	; 0x624 <usart_init_rs232+0x266>
+ 622:	5e c1       	rjmp	.+700    	; 0x8e0 <usart_init_rs232+0x522>
+ 624:	2c 3f       	cpi	r18, 0xFC	; 252
+ 626:	af e3       	ldi	r26, 0x3F	; 63
+ 628:	3a 07       	cpc	r19, r26
+ 62a:	41 05       	cpc	r20, r1
+ 62c:	51 05       	cpc	r21, r1
+ 62e:	08 f4       	brcc	.+2      	; 0x632 <usart_init_rs232+0x274>
+ 630:	5d c1       	rjmp	.+698    	; 0x8ec <usart_init_rs232+0x52e>
+ 632:	28 3f       	cpi	r18, 0xF8	; 248
+ 634:	bf e7       	ldi	r27, 0x7F	; 127
+ 636:	3b 07       	cpc	r19, r27
+ 638:	41 05       	cpc	r20, r1
+ 63a:	51 05       	cpc	r21, r1
+ 63c:	08 f4       	brcc	.+2      	; 0x640 <usart_init_rs232+0x282>
+ 63e:	5c c1       	rjmp	.+696    	; 0x8f8 <usart_init_rs232+0x53a>
+ 640:	20 3f       	cpi	r18, 0xF0	; 240
+ 642:	ef ef       	ldi	r30, 0xFF	; 255
+ 644:	3e 07       	cpc	r19, r30
+ 646:	41 05       	cpc	r20, r1
+ 648:	51 05       	cpc	r21, r1
+ 64a:	08 f4       	brcc	.+2      	; 0x64e <usart_init_rs232+0x290>
+ 64c:	63 c1       	rjmp	.+710    	; 0x914 <usart_init_rs232+0x556>
+ 64e:	20 3e       	cpi	r18, 0xE0	; 224
+ 650:	ff ef       	ldi	r31, 0xFF	; 255
+ 652:	3f 07       	cpc	r19, r31
+ 654:	f1 e0       	ldi	r31, 0x01	; 1
+ 656:	4f 07       	cpc	r20, r31
+ 658:	51 05       	cpc	r21, r1
+ 65a:	08 f4       	brcc	.+2      	; 0x65e <usart_init_rs232+0x2a0>
+ 65c:	65 c1       	rjmp	.+714    	; 0x928 <usart_init_rs232+0x56a>
+ 65e:	20 3c       	cpi	r18, 0xC0	; 192
+ 660:	8f ef       	ldi	r24, 0xFF	; 255
+ 662:	38 07       	cpc	r19, r24
+ 664:	83 e0       	ldi	r24, 0x03	; 3
+ 666:	48 07       	cpc	r20, r24
+ 668:	51 05       	cpc	r21, r1
+ 66a:	08 f4       	brcc	.+2      	; 0x66e <usart_init_rs232+0x2b0>
+ 66c:	5f c1       	rjmp	.+702    	; 0x92c <usart_init_rs232+0x56e>
+ 66e:	20 38       	cpi	r18, 0x80	; 128
+ 670:	9f ef       	ldi	r25, 0xFF	; 255
+ 672:	39 07       	cpc	r19, r25
+ 674:	97 e0       	ldi	r25, 0x07	; 7
+ 676:	49 07       	cpc	r20, r25
+ 678:	51 05       	cpc	r21, r1
+ 67a:	08 f4       	brcc	.+2      	; 0x67e <usart_init_rs232+0x2c0>
+ 67c:	5d c1       	rjmp	.+698    	; 0x938 <usart_init_rs232+0x57a>
+ 67e:	21 15       	cp	r18, r1
+ 680:	af ef       	ldi	r26, 0xFF	; 255
+ 682:	3a 07       	cpc	r19, r26
+ 684:	af e0       	ldi	r26, 0x0F	; 15
+ 686:	4a 07       	cpc	r20, r26
+ 688:	51 05       	cpc	r21, r1
+ 68a:	08 f4       	brcc	.+2      	; 0x68e <usart_init_rs232+0x2d0>
+ 68c:	5b c1       	rjmp	.+694    	; 0x944 <usart_init_rs232+0x586>
+ 68e:	21 15       	cp	r18, r1
+ 690:	3e 4f       	sbci	r19, 0xFE	; 254
+ 692:	4f 41       	sbci	r20, 0x1F	; 31
+ 694:	51 05       	cpc	r21, r1
+ 696:	08 f4       	brcc	.+2      	; 0x69a <usart_init_rs232+0x2dc>
+ 698:	5b c1       	rjmp	.+694    	; 0x950 <usart_init_rs232+0x592>
+ 69a:	10 e7       	ldi	r17, 0x70	; 112
+ 69c:	2a e0       	ldi	r18, 0x0A	; 10
+ 69e:	30 e0       	ldi	r19, 0x00	; 0
+ 6a0:	d7 01       	movw	r26, r14
+ 6a2:	c6 01       	movw	r24, r12
+ 6a4:	04 c0       	rjmp	.+8      	; 0x6ae <usart_init_rs232+0x2f0>
+ 6a6:	88 0f       	add	r24, r24
+ 6a8:	99 1f       	adc	r25, r25
+ 6aa:	aa 1f       	adc	r26, r26
+ 6ac:	bb 1f       	adc	r27, r27
+ 6ae:	2a 95       	dec	r18
+ 6b0:	d2 f7       	brpl	.-12     	; 0x6a6 <usart_init_rs232+0x2e8>
+ 6b2:	9c 01       	movw	r18, r24
+ 6b4:	ad 01       	movw	r20, r26
+ 6b6:	bc 01       	movw	r22, r24
+ 6b8:	cd 01       	movw	r24, r26
+ 6ba:	96 95       	lsr	r25
+ 6bc:	87 95       	ror	r24
+ 6be:	77 95       	ror	r23
+ 6c0:	67 95       	ror	r22
+ 6c2:	7c 5d       	subi	r23, 0xDC	; 220
+ 6c4:	8b 40       	sbci	r24, 0x0B	; 11
+ 6c6:	9f 4f       	sbci	r25, 0xFF	; 255
+ 6c8:	6c d1       	rcall	.+728    	; 0x9a2 <__udivmodsi4>
+ 6ca:	21 50       	subi	r18, 0x01	; 1
+ 6cc:	31 09       	sbc	r19, r1
+ 6ce:	41 09       	sbc	r20, r1
+ 6d0:	51 09       	sbc	r21, r1
+ 6d2:	83 2f       	mov	r24, r19
+ 6d4:	8f 70       	andi	r24, 0x0F	; 15
+ 6d6:	81 2b       	or	r24, r17
+ 6d8:	8f 83       	std	Y+7, r24	; 0x07
+ 6da:	2e 83       	std	Y+6, r18	; 0x06
+ 6dc:	81 e0       	ldi	r24, 0x01	; 1
+ 6de:	01 c0       	rjmp	.+2      	; 0x6e2 <usart_init_rs232+0x324>
+ 6e0:	80 e0       	ldi	r24, 0x00	; 0
+ 6e2:	9c 81       	ldd	r25, Y+4	; 0x04
+ 6e4:	98 60       	ori	r25, 0x08	; 8
+ 6e6:	9c 83       	std	Y+4, r25	; 0x04
+ 6e8:	9c 81       	ldd	r25, Y+4	; 0x04
+ 6ea:	90 61       	ori	r25, 0x10	; 16
+ 6ec:	9c 83       	std	Y+4, r25	; 0x04
+ 6ee:	df 91       	pop	r29
+ 6f0:	cf 91       	pop	r28
+ 6f2:	1f 91       	pop	r17
+ 6f4:	0f 91       	pop	r16
+ 6f6:	ff 90       	pop	r15
+ 6f8:	ef 90       	pop	r14
+ 6fa:	df 90       	pop	r13
+ 6fc:	cf 90       	pop	r12
+ 6fe:	bf 90       	pop	r11
+ 700:	af 90       	pop	r10
+ 702:	9f 90       	pop	r9
+ 704:	8f 90       	pop	r8
+ 706:	08 95       	ret
+ 708:	40 e4       	ldi	r20, 0x40	; 64
+ 70a:	52 e4       	ldi	r21, 0x42	; 66
+ 70c:	6f e0       	ldi	r22, 0x0F	; 15
+ 70e:	70 e0       	ldi	r23, 0x00	; 0
+ 710:	01 e0       	ldi	r16, 0x01	; 1
+ 712:	10 e0       	ldi	r17, 0x00	; 0
+ 714:	20 e0       	ldi	r18, 0x00	; 0
+ 716:	30 e0       	ldi	r19, 0x00	; 0
+ 718:	42 cf       	rjmp	.-380    	; 0x59e <usart_init_rs232+0x1e0>
+ 71a:	98 e0       	ldi	r25, 0x08	; 8
+ 71c:	2e cf       	rjmp	.-420    	; 0x57a <usart_init_rs232+0x1bc>
+ 71e:	cc 0c       	add	r12, r12
+ 720:	dd 1c       	adc	r13, r13
+ 722:	ee 1c       	adc	r14, r14
+ 724:	ff 1c       	adc	r15, r15
+ 726:	4a cf       	rjmp	.-364    	; 0x5bc <usart_init_rs232+0x1fe>
+ 728:	61 e0       	ldi	r22, 0x01	; 1
+ 72a:	85 e0       	ldi	r24, 0x05	; 5
+ 72c:	1b de       	rcall	.-970    	; 0x364 <sysclk_enable_module>
+ 72e:	1a cf       	rjmp	.-460    	; 0x564 <usart_init_rs232+0x1a6>
+ 730:	60 e4       	ldi	r22, 0x40	; 64
+ 732:	86 e0       	ldi	r24, 0x06	; 6
+ 734:	17 de       	rcall	.-978    	; 0x364 <sysclk_enable_module>
+ 736:	16 cf       	rjmp	.-468    	; 0x564 <usart_init_rs232+0x1a6>
+ 738:	60 e2       	ldi	r22, 0x20	; 32
+ 73a:	85 e0       	ldi	r24, 0x05	; 5
+ 73c:	13 de       	rcall	.-986    	; 0x364 <sysclk_enable_module>
+ 73e:	12 cf       	rjmp	.-476    	; 0x564 <usart_init_rs232+0x1a6>
+ 740:	60 e1       	ldi	r22, 0x10	; 16
+ 742:	80 e0       	ldi	r24, 0x00	; 0
+ 744:	0f de       	rcall	.-994    	; 0x364 <sysclk_enable_module>
+ 746:	0e cf       	rjmp	.-484    	; 0x564 <usart_init_rs232+0x1a6>
+ 748:	68 e0       	ldi	r22, 0x08	; 8
+ 74a:	80 e0       	ldi	r24, 0x00	; 0
+ 74c:	0b de       	rcall	.-1002   	; 0x364 <sysclk_enable_module>
+ 74e:	0a cf       	rjmp	.-492    	; 0x564 <usart_init_rs232+0x1a6>
+ 750:	64 e0       	ldi	r22, 0x04	; 4
+ 752:	80 e0       	ldi	r24, 0x00	; 0
+ 754:	07 de       	rcall	.-1010   	; 0x364 <sysclk_enable_module>
+ 756:	06 cf       	rjmp	.-500    	; 0x564 <usart_init_rs232+0x1a6>
+ 758:	62 e0       	ldi	r22, 0x02	; 2
+ 75a:	80 e0       	ldi	r24, 0x00	; 0
+ 75c:	03 de       	rcall	.-1018   	; 0x364 <sysclk_enable_module>
+ 75e:	02 cf       	rjmp	.-508    	; 0x564 <usart_init_rs232+0x1a6>
+ 760:	61 e0       	ldi	r22, 0x01	; 1
+ 762:	80 e0       	ldi	r24, 0x00	; 0
+ 764:	ff dd       	rcall	.-1026   	; 0x364 <sysclk_enable_module>
+ 766:	fe ce       	rjmp	.-516    	; 0x564 <usart_init_rs232+0x1a6>
+ 768:	61 e0       	ldi	r22, 0x01	; 1
+ 76a:	81 e0       	ldi	r24, 0x01	; 1
+ 76c:	fb dd       	rcall	.-1034   	; 0x364 <sysclk_enable_module>
+ 76e:	fa ce       	rjmp	.-524    	; 0x564 <usart_init_rs232+0x1a6>
+ 770:	61 e0       	ldi	r22, 0x01	; 1
+ 772:	82 e0       	ldi	r24, 0x02	; 2
+ 774:	f7 dd       	rcall	.-1042   	; 0x364 <sysclk_enable_module>
+ 776:	f6 ce       	rjmp	.-532    	; 0x564 <usart_init_rs232+0x1a6>
+ 778:	62 e0       	ldi	r22, 0x02	; 2
+ 77a:	81 e0       	ldi	r24, 0x01	; 1
+ 77c:	f3 dd       	rcall	.-1050   	; 0x364 <sysclk_enable_module>
+ 77e:	f2 ce       	rjmp	.-540    	; 0x564 <usart_init_rs232+0x1a6>
+ 780:	62 e0       	ldi	r22, 0x02	; 2
+ 782:	82 e0       	ldi	r24, 0x02	; 2
+ 784:	ef dd       	rcall	.-1058   	; 0x364 <sysclk_enable_module>
+ 786:	ee ce       	rjmp	.-548    	; 0x564 <usart_init_rs232+0x1a6>
+ 788:	64 e0       	ldi	r22, 0x04	; 4
+ 78a:	81 e0       	ldi	r24, 0x01	; 1
+ 78c:	eb dd       	rcall	.-1066   	; 0x364 <sysclk_enable_module>
+ 78e:	ea ce       	rjmp	.-556    	; 0x564 <usart_init_rs232+0x1a6>
+ 790:	64 e0       	ldi	r22, 0x04	; 4
+ 792:	82 e0       	ldi	r24, 0x02	; 2
+ 794:	e7 dd       	rcall	.-1074   	; 0x364 <sysclk_enable_module>
+ 796:	e6 ce       	rjmp	.-564    	; 0x564 <usart_init_rs232+0x1a6>
+ 798:	61 e0       	ldi	r22, 0x01	; 1
+ 79a:	83 e0       	ldi	r24, 0x03	; 3
+ 79c:	e3 dd       	rcall	.-1082   	; 0x364 <sysclk_enable_module>
+ 79e:	e2 ce       	rjmp	.-572    	; 0x564 <usart_init_rs232+0x1a6>
+ 7a0:	61 e0       	ldi	r22, 0x01	; 1
+ 7a2:	84 e0       	ldi	r24, 0x04	; 4
+ 7a4:	df dd       	rcall	.-1090   	; 0x364 <sysclk_enable_module>
+ 7a6:	de ce       	rjmp	.-580    	; 0x564 <usart_init_rs232+0x1a6>
+ 7a8:	61 e0       	ldi	r22, 0x01	; 1
+ 7aa:	86 e0       	ldi	r24, 0x06	; 6
+ 7ac:	db dd       	rcall	.-1098   	; 0x364 <sysclk_enable_module>
+ 7ae:	da ce       	rjmp	.-588    	; 0x564 <usart_init_rs232+0x1a6>
+ 7b0:	62 e0       	ldi	r22, 0x02	; 2
+ 7b2:	83 e0       	ldi	r24, 0x03	; 3
+ 7b4:	d7 dd       	rcall	.-1106   	; 0x364 <sysclk_enable_module>
+ 7b6:	d6 ce       	rjmp	.-596    	; 0x564 <usart_init_rs232+0x1a6>
+ 7b8:	62 e0       	ldi	r22, 0x02	; 2
+ 7ba:	84 e0       	ldi	r24, 0x04	; 4
+ 7bc:	d3 dd       	rcall	.-1114   	; 0x364 <sysclk_enable_module>
+ 7be:	d2 ce       	rjmp	.-604    	; 0x564 <usart_init_rs232+0x1a6>
+ 7c0:	62 e0       	ldi	r22, 0x02	; 2
+ 7c2:	85 e0       	ldi	r24, 0x05	; 5
+ 7c4:	cf dd       	rcall	.-1122   	; 0x364 <sysclk_enable_module>
+ 7c6:	ce ce       	rjmp	.-612    	; 0x564 <usart_init_rs232+0x1a6>
+ 7c8:	62 e0       	ldi	r22, 0x02	; 2
+ 7ca:	86 e0       	ldi	r24, 0x06	; 6
+ 7cc:	cb dd       	rcall	.-1130   	; 0x364 <sysclk_enable_module>
+ 7ce:	ca ce       	rjmp	.-620    	; 0x564 <usart_init_rs232+0x1a6>
+ 7d0:	d7 01       	movw	r26, r14
+ 7d2:	c6 01       	movw	r24, r12
+ 7d4:	88 0f       	add	r24, r24
+ 7d6:	99 1f       	adc	r25, r25
+ 7d8:	aa 1f       	adc	r26, r26
+ 7da:	bb 1f       	adc	r27, r27
+ 7dc:	88 0f       	add	r24, r24
+ 7de:	99 1f       	adc	r25, r25
+ 7e0:	aa 1f       	adc	r26, r26
+ 7e2:	bb 1f       	adc	r27, r27
+ 7e4:	88 0f       	add	r24, r24
+ 7e6:	99 1f       	adc	r25, r25
+ 7e8:	aa 1f       	adc	r26, r26
+ 7ea:	bb 1f       	adc	r27, r27
+ 7ec:	88 1a       	sub	r8, r24
+ 7ee:	99 0a       	sbc	r9, r25
+ 7f0:	aa 0a       	sbc	r10, r26
+ 7f2:	bb 0a       	sbc	r11, r27
+ 7f4:	10 e9       	ldi	r17, 0x90	; 144
+ 7f6:	29 ef       	ldi	r18, 0xF9	; 249
+ 7f8:	3f ef       	ldi	r19, 0xFF	; 255
+ 7fa:	6d ef       	ldi	r22, 0xFD	; 253
+ 7fc:	7f ef       	ldi	r23, 0xFF	; 255
+ 7fe:	62 1b       	sub	r22, r18
+ 800:	73 0b       	sbc	r23, r19
+ 802:	a5 01       	movw	r20, r10
+ 804:	94 01       	movw	r18, r8
+ 806:	04 c0       	rjmp	.+8      	; 0x810 <usart_init_rs232+0x452>
+ 808:	22 0f       	add	r18, r18
+ 80a:	33 1f       	adc	r19, r19
+ 80c:	44 1f       	adc	r20, r20
+ 80e:	55 1f       	adc	r21, r21
+ 810:	6a 95       	dec	r22
+ 812:	d2 f7       	brpl	.-12     	; 0x808 <usart_init_rs232+0x44a>
+ 814:	ca 01       	movw	r24, r20
+ 816:	b9 01       	movw	r22, r18
+ 818:	46 01       	movw	r8, r12
+ 81a:	57 01       	movw	r10, r14
+ 81c:	b6 94       	lsr	r11
+ 81e:	a7 94       	ror	r10
+ 820:	97 94       	ror	r9
+ 822:	87 94       	ror	r8
+ 824:	68 0d       	add	r22, r8
+ 826:	79 1d       	adc	r23, r9
+ 828:	8a 1d       	adc	r24, r10
+ 82a:	9b 1d       	adc	r25, r11
+ 82c:	a7 01       	movw	r20, r14
+ 82e:	96 01       	movw	r18, r12
+ 830:	b8 d0       	rcall	.+368    	; 0x9a2 <__udivmodsi4>
+ 832:	4f cf       	rjmp	.-354    	; 0x6d2 <usart_init_rs232+0x314>
+ 834:	64 e0       	ldi	r22, 0x04	; 4
+ 836:	83 e0       	ldi	r24, 0x03	; 3
+ 838:	95 dd       	rcall	.-1238   	; 0x364 <sysclk_enable_module>
+ 83a:	94 ce       	rjmp	.-728    	; 0x564 <usart_init_rs232+0x1a6>
+ 83c:	4a ef       	ldi	r20, 0xFA	; 250
+ 83e:	24 2f       	mov	r18, r20
+ 840:	33 27       	eor	r19, r19
+ 842:	27 fd       	sbrc	r18, 7
+ 844:	30 95       	com	r19
+ 846:	14 2f       	mov	r17, r20
+ 848:	12 95       	swap	r17
+ 84a:	10 7f       	andi	r17, 0xF0	; 240
+ 84c:	d7 01       	movw	r26, r14
+ 84e:	c6 01       	movw	r24, r12
+ 850:	88 0f       	add	r24, r24
+ 852:	99 1f       	adc	r25, r25
+ 854:	aa 1f       	adc	r26, r26
+ 856:	bb 1f       	adc	r27, r27
+ 858:	88 0f       	add	r24, r24
+ 85a:	99 1f       	adc	r25, r25
+ 85c:	aa 1f       	adc	r26, r26
+ 85e:	bb 1f       	adc	r27, r27
+ 860:	88 0f       	add	r24, r24
+ 862:	99 1f       	adc	r25, r25
+ 864:	aa 1f       	adc	r26, r26
+ 866:	bb 1f       	adc	r27, r27
+ 868:	81 2c       	mov	r8, r1
+ 86a:	74 e2       	ldi	r23, 0x24	; 36
+ 86c:	97 2e       	mov	r9, r23
+ 86e:	74 ef       	ldi	r23, 0xF4	; 244
+ 870:	a7 2e       	mov	r10, r23
+ 872:	b1 2c       	mov	r11, r1
+ 874:	88 1a       	sub	r8, r24
+ 876:	99 0a       	sbc	r9, r25
+ 878:	aa 0a       	sbc	r10, r26
+ 87a:	bb 0a       	sbc	r11, r27
+ 87c:	4e 3f       	cpi	r20, 0xFE	; 254
+ 87e:	0c f4       	brge	.+2      	; 0x882 <usart_init_rs232+0x4c4>
+ 880:	bc cf       	rjmp	.-136    	; 0x7fa <usart_init_rs232+0x43c>
+ 882:	2d 5f       	subi	r18, 0xFD	; 253
+ 884:	3f 4f       	sbci	r19, 0xFF	; 255
+ 886:	d7 01       	movw	r26, r14
+ 888:	c6 01       	movw	r24, r12
+ 88a:	04 c0       	rjmp	.+8      	; 0x894 <usart_init_rs232+0x4d6>
+ 88c:	88 0f       	add	r24, r24
+ 88e:	99 1f       	adc	r25, r25
+ 890:	aa 1f       	adc	r26, r26
+ 892:	bb 1f       	adc	r27, r27
+ 894:	2a 95       	dec	r18
+ 896:	d2 f7       	brpl	.-12     	; 0x88c <usart_init_rs232+0x4ce>
+ 898:	9c 01       	movw	r18, r24
+ 89a:	ad 01       	movw	r20, r26
+ 89c:	bc 01       	movw	r22, r24
+ 89e:	cd 01       	movw	r24, r26
+ 8a0:	96 95       	lsr	r25
+ 8a2:	87 95       	ror	r24
+ 8a4:	77 95       	ror	r23
+ 8a6:	67 95       	ror	r22
+ 8a8:	68 0d       	add	r22, r8
+ 8aa:	79 1d       	adc	r23, r9
+ 8ac:	8a 1d       	adc	r24, r10
+ 8ae:	9b 1d       	adc	r25, r11
+ 8b0:	78 d0       	rcall	.+240    	; 0x9a2 <__udivmodsi4>
+ 8b2:	0f cf       	rjmp	.-482    	; 0x6d2 <usart_init_rs232+0x314>
+ 8b4:	64 e0       	ldi	r22, 0x04	; 4
+ 8b6:	84 e0       	ldi	r24, 0x04	; 4
+ 8b8:	55 dd       	rcall	.-1366   	; 0x364 <sysclk_enable_module>
+ 8ba:	54 ce       	rjmp	.-856    	; 0x564 <usart_init_rs232+0x1a6>
+ 8bc:	4b ef       	ldi	r20, 0xFB	; 251
+ 8be:	bf cf       	rjmp	.-130    	; 0x83e <usart_init_rs232+0x480>
+ 8c0:	64 e0       	ldi	r22, 0x04	; 4
+ 8c2:	85 e0       	ldi	r24, 0x05	; 5
+ 8c4:	4f dd       	rcall	.-1378   	; 0x364 <sysclk_enable_module>
+ 8c6:	4e ce       	rjmp	.-868    	; 0x564 <usart_init_rs232+0x1a6>
+ 8c8:	64 e0       	ldi	r22, 0x04	; 4
+ 8ca:	86 e0       	ldi	r24, 0x06	; 6
+ 8cc:	4b dd       	rcall	.-1386   	; 0x364 <sysclk_enable_module>
+ 8ce:	4a ce       	rjmp	.-876    	; 0x564 <usart_init_rs232+0x1a6>
+ 8d0:	4c ef       	ldi	r20, 0xFC	; 252
+ 8d2:	b5 cf       	rjmp	.-150    	; 0x83e <usart_init_rs232+0x480>
+ 8d4:	68 e0       	ldi	r22, 0x08	; 8
+ 8d6:	83 e0       	ldi	r24, 0x03	; 3
+ 8d8:	45 dd       	rcall	.-1398   	; 0x364 <sysclk_enable_module>
+ 8da:	44 ce       	rjmp	.-888    	; 0x564 <usart_init_rs232+0x1a6>
+ 8dc:	4d ef       	ldi	r20, 0xFD	; 253
+ 8de:	af cf       	rjmp	.-162    	; 0x83e <usart_init_rs232+0x480>
+ 8e0:	4e ef       	ldi	r20, 0xFE	; 254
+ 8e2:	ad cf       	rjmp	.-166    	; 0x83e <usart_init_rs232+0x480>
+ 8e4:	68 e0       	ldi	r22, 0x08	; 8
+ 8e6:	84 e0       	ldi	r24, 0x04	; 4
+ 8e8:	3d dd       	rcall	.-1414   	; 0x364 <sysclk_enable_module>
+ 8ea:	3c ce       	rjmp	.-904    	; 0x564 <usart_init_rs232+0x1a6>
+ 8ec:	4f ef       	ldi	r20, 0xFF	; 255
+ 8ee:	a7 cf       	rjmp	.-178    	; 0x83e <usart_init_rs232+0x480>
+ 8f0:	68 e0       	ldi	r22, 0x08	; 8
+ 8f2:	85 e0       	ldi	r24, 0x05	; 5
+ 8f4:	37 dd       	rcall	.-1426   	; 0x364 <sysclk_enable_module>
+ 8f6:	36 ce       	rjmp	.-916    	; 0x564 <usart_init_rs232+0x1a6>
+ 8f8:	10 e0       	ldi	r17, 0x00	; 0
+ 8fa:	21 2f       	mov	r18, r17
+ 8fc:	33 27       	eor	r19, r19
+ 8fe:	27 fd       	sbrc	r18, 7
+ 900:	30 95       	com	r19
+ 902:	2d 5f       	subi	r18, 0xFD	; 253
+ 904:	3f 4f       	sbci	r19, 0xFF	; 255
+ 906:	12 95       	swap	r17
+ 908:	10 7f       	andi	r17, 0xF0	; 240
+ 90a:	ca ce       	rjmp	.-620    	; 0x6a0 <usart_init_rs232+0x2e2>
+ 90c:	68 e0       	ldi	r22, 0x08	; 8
+ 90e:	86 e0       	ldi	r24, 0x06	; 6
+ 910:	29 dd       	rcall	.-1454   	; 0x364 <sysclk_enable_module>
+ 912:	28 ce       	rjmp	.-944    	; 0x564 <usart_init_rs232+0x1a6>
+ 914:	11 e0       	ldi	r17, 0x01	; 1
+ 916:	f1 cf       	rjmp	.-30     	; 0x8fa <usart_init_rs232+0x53c>
+ 918:	60 e1       	ldi	r22, 0x10	; 16
+ 91a:	83 e0       	ldi	r24, 0x03	; 3
+ 91c:	23 dd       	rcall	.-1466   	; 0x364 <sysclk_enable_module>
+ 91e:	22 ce       	rjmp	.-956    	; 0x564 <usart_init_rs232+0x1a6>
+ 920:	60 e1       	ldi	r22, 0x10	; 16
+ 922:	84 e0       	ldi	r24, 0x04	; 4
+ 924:	1f dd       	rcall	.-1474   	; 0x364 <sysclk_enable_module>
+ 926:	1e ce       	rjmp	.-964    	; 0x564 <usart_init_rs232+0x1a6>
+ 928:	12 e0       	ldi	r17, 0x02	; 2
+ 92a:	e7 cf       	rjmp	.-50     	; 0x8fa <usart_init_rs232+0x53c>
+ 92c:	13 e0       	ldi	r17, 0x03	; 3
+ 92e:	e5 cf       	rjmp	.-54     	; 0x8fa <usart_init_rs232+0x53c>
+ 930:	60 e1       	ldi	r22, 0x10	; 16
+ 932:	85 e0       	ldi	r24, 0x05	; 5
+ 934:	17 dd       	rcall	.-1490   	; 0x364 <sysclk_enable_module>
+ 936:	16 ce       	rjmp	.-980    	; 0x564 <usart_init_rs232+0x1a6>
+ 938:	14 e0       	ldi	r17, 0x04	; 4
+ 93a:	df cf       	rjmp	.-66     	; 0x8fa <usart_init_rs232+0x53c>
+ 93c:	60 e1       	ldi	r22, 0x10	; 16
+ 93e:	86 e0       	ldi	r24, 0x06	; 6
+ 940:	11 dd       	rcall	.-1502   	; 0x364 <sysclk_enable_module>
+ 942:	10 ce       	rjmp	.-992    	; 0x564 <usart_init_rs232+0x1a6>
+ 944:	15 e0       	ldi	r17, 0x05	; 5
+ 946:	d9 cf       	rjmp	.-78     	; 0x8fa <usart_init_rs232+0x53c>
+ 948:	60 e2       	ldi	r22, 0x20	; 32
+ 94a:	83 e0       	ldi	r24, 0x03	; 3
+ 94c:	0b dd       	rcall	.-1514   	; 0x364 <sysclk_enable_module>
+ 94e:	0a ce       	rjmp	.-1004   	; 0x564 <usart_init_rs232+0x1a6>
+ 950:	16 e0       	ldi	r17, 0x06	; 6
+ 952:	d3 cf       	rjmp	.-90     	; 0x8fa <usart_init_rs232+0x53c>
+ 954:	60 e2       	ldi	r22, 0x20	; 32
+ 956:	84 e0       	ldi	r24, 0x04	; 4
+ 958:	05 dd       	rcall	.-1526   	; 0x364 <sysclk_enable_module>
+ 95a:	04 ce       	rjmp	.-1016   	; 0x564 <usart_init_rs232+0x1a6>
+ 95c:	60 e2       	ldi	r22, 0x20	; 32
+ 95e:	86 e0       	ldi	r24, 0x06	; 6
+ 960:	01 dd       	rcall	.-1534   	; 0x364 <sysclk_enable_module>
+ 962:	00 ce       	rjmp	.-1024   	; 0x564 <usart_init_rs232+0x1a6>
+ 964:	60 e4       	ldi	r22, 0x40	; 64
+ 966:	83 e0       	ldi	r24, 0x03	; 3
+ 968:	fd dc       	rcall	.-1542   	; 0x364 <sysclk_enable_module>
+ 96a:	fc cd       	rjmp	.-1032   	; 0x564 <usart_init_rs232+0x1a6>
+ 96c:	60 e4       	ldi	r22, 0x40	; 64
+ 96e:	84 e0       	ldi	r24, 0x04	; 4
+ 970:	f9 dc       	rcall	.-1550   	; 0x364 <sysclk_enable_module>
+ 972:	f8 cd       	rjmp	.-1040   	; 0x564 <usart_init_rs232+0x1a6>
+ 974:	60 e4       	ldi	r22, 0x40	; 64
+ 976:	85 e0       	ldi	r24, 0x05	; 5
+ 978:	f5 dc       	rcall	.-1558   	; 0x364 <sysclk_enable_module>
+ 97a:	f4 cd       	rjmp	.-1048   	; 0x564 <usart_init_rs232+0x1a6>
+
+0000097c <usart_putchar>:
+ * \param c The data to send.
+ *
+ * \return STATUS_OK
+ */
+enum status_code usart_putchar(USART_t *usart, uint8_t c)
+{
+ 97c:	fc 01       	movw	r30, r24
+ *
+ * \param usart The USART module.
+ */
+static inline bool usart_data_register_is_empty(USART_t * usart)
+{
+	return (usart)->STATUS & USART_DREIF_bm;
+ 97e:	81 81       	ldd	r24, Z+1	; 0x01
+	while (usart_data_register_is_empty(usart) == false) {
+ 980:	85 ff       	sbrs	r24, 5
+ 982:	fd cf       	rjmp	.-6      	; 0x97e <usart_putchar+0x2>
+	}
+	
+	(usart)->DATA = c;
+ 984:	60 83       	st	Z, r22
+	return STATUS_OK;
+}
+ 986:	80 e0       	ldi	r24, 0x00	; 0
+ 988:	90 e0       	ldi	r25, 0x00	; 0
+ 98a:	08 95       	ret
+
+0000098c <usart_getchar>:
+ * \param usart The USART module.
+ *
+ * \return The received data.
+ */
+uint8_t usart_getchar(USART_t *usart)
+{
+ 98c:	fc 01       	movw	r30, r24
+ *
+ * \param usart The USART module.
+ */
+static inline bool usart_rx_is_complete(USART_t * usart)
+{
+	return (usart)->STATUS & USART_RXCIF_bm;
+ 98e:	81 81       	ldd	r24, Z+1	; 0x01
+	while (usart_rx_is_complete(usart) == false) {
+ 990:	87 ff       	sbrs	r24, 7
+ 992:	fd cf       	rjmp	.-6      	; 0x98e <usart_getchar+0x2>
+	}
+	
+	return ((uint8_t)(usart)->DATA);
+ 994:	80 81       	ld	r24, Z
+}
+ 996:	08 95       	ret
+
+00000998 <main>:
+/************************************************************************/
+
+
+int main (void)
+{	
+	system_init ();
+ 998:	a2 dc       	rcall	.-1724   	; 0x2de <system_init>
+	pc_start_com();
+ 99a:	51 dc       	rcall	.-1886   	; 0x23e <pc_start_com>
+	//testing_com();
+	//test_rs232_com();
+}
+ 99c:	80 e0       	ldi	r24, 0x00	; 0
+ 99e:	90 e0       	ldi	r25, 0x00	; 0
+ 9a0:	08 95       	ret
+
+000009a2 <__udivmodsi4>:
+ 9a2:	a1 e2       	ldi	r26, 0x21	; 33
+ 9a4:	1a 2e       	mov	r1, r26
+ 9a6:	aa 1b       	sub	r26, r26
+ 9a8:	bb 1b       	sub	r27, r27
+ 9aa:	fd 01       	movw	r30, r26
+ 9ac:	0d c0       	rjmp	.+26     	; 0x9c8 <__udivmodsi4_ep>
+
+000009ae <__udivmodsi4_loop>:
+ 9ae:	aa 1f       	adc	r26, r26
+ 9b0:	bb 1f       	adc	r27, r27
+ 9b2:	ee 1f       	adc	r30, r30
+ 9b4:	ff 1f       	adc	r31, r31
+ 9b6:	a2 17       	cp	r26, r18
+ 9b8:	b3 07       	cpc	r27, r19
+ 9ba:	e4 07       	cpc	r30, r20
+ 9bc:	f5 07       	cpc	r31, r21
+ 9be:	20 f0       	brcs	.+8      	; 0x9c8 <__udivmodsi4_ep>
+ 9c0:	a2 1b       	sub	r26, r18
+ 9c2:	b3 0b       	sbc	r27, r19
+ 9c4:	e4 0b       	sbc	r30, r20
+ 9c6:	f5 0b       	sbc	r31, r21
+
+000009c8 <__udivmodsi4_ep>:
+ 9c8:	66 1f       	adc	r22, r22
+ 9ca:	77 1f       	adc	r23, r23
+ 9cc:	88 1f       	adc	r24, r24
+ 9ce:	99 1f       	adc	r25, r25
+ 9d0:	1a 94       	dec	r1
+ 9d2:	69 f7       	brne	.-38     	; 0x9ae <__udivmodsi4_loop>
+ 9d4:	60 95       	com	r22
+ 9d6:	70 95       	com	r23
+ 9d8:	80 95       	com	r24
+ 9da:	90 95       	com	r25
+ 9dc:	9b 01       	movw	r18, r22
+ 9de:	ac 01       	movw	r20, r24
+ 9e0:	bd 01       	movw	r22, r26
+ 9e2:	cf 01       	movw	r24, r30
+ 9e4:	08 95       	ret
+
+000009e6 <memset>:
+ 9e6:	dc 01       	movw	r26, r24
+ 9e8:	01 c0       	rjmp	.+2      	; 0x9ec <memset+0x6>
+ 9ea:	6d 93       	st	X+, r22
+ 9ec:	41 50       	subi	r20, 0x01	; 1
+ 9ee:	50 40       	sbci	r21, 0x00	; 0
+ 9f0:	e0 f7       	brcc	.-8      	; 0x9ea <memset+0x4>
+ 9f2:	08 95       	ret
+
+000009f4 <_exit>:
+ 9f4:	f8 94       	cli
+
+000009f6 <__stop_program>:
+ 9f6:	ff cf       	rjmp	.-2      	; 0x9f6 <__stop_program>
