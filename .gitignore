@@ -58,3 +58,4 @@ core*
 # Hardware specific #
 #####################
 .atsln
+Debug/
