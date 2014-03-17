@@ -27,8 +27,6 @@
 #include <asf.h>
 #include "include/RS232.h"
 #include "include/system.h"
-#include "include/PCTX.h"
-//#include <conf_usart.h>
 
 /************************************************************************/
 /*								GLOBALS                                                                     */
