@@ -61,3 +61,4 @@ core*
 *.atsuo
 *.cproj
 Debug/
+*.hex
