@@ -57,7 +57,7 @@ core*
 
 # Hardware specific #
 #####################
-*.atsln
-*.atsuo
-*.cproj
-Debug/
+#*.atsln
+#*.atsuo
+#*.cproj
+#Debug/
