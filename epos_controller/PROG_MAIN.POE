@@ -1,0 +1,1511 @@
+PROGRAM PROG_MAIN
+VAR_EXTERNAL
+	Axis0 				                    : Axis_REF;                    (* Axis definitions, Node 2, Right Wheel *)
+	Axis1 				                    : Axis_REF;					   (* Axis definitions, Node 1, Left Wheel *)	
+	eStateMain                              : MAIN_STATE;                  (* Process-State *)
+END_VAR                                   
+                                           
+VAR_GLOBAL                                
+                                            
+END_VAR                                    
+                                             
+VAR                                        
+	fbPower0							: MC_Power;
+	fbPower1							: MC_Power;
+	fbReset0							: MC_Reset;
+	fbReset1							: MC_Reset;
+	
+	fbReadStatus0						: MC_ReadStatus;
+	fbReadStatus1						: MC_ReadStatus;
+	fbReadActualVelocity0				: MC_ReadActualVelocity;
+	fbReadActualVelocity1				: MC_ReadActualVelocity;
+	
+	fbAxisMove0              			: MC_MoveVelocity;
+	fbAxisStop0							: MC_Stop;
+	fbAxisMove1              			: MC_MoveVelocity;
+	fbAxisStop1							: MC_Stop;
+	
+	fbReadObject						: FB_MAIN_StateRead;
+	fbWriteObject						: FB_MAIN_StateWrite;
+	
+	fbGetObjectEncoder		  			: MU_GetObject;
+	fbSetObjectEncoder		  			: MU_SetObject;
+	
+	fbTimer								: TON;
+	
+	extractedValue						: UDINT := 0;
+	velByte1							: UDINT;
+	velByte2							: UDINT;
+	leftSign							: UDINT;
+	leftVeloc							: UDINT;
+	freshByte							: UDINT;
+	rightSign							: UDINT;
+	rightVeloc							: UDINT;
+	
+	maxVelocity							: UDINT := 5500; 
+	
+	
+	udEncoderTemp						: UDINT := 0;  
+	dEncoderValue						: DINT := 0;       
+									
+	oExecuteReset0						: BOOL;
+	oExecuteReset1						: BOOL;
+	oExecutePower0						: BOOL;
+	oExecutePower1						: BOOL;
+	
+	oExecuteTimerStart					: BOOL;
+	oExecuteObjectReading				: BOOL;
+	oExecuteObjectWriting				: BOOL;
+	
+	oExecuteObjectReadingEncoder		: BOOL;
+	oExecuteObjectWritingEncoder		: BOOL;
+	oExecuteAxisMove					: BOOL;
+	
+	
+	fbGetVelocity			: MU_GetObject;
+	fbGetCurrent			: MU_GetObject;
+    fbWriteVelocity			: MU_SetObject;
+	fbWriteCurrent			: MU_SetObject;
+	
+	velocityActualValue : UDINT;
+	currentActualValue : UDINT;
+	internalErrorCounter : UDINT;
+	
+	fbInitialize : FB_INITIALIZE;
+	fbCanRecover : FB_CanRecover;
+	
+END_VAR
+
+(*Automatically declared*)
+VAR_EXTERNAL
+END_VAR
+(** IF eStateMain = MAIN_Init THEN **)
+	(* if - Cond *)
+	LD eStateMain
+	EQ MAIN_Init
+	JMPCN ODK_SKIP_000000000000001_000000000000001
+
+		(* then - Stmts *)
+
+(**  **)
+(** 	fbInitialize(Execute:=FALSE); **)
+		(* call - Stmt *)
+		CAL fbInitialize (
+			Execute := FALSE
+		)
+
+(** 	eStateMain := MAIN_Init_loop; **)
+		(* assign - Stmt *)
+		LD MAIN_Init_loop
+		ST eStateMain
+
+		JMP ODK_END_IF_000000000000001
+
+(** ELSIF eStateMain = MAIN_Init_loop THEN **)
+	(* elseif - Cond *) 
+	ODK_SKIP_000000000000001_000000000000001:
+	LD eStateMain
+	EQ MAIN_Init_loop
+	JMPCN ODK_SKIP_000000000000001_000000000000002
+
+		(* elsif - Stmts *)
+
+(**  **)
+(** 	fbInitialize(Execute:=TRUE); **)
+		(* call - Stmt *)
+		CAL fbInitialize (
+			Execute := TRUE
+		)
+
+(** 	IF fbInitialize.Error THEN **)
+		(* if - Cond *)
+		LD fbInitialize.Error
+		JMPCN ODK_SKIP_000000000000002_000000000000001
+
+			(* then - Stmts *)
+
+(** 		{*+_+*} **)
+(** 		{*Hope, this never happens... *} **)
+(** 		eStateMain := MAIN_Init; **)
+			(* assign - Stmt *)
+			LD MAIN_Init
+			ST eStateMain
+
+			JMP ODK_END_IF_000000000000002
+
+(** 	ELSIF fbInitialize.Done THEN **)
+		(* elseif - Cond *) 
+		ODK_SKIP_000000000000002_000000000000001:
+		LD fbInitialize.Done
+		JMPCN ODK_SKIP_000000000000002_000000000000002
+
+			(* elsif - Stmts *)
+
+(** 		eStateMain := MAIN_ResetTimer; **)
+			(* assign - Stmt *)
+			LD MAIN_ResetTimer
+			ST eStateMain
+
+			JMP ODK_END_IF_000000000000002
+
+(** 	END_IF; **)
+		(* if - End *) 
+		ODK_SKIP_000000000000002_000000000000002:
+		ODK_END_IF_000000000000002:
+
+		JMP ODK_END_IF_000000000000001
+
+(**  **)
+(** ELSIF eStateMain = MAIN_ResetTimer THEN **)
+	(* elseif - Cond *) 
+	ODK_SKIP_000000000000001_000000000000002:
+	LD eStateMain
+	EQ MAIN_ResetTimer
+	JMPCN ODK_SKIP_000000000000001_000000000000003
+
+		(* elsif - Stmts *)
+
+(**  **)
+(** 	{*reset the timer back to zero*} **)
+(**  **)
+(** 	fbTimer(In := false , Pt := t#3s); **)
+		(* call - Stmt *)
+		CAL fbTimer (
+			In := FALSE,
+			Pt := t#3s
+		)
+
+(** 	 **)
+(** 	{*read axis1 actual velocity*} **)
+(** 	eStateMain := MAIN_Read_Velocity; **)
+		(* assign - Stmt *)
+		LD MAIN_Read_Velocity
+		ST eStateMain
+
+		JMP ODK_END_IF_000000000000001
+
+(**  **)
+(** 	 **)
+(** ELSIF eStateMain = MAIN_Read_Velocity THEN **)
+	(* elseif - Cond *) 
+	ODK_SKIP_000000000000001_000000000000003:
+	LD eStateMain
+	EQ MAIN_Read_Velocity
+	JMPCN ODK_SKIP_000000000000001_000000000000004
+
+		(* elsif - Stmts *)
+
+(**  **)
+(** 	{*set enable to low for triggering*} **)
+(** 	fbGetVelocity(Axis := Axis1, Enable := FALSE, Index := 16#2028, Subindex := 16#00); **)
+		(* call - Stmt *)
+		CAL fbGetVelocity (
+			Axis := Axis1,
+			Enable := FALSE,
+			Index := 16#2028,
+			Subindex := 16#00
+		)
+
+(** 	eStateMain := MAIN_Read_Velocity_loop; **)
+		(* assign - Stmt *)
+		LD MAIN_Read_Velocity_loop
+		ST eStateMain
+
+		JMP ODK_END_IF_000000000000001
+
+(**  **)
+(** ELSIF eStateMain = MAIN_Read_Velocity_loop THEN **)
+	(* elseif - Cond *) 
+	ODK_SKIP_000000000000001_000000000000004:
+	LD eStateMain
+	EQ MAIN_Read_Velocity_loop
+	JMPCN ODK_SKIP_000000000000001_000000000000005
+
+		(* elsif - Stmts *)
+
+(**  **)
+(** 	{*trigger function block*} **)
+(** 	fbGetVelocity(Axis := Axis1, Enable := TRUE, Index := 16#2028, Subindex := 16#00); **)
+		(* call - Stmt *)
+		CAL fbGetVelocity (
+			Axis := Axis1,
+			Enable := TRUE,
+			Index := 16#2028,
+			Subindex := 16#00
+		)
+
+(** 	IF(fbGetVelocity.Error) THEN **)
+		(* if - Cond *)
+		LD fbGetVelocity.Error
+		JMPCN ODK_SKIP_000000000000003_000000000000001
+
+			(* then - Stmts *)
+
+(** 		internalErrorCounter := internalErrorCounter + 1; **)
+			(* assign - Stmt *)
+			LD internalErrorCounter
+			ADD 1
+			ST internalErrorCounter
+
+(** 		eStateMain := MAIN_Init; **)
+			(* assign - Stmt *)
+			LD MAIN_Init
+			ST eStateMain
+
+			JMP ODK_END_IF_000000000000003
+
+(** 	ELSIF fbGetVelocity.Done THEN  **)
+		(* elseif - Cond *) 
+		ODK_SKIP_000000000000003_000000000000001:
+		LD fbGetVelocity.Done
+		JMPCN ODK_SKIP_000000000000003_000000000000002
+
+			(* elsif - Stmts *)
+
+(** 		{*store velocity actual value to a global variable*} **)
+(** 		velocityActualValue := fbGetVelocity.Value; **)
+			(* assign - Stmt *)
+			LD fbGetVelocity.Value
+			ST velocityActualValue
+
+(** 		if(velocityActualValue>2147483647)then **)
+			(* if - Cond *)
+			LD velocityActualValue
+			GT 2147483647
+			JMPCN ODK_SKIP_000000000000004_000000000000001
+
+				(* then - Stmts *)
+
+(** 			velocityActualValue := velocityActualValue+20000; **)
+				(* assign - Stmt *)
+				LD velocityActualValue
+				ADD 20000
+				ST velocityActualValue
+
+				JMP ODK_END_IF_000000000000004
+
+(** 		end_if; **)
+			(* if - End *) 
+			ODK_SKIP_000000000000004_000000000000001:
+			ODK_END_IF_000000000000004:
+
+(** 		{*go to state write velocity*} **)
+(** 		{*this state will write the velocity value to the EPOS object dictionary*} **)
+(** 		eStateMain := MAIN_Write_Velocity; **)
+			(* assign - Stmt *)
+			LD MAIN_Write_Velocity
+			ST eStateMain
+
+			JMP ODK_END_IF_000000000000003
+
+(** 	END_IF; **)
+		(* if - End *) 
+		ODK_SKIP_000000000000003_000000000000002:
+		ODK_END_IF_000000000000003:
+
+		JMP ODK_END_IF_000000000000001
+
+(**  **)
+(** ELSIF eStateMain = MAIN_Write_Velocity THEN **)
+	(* elseif - Cond *) 
+	ODK_SKIP_000000000000001_000000000000005:
+	LD eStateMain
+	EQ MAIN_Write_Velocity
+	JMPCN ODK_SKIP_000000000000001_000000000000006
+
+		(* elsif - Stmts *)
+
+(**  **)
+(** 	fbWriteVelocity(Axis := Axis0, Execute := FALSE, Index := 16#206B,  **)
+		(* call - Stmt *)
+		CAL fbWriteVelocity (
+			Axis := Axis0,
+			Execute := FALSE,
+			Index := 16#206B,
+(**                           Subindex := 16#00, Value := velocityActualValue); **)
+			Subindex := 16#00,
+			Value := velocityActualValue
+		)
+
+(** 	eStateMain := MAIN_Write_Velocity_loop; **)
+		(* assign - Stmt *)
+		LD MAIN_Write_Velocity_loop
+		ST eStateMain
+
+		JMP ODK_END_IF_000000000000001
+
+(** 	 **)
+(** ELSIF eStateMain = MAIN_Write_Velocity_loop THEN **)
+	(* elseif - Cond *) 
+	ODK_SKIP_000000000000001_000000000000006:
+	LD eStateMain
+	EQ MAIN_Write_Velocity_loop
+	JMPCN ODK_SKIP_000000000000001_000000000000007
+
+		(* elsif - Stmts *)
+
+(**  **)
+(** 	fbWriteVelocity(Axis := Axis0, Execute := TRUE, Index := 16#206B,  **)
+		(* call - Stmt *)
+		CAL fbWriteVelocity (
+			Axis := Axis0,
+			Execute := TRUE,
+			Index := 16#206B,
+(**                           Subindex := 16#00, Value := velocityActualValue); **)
+			Subindex := 16#00,
+			Value := velocityActualValue
+		)
+
+(** 	IF fbWriteVelocity.Error THEN **)
+		(* if - Cond *)
+		LD fbWriteVelocity.Error
+		JMPCN ODK_SKIP_000000000000005_000000000000001
+
+			(* then - Stmts *)
+
+(** 		eStateMain := MAIN_CanError; **)
+			(* assign - Stmt *)
+			LD MAIN_CanError
+			ST eStateMain
+
+			JMP ODK_END_IF_000000000000005
+
+(** 	ELSIF fbWriteVelocity.Done THEN **)
+		(* elseif - Cond *) 
+		ODK_SKIP_000000000000005_000000000000001:
+		LD fbWriteVelocity.Done
+		JMPCN ODK_SKIP_000000000000005_000000000000002
+
+			(* elsif - Stmts *)
+
+(** 		eStateMain := MAIN_Read_Current; **)
+			(* assign - Stmt *)
+			LD MAIN_Read_Current
+			ST eStateMain
+
+			JMP ODK_END_IF_000000000000005
+
+(** 	END_IF; **)
+		(* if - End *) 
+		ODK_SKIP_000000000000005_000000000000002:
+		ODK_END_IF_000000000000005:
+
+		JMP ODK_END_IF_000000000000001
+
+(**  **)
+(** ELSIF eStateMain = MAIN_Read_Current THEN **)
+	(* elseif - Cond *) 
+	ODK_SKIP_000000000000001_000000000000007:
+	LD eStateMain
+	EQ MAIN_Read_Current
+	JMPCN ODK_SKIP_000000000000001_000000000000008
+
+		(* elsif - Stmts *)
+
+(**  **)
+(** 	fbGetCurrent(Axis := Axis1, Enable := FALSE, Index := 16#2027, Subindex := 16#00); **)
+		(* call - Stmt *)
+		CAL fbGetCurrent (
+			Axis := Axis1,
+			Enable := FALSE,
+			Index := 16#2027,
+			Subindex := 16#00
+		)
+
+(** 	eStateMain := MAIN_Read_Current_loop; **)
+		(* assign - Stmt *)
+		LD MAIN_Read_Current_loop
+		ST eStateMain
+
+		JMP ODK_END_IF_000000000000001
+
+(**  **)
+(** ELSIF eStateMain = MAIN_Read_Current_loop THEN **)
+	(* elseif - Cond *) 
+	ODK_SKIP_000000000000001_000000000000008:
+	LD eStateMain
+	EQ MAIN_Read_Current_loop
+	JMPCN ODK_SKIP_000000000000001_000000000000009
+
+		(* elsif - Stmts *)
+
+(**  **)
+(** 	fbGetCurrent(Axis := Axis1, Enable := TRUE, Index := 16#2027, Subindex := 16#00); **)
+		(* call - Stmt *)
+		CAL fbGetCurrent (
+			Axis := Axis1,
+			Enable := TRUE,
+			Index := 16#2027,
+			Subindex := 16#00
+		)
+
+(** 	if(fbGetCurrent.Error) then **)
+		(* if - Cond *)
+		LD fbGetCurrent.Error
+		JMPCN ODK_SKIP_000000000000006_000000000000001
+
+			(* then - Stmts *)
+
+(** 		eStateMain:=MAIN_Init; **)
+			(* assign - Stmt *)
+			LD MAIN_Init
+			ST eStateMain
+
+			JMP ODK_END_IF_000000000000006
+
+(** 	elsif(fbGetCurrent.Done) then **)
+		(* elseif - Cond *) 
+		ODK_SKIP_000000000000006_000000000000001:
+		LD fbGetCurrent.Done
+		JMPCN ODK_SKIP_000000000000006_000000000000002
+
+			(* elsif - Stmts *)
+
+(** 		currentActualValue:=fbGetCurrent.Value; **)
+			(* assign - Stmt *)
+			LD fbGetCurrent.Value
+			ST currentActualValue
+
+(** 		if(currentActualValue>2147483647)then **)
+			(* if - Cond *)
+			LD currentActualValue
+			GT 2147483647
+			JMPCN ODK_SKIP_000000000000007_000000000000001
+
+				(* then - Stmts *)
+
+(** 			currentActualValue := currentActualValue+20000; **)
+				(* assign - Stmt *)
+				LD currentActualValue
+				ADD 20000
+				ST currentActualValue
+
+				JMP ODK_END_IF_000000000000007
+
+(** 		end_if; **)
+			(* if - End *) 
+			ODK_SKIP_000000000000007_000000000000001:
+			ODK_END_IF_000000000000007:
+
+(** 		eStateMain:=MAIN_Write_Current; **)
+			(* assign - Stmt *)
+			LD MAIN_Write_Current
+			ST eStateMain
+
+			JMP ODK_END_IF_000000000000006
+
+(** 	end_if; **)
+		(* if - End *) 
+		ODK_SKIP_000000000000006_000000000000002:
+		ODK_END_IF_000000000000006:
+
+		JMP ODK_END_IF_000000000000001
+
+(** 	 **)
+(** ELSIF eStateMain = MAIN_Write_Current THEN **)
+	(* elseif - Cond *) 
+	ODK_SKIP_000000000000001_000000000000009:
+	LD eStateMain
+	EQ MAIN_Write_Current
+	JMPCN ODK_SKIP_000000000000001_00000000000000A
+
+		(* elsif - Stmts *)
+
+(**  **)
+(** 	fbWriteCurrent(Axis := Axis0, Execute := FALSE, Index := 16#2030,  **)
+		(* call - Stmt *)
+		CAL fbWriteCurrent (
+			Axis := Axis0,
+			Execute := FALSE,
+			Index := 16#2030,
+(**                           Subindex := 16#00, Value := currentActualValue); **)
+			Subindex := 16#00,
+			Value := currentActualValue
+		)
+
+(** 	eStateMain := MAIN_Write_Current_loop; **)
+		(* assign - Stmt *)
+		LD MAIN_Write_Current_loop
+		ST eStateMain
+
+		JMP ODK_END_IF_000000000000001
+
+(**  **)
+(** ELSIF eStateMain = MAIN_Write_Current_loop THEN **)
+	(* elseif - Cond *) 
+	ODK_SKIP_000000000000001_00000000000000A:
+	LD eStateMain
+	EQ MAIN_Write_Current_loop
+	JMPCN ODK_SKIP_000000000000001_00000000000000B
+
+		(* elsif - Stmts *)
+
+(**  **)
+(** 	fbWriteCurrent(Axis := Axis0, Execute := TRUE, Index := 16#2030,  **)
+		(* call - Stmt *)
+		CAL fbWriteCurrent (
+			Axis := Axis0,
+			Execute := TRUE,
+			Index := 16#2030,
+(**                           Subindex := 16#00, Value := currentActualValue); **)
+			Subindex := 16#00,
+			Value := currentActualValue
+		)
+
+(** 	if(fbWriteCurrent.Error) then **)
+		(* if - Cond *)
+		LD fbWriteCurrent.Error
+		JMPCN ODK_SKIP_000000000000008_000000000000001
+
+			(* then - Stmts *)
+
+(** 		eStateMain:=MAIN_Init; **)
+			(* assign - Stmt *)
+			LD MAIN_Init
+			ST eStateMain
+
+			JMP ODK_END_IF_000000000000008
+
+(** 	elsif fbWriteCurrent.Done then **)
+		(* elseif - Cond *) 
+		ODK_SKIP_000000000000008_000000000000001:
+		LD fbWriteCurrent.Done
+		JMPCN ODK_SKIP_000000000000008_000000000000002
+
+			(* elsif - Stmts *)
+
+(** 		eStateMain:=MAIN_Read; **)
+			(* assign - Stmt *)
+			LD MAIN_Read
+			ST eStateMain
+
+			JMP ODK_END_IF_000000000000008
+
+(** 	end_if; **)
+		(* if - End *) 
+		ODK_SKIP_000000000000008_000000000000002:
+		ODK_END_IF_000000000000008:
+
+		JMP ODK_END_IF_000000000000001
+
+(**  **)
+(** ELSIF eStateMain = MAIN_Read THEN **)
+	(* elseif - Cond *) 
+	ODK_SKIP_000000000000001_00000000000000B:
+	LD eStateMain
+	EQ MAIN_Read
+	JMPCN ODK_SKIP_000000000000001_00000000000000C
+
+		(* elsif - Stmts *)
+
+(**  **)
+(** 	{*read the control word from EPOS*} **)
+(**  **)
+(** 	fbReadObject(Axis := Axis0 , Execute := FALSE); **)
+		(* call - Stmt *)
+		CAL fbReadObject (
+			Axis := Axis0,
+			Execute := FALSE
+		)
+
+(** 	eStateMain := MAIN_Read_loop; **)
+		(* assign - Stmt *)
+		LD MAIN_Read_loop
+		ST eStateMain
+
+		JMP ODK_END_IF_000000000000001
+
+(**  **)
+(** ELSIF eStateMain = MAIN_Read_loop THEN **)
+	(* elseif - Cond *) 
+	ODK_SKIP_000000000000001_00000000000000C:
+	LD eStateMain
+	EQ MAIN_Read_loop
+	JMPCN ODK_SKIP_000000000000001_00000000000000D
+
+		(* elsif - Stmts *)
+
+(**  **)
+(** 	fbReadObject(Axis := Axis0 , Execute := TRUE); **)
+		(* call - Stmt *)
+		CAL fbReadObject (
+			Axis := Axis0,
+			Execute := TRUE
+		)
+
+(** 	 **)
+(** 	IF fbReadObject.Error THEN **)
+		(* if - Cond *)
+		LD fbReadObject.Error
+		JMPCN ODK_SKIP_000000000000009_000000000000001
+
+			(* then - Stmts *)
+
+(** 		eStateMain := MAIN_Init; **)
+			(* assign - Stmt *)
+			LD MAIN_Init
+			ST eStateMain
+
+			JMP ODK_END_IF_000000000000009
+
+(** 		; **)
+(** 	ELSIF fbReadObject.Done AND fbReadObject.Done1 THEN **)
+		(* elseif - Cond *) 
+		ODK_SKIP_000000000000009_000000000000001:
+		LD fbReadObject.Done
+		AND fbReadObject.Done1
+		JMPCN ODK_SKIP_000000000000009_000000000000002
+
+			(* elsif - Stmts *)
+
+(** 		{*Velocity Fresh*} **)
+(** 		 **)
+(** 		extractedValue := fbReadObject.velocityWord; **)
+			(* assign - Stmt *)
+			LD fbReadObject.velocityWord
+			ST extractedValue
+
+(**  **)
+(** 		{* Low Byte *} **)
+(** 		velByte1 := extractedValue MOD 16#00010000; **)
+			(* assign - Stmt *)
+			LD extractedValue
+			MOD 16#00010000
+			ST velByte1
+
+(** 		leftSign := ( velByte1 / 16#00004000 ) MOD 16#00000002; **)
+			(* assign - Stmt *)
+			LD velByte1
+			DIV 16#00004000
+			MOD 16#00000002
+			ST leftSign
+
+(** 		leftVeloc := velByte1 MOD 16#00004000; **)
+			(* assign - Stmt *)
+			LD velByte1
+			MOD 16#00004000
+			ST leftVeloc
+
+(**  **)
+(** 		{* High Byte *} **)
+(** 		velByte2 := extractedValue / 16#00010000; **)
+			(* assign - Stmt *)
+			LD extractedValue
+			DIV 16#00010000
+			ST velByte2
+
+(** 		rightSign := ( velByte2 / 16#00004000 ) MOD 16#00000002; **)
+			(* assign - Stmt *)
+			LD velByte2
+			DIV 16#00004000
+			MOD 16#00000002
+			ST rightSign
+
+(** 		rightVeloc := velByte2 MOD 16#00004000;  **)
+			(* assign - Stmt *)
+			LD velByte2
+			MOD 16#00004000
+			ST rightVeloc
+
+(** 		eStateMain := MAIN_StateWrite; **)
+			(* assign - Stmt *)
+			LD MAIN_StateWrite
+			ST eStateMain
+
+(** 		 **)
+(** 		fbTimer(In := false , Pt := t#3s); **)
+			(* call - Stmt *)
+			CAL fbTimer (
+				In := FALSE,
+				Pt := t#3s
+			)
+
+			JMP ODK_END_IF_000000000000009
+
+(** 		 **)
+(** 	ELSIF fbReadObject.Done THEN **)
+		(* elseif - Cond *) 
+		ODK_SKIP_000000000000009_000000000000002:
+		LD fbReadObject.Done
+		JMPCN ODK_SKIP_000000000000009_000000000000003
+
+			(* elsif - Stmts *)
+
+(** 		eStateMain := MAIN_UpdateTimer; **)
+			(* assign - Stmt *)
+			LD MAIN_UpdateTimer
+			ST eStateMain
+
+			JMP ODK_END_IF_000000000000009
+
+(** 	END_IF; **)
+		(* if - End *) 
+		ODK_SKIP_000000000000009_000000000000003:
+		ODK_END_IF_000000000000009:
+
+		JMP ODK_END_IF_000000000000001
+
+(**  **)
+(** ELSIF eStateMain = MAIN_UpdateTimer THEN **)
+	(* elseif - Cond *) 
+	ODK_SKIP_000000000000001_00000000000000D:
+	LD eStateMain
+	EQ MAIN_UpdateTimer
+	JMPCN ODK_SKIP_000000000000001_00000000000000E
+
+		(* elsif - Stmts *)
+
+(**  **)
+(** 	fbTimer(In := TRUE , Pt := t#3s); **)
+		(* call - Stmt *)
+		CAL fbTimer (
+			In := TRUE,
+			Pt := t#3s
+		)
+
+(**  **)
+(** 	IF fbTimer.Q THEN **)
+		(* if - Cond *)
+		LD fbTimer.Q
+		JMPCN ODK_SKIP_00000000000000A_000000000000001
+
+			(* then - Stmts *)
+
+(** 		eStateMain := MAIN_StateHalt0; **)
+			(* assign - Stmt *)
+			LD MAIN_StateHalt0
+			ST eStateMain
+
+			JMP ODK_END_IF_00000000000000A
+
+(** 	ELSE		 **)
+		(* else *) 
+		ODK_SKIP_00000000000000A_000000000000001:
+
+			(* else - Stmts *)
+
+(** 		eStateMain := MAIN_Read_Velocity; **)
+			(* assign - Stmt *)
+			LD MAIN_Read_Velocity
+			ST eStateMain
+
+(** 	END_IF; **)
+		(* if - End *) 
+		ODK_END_IF_00000000000000A:
+
+		JMP ODK_END_IF_000000000000001
+
+(** 	   **)
+(** ELSIF eStateMain = MAIN_StateWrite THEN **)
+	(* elseif - Cond *) 
+	ODK_SKIP_000000000000001_00000000000000E:
+	LD eStateMain
+	EQ MAIN_StateWrite
+	JMPCN ODK_SKIP_000000000000001_00000000000000F
+
+		(* elsif - Stmts *)
+
+(**  **)
+(** 	  fbWriteObject(Axis := Axis0, Execute := oExecuteObjectWriting, CurrentValue := extractedValue);                   **)
+		(* call - Stmt *)
+		CAL fbWriteObject (
+			Axis := Axis0,
+			Execute := oExecuteObjectWriting,
+			CurrentValue := extractedValue
+		)
+
+(** 	  oExecuteObjectWriting := TRUE; **)
+		(* assign - Stmt *)
+		LD TRUE
+		ST oExecuteObjectWriting
+
+(** 	  **)
+(** 	  IF fbWriteObject.Done AND (NOT fbWriteObject.Error) THEN				                            **)
+		(* if - Cond *)
+		LD fbWriteObject.Done
+		AND ( fbWriteObject.Error
+			NOT
+		)
+		JMPCN ODK_SKIP_00000000000000B_000000000000001
+
+			(* then - Stmts *)
+
+(** 	        oExecuteObjectWriting := FALSE;  **)
+			(* assign - Stmt *)
+			LD FALSE
+			ST oExecuteObjectWriting
+
+(** 			 **)
+(** 			fbAxisMove0(Axis := Axis0, Execute := FALSE, Velocity := 1000 , Acceleration := 100 , Deceleration := 100 , Direction := MCpositive); **)
+			(* call - Stmt *)
+			CAL fbAxisMove0 (
+				Axis := Axis0,
+				Execute := FALSE,
+				Velocity := 1000,
+				Acceleration := 100,
+				Deceleration := 100,
+				Direction := MCpositive
+			)
+
+(**         	fbAxisMove1(Axis := Axis1, Execute := FALSE, Velocity := 1000 , Acceleration := 100 , Deceleration := 100 , Direction := MCpositive);     					 **)
+			(* call - Stmt *)
+			CAL fbAxisMove1 (
+				Axis := Axis1,
+				Execute := FALSE,
+				Velocity := 1000,
+				Acceleration := 100,
+				Deceleration := 100,
+				Direction := MCpositive
+			)
+
+(** 			fbAxisStop0(Axis := Axis0, Execute := FALSE); **)
+			(* call - Stmt *)
+			CAL fbAxisStop0 (
+				Axis := Axis0,
+				Execute := FALSE
+			)
+
+(** 			fbAxisStop1(Axis := Axis1, Execute := FALSE);				 **)
+			(* call - Stmt *)
+			CAL fbAxisStop1 (
+				Axis := Axis1,
+				Execute := FALSE
+			)
+
+(** 			fbWriteObject(Axis := Axis0, Execute := FALSE);	 **)
+			(* call - Stmt *)
+			CAL fbWriteObject (
+				Axis := Axis0,
+				Execute := FALSE
+			)
+
+(** 			oExecuteAxisMove := FALSE; **)
+			(* assign - Stmt *)
+			LD FALSE
+			ST oExecuteAxisMove
+
+(** 	        eStateMain := MAIN_StateAxis_Move;                                     			 **)
+			(* assign - Stmt *)
+			LD MAIN_StateAxis_Move
+			ST eStateMain
+
+			JMP ODK_END_IF_00000000000000B
+
+(** 	  END_IF; **)
+		(* if - End *) 
+		ODK_SKIP_00000000000000B_000000000000001:
+		ODK_END_IF_00000000000000B:
+
+		JMP ODK_END_IF_000000000000001
+
+(** 	   **)
+(** ELSIF eStateMain = MAIN_StateHalt0 THEN **)
+	(* elseif - Cond *) 
+	ODK_SKIP_000000000000001_00000000000000F:
+	LD eStateMain
+	EQ MAIN_StateHalt0
+	JMPCN ODK_SKIP_000000000000001_00000000000000G
+
+		(* elsif - Stmts *)
+
+(**  **)
+(** 	fbAxisStop0(Axis := Axis0 , Execute := FALSE , Deceleration := 10000); **)
+		(* call - Stmt *)
+		CAL fbAxisStop0 (
+			Axis := Axis0,
+			Execute := FALSE,
+			Deceleration := 10000
+		)
+
+(** 	fbAxisStop1(Axis := Axis1 , Execute := FALSE , Deceleration := 10000); **)
+		(* call - Stmt *)
+		CAL fbAxisStop1 (
+			Axis := Axis1,
+			Execute := FALSE,
+			Deceleration := 10000
+		)
+
+(**  **)
+(** 	eStateMain := MAIN_StateHalt1; **)
+		(* assign - Stmt *)
+		LD MAIN_StateHalt1
+		ST eStateMain
+
+		JMP ODK_END_IF_000000000000001
+
+(**  **)
+(** ELSIF eStateMain = MAIN_StateHalt1 THEN **)
+	(* elseif - Cond *) 
+	ODK_SKIP_000000000000001_00000000000000G:
+	LD eStateMain
+	EQ MAIN_StateHalt1
+	JMPCN ODK_SKIP_000000000000001_00000000000000H
+
+		(* elsif - Stmts *)
+
+(**  **)
+(**  **)
+(** 	fbReadStatus0(Axis := Axis0 , Enable := TRUE); **)
+		(* call - Stmt *)
+		CAL fbReadStatus0 (
+			Axis := Axis0,
+			Enable := TRUE
+		)
+
+(** 	fbReadStatus1(Axis := Axis1 , Enable := TRUE); **)
+		(* call - Stmt *)
+		CAL fbReadStatus1 (
+			Axis := Axis1,
+			Enable := TRUE
+		)
+
+(** 	 **)
+(**  **)
+(** 	IF fbReadStatus0.Error OR fbReadStatus1.Error THEN **)
+		(* if - Cond *)
+		LD fbReadStatus0.Error
+		OR fbReadStatus1.Error
+		JMPCN ODK_SKIP_00000000000000C_000000000000001
+
+			(* then - Stmts *)
+
+(**  **)
+(** 		{*cannot read the state of one or both controllers*} **)
+(** 		{*go to state canError to check for errors*} **)
+(** 		eStateMain := MAIN_CanError; **)
+			(* assign - Stmt *)
+			LD MAIN_CanError
+			ST eStateMain
+
+			JMP ODK_END_IF_00000000000000C
+
+(**  **)
+(** 	ELSIF fbReadStatus0.Valid AND fbReadStatus1.Valid THEN **)
+		(* elseif - Cond *) 
+		ODK_SKIP_00000000000000C_000000000000001:
+		LD fbReadStatus0.Valid
+		AND fbReadStatus1.Valid
+		JMPCN ODK_SKIP_00000000000000C_000000000000002
+
+			(* elsif - Stmts *)
+
+(**  **)
+(**  **)
+(** 		IF fbAxisStop0.Error THEN **)
+			(* if - Cond *)
+			LD fbAxisStop0.Error
+			JMPCN ODK_SKIP_00000000000000D_000000000000001
+
+				(* then - Stmts *)
+
+(** 			eStateMain := MAIN_CanError; **)
+				(* assign - Stmt *)
+				LD MAIN_CanError
+				ST eStateMain
+
+				JMP ODK_END_IF_00000000000000D
+
+(** 		ELSIF NOT fbReadStatus0.StandStill THEN **)
+			(* elseif - Cond *) 
+			ODK_SKIP_00000000000000D_000000000000001:
+			LD fbReadStatus0.StandStill
+			NOT
+			JMPCN ODK_SKIP_00000000000000D_000000000000002
+
+				(* elsif - Stmts *)
+
+(** 			fbAxisStop0(Axis := Axis0 , Execute := TRUE , Deceleration := 10000); **)
+				(* call - Stmt *)
+				CAL fbAxisStop0 (
+					Axis := Axis0,
+					Execute := TRUE,
+					Deceleration := 10000
+				)
+
+				JMP ODK_END_IF_00000000000000D
+
+(** 		END_IF; **)
+			(* if - End *) 
+			ODK_SKIP_00000000000000D_000000000000002:
+			ODK_END_IF_00000000000000D:
+
+(** 	 **)
+(** 		IF fbAxisStop1.Error THEN **)
+			(* if - Cond *)
+			LD fbAxisStop1.Error
+			JMPCN ODK_SKIP_00000000000000E_000000000000001
+
+				(* then - Stmts *)
+
+(** 			eStateMain := MAIN_CanError; **)
+				(* assign - Stmt *)
+				LD MAIN_CanError
+				ST eStateMain
+
+				JMP ODK_END_IF_00000000000000E
+
+(** 		ELSIF NOT fbReadStatus1.StandStill THEN **)
+			(* elseif - Cond *) 
+			ODK_SKIP_00000000000000E_000000000000001:
+			LD fbReadStatus1.StandStill
+			NOT
+			JMPCN ODK_SKIP_00000000000000E_000000000000002
+
+				(* elsif - Stmts *)
+
+(** 			fbAxisStop1(Axis := Axis1 , Execute := TRUE , Deceleration := 10000); **)
+				(* call - Stmt *)
+				CAL fbAxisStop1 (
+					Axis := Axis1,
+					Execute := TRUE,
+					Deceleration := 10000
+				)
+
+				JMP ODK_END_IF_00000000000000E
+
+(** 		END_IF; **)
+			(* if - End *) 
+			ODK_SKIP_00000000000000E_000000000000002:
+			ODK_END_IF_00000000000000E:
+
+(** 	 **)
+(**  **)
+(** 		IF fbReadStatus0.StandStill AND fbReadStatus1.StandStill THEN **)
+			(* if - Cond *)
+			LD fbReadStatus0.StandStill
+			AND fbReadStatus1.StandStill
+			JMPCN ODK_SKIP_00000000000000F_000000000000001
+
+				(* then - Stmts *)
+
+(** 		 **)
+(** 			oExecuteAxisMove := FALSE; **)
+				(* assign - Stmt *)
+				LD FALSE
+				ST oExecuteAxisMove
+
+(** 		  	eStateMain := MAIN_ResetTimer; 	 **)
+				(* assign - Stmt *)
+				LD MAIN_ResetTimer
+				ST eStateMain
+
+				JMP ODK_END_IF_00000000000000F
+
+(** 		 **)
+(** 		END_IF; **)
+			(* if - End *) 
+			ODK_SKIP_00000000000000F_000000000000001:
+			ODK_END_IF_00000000000000F:
+
+			JMP ODK_END_IF_00000000000000C
+
+(**  **)
+(** 	END_IF; **)
+		(* if - End *) 
+		ODK_SKIP_00000000000000C_000000000000002:
+		ODK_END_IF_00000000000000C:
+
+		JMP ODK_END_IF_000000000000001
+
+(**  **)
+(** ELSIF eStateMain = MAIN_StateAxis_Move THEN **)
+	(* elseif - Cond *) 
+	ODK_SKIP_000000000000001_00000000000000H:
+	LD eStateMain
+	EQ MAIN_StateAxis_Move
+	JMPCN ODK_SKIP_000000000000001_00000000000000I
+
+		(* elsif - Stmts *)
+
+(** 	   **)
+(** 	  {* Limiter *} **)
+(** 	  IF (leftVeloc > maxVelocity) THEN **)
+		(* if - Cond *)
+		LD leftVeloc
+		GT maxVelocity
+		JMPCN ODK_SKIP_00000000000000G_000000000000001
+
+			(* then - Stmts *)
+
+(** 	  	leftVeloc := maxVelocity; **)
+			(* assign - Stmt *)
+			LD maxVelocity
+			ST leftVeloc
+
+			JMP ODK_END_IF_00000000000000G
+
+(** 	  END_IF; **)
+		(* if - End *) 
+		ODK_SKIP_00000000000000G_000000000000001:
+		ODK_END_IF_00000000000000G:
+
+(** 	   **)
+(** 	  {* Limiter *} **)
+(** 	  IF (rightVeloc > maxVelocity) THEN **)
+		(* if - Cond *)
+		LD rightVeloc
+		GT maxVelocity
+		JMPCN ODK_SKIP_00000000000000H_000000000000001
+
+			(* then - Stmts *)
+
+(** 	  	rightVeloc := maxVelocity; **)
+			(* assign - Stmt *)
+			LD maxVelocity
+			ST rightVeloc
+
+			JMP ODK_END_IF_00000000000000H
+
+(** 	  END_IF; **)
+		(* if - End *) 
+		ODK_SKIP_00000000000000H_000000000000001:
+		ODK_END_IF_00000000000000H:
+
+(** 		 **)
+(** 		 **)
+(** 	  IF (leftVeloc = 0) THEN **)
+		(* if - Cond *)
+		LD leftVeloc
+		EQ 0
+		JMPCN ODK_SKIP_00000000000000I_000000000000001
+
+			(* then - Stmts *)
+
+(** 	  	fbAxisStop0(Axis := Axis0 , Execute := oExecuteAxisMove , Deceleration := 10000); **)
+			(* call - Stmt *)
+			CAL fbAxisStop0 (
+				Axis := Axis0,
+				Execute := oExecuteAxisMove,
+				Deceleration := 10000
+			)
+
+			JMP ODK_END_IF_00000000000000I
+
+(** 	  ELSIF (leftSign = 1) THEN **)
+		(* elseif - Cond *) 
+		ODK_SKIP_00000000000000I_000000000000001:
+		LD leftSign
+		EQ 1
+		JMPCN ODK_SKIP_00000000000000I_000000000000002
+
+			(* elsif - Stmts *)
+
+(**       	fbAxisMove0(Axis := Axis0, Execute := oExecuteAxisMove, Velocity := leftVeloc,               **)
+			(* call - Stmt *)
+			CAL fbAxisMove0 (
+				Axis := Axis0,
+				Execute := oExecuteAxisMove,
+				Velocity := leftVeloc,
+(**                 Acceleration := 10000, Deceleration := 10000,  **)
+				Acceleration := 10000,
+				Deceleration := 10000,
+(** 				Direction := MCnegative); **)
+				Direction := MCnegative
+			)
+
+			JMP ODK_END_IF_00000000000000I
+
+(** 	  ELSE **)
+		(* else *) 
+		ODK_SKIP_00000000000000I_000000000000002:
+
+			(* else - Stmts *)
+
+(** 	  	fbAxisMove0(Axis := Axis0, Execute := oExecuteAxisMove, Velocity := leftVeloc,               **)
+			(* call - Stmt *)
+			CAL fbAxisMove0 (
+				Axis := Axis0,
+				Execute := oExecuteAxisMove,
+				Velocity := leftVeloc,
+(**                 Acceleration := 10000, Deceleration := 10000,  **)
+				Acceleration := 10000,
+				Deceleration := 10000,
+(** 				Direction := MCpositive); **)
+				Direction := MCpositive
+			)
+
+(** 	  END_IF;   **)
+		(* if - End *) 
+		ODK_END_IF_00000000000000I:
+
+(** 	   **)
+(** 	   **)
+(** 	  IF (rightVeloc = 0) THEN **)
+		(* if - Cond *)
+		LD rightVeloc
+		EQ 0
+		JMPCN ODK_SKIP_00000000000000J_000000000000001
+
+			(* then - Stmts *)
+
+(** 	  	fbAxisStop1(Axis := Axis1 , Execute := oExecuteAxisMove , Deceleration := 10000); **)
+			(* call - Stmt *)
+			CAL fbAxisStop1 (
+				Axis := Axis1,
+				Execute := oExecuteAxisMove,
+				Deceleration := 10000
+			)
+
+			JMP ODK_END_IF_00000000000000J
+
+(** 	  ELSIF (rightsign = 1) THEN **)
+		(* elseif - Cond *) 
+		ODK_SKIP_00000000000000J_000000000000001:
+		LD rightSign
+		EQ 1
+		JMPCN ODK_SKIP_00000000000000J_000000000000002
+
+			(* elsif - Stmts *)
+
+(** 	  	fbAxisMove1(Axis := Axis1, Execute := oExecuteAxisMove, Velocity := rightVeloc,               **)
+			(* call - Stmt *)
+			CAL fbAxisMove1 (
+				Axis := Axis1,
+				Execute := oExecuteAxisMove,
+				Velocity := rightVeloc,
+(**                 Acceleration := 10000, Deceleration := 10000,  **)
+				Acceleration := 10000,
+				Deceleration := 10000,
+(** 				Direction := MCnegative); **)
+				Direction := MCnegative
+			)
+
+			JMP ODK_END_IF_00000000000000J
+
+(** 	  ELSE		 **)
+		(* else *) 
+		ODK_SKIP_00000000000000J_000000000000002:
+
+			(* else - Stmts *)
+
+(** 	  	fbAxisMove1(Axis := Axis1, Execute := oExecuteAxisMove, Velocity := rightVeloc ,Acceleration := 10000, Deceleration := 10000, Direction := MCpositive); **)
+			(* call - Stmt *)
+			CAL fbAxisMove1 (
+				Axis := Axis1,
+				Execute := oExecuteAxisMove,
+				Velocity := rightVeloc,
+				Acceleration := 10000,
+				Deceleration := 10000,
+				Direction := MCpositive
+			)
+
+(** 	  END_IF; **)
+		(* if - End *) 
+		ODK_END_IF_00000000000000J:
+
+(** 	   **)
+(** 	  oExecuteAxisMove := TRUE; **)
+		(* assign - Stmt *)
+		LD TRUE
+		ST oExecuteAxisMove
+
+(** 	   **)
+(**  **)
+(** 	  fbReadStatus0(Axis := Axis0 , Enable := TRUE); **)
+		(* call - Stmt *)
+		CAL fbReadStatus0 (
+			Axis := Axis0,
+			Enable := TRUE
+		)
+
+(** 	  fbReadStatus1(Axis := Axis1 , Enable := TRUE); **)
+		(* call - Stmt *)
+		CAL fbReadStatus1 (
+			Axis := Axis1,
+			Enable := TRUE
+		)
+
+(** 	   **)
+(** 	  fbReadActualVelocity0(Axis := Axis0 , Enable := TRUE); **)
+		(* call - Stmt *)
+		CAL fbReadActualVelocity0 (
+			Axis := Axis0,
+			Enable := TRUE
+		)
+
+(** 	  fbReadActualVelocity1(Axis := Axis1 , Enable := TRUE); **)
+		(* call - Stmt *)
+		CAL fbReadActualVelocity1 (
+			Axis := Axis1,
+			Enable := TRUE
+		)
+
+(** 			 **)
+(** 	  IF fbAxisMove0.Error THEN    **)
+		(* if - Cond *)
+		LD fbAxisMove0.Error
+		JMPCN ODK_SKIP_00000000000000K_000000000000001
+
+			(* then - Stmts *)
+
+(** 	  	eStateMain := MAIN_Init;   **)
+			(* assign - Stmt *)
+			LD MAIN_Init
+			ST eStateMain
+
+			JMP ODK_END_IF_00000000000000K
+
+(** 	  ELSIF fbAxisStop0.Error THEN    **)
+		(* elseif - Cond *) 
+		ODK_SKIP_00000000000000K_000000000000001:
+		LD fbAxisStop0.Error
+		JMPCN ODK_SKIP_00000000000000K_000000000000002
+
+			(* elsif - Stmts *)
+
+(** 	  	eStateMain := MAIN_Init;      **)
+			(* assign - Stmt *)
+			LD MAIN_Init
+			ST eStateMain
+
+			JMP ODK_END_IF_00000000000000K
+
+(** 	  ELSIF fbAxisMove1.Error THEN **)
+		(* elseif - Cond *) 
+		ODK_SKIP_00000000000000K_000000000000002:
+		LD fbAxisMove1.Error
+		JMPCN ODK_SKIP_00000000000000K_000000000000003
+
+			(* elsif - Stmts *)
+
+(** 	  	eStateMain := MAIN_Init;  **)
+			(* assign - Stmt *)
+			LD MAIN_Init
+			ST eStateMain
+
+			JMP ODK_END_IF_00000000000000K
+
+(** 	  ELSIF fbAxisStop1.Error THEN **)
+		(* elseif - Cond *) 
+		ODK_SKIP_00000000000000K_000000000000003:
+		LD fbAxisStop1.Error
+		JMPCN ODK_SKIP_00000000000000K_000000000000004
+
+			(* elsif - Stmts *)
+
+(** 	  	eStateMain := MAIN_Init;     **)
+			(* assign - Stmt *)
+			LD MAIN_Init
+			ST eStateMain
+
+			JMP ODK_END_IF_00000000000000K
+
+(** 	  ELSIF (fbAxisMove0.InVelocity OR fbAxisStop0.Done ) AND (fbAxisMove1.InVelocity OR fbAxisStop1.Done ) AND  **)
+(** 	  			fbReadStatus0.Valid AND (fbReadStatus0.ContinuousMotion OR fbReadStatus0.StandStill) AND  **)
+(** 				fbReadStatus1.Valid AND (fbReadStatus1.ContinuousMotion OR fbReadStatus1.StandStill) THEN **)
+		(* elseif - Cond *) 
+		ODK_SKIP_00000000000000K_000000000000004:
+		LD fbAxisMove0.InVelocity
+		OR fbAxisStop0.Done
+		AND ( fbAxisMove1.InVelocity
+			OR fbAxisStop1.Done
+		)
+		AND fbReadStatus0.Valid
+		AND ( fbReadStatus0.ContinuousMotion
+			OR fbReadStatus0.StandStill
+		)
+		AND fbReadStatus1.Valid
+		AND ( fbReadStatus1.ContinuousMotion
+			OR fbReadStatus1.StandStill
+		)
+		JMPCN ODK_SKIP_00000000000000K_000000000000005
+
+			(* elsif - Stmts *)
+
+(** 				 **)
+(** 		oExecuteAxisMove := FALSE; **)
+			(* assign - Stmt *)
+			LD FALSE
+			ST oExecuteAxisMove
+
+(** 	  	eStateMain := MAIN_Read_Velocity;   **)
+			(* assign - Stmt *)
+			LD MAIN_Read_Velocity
+			ST eStateMain
+
+			JMP ODK_END_IF_00000000000000K
+
+(** 	  END_IF; 	 **)
+		(* if - End *) 
+		ODK_SKIP_00000000000000K_000000000000005:
+		ODK_END_IF_00000000000000K:
+
+		JMP ODK_END_IF_000000000000001
+
+(**  **)
+(** ELSIF eStateMain = MAIN_CanError THEN **)
+	(* elseif - Cond *) 
+	ODK_SKIP_000000000000001_00000000000000I:
+	LD eStateMain
+	EQ MAIN_CanError
+	JMPCN ODK_SKIP_000000000000001_00000000000000J
+
+		(* elsif - Stmts *)
+
+(**  **)
+(** 	fbCanRecover(Execute:=FALSE); **)
+		(* call - Stmt *)
+		CAL fbCanRecover (
+			Execute := FALSE
+		)
+
+(** 	eStateMain := MAIN_CanError_loop; **)
+		(* assign - Stmt *)
+		LD MAIN_CanError_loop
+		ST eStateMain
+
+		JMP ODK_END_IF_000000000000001
+
+(** 	 **)
+(** ELSIF eStateMain = MAIN_CanError_loop THEN **)
+	(* elseif - Cond *) 
+	ODK_SKIP_000000000000001_00000000000000J:
+	LD eStateMain
+	EQ MAIN_CanError_loop
+	JMPCN ODK_SKIP_000000000000001_00000000000000K
+
+		(* elsif - Stmts *)
+
+(**  **)
+(** 	fbCanRecover(Execute:=TRUE); **)
+		(* call - Stmt *)
+		CAL fbCanRecover (
+			Execute := TRUE
+		)
+
+(** 	IF fbCanRecover.Done THEN **)
+		(* if - Cond *)
+		LD fbCanRecover.Done
+		JMPCN ODK_SKIP_00000000000000L_000000000000001
+
+			(* then - Stmts *)
+
+(** 		eStateMain:=MAIN_Init; **)
+			(* assign - Stmt *)
+			LD MAIN_Init
+			ST eStateMain
+
+			JMP ODK_END_IF_00000000000000L
+
+(** 	END_IF; **)
+		(* if - End *) 
+		ODK_SKIP_00000000000000L_000000000000001:
+		ODK_END_IF_00000000000000L:
+
+		JMP ODK_END_IF_000000000000001
+
+(**  **)
+(** END_IF;  **)
+	(* if - End *) 
+	ODK_SKIP_000000000000001_00000000000000K:
+	ODK_END_IF_000000000000001:
+
+(**  **)
+(**  **)
+(**  **)
+(**  **)
+(**  **)
+(**  **)
+(**  **)
+
+END_PROGRAM

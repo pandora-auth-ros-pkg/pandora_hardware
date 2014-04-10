@@ -1,0 +1,23 @@
+FUNCTION_BLOCK MU_SetObject 
+
+
+ VAR_INPUT
+  Execute : BOOL ;
+  Index : UINT ;
+  Subindex : USINT ;
+  Value : UDINT ;
+  END_VAR 
+
+ VAR_IN_OUT
+  Axis : AXIS_REF ;
+  END_VAR 
+
+ VAR_OUTPUT
+  Done : BOOL ;
+  Error : BOOL ;
+  ErrorID : DINT ;
+  END_VAR 
+
+
+
+END_FUNCTION_BLOCK
