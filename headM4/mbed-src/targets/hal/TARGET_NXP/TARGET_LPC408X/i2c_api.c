@@ -18,6 +18,8 @@
 #include "pinmap.h"
 #include "error.h"
 
+#include "LibMods/i2c_nonblocking.h"
+
 static const PinMap PinMap_I2C_SDA[] = {
     {P0_0 , I2C_1, 3},
     {P0_10, I2C_2, 2},
@@ -72,16 +74,16 @@ static inline void i2c_conset(i2c_t *obj, int start, int stop, int interrupt, in
                     | (acknowledge << 2);
 }
 
-// Clear the Serial Interrupt (SI)
+/*// Clear the Serial Interrupt (SI)
 static inline void i2c_clear_SI(i2c_t *obj) {
     i2c_conclr(obj, 0, 0, 1, 0);
-}
+}*/
 
 static inline int i2c_status(i2c_t *obj) {
     return I2C_STAT(obj);
 }
 
-// Wait until the Serial Interrupt (SI) is set
+/*// Wait until the Serial Interrupt (SI) is set
 static int i2c_wait_SI(i2c_t *obj) {
     int timeout = 0;
     while (!(I2C_CONSET(obj) & (1 << 3))) {
@@ -89,7 +91,7 @@ static int i2c_wait_SI(i2c_t *obj) {
         if (timeout > 100000) return -1;
     }
     return 0;
-}
+}*/
 
 static inline void i2c_interface_enable(i2c_t *obj) {
     I2C_CONSET(obj) = 0x40;

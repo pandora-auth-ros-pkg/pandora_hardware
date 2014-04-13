@@ -16,11 +16,18 @@ void led_thread(void const *argument) {
     }
 }
 
+void TriggerTask(void const *args);
+
 int main (void) {
-    Thread thread(led_thread);
+    Thread thread(TriggerTask);
     
     while (true) {
         Thread::wait(1000);
         thread.signal_set(0x1);
     }
+}
+
+void TriggerTask(void const *args) {
+//	thread.signal_set(0x1);
+	Thread::wait(100);
 }

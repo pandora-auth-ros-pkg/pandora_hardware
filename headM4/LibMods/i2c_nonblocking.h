@@ -14,23 +14,21 @@
 #include "pinmap.h"
 #include "error.h"
 
+#include "objects.h"
+
+typedef struct i2c_s i2c_t;
+
 #define SI 3
 
 #define I2C_IRQN I2C0_IRQn
 #define I2C_QUEUE I2C0_queue
-
-extern osMessageQId  I2C_QUEUE;
-
 
 //If queue.put() is executed inside an ISR, and we have continuous interrupts (not allowing non-ISR code to run),
 //->queue uses a size 16 FIFO (independent from what the user sets). Shouldn't happen in a real case scenario.
 //Things to note: 1) extern "C" is required if handler executed in C++ code, 2) Interrupt flag should be cleared
 //-> or we will enter the ISR continuously, 3) an ISR can't be interrupted by the same interrupt that caused it,
 //->only by a higher priority one.
-void I2C1_IRQHandler(){
-	NVIC_DisableIRQ(I2C_IRQN);
-	osMessagePut(I2C_QUEUE, (uint32_t)1, 0);
-}
+void I2C1_IRQHandler();
 
 
 /** Clear the Serial Interrupt (SI)
@@ -39,17 +37,9 @@ void I2C1_IRQHandler(){
  * Interrupt flag must be cleared BEFORE clearing the pending interrupt, or the pending interrupt would be set again.
  * @param obj i2c object
  */
-static inline void i2c_clear_SI(i2c_t *obj) {
-	obj->i2c->CONCLR = 1 << SI;
-	NVIC_ClearPendingIRQ(I2C_IRQN);
-	NVIC_EnableIRQ(I2C_IRQN);
-}
+inline void i2c_clear_SI(i2c_t *obj) ;
 
 // Wait until the Serial Interrupt (SI) is set
-static int i2c_wait_SI(i2c_t *obj) {
-	osEvent evt = osMessageGet(I2C_QUEUE, osWaitForever);	//well, maybe forever is too long
-    return 0;
-}
-
+int i2c_wait_SI(i2c_t *obj) ;
 
 #endif /* I2C_NONBLOCKING_H_ */
