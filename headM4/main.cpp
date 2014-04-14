@@ -1,5 +1,6 @@
 #include "mbed.h"
 #include "rtos.h"
+#include "LibMods/i2c_nonblocking.h"
 //#include "gpdma.h"
 //#include "dsp.h"
 //#include "USBSerial2.h"
@@ -20,6 +21,9 @@ void TriggerTask(void const *args);
 
 int main (void) {
     Thread thread(TriggerTask);
+
+    I2C0_queue_create();
+    I2C1_queue_create();
     
     while (true) {
         Thread::wait(1000);
