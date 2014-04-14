@@ -54,6 +54,7 @@ Thumbs.db
 .*.swp
 *.log
 core*
+.svn/
 
 # Hardware specific #
 #####################

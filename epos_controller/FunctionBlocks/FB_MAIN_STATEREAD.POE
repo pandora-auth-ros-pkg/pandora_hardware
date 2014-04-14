@@ -1,0 +1,174 @@
+FUNCTION_BLOCK FB_MAIN_STATEREAD
+(********************************************************************************************************
+**  maxon motor ag
+**  All rights reserved
+*********************************************************************************************************
+**  Project		:  ObjectDictionary Access
+**  File	    :  FB MAIN State Object Reading
+**  Description :  Implementation of State 'Object Reading' in Main State Machine
+**  Creation    :  15.02.2008, BRE
+**  Modification:  15.02.2008, BRE, Initial Version
+*********************************************************************************************************)
+
+VAR_EXTERNAL
+
+END_VAR
+	
+VAR_INPUT
+    Execute                   : BOOL;
+END_VAR
+
+VAR_IN_OUT
+    Axis                      : Axis_REF;
+END_VAR
+
+VAR_OUTPUT
+    Done                      : BOOL;
+	Done1					  : BOOL;
+    Error                     : BOOL;
+	ErrorID                   : DINT;
+	
+	velocityWord			  : UDINT;
+	
+END_VAR                         
+                                 
+VAR                              
+	fbGetObjectVelocity          : MU_GetObject;      (* Create Instance of MU_GetObject *)
+
+END_VAR
+
+(*Automatically declared*)
+VAR_EXTERNAL
+END_VAR
+(** {* Read object "Fresh" *} **)
+(** fbGetObjectVelocity(Axis := Axis, Enable := Execute, Index := 16#200C, Subindex := 16#01);   **)
+	(* call - Stmt *)
+	CAL fbGetObjectVelocity (
+		Axis := Axis,
+		Enable := Execute,
+		Index := 16#200C,
+		Subindex := 16#01
+	)
+
+(**  **)
+(** IF fbGetObjectVelocity.Done AND (NOT fbGetObjectVelocity.Error) THEN **)
+	(* if - Cond *)
+	LD fbGetObjectVelocity.Done
+	AND ( fbGetObjectVelocity.Error
+		NOT
+	)
+	JMPCN ODK_SKIP_000000000000001_000000000000001
+
+		(* then - Stmts *)
+
+(** 		 **)
+(** 		IF (fbGetObjectVelocity.Value >= 16#8000000) THEN **)
+		(* if - Cond *)
+		LD fbGetObjectVelocity.Value
+		GE 16#8000000
+		JMPCN ODK_SKIP_000000000000002_000000000000001
+
+			(* then - Stmts *)
+
+(** 			velocityWord :=  fbGetObjectVelocity.Value; **)
+			(* assign - Stmt *)
+			LD fbGetObjectVelocity.Value
+			ST velocityWord
+
+			JMP ODK_END_IF_000000000000002
+
+(** 		END_IF;                	                         **)
+		(* if - End *) 
+		ODK_SKIP_000000000000002_000000000000001:
+		ODK_END_IF_000000000000002:
+
+		JMP ODK_END_IF_000000000000001
+
+(** END_IF; **)
+	(* if - End *) 
+	ODK_SKIP_000000000000001_000000000000001:
+	ODK_END_IF_000000000000001:
+
+(**  **)
+(** {* Output Variables *} **)
+(** IF  fbGetObjectVelocity.Error THEN  **)
+	(* if - Cond *)
+	LD fbGetObjectVelocity.Error
+	JMPCN ODK_SKIP_000000000000003_000000000000001
+
+		(* then - Stmts *)
+
+(**        Done := FALSE; **)
+		(* assign - Stmt *)
+		LD FALSE
+		ST Done
+
+(** 	   Done1:= FALSE; **)
+		(* assign - Stmt *)
+		LD FALSE
+		ST Done1
+
+(** 	   Error := TRUE; **)
+		(* assign - Stmt *)
+		LD TRUE
+		ST Error
+
+(** 	   ErrorID := fbGetObjectVelocity.ErrorID; **)
+		(* assign - Stmt *)
+		LD fbGetObjectVelocity.ErrorID
+		ST ErrorID
+
+		JMP ODK_END_IF_000000000000003
+
+(** ELSE **)
+	(* else *) 
+	ODK_SKIP_000000000000003_000000000000001:
+
+		(* else - Stmts *)
+
+(**        Done := fbGetObjectVelocity.Done;   **)
+		(* assign - Stmt *)
+		LD fbGetObjectVelocity.Done
+		ST Done
+
+(** 	   Done1:= Done AND (fbGetObjectVelocity.Value >= 16#80000000); 	    **)
+		(* assign - Stmt *)
+		LD Done
+		AND ( fbGetObjectVelocity.Value
+			GE 16#80000000
+		)
+		ST Done1
+
+(**        Error := FALSE; **)
+		(* assign - Stmt *)
+		LD FALSE
+		ST Error
+
+(** 	   ErrorID := 0; **)
+		(* assign - Stmt *)
+		LD 0
+		ST ErrorID
+
+(** END_IF; **)
+	(* if - End *) 
+	ODK_END_IF_000000000000003:
+
+(**  **)
+(**  **)
+(**  **)
+(**  **)
+(**  **)
+(**  **)
+(**  **)
+(**  **)
+(**  **)
+(**  **)
+(**  **)
+(**  **)
+(**  **)
+(**  **)
+(**  **)
+(**  **)
+(**  **)
+
+END_FUNCTION_BLOCK

@@ -1,0 +1,2233 @@
+
+Program Nr: 1:
+Nr 13: Datasegment
+B4 00 01 08 0E 00 00 00 10 00 06 80 13 00 06 80 
+14 00 09 80 17 00 09 80 18 00 07 80 1B 00 07 80 
+1C 00 13 80 1F 00 13 80 20 00 03 80 23 00 05 80 
+26 00 03 80 27 00 05 80 28 00 00 00 31 00 00 00 
+3A 00 00 00 3C 00 00 00 3E 00 09 00 41 00 00 00 
+43 00 00 00 45 00 00 00 47 00 00 00 49 00 00 00 
+5C 00 00 00 0A 00 08 00 0A 00 0C 00 0A 00 10 00 
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+7C 15 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+00 00 00 00 
+
+Nr 14: Codesegment
+F7 08 00 06 0F 00 16 6C 00 7D 00 00 E1 03 22 00 
+1F 39 5C 00 10 00 04 5C 00 21 01 00 40 6C 00 01 
+F6 08 16 6C 00 7D 01 00 E1 03 5A 00 1E 39 5C 00 
+10 00 04 5C 00 0F 5C 00 09 00 03 46 00 21 00 00 
+40 6C 00 01 57 00 0F 5C 00 08 00 03 57 00 21 02 
+00 40 6C 00 01 57 00 01 F6 08 16 6C 00 7D 02 00 
+E1 03 80 00 22 B8 0B 00 00 3C 48 00 14 00 1F 39 
+48 00 10 00 04 48 00 21 05 00 40 6C 00 01 F6 08 
+16 6C 00 7D 05 00 E1 03 B8 00 22 00 00 00 00 3C 
+4C 00 20 00 22 28 20 00 00 3C 4C 00 1C 00 1F 39 
+4C 00 18 00 61 68 00 62 4C 00 14 00 04 4C 00 21 
+06 00 40 6C 00 01 F6 08 16 6C 00 7D 06 00 E1 03 
+3B 01 22 00 00 00 00 3C 4C 00 20 00 22 28 20 00 
+00 3C 4C 00 1C 00 1E 39 4C 00 18 00 61 68 00 62 
+4C 00 14 00 04 4C 00 0F 4C 00 09 00 03 04 01 0D 
+B0 00 7E 01 00 00 00 A7 37 B0 00 21 00 00 40 6C 
+00 01 38 01 0F 4C 00 08 00 03 38 01 12 4C 00 10 
+00 37 A8 00 0D A8 00 7E FF FF FF 7F C4 03 2F 01 
+0D A8 00 7E 20 4E 00 00 A7 37 A8 00 01 2F 01 21 
+09 00 40 6C 00 01 38 01 01 F6 08 16 6C 00 7D 09 
+00 E1 03 76 01 0D A8 00 3C 54 00 1C 00 20 00 3A 
+54 00 18 00 21 6B 20 3B 54 00 16 00 1F 39 54 00 
+14 00 61 64 00 62 54 00 10 00 04 54 00 21 0A 00 
+40 6C 00 01 F6 08 16 6C 00 7D 0A 00 E1 03 CD 01 
+0D A8 00 3C 54 00 1C 00 20 00 3A 54 00 18 00 21 
+6B 20 3B 54 00 16 00 1E 39 54 00 14 00 61 64 00 
+62 54 00 10 00 04 54 00 0F 54 00 09 00 03 B9 01 
+21 12 00 40 6C 00 01 CA 01 0F 54 00 08 00 03 CA 
+01 21 07 00 40 6C 00 01 CA 01 01 F6 08 16 6C 00 
+7D 07 00 E1 03 05 02 22 00 00 00 00 3C 50 00 20 
+00 22 27 20 00 00 3C 50 00 1C 00 1F 39 50 00 18 
+00 61 68 00 62 50 00 14 00 04 50 00 21 08 00 40 
+6C 00 01 F6 08 16 6C 00 7D 08 00 E1 03 7C 02 22 
+00 00 00 00 3C 50 00 20 00 22 27 20 00 00 3C 50 
+00 1C 00 1E 39 50 00 18 00 61 68 00 62 50 00 14 
+00 04 50 00 0F 50 00 09 00 03 45 02 21 00 00 40 
+6C 00 01 79 02 0F 50 00 08 00 03 79 02 12 50 00 
+10 00 37 AC 00 0D AC 00 7E FF FF FF 7F C4 03 70 
+02 0D AC 00 7E 20 4E 00 00 A7 37 AC 00 01 70 02 
+21 0B 00 40 6C 00 01 79 02 01 F6 08 16 6C 00 7D 
+0B 00 E1 03 B7 02 0D AC 00 3C 58 00 1C 00 20 00 
+3A 58 00 18 00 21 30 20 3B 58 00 16 00 1F 39 58 
+00 14 00 61 64 00 62 58 00 10 00 04 58 00 21 0C 
+00 40 6C 00 01 F6 08 16 6C 00 7D 0C 00 E1 03 0E 
+03 0D AC 00 3C 58 00 1C 00 20 00 3A 58 00 18 00 
+21 30 20 3B 58 00 16 00 1E 39 58 00 14 00 61 64 
+00 62 58 00 10 00 04 58 00 0F 58 00 09 00 03 FA 
+02 21 00 00 40 6C 00 01 0B 03 0F 58 00 08 00 03 
+0B 03 21 03 00 40 6C 00 01 0B 03 01 F6 08 16 6C 
+00 7D 03 00 E1 03 32 03 1F 39 38 00 18 00 61 64 
+00 62 38 00 14 00 04 38 00 21 04 00 40 6C 00 01 
+F6 08 16 6C 00 7D 04 00 E1 03 FD 03 1E 39 38 00 
+18 00 61 64 00 62 38 00 14 00 04 38 00 0F 38 00 
+0A 00 03 5E 03 21 00 00 40 6C 00 01 FA 03 0F 38 
+00 08 00 6B 38 00 09 00 97 03 E9 03 12 38 00 10 
+00 37 70 00 0D 70 00 7E 00 00 01 00 FC 2B 37 74 
+00 0D 74 00 7E 00 40 00 00 BC 7E 02 00 00 00 FC 
+2B 37 7C 00 0D 74 00 7E 00 40 00 00 FC 2B 37 80 
+00 0D 70 00 7E 00 00 01 00 BC 37 78 00 0D 78 00 
+7E 00 40 00 00 BC 7E 02 00 00 00 FC 2B 37 88 00 
+0D 78 00 7E 00 40 00 00 FC 2B 37 8C 00 21 0F 00 
+40 6C 00 22 B8 0B 00 00 3C 48 00 14 00 1F 39 48 
+00 10 00 04 48 00 01 FA 03 0F 38 00 08 00 03 FA 
+03 21 0D 00 40 6C 00 01 FA 03 01 F6 08 16 6C 00 
+7D 0D 00 E1 03 34 04 22 B8 0B 00 00 3C 48 00 14 
+00 1E 39 48 00 10 00 04 48 00 0F 48 00 08 00 03 
+2B 04 21 10 00 40 6C 00 01 31 04 21 05 00 40 6C 
+00 01 F6 08 16 6C 00 7D 0F 00 E1 03 24 05 0D 70 
+00 3C 3C 00 18 00 0A A2 00 39 3C 00 14 00 61 64 
+00 62 3C 00 10 00 04 3C 00 1E 34 A2 00 0F 3C 00 
+08 00 90 0F 3C 00 09 00 FC 01 91 97 03 21 05 1F 
+34 A2 00 21 00 00 3B 28 00 24 00 22 64 00 00 00 
+3C 28 00 20 00 22 64 00 00 00 3C 28 00 1C 00 22 
+E8 03 00 00 3C 28 00 18 00 1F 39 28 00 14 00 61 
+64 00 62 28 00 10 00 04 28 00 21 00 00 3B 30 00 
+24 00 22 64 00 00 00 3C 30 00 20 00 22 64 00 00 
+00 3C 30 00 1C 00 22 E8 03 00 00 3C 30 00 18 00 
+1F 39 30 00 14 00 61 68 00 62 30 00 10 00 04 30 
+00 1F 39 2C 00 14 00 61 64 00 62 2C 00 10 00 04 
+2C 00 1F 39 34 00 14 00 61 68 00 62 34 00 10 00 
+04 34 00 1F 39 3C 00 14 00 61 64 00 62 3C 00 10 
+00 04 3C 00 1F 34 A5 00 21 0E 00 40 6C 00 01 21 
+05 01 F6 08 16 6C 00 7D 10 00 E1 03 6D 05 22 10 
+27 00 00 3C 2C 00 18 00 1F 39 2C 00 14 00 61 64 
+00 62 2C 00 10 00 04 2C 00 22 10 27 00 00 3C 34 
+00 18 00 1F 39 34 00 14 00 61 68 00 62 34 00 10 
+00 04 34 00 21 11 00 40 6C 00 01 F6 08 16 6C 00 
+7D 11 00 E1 03 51 06 1E 39 18 00 1C 00 61 64 00 
+62 18 00 18 00 04 18 00 1E 39 1C 00 1C 00 61 68 
+00 62 1C 00 18 00 04 1C 00 0F 18 00 09 00 6B 1C 
+00 09 00 9B 03 B0 05 21 12 00 40 6C 00 01 4E 06 
+0F 18 00 08 00 6B 1C 00 08 00 97 03 4E 06 0F 2C 
+00 09 00 03 CF 05 21 12 00 40 6C 00 01 F7 05 0F 
+18 00 13 00 FC 01 03 F7 05 22 10 27 00 00 3C 2C 
+00 18 00 1E 39 2C 00 14 00 61 64 00 62 2C 00 10 
+00 04 2C 00 01 F7 05 0F 34 00 09 00 03 08 06 21 
+12 00 40 6C 00 01 30 06 0F 1C 00 13 00 FC 01 03 
+30 06 22 10 27 00 00 3C 34 00 18 00 1E 39 34 00 
+14 00 61 68 00 62 34 00 10 00 04 34 00 01 30 06 
+0F 18 00 13 00 6B 1C 00 13 00 97 03 4B 06 1F 34 
+A5 00 21 02 00 40 6C 00 01 4B 06 01 4E 06 01 F6 
+08 16 6C 00 7D 0E 00 E1 03 B3 08 0D 80 00 69 90 
+00 C4 03 6E 06 0D 90 00 37 80 00 01 6E 06 0D 8C 
+00 69 90 00 C4 03 81 06 0D 90 00 37 8C 00 01 81 
+06 0D 80 00 7E 00 00 00 00 E2 03 AD 06 22 10 27 
+00 00 3C 2C 00 18 00 0A A5 00 39 2C 00 14 00 61 
+64 00 62 2C 00 10 00 04 2C 00 01 2A 07 0D 7C 00 
+7E 01 00 00 00 E2 03 F3 06 21 02 00 3B 28 00 24 
+00 22 10 27 00 00 3C 28 00 20 00 22 10 27 00 00 
+3C 28 00 1C 00 0D 80 00 3C 28 00 18 00 0A A5 00 
+39 28 00 14 00 61 64 00 62 28 00 10 00 04 28 00 
+01 2A 07 21 00 00 3B 28 00 24 00 22 10 27 00 00 
+3C 28 00 20 00 22 10 27 00 00 3C 28 00 1C 00 0D 
+80 00 3C 28 00 18 00 0A A5 00 39 28 00 14 00 61 
+64 00 62 28 00 10 00 04 28 00 0D 8C 00 7E 00 00 
+00 00 E2 03 56 07 22 10 27 00 00 3C 34 00 18 00 
+0A A5 00 39 34 00 14 00 61 68 00 62 34 00 10 00 
+04 34 00 01 D3 07 0D 88 00 7E 01 00 00 00 E2 03 
+9C 07 21 02 00 3B 30 00 24 00 22 10 27 00 00 3C 
+30 00 20 00 22 10 27 00 00 3C 30 00 1C 00 0D 8C 
+00 3C 30 00 18 00 0A A5 00 39 30 00 14 00 61 68 
+00 62 30 00 10 00 04 30 00 01 D3 07 21 00 00 3B 
+30 00 24 00 22 10 27 00 00 3C 30 00 20 00 22 10 
+27 00 00 3C 30 00 1C 00 0D 8C 00 3C 30 00 18 00 
+0A A5 00 39 30 00 14 00 61 68 00 62 30 00 10 00 
+04 30 00 1E 34 A5 00 1E 39 18 00 1C 00 61 64 00 
+62 18 00 18 00 04 18 00 1E 39 1C 00 1C 00 61 68 
+00 62 1C 00 18 00 04 1C 00 1E 39 20 00 18 00 61 
+64 00 62 20 00 14 00 04 20 00 1E 39 24 00 18 00 
+61 68 00 62 24 00 14 00 04 24 00 0F 28 00 0A 00 
+03 2C 08 21 00 00 40 6C 00 01 B0 08 0F 2C 00 09 
+00 03 3D 08 21 00 00 40 6C 00 01 B0 08 0F 30 00 
+0A 00 03 4E 08 21 00 00 40 6C 00 01 B0 08 0F 34 
+00 09 00 03 5F 08 21 00 00 40 6C 00 01 B0 08 0F 
+28 00 08 00 6B 2C 00 08 00 9B 90 0F 30 00 08 00 
+6B 34 00 08 00 9B 91 97 6B 18 00 08 00 97 90 0F 
+18 00 15 00 6B 18 00 13 00 9B 91 97 6B 1C 00 08 
+00 97 90 0F 1C 00 15 00 6B 1C 00 13 00 9B 91 97 
+03 B0 08 1F 34 A5 00 21 05 00 40 6C 00 01 B0 08 
+01 F6 08 16 6C 00 7D 12 00 E1 03 CF 08 1F 39 60 
+00 10 00 04 60 00 21 13 00 40 6C 00 01 F6 08 16 
+6C 00 7D 13 00 E1 03 F6 08 1E 39 60 00 10 00 04 
+60 00 0F 60 00 08 00 03 F3 08 21 00 00 40 6C 00 
+01 F3 08 01 F6 08 07 
+
+    IntelFormat
+      Die Parameterwerte der Funktionen
+      werden im Motorola-Format angezeigt.
+    ByteSize = 1.
+
+    6:    22  LD_BYREF_2      00 6C
+    9:   125  LDS_CONST_2     00 00
+    c:   225  EQ_2           
+    d:     3  JMPCN           00 22
+   10:    31  LD_CONST_FALSE 
+   11:    57  ST_FAR_BIT      00 5C  00 10
+   16:     4  CAL             00 5C
+   19:    33  LD_CONST_2      00 01
+   1c:    64  ST_BYREF_2      00 6C
+   1f:     1  JMP             08 F6
+   22:    22  LD_BYREF_2      00 6C
+   25:   125  LDS_CONST_2     00 01
+   28:   225  EQ_2           
+   29:     3  JMPCN           00 5A
+   2c:    30  LD_CONST_TRUE  
+   2d:    57  ST_FAR_BIT      00 5C  00 10
+   32:     4  CAL             00 5C
+   35:    15  LD_FAR_BIT      00 5C  00 09
+   3a:     3  JMPCN           00 46
+   3d:    33  LD_CONST_2      00 00
+   40:    64  ST_BYREF_2      00 6C
+   43:     1  JMP             00 57
+   46:    15  LD_FAR_BIT      00 5C  00 08
+   4b:     3  JMPCN           00 57
+   4e:    33  LD_CONST_2      00 02
+   51:    64  ST_BYREF_2      00 6C
+   54:     1  JMP             00 57
+   57:     1  JMP             08 F6
+   5a:    22  LD_BYREF_2      00 6C
+   5d:   125  LDS_CONST_2     00 02
+   60:   225  EQ_2           
+   61:     3  JMPCN           00 80
+   64:    34  LD_CONST_4      00 00  0B B8
+   69:    60  ST_FAR_4        00 48  00 14
+   6e:    31  LD_CONST_FALSE 
+   6f:    57  ST_FAR_BIT      00 48  00 10
+   74:     4  CAL             00 48
+   77:    33  LD_CONST_2      00 05
+   7a:    64  ST_BYREF_2      00 6C
+   7d:     1  JMP             08 F6
+   80:    22  LD_BYREF_2      00 6C
+   83:   125  LDS_CONST_2     00 05
+   86:   225  EQ_2           
+   87:     3  JMPCN           00 B8
+   8a:    34  LD_CONST_4      00 00  00 00
+   8f:    60  ST_FAR_4        00 4C  00 20
+   94:    34  LD_CONST_4      00 00  20 28
+   99:    60  ST_FAR_4        00 4C  00 1C
+   9e:    31  LD_CONST_FALSE 
+   9f:    57  ST_FAR_BIT      00 4C  00 18
+   a4:    97  LD_REFERENCE    00 68
+   a7:    98  ST_REFERENCE    00 4C  00 14
+   ac:     4  CAL             00 4C
+   af:    33  LD_CONST_2      00 06
+   b2:    64  ST_BYREF_2      00 6C
+   b5:     1  JMP             08 F6
+   b8:    22  LD_BYREF_2      00 6C
+   bb:   125  LDS_CONST_2     00 06
+   be:   225  EQ_2           
+   bf:     3  JMPCN           01 3B
+   c2:    34  LD_CONST_4      00 00  00 00
+   c7:    60  ST_FAR_4        00 4C  00 20
+   cc:    34  LD_CONST_4      00 00  20 28
+   d1:    60  ST_FAR_4        00 4C  00 1C
+   d6:    30  LD_CONST_TRUE  
+   d7:    57  ST_FAR_BIT      00 4C  00 18
+   dc:    97  LD_REFERENCE    00 68
+   df:    98  ST_REFERENCE    00 4C  00 14
+   e4:     4  CAL             00 4C
+   e7:    15  LD_FAR_BIT      00 4C  00 09
+   ec:     3  JMPCN           01 04
+   ef:    13  LD_NEAR_4       00 B0
+   f2:   126  LDS_CONST_4     00 00  00 01
+   f7:   167  ADD_4          
+   f8:    55  ST_NEAR_4       00 B0
+   fb:    33  LD_CONST_2      00 00
+   fe:    64  ST_BYREF_2      00 6C
+  101:     1  JMP             01 38
+  104:    15  LD_FAR_BIT      00 4C  00 08
+  109:     3  JMPCN           01 38
+  10c:    18  LD_FAR_4        00 4C  00 10
+  111:    55  ST_NEAR_4       00 A8
+  114:    13  LD_NEAR_4       00 A8
+  117:   126  LDS_CONST_4     7F FF  FF FF
+  11c:   196  GT_4           
+  11d:     3  JMPCN           01 2F
+  120:    13  LD_NEAR_4       00 A8
+  123:   126  LDS_CONST_4     00 00  4E 20
+  128:   167  ADD_4          
+  129:    55  ST_NEAR_4       00 A8
+  12c:     1  JMP             01 2F
+  12f:    33  LD_CONST_2      00 09
+  132:    64  ST_BYREF_2      00 6C
+  135:     1  JMP             01 38
+  138:     1  JMP             08 F6
+  13b:    22  LD_BYREF_2      00 6C
+  13e:   125  LDS_CONST_2     00 09
+  141:   225  EQ_2           
+  142:     3  JMPCN           01 76
+  145:    13  LD_NEAR_4       00 A8
+  148:    60  ST_FAR_4        00 54  00 1C
+  14d:    32  LD_CONST_1      00
+  14f:    58  ST_FAR_1        00 54  00 18
+  154:    33  LD_CONST_2      20 6B
+  157:    59  ST_FAR_2        00 54  00 16
+  15c:    31  LD_CONST_FALSE 
+  15d:    57  ST_FAR_BIT      00 54  00 14
+  162:    97  LD_REFERENCE    00 64
+  165:    98  ST_REFERENCE    00 54  00 10
+  16a:     4  CAL             00 54
+  16d:    33  LD_CONST_2      00 0A
+  170:    64  ST_BYREF_2      00 6C
+  173:     1  JMP             08 F6
+  176:    22  LD_BYREF_2      00 6C
+  179:   125  LDS_CONST_2     00 0A
+  17c:   225  EQ_2           
+  17d:     3  JMPCN           01 CD
+  180:    13  LD_NEAR_4       00 A8
+  183:    60  ST_FAR_4        00 54  00 1C
+  188:    32  LD_CONST_1      00
+  18a:    58  ST_FAR_1        00 54  00 18
+  18f:    33  LD_CONST_2      20 6B
+  192:    59  ST_FAR_2        00 54  00 16
+  197:    30  LD_CONST_TRUE  
+  198:    57  ST_FAR_BIT      00 54  00 14
+  19d:    97  LD_REFERENCE    00 64
+  1a0:    98  ST_REFERENCE    00 54  00 10
+  1a5:     4  CAL             00 54
+  1a8:    15  LD_FAR_BIT      00 54  00 09
+  1ad:     3  JMPCN           01 B9
+  1b0:    33  LD_CONST_2      00 12
+  1b3:    64  ST_BYREF_2      00 6C
+  1b6:     1  JMP             01 CA
+  1b9:    15  LD_FAR_BIT      00 54  00 08
+  1be:     3  JMPCN           01 CA
+  1c1:    33  LD_CONST_2      00 07
+  1c4:    64  ST_BYREF_2      00 6C
+  1c7:     1  JMP             01 CA
+  1ca:     1  JMP             08 F6
+  1cd:    22  LD_BYREF_2      00 6C
+  1d0:   125  LDS_CONST_2     00 07
+  1d3:   225  EQ_2           
+  1d4:     3  JMPCN           02 05
+  1d7:    34  LD_CONST_4      00 00  00 00
+  1dc:    60  ST_FAR_4        00 50  00 20
+  1e1:    34  LD_CONST_4      00 00  20 27
+  1e6:    60  ST_FAR_4        00 50  00 1C
+  1eb:    31  LD_CONST_FALSE 
+  1ec:    57  ST_FAR_BIT      00 50  00 18
+  1f1:    97  LD_REFERENCE    00 68
+  1f4:    98  ST_REFERENCE    00 50  00 14
+  1f9:     4  CAL             00 50
+  1fc:    33  LD_CONST_2      00 08
+  1ff:    64  ST_BYREF_2      00 6C
+  202:     1  JMP             08 F6
+  205:    22  LD_BYREF_2      00 6C
+  208:   125  LDS_CONST_2     00 08
+  20b:   225  EQ_2           
+  20c:     3  JMPCN           02 7C
+  20f:    34  LD_CONST_4      00 00  00 00
+  214:    60  ST_FAR_4        00 50  00 20
+  219:    34  LD_CONST_4      00 00  20 27
+  21e:    60  ST_FAR_4        00 50  00 1C
+  223:    30  LD_CONST_TRUE  
+  224:    57  ST_FAR_BIT      00 50  00 18
+  229:    97  LD_REFERENCE    00 68
+  22c:    98  ST_REFERENCE    00 50  00 14
+  231:     4  CAL             00 50
+  234:    15  LD_FAR_BIT      00 50  00 09
+  239:     3  JMPCN           02 45
+  23c:    33  LD_CONST_2      00 00
+  23f:    64  ST_BYREF_2      00 6C
+  242:     1  JMP             02 79
+  245:    15  LD_FAR_BIT      00 50  00 08
+  24a:     3  JMPCN           02 79
+  24d:    18  LD_FAR_4        00 50  00 10
+  252:    55  ST_NEAR_4       00 AC
+  255:    13  LD_NEAR_4       00 AC
+  258:   126  LDS_CONST_4     7F FF  FF FF
+  25d:   196  GT_4           
+  25e:     3  JMPCN           02 70
+  261:    13  LD_NEAR_4       00 AC
+  264:   126  LDS_CONST_4     00 00  4E 20
+  269:   167  ADD_4          
+  26a:    55  ST_NEAR_4       00 AC
+  26d:     1  JMP             02 70
+  270:    33  LD_CONST_2      00 0B
+  273:    64  ST_BYREF_2      00 6C
+  276:     1  JMP             02 79
+  279:     1  JMP             08 F6
+  27c:    22  LD_BYREF_2      00 6C
+  27f:   125  LDS_CONST_2     00 0B
+  282:   225  EQ_2           
+  283:     3  JMPCN           02 B7
+  286:    13  LD_NEAR_4       00 AC
+  289:    60  ST_FAR_4        00 58  00 1C
+  28e:    32  LD_CONST_1      00
+  290:    58  ST_FAR_1        00 58  00 18
+  295:    33  LD_CONST_2      20 30
+  298:    59  ST_FAR_2        00 58  00 16
+  29d:    31  LD_CONST_FALSE 
+  29e:    57  ST_FAR_BIT      00 58  00 14
+  2a3:    97  LD_REFERENCE    00 64
+  2a6:    98  ST_REFERENCE    00 58  00 10
+  2ab:     4  CAL             00 58
+  2ae:    33  LD_CONST_2      00 0C
+  2b1:    64  ST_BYREF_2      00 6C
+  2b4:     1  JMP             08 F6
+  2b7:    22  LD_BYREF_2      00 6C
+  2ba:   125  LDS_CONST_2     00 0C
+  2bd:   225  EQ_2           
+  2be:     3  JMPCN           03 0E
+  2c1:    13  LD_NEAR_4       00 AC
+  2c4:    60  ST_FAR_4        00 58  00 1C
+  2c9:    32  LD_CONST_1      00
+  2cb:    58  ST_FAR_1        00 58  00 18
+  2d0:    33  LD_CONST_2      20 30
+  2d3:    59  ST_FAR_2        00 58  00 16
+  2d8:    30  LD_CONST_TRUE  
+  2d9:    57  ST_FAR_BIT      00 58  00 14
+  2de:    97  LD_REFERENCE    00 64
+  2e1:    98  ST_REFERENCE    00 58  00 10
+  2e6:     4  CAL             00 58
+  2e9:    15  LD_FAR_BIT      00 58  00 09
+  2ee:     3  JMPCN           02 FA
+  2f1:    33  LD_CONST_2      00 00
+  2f4:    64  ST_BYREF_2      00 6C
+  2f7:     1  JMP             03 0B
+  2fa:    15  LD_FAR_BIT      00 58  00 08
+  2ff:     3  JMPCN           03 0B
+  302:    33  LD_CONST_2      00 03
+  305:    64  ST_BYREF_2      00 6C
+  308:     1  JMP             03 0B
+  30b:     1  JMP             08 F6
+  30e:    22  LD_BYREF_2      00 6C
+  311:   125  LDS_CONST_2     00 03
+  314:   225  EQ_2           
+  315:     3  JMPCN           03 32
+  318:    31  LD_CONST_FALSE 
+  319:    57  ST_FAR_BIT      00 38  00 18
+  31e:    97  LD_REFERENCE    00 64
+  321:    98  ST_REFERENCE    00 38  00 14
+  326:     4  CAL             00 38
+  329:    33  LD_CONST_2      00 04
+  32c:    64  ST_BYREF_2      00 6C
+  32f:     1  JMP             08 F6
+  332:    22  LD_BYREF_2      00 6C
+  335:   125  LDS_CONST_2     00 04
+  338:   225  EQ_2           
+  339:     3  JMPCN           03 FD
+  33c:    30  LD_CONST_TRUE  
+  33d:    57  ST_FAR_BIT      00 38  00 18
+  342:    97  LD_REFERENCE    00 64
+  345:    98  ST_REFERENCE    00 38  00 14
+  34a:     4  CAL             00 38
+  34d:    15  LD_FAR_BIT      00 38  00 0A
+  352:     3  JMPCN           03 5E
+  355:    33  LD_CONST_2      00 00
+  358:    64  ST_BYREF_2      00 6C
+  35b:     1  JMP             03 FA
+  35e:    15  LD_FAR_BIT      00 38  00 08
+  363:   107  LDS_FAR_BIT     00 38  00 09
+  368:   151  AND_BIT        
+  369:     3  JMPCN           03 E9
+  36c:    18  LD_FAR_4        00 38  00 10
+  371:    55  ST_NEAR_4       00 70
+  374:    13  LD_NEAR_4       00 70
+  377:   126  LDS_CONST_4     00 01  00 00
+  37c:    43  MOD_4          
+  37e:    55  ST_NEAR_4       00 74
+  381:    13  LD_NEAR_4       00 74
+  384:   126  LDS_CONST_4     00 00  40 00
+  389:   188  DIV_4          
+  38a:   126  LDS_CONST_4     00 00  00 02
+  38f:    43  MOD_4          
+  391:    55  ST_NEAR_4       00 7C
+  394:    13  LD_NEAR_4       00 74
+  397:   126  LDS_CONST_4     00 00  40 00
+  39c:    43  MOD_4          
+  39e:    55  ST_NEAR_4       00 80
+  3a1:    13  LD_NEAR_4       00 70
+  3a4:   126  LDS_CONST_4     00 01  00 00
+  3a9:   188  DIV_4          
+  3aa:    55  ST_NEAR_4       00 78
+  3ad:    13  LD_NEAR_4       00 78
+  3b0:   126  LDS_CONST_4     00 00  40 00
+  3b5:   188  DIV_4          
+  3b6:   126  LDS_CONST_4     00 00  00 02
+  3bb:    43  MOD_4          
+  3bd:    55  ST_NEAR_4       00 88
+  3c0:    13  LD_NEAR_4       00 78
+  3c3:   126  LDS_CONST_4     00 00  40 00
+  3c8:    43  MOD_4          
+  3ca:    55  ST_NEAR_4       00 8C
+  3cd:    33  LD_CONST_2      00 0F
+  3d0:    64  ST_BYREF_2      00 6C
+  3d3:    34  LD_CONST_4      00 00  0B B8
+  3d8:    60  ST_FAR_4        00 48  00 14
+  3dd:    31  LD_CONST_FALSE 
+  3de:    57  ST_FAR_BIT      00 48  00 10
+  3e3:     4  CAL             00 48
+  3e6:     1  JMP             03 FA
+  3e9:    15  LD_FAR_BIT      00 38  00 08
+  3ee:     3  JMPCN           03 FA
+  3f1:    33  LD_CONST_2      00 0D
+  3f4:    64  ST_BYREF_2      00 6C
+  3f7:     1  JMP             03 FA
+  3fa:     1  JMP             08 F6
+  3fd:    22  LD_BYREF_2      00 6C
+  400:   125  LDS_CONST_2     00 0D
+  403:   225  EQ_2           
+  404:     3  JMPCN           04 34
+  407:    34  LD_CONST_4      00 00  0B B8
+  40c:    60  ST_FAR_4        00 48  00 14
+  411:    30  LD_CONST_TRUE  
+  412:    57  ST_FAR_BIT      00 48  00 10
+  417:     4  CAL             00 48
+  41a:    15  LD_FAR_BIT      00 48  00 08
+  41f:     3  JMPCN           04 2B
+  422:    33  LD_CONST_2      00 10
+  425:    64  ST_BYREF_2      00 6C
+  428:     1  JMP             04 31
+  42b:    33  LD_CONST_2      00 05
+  42e:    64  ST_BYREF_2      00 6C
+  431:     1  JMP             08 F6
+  434:    22  LD_BYREF_2      00 6C
+  437:   125  LDS_CONST_2     00 0F
+  43a:   225  EQ_2           
+  43b:     3  JMPCN           05 24
+  43e:    13  LD_NEAR_4       00 70
+  441:    60  ST_FAR_4        00 3C  00 18
+  446:    10  LD_NEAR_BIT     00 A2
+  449:    57  ST_FAR_BIT      00 3C  00 14
+  44e:    97  LD_REFERENCE    00 64
+  451:    98  ST_REFERENCE    00 3C  00 10
+  456:     4  CAL             00 3C
+  459:    30  LD_CONST_TRUE  
+  45a:    52  ST_NEAR_BIT     00 A2
+  45d:    15  LD_FAR_BIT      00 3C  00 08
+  462:   144  PUSH_AE        
+  463:    15  LD_FAR_BIT      00 3C  00 09
+  468:     1  NOT_BIT        
+  46a:   145  POP_AE         
+  46b:   151  AND_BIT        
+  46c:     3  JMPCN           05 21
+  46f:    31  LD_CONST_FALSE 
+  470:    52  ST_NEAR_BIT     00 A2
+  473:    33  LD_CONST_2      00 00
+  476:    59  ST_FAR_2        00 28  00 24
+  47b:    34  LD_CONST_4      00 00  00 64
+  480:    60  ST_FAR_4        00 28  00 20
+  485:    34  LD_CONST_4      00 00  00 64
+  48a:    60  ST_FAR_4        00 28  00 1C
+  48f:    34  LD_CONST_4      00 00  03 E8
+  494:    60  ST_FAR_4        00 28  00 18
+  499:    31  LD_CONST_FALSE 
+  49a:    57  ST_FAR_BIT      00 28  00 14
+  49f:    97  LD_REFERENCE    00 64
+  4a2:    98  ST_REFERENCE    00 28  00 10
+  4a7:     4  CAL             00 28
+  4aa:    33  LD_CONST_2      00 00
+  4ad:    59  ST_FAR_2        00 30  00 24
+  4b2:    34  LD_CONST_4      00 00  00 64
+  4b7:    60  ST_FAR_4        00 30  00 20
+  4bc:    34  LD_CONST_4      00 00  00 64
+  4c1:    60  ST_FAR_4        00 30  00 1C
+  4c6:    34  LD_CONST_4      00 00  03 E8
+  4cb:    60  ST_FAR_4        00 30  00 18
+  4d0:    31  LD_CONST_FALSE 
+  4d1:    57  ST_FAR_BIT      00 30  00 14
+  4d6:    97  LD_REFERENCE    00 68
+  4d9:    98  ST_REFERENCE    00 30  00 10
+  4de:     4  CAL             00 30
+  4e1:    31  LD_CONST_FALSE 
+  4e2:    57  ST_FAR_BIT      00 2C  00 14
+  4e7:    97  LD_REFERENCE    00 64
+  4ea:    98  ST_REFERENCE    00 2C  00 10
+  4ef:     4  CAL             00 2C
+  4f2:    31  LD_CONST_FALSE 
+  4f3:    57  ST_FAR_BIT      00 34  00 14
+  4f8:    97  LD_REFERENCE    00 68
+  4fb:    98  ST_REFERENCE    00 34  00 10
+  500:     4  CAL             00 34
+  503:    31  LD_CONST_FALSE 
+  504:    57  ST_FAR_BIT      00 3C  00 14
+  509:    97  LD_REFERENCE    00 64
+  50c:    98  ST_REFERENCE    00 3C  00 10
+  511:     4  CAL             00 3C
+  514:    31  LD_CONST_FALSE 
+  515:    52  ST_NEAR_BIT     00 A5
+  518:    33  LD_CONST_2      00 0E
+  51b:    64  ST_BYREF_2      00 6C
+  51e:     1  JMP             05 21
+  521:     1  JMP             08 F6
+  524:    22  LD_BYREF_2      00 6C
+  527:   125  LDS_CONST_2     00 10
+  52a:   225  EQ_2           
+  52b:     3  JMPCN           05 6D
+  52e:    34  LD_CONST_4      00 00  27 10
+  533:    60  ST_FAR_4        00 2C  00 18
+  538:    31  LD_CONST_FALSE 
+  539:    57  ST_FAR_BIT      00 2C  00 14
+  53e:    97  LD_REFERENCE    00 64
+  541:    98  ST_REFERENCE    00 2C  00 10
+  546:     4  CAL             00 2C
+  549:    34  LD_CONST_4      00 00  27 10
+  54e:    60  ST_FAR_4        00 34  00 18
+  553:    31  LD_CONST_FALSE 
+  554:    57  ST_FAR_BIT      00 34  00 14
+  559:    97  LD_REFERENCE    00 68
+  55c:    98  ST_REFERENCE    00 34  00 10
+  561:     4  CAL             00 34
+  564:    33  LD_CONST_2      00 11
+  567:    64  ST_BYREF_2      00 6C
+  56a:     1  JMP             08 F6
+  56d:    22  LD_BYREF_2      00 6C
+  570:   125  LDS_CONST_2     00 11
+  573:   225  EQ_2           
+  574:     3  JMPCN           06 51
+  577:    30  LD_CONST_TRUE  
+  578:    57  ST_FAR_BIT      00 18  00 1C
+  57d:    97  LD_REFERENCE    00 64
+  580:    98  ST_REFERENCE    00 18  00 18
+  585:     4  CAL             00 18
+  588:    30  LD_CONST_TRUE  
+  589:    57  ST_FAR_BIT      00 1C  00 1C
+  58e:    97  LD_REFERENCE    00 68
+  591:    98  ST_REFERENCE    00 1C  00 18
+  596:     4  CAL             00 1C
+  599:    15  LD_FAR_BIT      00 18  00 09
+  59e:   107  LDS_FAR_BIT     00 1C  00 09
+  5a3:   155  OR_BIT         
+  5a4:     3  JMPCN           05 B0
+  5a7:    33  LD_CONST_2      00 12
+  5aa:    64  ST_BYREF_2      00 6C
+  5ad:     1  JMP             06 4E
+  5b0:    15  LD_FAR_BIT      00 18  00 08
+  5b5:   107  LDS_FAR_BIT     00 1C  00 08
+  5ba:   151  AND_BIT        
+  5bb:     3  JMPCN           06 4E
+  5be:    15  LD_FAR_BIT      00 2C  00 09
+  5c3:     3  JMPCN           05 CF
+  5c6:    33  LD_CONST_2      00 12
+  5c9:    64  ST_BYREF_2      00 6C
+  5cc:     1  JMP             05 F7
+  5cf:    15  LD_FAR_BIT      00 18  00 13
+  5d4:     1  NOT_BIT        
+  5d6:     3  JMPCN           05 F7
+  5d9:    34  LD_CONST_4      00 00  27 10
+  5de:    60  ST_FAR_4        00 2C  00 18
+  5e3:    30  LD_CONST_TRUE  
+  5e4:    57  ST_FAR_BIT      00 2C  00 14
+  5e9:    97  LD_REFERENCE    00 64
+  5ec:    98  ST_REFERENCE    00 2C  00 10
+  5f1:     4  CAL             00 2C
+  5f4:     1  JMP             05 F7
+  5f7:    15  LD_FAR_BIT      00 34  00 09
+  5fc:     3  JMPCN           06 08
+  5ff:    33  LD_CONST_2      00 12
+  602:    64  ST_BYREF_2      00 6C
+  605:     1  JMP             06 30
+  608:    15  LD_FAR_BIT      00 1C  00 13
+  60d:     1  NOT_BIT        
+  60f:     3  JMPCN           06 30
+  612:    34  LD_CONST_4      00 00  27 10
+  617:    60  ST_FAR_4        00 34  00 18
+  61c:    30  LD_CONST_TRUE  
+  61d:    57  ST_FAR_BIT      00 34  00 14
+  622:    97  LD_REFERENCE    00 68
+  625:    98  ST_REFERENCE    00 34  00 10
+  62a:     4  CAL             00 34
+  62d:     1  JMP             06 30
+  630:    15  LD_FAR_BIT      00 18  00 13
+  635:   107  LDS_FAR_BIT     00 1C  00 13
+  63a:   151  AND_BIT        
+  63b:     3  JMPCN           06 4B
+  63e:    31  LD_CONST_FALSE 
+  63f:    52  ST_NEAR_BIT     00 A5
+  642:    33  LD_CONST_2      00 02
+  645:    64  ST_BYREF_2      00 6C
+  648:     1  JMP             06 4B
+  64b:     1  JMP             06 4E
+  64e:     1  JMP             08 F6
+  651:    22  LD_BYREF_2      00 6C
+  654:   125  LDS_CONST_2     00 0E
+  657:   225  EQ_2           
+  658:     3  JMPCN           08 B3
+  65b:    13  LD_NEAR_4       00 80
+  65e:   105  LDS_NEAR_4      00 90
+  661:   196  GT_4           
+  662:     3  JMPCN           06 6E
+  665:    13  LD_NEAR_4       00 90
+  668:    55  ST_NEAR_4       00 80
+  66b:     1  JMP             06 6E
+  66e:    13  LD_NEAR_4       00 8C
+  671:   105  LDS_NEAR_4      00 90
+  674:   196  GT_4           
+  675:     3  JMPCN           06 81
+  678:    13  LD_NEAR_4       00 90
+  67b:    55  ST_NEAR_4       00 8C
+  67e:     1  JMP             06 81
+  681:    13  LD_NEAR_4       00 80
+  684:   126  LDS_CONST_4     00 00  00 00
+  689:   226  EQ_4           
+  68a:     3  JMPCN           06 AD
+  68d:    34  LD_CONST_4      00 00  27 10
+  692:    60  ST_FAR_4        00 2C  00 18
+  697:    10  LD_NEAR_BIT     00 A5
+  69a:    57  ST_FAR_BIT      00 2C  00 14
+  69f:    97  LD_REFERENCE    00 64
+  6a2:    98  ST_REFERENCE    00 2C  00 10
+  6a7:     4  CAL             00 2C
+  6aa:     1  JMP             07 2A
+  6ad:    13  LD_NEAR_4       00 7C
+  6b0:   126  LDS_CONST_4     00 00  00 01
+  6b5:   226  EQ_4           
+  6b6:     3  JMPCN           06 F3
+  6b9:    33  LD_CONST_2      00 02
+  6bc:    59  ST_FAR_2        00 28  00 24
+  6c1:    34  LD_CONST_4      00 00  27 10
+  6c6:    60  ST_FAR_4        00 28  00 20
+  6cb:    34  LD_CONST_4      00 00  27 10
+  6d0:    60  ST_FAR_4        00 28  00 1C
+  6d5:    13  LD_NEAR_4       00 80
+  6d8:    60  ST_FAR_4        00 28  00 18
+  6dd:    10  LD_NEAR_BIT     00 A5
+  6e0:    57  ST_FAR_BIT      00 28  00 14
+  6e5:    97  LD_REFERENCE    00 64
+  6e8:    98  ST_REFERENCE    00 28  00 10
+  6ed:     4  CAL             00 28
+  6f0:     1  JMP             07 2A
+  6f3:    33  LD_CONST_2      00 00
+  6f6:    59  ST_FAR_2        00 28  00 24
+  6fb:    34  LD_CONST_4      00 00  27 10
+  700:    60  ST_FAR_4        00 28  00 20
+  705:    34  LD_CONST_4      00 00  27 10
+  70a:    60  ST_FAR_4        00 28  00 1C
+  70f:    13  LD_NEAR_4       00 80
+  712:    60  ST_FAR_4        00 28  00 18
+  717:    10  LD_NEAR_BIT     00 A5
+  71a:    57  ST_FAR_BIT      00 28  00 14
+  71f:    97  LD_REFERENCE    00 64
+  722:    98  ST_REFERENCE    00 28  00 10
+  727:     4  CAL             00 28
+  72a:    13  LD_NEAR_4       00 8C
+  72d:   126  LDS_CONST_4     00 00  00 00
+  732:   226  EQ_4           
+  733:     3  JMPCN           07 56
+  736:    34  LD_CONST_4      00 00  27 10
+  73b:    60  ST_FAR_4        00 34  00 18
+  740:    10  LD_NEAR_BIT     00 A5
+  743:    57  ST_FAR_BIT      00 34  00 14
+  748:    97  LD_REFERENCE    00 68
+  74b:    98  ST_REFERENCE    00 34  00 10
+  750:     4  CAL             00 34
+  753:     1  JMP             07 D3
+  756:    13  LD_NEAR_4       00 88
+  759:   126  LDS_CONST_4     00 00  00 01
+  75e:   226  EQ_4           
+  75f:     3  JMPCN           07 9C
+  762:    33  LD_CONST_2      00 02
+  765:    59  ST_FAR_2        00 30  00 24
+  76a:    34  LD_CONST_4      00 00  27 10
+  76f:    60  ST_FAR_4        00 30  00 20
+  774:    34  LD_CONST_4      00 00  27 10
+  779:    60  ST_FAR_4        00 30  00 1C
+  77e:    13  LD_NEAR_4       00 8C
+  781:    60  ST_FAR_4        00 30  00 18
+  786:    10  LD_NEAR_BIT     00 A5
+  789:    57  ST_FAR_BIT      00 30  00 14
+  78e:    97  LD_REFERENCE    00 68
+  791:    98  ST_REFERENCE    00 30  00 10
+  796:     4  CAL             00 30
+  799:     1  JMP             07 D3
+  79c:    33  LD_CONST_2      00 00
+  79f:    59  ST_FAR_2        00 30  00 24
+  7a4:    34  LD_CONST_4      00 00  27 10
+  7a9:    60  ST_FAR_4        00 30  00 20
+  7ae:    34  LD_CONST_4      00 00  27 10
+  7b3:    60  ST_FAR_4        00 30  00 1C
+  7b8:    13  LD_NEAR_4       00 8C
+  7bb:    60  ST_FAR_4        00 30  00 18
+  7c0:    10  LD_NEAR_BIT     00 A5
+  7c3:    57  ST_FAR_BIT      00 30  00 14
+  7c8:    97  LD_REFERENCE    00 68
+  7cb:    98  ST_REFERENCE    00 30  00 10
+  7d0:     4  CAL             00 30
+  7d3:    30  LD_CONST_TRUE  
+  7d4:    52  ST_NEAR_BIT     00 A5
+  7d7:    30  LD_CONST_TRUE  
+  7d8:    57  ST_FAR_BIT      00 18  00 1C
+  7dd:    97  LD_REFERENCE    00 64
+  7e0:    98  ST_REFERENCE    00 18  00 18
+  7e5:     4  CAL             00 18
+  7e8:    30  LD_CONST_TRUE  
+  7e9:    57  ST_FAR_BIT      00 1C  00 1C
+  7ee:    97  LD_REFERENCE    00 68
+  7f1:    98  ST_REFERENCE    00 1C  00 18
+  7f6:     4  CAL             00 1C
+  7f9:    30  LD_CONST_TRUE  
+  7fa:    57  ST_FAR_BIT      00 20  00 18
+  7ff:    97  LD_REFERENCE    00 64
+  802:    98  ST_REFERENCE    00 20  00 14
+  807:     4  CAL             00 20
+  80a:    30  LD_CONST_TRUE  
+  80b:    57  ST_FAR_BIT      00 24  00 18
+  810:    97  LD_REFERENCE    00 68
+  813:    98  ST_REFERENCE    00 24  00 14
+  818:     4  CAL             00 24
+  81b:    15  LD_FAR_BIT      00 28  00 0A
+  820:     3  JMPCN           08 2C
+  823:    33  LD_CONST_2      00 00
+  826:    64  ST_BYREF_2      00 6C
+  829:     1  JMP             08 B0
+  82c:    15  LD_FAR_BIT      00 2C  00 09
+  831:     3  JMPCN           08 3D
+  834:    33  LD_CONST_2      00 00
+  837:    64  ST_BYREF_2      00 6C
+  83a:     1  JMP             08 B0
+  83d:    15  LD_FAR_BIT      00 30  00 0A
+  842:     3  JMPCN           08 4E
+  845:    33  LD_CONST_2      00 00
+  848:    64  ST_BYREF_2      00 6C
+  84b:     1  JMP             08 B0
+  84e:    15  LD_FAR_BIT      00 34  00 09
+  853:     3  JMPCN           08 5F
+  856:    33  LD_CONST_2      00 00
+  859:    64  ST_BYREF_2      00 6C
+  85c:     1  JMP             08 B0
+  85f:    15  LD_FAR_BIT      00 28  00 08
+  864:   107  LDS_FAR_BIT     00 2C  00 08
+  869:   155  OR_BIT         
+  86a:   144  PUSH_AE        
+  86b:    15  LD_FAR_BIT      00 30  00 08
+  870:   107  LDS_FAR_BIT     00 34  00 08
+  875:   155  OR_BIT         
+  876:   145  POP_AE         
+  877:   151  AND_BIT        
+  878:   107  LDS_FAR_BIT     00 18  00 08
+  87d:   151  AND_BIT        
+  87e:   144  PUSH_AE        
+  87f:    15  LD_FAR_BIT      00 18  00 15
+  884:   107  LDS_FAR_BIT     00 18  00 13
+  889:   155  OR_BIT         
+  88a:   145  POP_AE         
+  88b:   151  AND_BIT        
+  88c:   107  LDS_FAR_BIT     00 1C  00 08
+  891:   151  AND_BIT        
+  892:   144  PUSH_AE        
+  893:    15  LD_FAR_BIT      00 1C  00 15
+  898:   107  LDS_FAR_BIT     00 1C  00 13
+  89d:   155  OR_BIT         
+  89e:   145  POP_AE         
+  89f:   151  AND_BIT        
+  8a0:     3  JMPCN           08 B0
+  8a3:    31  LD_CONST_FALSE 
+  8a4:    52  ST_NEAR_BIT     00 A5
+  8a7:    33  LD_CONST_2      00 05
+  8aa:    64  ST_BYREF_2      00 6C
+  8ad:     1  JMP             08 B0
+  8b0:     1  JMP             08 F6
+  8b3:    22  LD_BYREF_2      00 6C
+  8b6:   125  LDS_CONST_2     00 12
+  8b9:   225  EQ_2           
+  8ba:     3  JMPCN           08 CF
+  8bd:    31  LD_CONST_FALSE 
+  8be:    57  ST_FAR_BIT      00 60  00 10
+  8c3:     4  CAL             00 60
+  8c6:    33  LD_CONST_2      00 13
+  8c9:    64  ST_BYREF_2      00 6C
+  8cc:     1  JMP             08 F6
+  8cf:    22  LD_BYREF_2      00 6C
+  8d2:   125  LDS_CONST_2     00 13
+  8d5:   225  EQ_2           
+  8d6:     3  JMPCN           08 F6
+  8d9:    30  LD_CONST_TRUE  
+  8da:    57  ST_FAR_BIT      00 60  00 10
+  8df:     4  CAL             00 60
+  8e2:    15  LD_FAR_BIT      00 60  00 08
+  8e7:     3  JMPCN           08 F3
+  8ea:    33  LD_CONST_2      00 00
+  8ed:    64  ST_BYREF_2      00 6C
+  8f0:     1  JMP             08 F3
+  8f3:     1  JMP             08 F6
+  8f6:     7  RET            
+
+Nr 15: Initialsegment
+54 00 02 10 0E 00 00 00 00 00 68 00 44 00 00 00 
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+7C 15 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+00 00 00 00 
+
+Nr 16: Datasegment
+38 00 01 08 11 00 CD CD 00 00 00 00 00 00 00 00 
+CD CD CD CD 00 00 00 00 00 00 00 00 00 00 00 00 
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+00 00 00 00 00 00 00 00 
+
+Nr 17: Codesegment
+07 00 00 06 12 00 07 
+
+    IntelFormat
+      Die Parameterwerte der Funktionen
+      werden im Motorola-Format angezeigt.
+    ByteSize = 1.
+
+    6:     7  RET            
+
+Nr 18: Initialsegment
+40 00 02 10 11 00 14 00 00 00 00 00 1C 00 00 00 
+00 00 00 00 00 00 00 00 CD CD CD CD 00 00 00 00 
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+
+Nr 19: Datasegment
+38 00 01 08 11 00 CD CD 00 00 00 00 00 00 00 00 
+CD CD CD CD 00 00 00 00 00 00 00 00 00 00 00 00 
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+00 00 00 00 00 00 00 00 
+
+Nr 20: Datasegment
+38 00 01 08 15 00 CD CD 00 00 00 00 00 00 00 00 
+CD CD CD CD 00 00 00 00 00 00 00 00 00 00 00 00 
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+00 00 00 00 00 00 00 00 
+
+Nr 21: Codesegment
+07 00 00 06 16 00 07 
+
+    IntelFormat
+      Die Parameterwerte der Funktionen
+      werden im Motorola-Format angezeigt.
+    ByteSize = 1.
+
+    6:     7  RET            
+
+Nr 22: Initialsegment
+40 00 02 10 15 00 10 00 00 00 00 00 20 00 00 00 
+00 00 00 00 00 00 00 00 CD CD CD CD 00 00 00 00 
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+
+Nr 23: Datasegment
+38 00 01 08 15 00 CD CD 00 00 00 00 00 00 00 00 
+CD CD CD CD 00 00 00 00 00 00 00 00 00 00 00 00 
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+00 00 00 00 00 00 00 00 
+
+Nr 24: Datasegment
+24 00 01 08 19 00 CD CD 00 00 00 00 00 00 00 00 
+00 00 00 00 00 00 00 00 CD CD CD CD 00 00 00 00 
+00 00 00 00 
+
+Nr 25: Codesegment
+07 00 00 06 1A 00 07 
+
+    IntelFormat
+      Die Parameterwerte der Funktionen
+      werden im Motorola-Format angezeigt.
+    ByteSize = 1.
+
+    6:     7  RET            
+
+Nr 26: Initialsegment
+2C 00 02 10 19 00 18 00 00 00 00 00 04 00 00 00 
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+CD CD CD CD 00 00 00 00 00 00 00 00 
+
+Nr 27: Datasegment
+24 00 01 08 19 00 CD CD 00 00 00 00 00 00 00 00 
+00 00 00 00 00 00 00 00 CD CD CD CD 00 00 00 00 
+00 00 00 00 
+
+Nr 28: Datasegment
+3C 00 01 08 1D 00 CD CD 00 00 00 00 00 00 00 00 
+00 00 00 00 CD CD CD CD 00 00 00 00 00 00 00 00 
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+00 00 00 00 00 00 00 00 00 00 00 00 
+
+Nr 29: Codesegment
+07 00 00 06 1E 00 07 
+
+    IntelFormat
+      Die Parameterwerte der Funktionen
+      werden im Motorola-Format angezeigt.
+    ByteSize = 1.
+
+    6:     7  RET            
+
+Nr 30: Initialsegment
+44 00 02 10 1D 00 14 00 00 00 00 00 20 00 00 00 
+00 00 00 00 00 00 00 00 00 00 00 00 CD CD CD CD 
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+00 00 00 00 
+
+Nr 31: Datasegment
+3C 00 01 08 1D 00 CD CD 00 00 00 00 00 00 00 00 
+00 00 00 00 CD CD CD CD 00 00 00 00 00 00 00 00 
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+00 00 00 00 00 00 00 00 00 00 00 00 
+
+Nr 32: Datasegment
+48 00 01 08 21 00 CD CD 00 00 00 00 00 00 00 00 
+CD CD CD CD 00 00 00 00 00 00 00 00 00 00 00 00 
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+00 00 00 00 00 00 00 00 
+
+Nr 33: Codesegment
+07 00 00 06 22 00 07 
+
+    IntelFormat
+      Die Parameterwerte der Funktionen
+      werden im Motorola-Format angezeigt.
+    ByteSize = 1.
+
+    6:     7  RET            
+
+Nr 34: Initialsegment
+50 00 02 10 21 00 20 00 00 00 00 00 20 00 00 00 
+00 00 00 00 00 00 00 00 CD CD CD CD 00 00 00 00 
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+
+Nr 35: Datasegment
+3C 00 01 08 24 00 CD CD 00 00 00 00 00 00 00 00 
+CD CD CD CD 00 00 00 00 00 00 00 00 00 00 00 00 
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+00 00 00 00 00 00 00 00 00 00 00 00 
+
+Nr 36: Codesegment
+07 00 00 06 25 00 07 
+
+    IntelFormat
+      Die Parameterwerte der Funktionen
+      werden im Motorola-Format angezeigt.
+    ByteSize = 1.
+
+    6:     7  RET            
+
+Nr 37: Initialsegment
+44 00 02 10 24 00 14 00 00 00 00 00 20 00 00 00 
+00 00 00 00 00 00 00 00 CD CD CD CD 00 00 00 00 
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+00 00 00 00 
+
+Nr 38: Datasegment
+48 00 01 08 21 00 CD CD 00 00 00 00 00 00 00 00 
+CD CD CD CD 00 00 00 00 00 00 00 00 00 00 00 00 
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+00 00 00 00 00 00 00 00 
+
+Nr 39: Datasegment
+3C 00 01 08 24 00 CD CD 00 00 00 00 00 00 00 00 
+CD CD CD CD 00 00 00 00 00 00 00 00 00 00 00 00 
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+00 00 00 00 00 00 00 00 00 00 00 00 
+
+Nr 40: Datasegment
+20 00 01 08 29 00 00 00 00 00 00 00 00 00 00 00 
+00 00 00 00 CD CD CD CD 00 00 00 00 2B 00 00 00 
+
+Nr 41: Codesegment
+A3 00 00 06 2A 00 22 01 00 00 00 3C 1C 00 20 00 
+22 0C 20 00 00 3C 1C 00 1C 00 0A 18 00 39 1C 00 
+18 00 61 14 00 62 1C 00 14 00 04 1C 00 0F 1C 00 
+08 00 90 0F 1C 00 09 00 FC 01 91 97 03 5B 00 12 
+1C 00 10 00 7E 00 00 00 08 CC 03 58 00 12 1C 00 
+10 00 37 10 00 01 58 00 01 5B 00 0F 1C 00 09 00 
+03 7A 00 1F 34 08 00 1F 34 09 00 1E 34 0A 00 12 
+1C 00 0C 00 37 0C 00 01 A2 00 0F 1C 00 08 00 34 
+08 00 0A 08 00 90 12 1C 00 10 00 7E 00 00 00 80 
+CC 91 97 34 09 00 1F 34 0A 00 22 00 00 00 00 37 
+0C 00 07 
+
+    IntelFormat
+      Die Parameterwerte der Funktionen
+      werden im Motorola-Format angezeigt.
+    ByteSize = 1.
+
+    6:    34  LD_CONST_4      00 00  00 01
+    b:    60  ST_FAR_4        00 1C  00 20
+   10:    34  LD_CONST_4      00 00  20 0C
+   15:    60  ST_FAR_4        00 1C  00 1C
+   1a:    10  LD_NEAR_BIT     00 18
+   1d:    57  ST_FAR_BIT      00 1C  00 18
+   22:    97  LD_REFERENCE    00 14
+   25:    98  ST_REFERENCE    00 1C  00 14
+   2a:     4  CAL             00 1C
+   2d:    15  LD_FAR_BIT      00 1C  00 08
+   32:   144  PUSH_AE        
+   33:    15  LD_FAR_BIT      00 1C  00 09
+   38:     1  NOT_BIT        
+   3a:   145  POP_AE         
+   3b:   151  AND_BIT        
+   3c:     3  JMPCN           00 5B
+   3f:    18  LD_FAR_4        00 1C  00 10
+   44:   126  LDS_CONST_4     08 00  00 00
+   49:   204  GE_4           
+   4a:     3  JMPCN           00 58
+   4d:    18  LD_FAR_4        00 1C  00 10
+   52:    55  ST_NEAR_4       00 10
+   55:     1  JMP             00 58
+   58:     1  JMP             00 5B
+   5b:    15  LD_FAR_BIT      00 1C  00 09
+   60:     3  JMPCN           00 7A
+   63:    31  LD_CONST_FALSE 
+   64:    52  ST_NEAR_BIT     00 08
+   67:    31  LD_CONST_FALSE 
+   68:    52  ST_NEAR_BIT     00 09
+   6b:    30  LD_CONST_TRUE  
+   6c:    52  ST_NEAR_BIT     00 0A
+   6f:    18  LD_FAR_4        00 1C  00 0C
+   74:    55  ST_NEAR_4       00 0C
+   77:     1  JMP             00 A2
+   7a:    15  LD_FAR_BIT      00 1C  00 08
+   7f:    52  ST_NEAR_BIT     00 08
+   82:    10  LD_NEAR_BIT     00 08
+   85:   144  PUSH_AE        
+   86:    18  LD_FAR_4        00 1C  00 10
+   8b:   126  LDS_CONST_4     80 00  00 00
+   90:   204  GE_4           
+   91:   145  POP_AE         
+   92:   151  AND_BIT        
+   93:    52  ST_NEAR_BIT     00 09
+   96:    31  LD_CONST_FALSE 
+   97:    52  ST_NEAR_BIT     00 0A
+   9a:    34  LD_CONST_4      00 00  00 00
+   9f:    55  ST_NEAR_4       00 0C
+   a2:     7  RET            
+
+Nr 42: Initialsegment
+24 00 02 10 29 00 14 00 00 00 04 00 00 00 00 00 
+00 00 00 00 00 00 00 00 00 00 00 00 CD CD CD CD 
+00 00 00 00 
+
+Nr 43: Datasegment
+2C 00 01 08 2C 00 00 00 00 00 00 00 00 00 00 00 
+00 00 00 00 CD CD CD CD 00 00 00 00 00 00 00 00 
+00 00 00 00 2E 00 0A 80 00 00 00 00 
+
+Nr 44: Codesegment
+60 00 00 06 2D 00 0D 1C 00 7E 00 00 01 00 B5 37 
+28 00 0D 28 00 90 0D 20 00 7E 00 01 00 00 B5 91 
+A7 37 28 00 0D 28 00 3C 24 00 1C 00 0A 18 00 39 
+24 00 18 00 61 14 00 62 24 00 14 00 04 24 00 0F 
+24 00 08 00 34 08 00 0F 24 00 09 00 34 09 00 12 
+24 00 0C 00 37 0C 00 12 24 00 10 00 37 10 00 07 
+
+    IntelFormat
+      Die Parameterwerte der Funktionen
+      werden im Motorola-Format angezeigt.
+    ByteSize = 1.
+
+    6:    13  LD_NEAR_4       00 1C
+    9:   126  LDS_CONST_4     00 01  00 00
+    e:   181  MUL_4          
+    f:    55  ST_NEAR_4       00 28
+   12:    13  LD_NEAR_4       00 28
+   15:   144  PUSH_AE        
+   16:    13  LD_NEAR_4       00 20
+   19:   126  LDS_CONST_4     00 00  01 00
+   1e:   181  MUL_4          
+   1f:   145  POP_AE         
+   20:   167  ADD_4          
+   21:    55  ST_NEAR_4       00 28
+   24:    13  LD_NEAR_4       00 28
+   27:    60  ST_FAR_4        00 24  00 1C
+   2c:    10  LD_NEAR_BIT     00 18
+   2f:    57  ST_FAR_BIT      00 24  00 18
+   34:    97  LD_REFERENCE    00 14
+   37:    98  ST_REFERENCE    00 24  00 14
+   3c:     4  CAL             00 24
+   3f:    15  LD_FAR_BIT      00 24  00 08
+   44:    52  ST_NEAR_BIT     00 08
+   47:    15  LD_FAR_BIT      00 24  00 09
+   4c:    52  ST_NEAR_BIT     00 09
+   4f:    18  LD_FAR_4        00 24  00 0C
+   54:    55  ST_NEAR_4       00 0C
+   57:    18  LD_FAR_4        00 24  00 10
+   5c:    55  ST_NEAR_4       00 10
+   5f:     7  RET            
+
+Nr 45: Initialsegment
+30 00 02 10 2C 00 1C 00 00 00 04 00 04 00 00 00 
+00 00 00 00 00 00 00 00 00 00 00 00 CD CD CD CD 
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+
+Nr 46: Datasegment
+40 00 01 08 2F 00 CD CD 00 00 00 00 00 00 00 00 
+00 00 00 00 CD CD CD CD 00 00 00 00 00 00 00 00 
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+
+Nr 47: Codesegment
+07 00 00 06 30 00 07 
+
+    IntelFormat
+      Die Parameterwerte der Funktionen
+      werden im Motorola-Format angezeigt.
+    ByteSize = 1.
+
+    6:     7  RET            
+
+Nr 48: Initialsegment
+48 00 02 10 2F 00 18 00 00 00 00 00 20 00 00 00 
+00 00 00 00 00 00 00 00 00 00 00 00 CD CD CD CD 
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+00 00 00 00 00 00 00 00 
+
+Nr 49: Datasegment
+24 00 01 08 32 00 00 00 00 00 00 00 00 00 00 00 
+CD CD CD CD 00 00 00 00 00 00 00 00 34 00 00 00 
+00 00 00 00 
+
+Nr 50: Codesegment
+6D 00 00 06 33 00 0D 18 00 7E 00 00 00 80 FC 2B 
+37 20 00 0D 20 00 3C 1C 00 1C 00 20 01 3A 1C 00 
+18 00 21 0C 20 3B 1C 00 16 00 0A 14 00 39 1C 00 
+14 00 61 10 00 62 1C 00 10 00 04 1C 00 0F 1C 00 
+09 00 03 58 00 1F 34 08 00 1E 34 09 00 12 1C 00 
+0C 00 37 0C 00 01 6C 00 0F 1C 00 08 00 34 08 00 
+1F 34 09 00 22 00 00 00 00 37 0C 00 07 
+
+    IntelFormat
+      Die Parameterwerte der Funktionen
+      werden im Motorola-Format angezeigt.
+    ByteSize = 1.
+
+    6:    13  LD_NEAR_4       00 18
+    9:   126  LDS_CONST_4     80 00  00 00
+    e:    43  MOD_4          
+   10:    55  ST_NEAR_4       00 20
+   13:    13  LD_NEAR_4       00 20
+   16:    60  ST_FAR_4        00 1C  00 1C
+   1b:    32  LD_CONST_1      01
+   1d:    58  ST_FAR_1        00 1C  00 18
+   22:    33  LD_CONST_2      20 0C
+   25:    59  ST_FAR_2        00 1C  00 16
+   2a:    10  LD_NEAR_BIT     00 14
+   2d:    57  ST_FAR_BIT      00 1C  00 14
+   32:    97  LD_REFERENCE    00 10
+   35:    98  ST_REFERENCE    00 1C  00 10
+   3a:     4  CAL             00 1C
+   3d:    15  LD_FAR_BIT      00 1C  00 09
+   42:     3  JMPCN           00 58
+   45:    31  LD_CONST_FALSE 
+   46:    52  ST_NEAR_BIT     00 08
+   49:    30  LD_CONST_TRUE  
+   4a:    52  ST_NEAR_BIT     00 09
+   4d:    18  LD_FAR_4        00 1C  00 0C
+   52:    55  ST_NEAR_4       00 0C
+   55:     1  JMP             00 6C
+   58:    15  LD_FAR_BIT      00 1C  00 08
+   5d:    52  ST_NEAR_BIT     00 08
+   60:    31  LD_CONST_FALSE 
+   61:    52  ST_NEAR_BIT     00 09
+   64:    34  LD_CONST_4      00 00  00 00
+   69:    55  ST_NEAR_4       00 0C
+   6c:     7  RET            
+
+Nr 51: Initialsegment
+28 00 02 10 32 00 14 00 00 00 04 00 04 00 00 00 
+00 00 00 00 00 00 00 00 CD CD CD CD 00 00 00 00 
+00 00 00 00 00 00 00 00 
+
+Nr 52: Datasegment
+28 00 01 08 35 00 00 00 00 00 00 00 00 00 00 00 
+CD CD CD CD 00 00 00 00 00 00 00 00 00 00 00 00 
+37 00 0C 80 00 00 00 00 
+
+Nr 53: Codesegment
+66 00 00 06 36 00 0C 16 00 E7 02 03 7E 00 00 01 
+00 B5 37 24 00 0D 24 00 90 0B 18 00 E7 01 03 7E 
+00 01 00 00 B5 91 A7 37 24 00 0D 1C 00 3C 20 00 
+1C 00 0D 24 00 3C 20 00 18 00 0A 14 00 39 20 00 
+14 00 61 10 00 62 20 00 10 00 04 20 00 0F 20 00 
+08 00 34 08 00 0F 20 00 09 00 34 09 00 12 20 00 
+0C 00 37 0C 00 07 
+
+    IntelFormat
+      Die Parameterwerte der Funktionen
+      werden im Motorola-Format angezeigt.
+    ByteSize = 1.
+
+    6:    12  LD_NEAR_2       00 16
+    9:   231  TYPECAST        03 02
+    c:   126  LDS_CONST_4     00 01  00 00
+   11:   181  MUL_4          
+   12:    55  ST_NEAR_4       00 24
+   15:    13  LD_NEAR_4       00 24
+   18:   144  PUSH_AE        
+   19:    11  LD_NEAR_1       00 18
+   1c:   231  TYPECAST        03 01
+   1f:   126  LDS_CONST_4     00 00  01 00
+   24:   181  MUL_4          
+   25:   145  POP_AE         
+   26:   167  ADD_4          
+   27:    55  ST_NEAR_4       00 24
+   2a:    13  LD_NEAR_4       00 1C
+   2d:    60  ST_FAR_4        00 20  00 1C
+   32:    13  LD_NEAR_4       00 24
+   35:    60  ST_FAR_4        00 20  00 18
+   3a:    10  LD_NEAR_BIT     00 14
+   3d:    57  ST_FAR_BIT      00 20  00 14
+   42:    97  LD_REFERENCE    00 10
+   45:    98  ST_REFERENCE    00 20  00 10
+   4a:     4  CAL             00 20
+   4d:    15  LD_FAR_BIT      00 20  00 08
+   52:    52  ST_NEAR_BIT     00 08
+   55:    15  LD_FAR_BIT      00 20  00 09
+   5a:    52  ST_NEAR_BIT     00 09
+   5d:    18  LD_FAR_4        00 20  00 0C
+   62:    55  ST_NEAR_4       00 0C
+   65:     7  RET            
+
+Nr 54: Initialsegment
+2C 00 02 10 35 00 18 00 00 00 04 00 04 00 00 00 
+00 00 00 00 00 00 00 00 CD CD CD CD 00 00 00 00 
+00 00 00 00 00 00 00 00 00 00 00 00 
+
+Nr 55: Datasegment
+40 00 01 08 38 00 CD CD 00 00 00 00 00 00 00 00 
+CD CD CD CD 00 00 00 00 00 00 00 00 00 00 00 00 
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+
+Nr 56: Codesegment
+07 00 00 06 39 00 07 
+
+    IntelFormat
+      Die Parameterwerte der Funktionen
+      werden im Motorola-Format angezeigt.
+    ByteSize = 1.
+
+    6:     7  RET            
+
+Nr 57: Initialsegment
+48 00 02 10 38 00 18 00 00 00 00 00 20 00 00 00 
+00 00 00 00 00 00 00 00 CD CD CD CD 00 00 00 00 
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+00 00 00 00 00 00 00 00 
+
+Nr 58: Datasegment
+2C 00 01 08 2C 00 00 00 00 00 00 00 00 00 00 00 
+00 00 00 00 CD CD CD CD 00 00 00 00 00 00 00 00 
+00 00 00 00 3B 00 0A 80 00 00 00 00 
+
+Nr 59: Datasegment
+40 00 01 08 2F 00 CD CD 00 00 00 00 00 00 00 00 
+00 00 00 00 CD CD CD CD 00 00 00 00 00 00 00 00 
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+
+Nr 60: Datasegment
+28 00 01 08 35 00 00 00 00 00 00 00 00 00 00 00 
+CD CD CD CD 00 00 00 00 00 00 00 00 00 00 00 00 
+3D 00 0C 80 00 00 00 00 
+
+Nr 61: Datasegment
+40 00 01 08 38 00 CD CD 00 00 00 00 00 00 00 00 
+CD CD CD CD 00 00 00 00 00 00 00 00 00 00 00 00 
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+
+Nr 62: Datasegment
+24 00 01 08 3F 00 CD CD 00 00 00 00 00 00 00 00 
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+00 00 00 00 
+
+Nr 63: Codesegment
+07 00 00 06 40 00 07 
+
+    IntelFormat
+      Die Parameterwerte der Funktionen
+      werden im Motorola-Format angezeigt.
+    ByteSize = 1.
+
+    6:     7  RET            
+
+Nr 64: Initialsegment
+2C 00 02 10 3F 00 10 00 00 00 00 00 0C 00 00 00 
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+00 00 00 00 00 00 00 00 00 00 00 00 
+
+Nr 65: Datasegment
+2C 00 01 08 2C 00 00 00 00 00 00 00 00 00 00 00 
+00 00 00 00 CD CD CD CD 00 00 00 00 00 00 00 00 
+00 00 00 00 42 00 0A 80 00 00 00 00 
+
+Nr 66: Datasegment
+40 00 01 08 2F 00 CD CD 00 00 00 00 00 00 00 00 
+00 00 00 00 CD CD CD CD 00 00 00 00 00 00 00 00 
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+
+Nr 67: Datasegment
+2C 00 01 08 2C 00 00 00 00 00 00 00 00 00 00 00 
+00 00 00 00 CD CD CD CD 00 00 00 00 00 00 00 00 
+00 00 00 00 44 00 0A 80 00 00 00 00 
+
+Nr 68: Datasegment
+40 00 01 08 2F 00 CD CD 00 00 00 00 00 00 00 00 
+00 00 00 00 CD CD CD CD 00 00 00 00 00 00 00 00 
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+
+Nr 69: Datasegment
+28 00 01 08 35 00 00 00 00 00 00 00 00 00 00 00 
+CD CD CD CD 00 00 00 00 00 00 00 00 00 00 00 00 
+46 00 0C 80 00 00 00 00 
+
+Nr 70: Datasegment
+40 00 01 08 38 00 CD CD 00 00 00 00 00 00 00 00 
+CD CD CD CD 00 00 00 00 00 00 00 00 00 00 00 00 
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+
+Nr 71: Datasegment
+28 00 01 08 35 00 00 00 00 00 00 00 00 00 00 00 
+CD CD CD CD 00 00 00 00 00 00 00 00 00 00 00 00 
+48 00 0C 80 00 00 00 00 
+
+Nr 72: Datasegment
+40 00 01 08 38 00 CD CD 00 00 00 00 00 00 00 00 
+CD CD CD CD 00 00 00 00 00 00 00 00 00 00 00 00 
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+
+Nr 73: Datasegment
+4C 00 01 08 4A 00 00 00 00 00 00 00 00 00 00 00 
+00 00 00 00 4C 00 07 80 4D 00 07 80 4E 00 06 80 
+4F 00 06 80 50 00 05 80 51 00 05 80 52 00 09 80 
+53 00 09 80 54 00 00 00 0A 00 08 00 0A 00 0C 00 
+00 00 00 00 00 00 00 00 00 00 00 00 
+
+Nr 74: Codesegment
+0B 05 00 06 4B 00 0A 10 00 7B DF 03 2F 00 21 00 
+00 36 48 00 1F 34 08 00 1F 34 09 00 22 00 00 00 
+00 37 0C 00 22 00 00 00 00 37 44 00 01 0A 05 0C 
+48 00 7D 00 00 E1 03 E0 00 0D 44 00 7E 05 00 00 
+00 CC 03 56 00 1E 34 09 00 0D 40 00 37 0C 00 1F 
+34 08 00 01 DD 00 1E 39 14 00 1C 00 61 38 00 62 
+14 00 18 00 04 14 00 1E 39 18 00 1C 00 61 3C 00 
+62 18 00 18 00 04 18 00 0F 14 00 09 00 6B 18 00 
+09 00 9B 03 8F 00 21 0C 00 36 48 00 01 DD 00 0F 
+14 00 08 00 6B 18 00 08 00 97 03 DD 00 0F 14 00 
+11 00 6B 18 00 11 00 97 03 B4 00 21 08 00 36 48 
+00 01 DA 00 0F 14 00 11 00 FC 01 03 C7 00 21 01 
+00 36 48 00 01 DA 00 0F 18 00 11 00 FC 01 03 DA 
+00 21 02 00 36 48 00 01 DA 00 01 DD 00 01 0A 05 
+0C 48 00 7D 01 00 E1 03 91 01 1E 39 14 00 1C 00 
+61 38 00 62 14 00 18 00 04 14 00 0F 14 00 09 00 
+03 0C 01 21 0C 00 36 48 00 01 8E 01 0F 14 00 08 
+00 03 8E 01 0F 14 00 10 00 03 25 01 21 04 00 36 
+48 00 01 8B 01 0F 14 00 11 00 03 36 01 21 00 00 
+36 48 00 01 8B 01 0F 14 00 12 00 03 47 01 21 04 
+00 36 48 00 01 8B 01 0F 14 00 13 00 03 58 01 21 
+03 00 36 48 00 01 8B 01 0F 14 00 14 00 03 69 01 
+21 09 00 36 48 00 01 8B 01 0F 14 00 15 00 03 7A 
+01 21 09 00 36 48 00 01 8B 01 0F 14 00 16 00 03 
+8B 01 21 09 00 36 48 00 01 8B 01 01 8E 01 01 0A 
+05 0C 48 00 7D 02 00 E1 03 56 02 1E 39 18 00 1C 
+00 61 3C 00 62 18 00 18 00 04 18 00 0F 18 00 09 
+00 03 D1 01 12 18 00 0C 00 37 40 00 0D 44 00 7E 
+01 00 00 00 A7 37 44 00 21 00 00 36 48 00 01 53 
+02 0F 18 00 08 00 03 53 02 0F 18 00 10 00 03 EA 
+01 21 06 00 36 48 00 01 50 02 0F 18 00 11 00 03 
+FB 01 21 00 00 36 48 00 01 50 02 0F 18 00 12 00 
+03 0C 02 21 06 00 36 48 00 01 50 02 0F 18 00 13 
+00 03 1D 02 21 03 00 36 48 00 01 50 02 0F 18 00 
+14 00 03 2E 02 21 09 00 36 48 00 01 50 02 0F 18 
+00 15 00 03 3F 02 21 09 00 36 48 00 01 50 02 0F 
+18 00 16 00 03 50 02 21 09 00 36 48 00 01 50 02 
+01 53 02 01 0A 05 0C 48 00 7D 03 00 E1 03 B9 02 
+1F 39 1C 00 14 00 61 38 00 62 1C 00 10 00 04 1C 
+00 1F 39 20 00 14 00 61 3C 00 62 20 00 10 00 04 
+20 00 0F 1C 00 09 00 6B 20 00 09 00 9B 03 99 02 
+21 00 00 36 48 00 01 B6 02 0F 1C 00 08 00 FC 01 
+90 0F 20 00 08 00 FC 01 91 97 03 B6 02 21 00 00 
+36 48 00 01 B6 02 01 0A 05 0C 48 00 7D 04 00 E1 
+03 DD 02 1F 39 2C 00 14 00 61 38 00 62 2C 00 10 
+00 04 2C 00 21 05 00 36 48 00 01 0A 05 0C 48 00 
+7D 05 00 E1 03 1D 03 1E 39 2C 00 14 00 61 38 00 
+62 2C 00 10 00 04 2C 00 0F 2C 00 09 00 03 09 03 
+21 0C 00 36 48 00 01 1A 03 0F 2C 00 08 00 03 1A 
+03 21 00 00 36 48 00 01 1A 03 01 0A 05 0C 48 00 
+7D 06 00 E1 03 41 03 1F 39 30 00 14 00 61 3C 00 
+62 30 00 10 00 04 30 00 21 07 00 36 48 00 01 0A 
+05 0C 48 00 7D 07 00 E1 03 8D 03 1E 39 30 00 14 
+00 61 3C 00 62 30 00 10 00 04 30 00 0F 30 00 09 
+00 03 79 03 0D 44 00 7E 01 00 00 00 A7 37 44 00 
+21 00 00 36 48 00 01 8A 03 0F 30 00 08 00 03 8A 
+03 21 00 00 36 48 00 01 8A 03 01 0A 05 0C 48 00 
+7D 09 00 E1 03 D6 03 22 10 27 00 00 3C 24 00 18 
+00 1F 39 24 00 14 00 61 38 00 62 24 00 10 00 04 
+24 00 22 10 27 00 00 3C 28 00 18 00 1F 39 28 00 
+14 00 61 3C 00 62 28 00 10 00 04 28 00 21 0A 00 
+36 48 00 01 0A 05 0C 48 00 7D 0A 00 E1 03 47 04 
+22 10 27 00 00 3C 24 00 18 00 1E 39 24 00 14 00 
+61 38 00 62 24 00 10 00 04 24 00 22 10 27 00 00 
+3C 28 00 18 00 1E 39 28 00 14 00 61 3C 00 62 28 
+00 10 00 04 28 00 0F 24 00 09 00 6B 28 00 09 00 
+9B 03 2D 04 21 00 00 36 48 00 01 44 04 0F 24 00 
+08 00 6B 28 00 08 00 97 03 44 04 21 00 00 36 48 
+00 01 44 04 01 0A 05 0C 48 00 7D 08 00 E1 03 A2 
+04 1E 39 1C 00 14 00 61 38 00 62 1C 00 10 00 04 
+1C 00 1E 39 20 00 14 00 61 3C 00 62 20 00 10 00 
+04 20 00 0F 1C 00 09 00 6B 20 00 09 00 9B 03 8A 
+04 21 00 00 36 48 00 01 9F 04 0F 1C 00 08 00 6B 
+20 00 08 00 97 03 9F 04 1E 34 08 00 01 9F 04 01 
+0A 05 0C 48 00 7D 0C 00 E1 03 BE 04 1F 39 34 00 
+10 00 04 34 00 21 0D 00 36 48 00 01 0A 05 0C 48 
+00 7D 0D 00 E1 03 0A 05 1E 39 34 00 10 00 04 34 
+00 0F 34 00 09 00 03 F6 04 12 34 00 0C 00 37 40 
+00 0D 44 00 7E 01 00 00 00 A7 37 44 00 21 00 00 
+36 48 00 01 07 05 0F 34 00 08 00 03 07 05 21 00 
+00 36 48 00 01 07 05 01 0A 05 07 
+
+    IntelFormat
+      Die Parameterwerte der Funktionen
+      werden im Motorola-Format angezeigt.
+    ByteSize = 1.
+
+    6:    10  LD_NEAR_BIT     00 10
+    9:   123  LDS_CONST_FALSE
+    a:   223  EQ_BIT         
+    b:     3  JMPCN           00 2F
+    e:    33  LD_CONST_2      00 00
+   11:    54  ST_NEAR_2       00 48
+   14:    31  LD_CONST_FALSE 
+   15:    52  ST_NEAR_BIT     00 08
+   18:    31  LD_CONST_FALSE 
+   19:    52  ST_NEAR_BIT     00 09
+   1c:    34  LD_CONST_4      00 00  00 00
+   21:    55  ST_NEAR_4       00 0C
+   24:    34  LD_CONST_4      00 00  00 00
+   29:    55  ST_NEAR_4       00 44
+   2c:     1  JMP             05 0A
+   2f:    12  LD_NEAR_2       00 48
+   32:   125  LDS_CONST_2     00 00
+   35:   225  EQ_2           
+   36:     3  JMPCN           00 E0
+   39:    13  LD_NEAR_4       00 44
+   3c:   126  LDS_CONST_4     00 00  00 05
+   41:   204  GE_4           
+   42:     3  JMPCN           00 56
+   45:    30  LD_CONST_TRUE  
+   46:    52  ST_NEAR_BIT     00 09
+   49:    13  LD_NEAR_4       00 40
+   4c:    55  ST_NEAR_4       00 0C
+   4f:    31  LD_CONST_FALSE 
+   50:    52  ST_NEAR_BIT     00 08
+   53:     1  JMP             00 DD
+   56:    30  LD_CONST_TRUE  
+   57:    57  ST_FAR_BIT      00 14  00 1C
+   5c:    97  LD_REFERENCE    00 38
+   5f:    98  ST_REFERENCE    00 14  00 18
+   64:     4  CAL             00 14
+   67:    30  LD_CONST_TRUE  
+   68:    57  ST_FAR_BIT      00 18  00 1C
+   6d:    97  LD_REFERENCE    00 3C
+   70:    98  ST_REFERENCE    00 18  00 18
+   75:     4  CAL             00 18
+   78:    15  LD_FAR_BIT      00 14  00 09
+   7d:   107  LDS_FAR_BIT     00 18  00 09
+   82:   155  OR_BIT         
+   83:     3  JMPCN           00 8F
+   86:    33  LD_CONST_2      00 0C
+   89:    54  ST_NEAR_2       00 48
+   8c:     1  JMP             00 DD
+   8f:    15  LD_FAR_BIT      00 14  00 08
+   94:   107  LDS_FAR_BIT     00 18  00 08
+   99:   151  AND_BIT        
+   9a:     3  JMPCN           00 DD
+   9d:    15  LD_FAR_BIT      00 14  00 11
+   a2:   107  LDS_FAR_BIT     00 18  00 11
+   a7:   151  AND_BIT        
+   a8:     3  JMPCN           00 B4
+   ab:    33  LD_CONST_2      00 08
+   ae:    54  ST_NEAR_2       00 48
+   b1:     1  JMP             00 DA
+   b4:    15  LD_FAR_BIT      00 14  00 11
+   b9:     1  NOT_BIT        
+   bb:     3  JMPCN           00 C7
+   be:    33  LD_CONST_2      00 01
+   c1:    54  ST_NEAR_2       00 48
+   c4:     1  JMP             00 DA
+   c7:    15  LD_FAR_BIT      00 18  00 11
+   cc:     1  NOT_BIT        
+   ce:     3  JMPCN           00 DA
+   d1:    33  LD_CONST_2      00 02
+   d4:    54  ST_NEAR_2       00 48
+   d7:     1  JMP             00 DA
+   da:     1  JMP             00 DD
+   dd:     1  JMP             05 0A
+   e0:    12  LD_NEAR_2       00 48
+   e3:   125  LDS_CONST_2     00 01
+   e6:   225  EQ_2           
+   e7:     3  JMPCN           01 91
+   ea:    30  LD_CONST_TRUE  
+   eb:    57  ST_FAR_BIT      00 14  00 1C
+   f0:    97  LD_REFERENCE    00 38
+   f3:    98  ST_REFERENCE    00 14  00 18
+   f8:     4  CAL             00 14
+   fb:    15  LD_FAR_BIT      00 14  00 09
+  100:     3  JMPCN           01 0C
+  103:    33  LD_CONST_2      00 0C
+  106:    54  ST_NEAR_2       00 48
+  109:     1  JMP             01 8E
+  10c:    15  LD_FAR_BIT      00 14  00 08
+  111:     3  JMPCN           01 8E
+  114:    15  LD_FAR_BIT      00 14  00 10
+  119:     3  JMPCN           01 25
+  11c:    33  LD_CONST_2      00 04
+  11f:    54  ST_NEAR_2       00 48
+  122:     1  JMP             01 8B
+  125:    15  LD_FAR_BIT      00 14  00 11
+  12a:     3  JMPCN           01 36
+  12d:    33  LD_CONST_2      00 00
+  130:    54  ST_NEAR_2       00 48
+  133:     1  JMP             01 8B
+  136:    15  LD_FAR_BIT      00 14  00 12
+  13b:     3  JMPCN           01 47
+  13e:    33  LD_CONST_2      00 04
+  141:    54  ST_NEAR_2       00 48
+  144:     1  JMP             01 8B
+  147:    15  LD_FAR_BIT      00 14  00 13
+  14c:     3  JMPCN           01 58
+  14f:    33  LD_CONST_2      00 03
+  152:    54  ST_NEAR_2       00 48
+  155:     1  JMP             01 8B
+  158:    15  LD_FAR_BIT      00 14  00 14
+  15d:     3  JMPCN           01 69
+  160:    33  LD_CONST_2      00 09
+  163:    54  ST_NEAR_2       00 48
+  166:     1  JMP             01 8B
+  169:    15  LD_FAR_BIT      00 14  00 15
+  16e:     3  JMPCN           01 7A
+  171:    33  LD_CONST_2      00 09
+  174:    54  ST_NEAR_2       00 48
+  177:     1  JMP             01 8B
+  17a:    15  LD_FAR_BIT      00 14  00 16
+  17f:     3  JMPCN           01 8B
+  182:    33  LD_CONST_2      00 09
+  185:    54  ST_NEAR_2       00 48
+  188:     1  JMP             01 8B
+  18b:     1  JMP             01 8E
+  18e:     1  JMP             05 0A
+  191:    12  LD_NEAR_2       00 48
+  194:   125  LDS_CONST_2     00 02
+  197:   225  EQ_2           
+  198:     3  JMPCN           02 56
+  19b:    30  LD_CONST_TRUE  
+  19c:    57  ST_FAR_BIT      00 18  00 1C
+  1a1:    97  LD_REFERENCE    00 3C
+  1a4:    98  ST_REFERENCE    00 18  00 18
+  1a9:     4  CAL             00 18
+  1ac:    15  LD_FAR_BIT      00 18  00 09
+  1b1:     3  JMPCN           01 D1
+  1b4:    18  LD_FAR_4        00 18  00 0C
+  1b9:    55  ST_NEAR_4       00 40
+  1bc:    13  LD_NEAR_4       00 44
+  1bf:   126  LDS_CONST_4     00 00  00 01
+  1c4:   167  ADD_4          
+  1c5:    55  ST_NEAR_4       00 44
+  1c8:    33  LD_CONST_2      00 00
+  1cb:    54  ST_NEAR_2       00 48
+  1ce:     1  JMP             02 53
+  1d1:    15  LD_FAR_BIT      00 18  00 08
+  1d6:     3  JMPCN           02 53
+  1d9:    15  LD_FAR_BIT      00 18  00 10
+  1de:     3  JMPCN           01 EA
+  1e1:    33  LD_CONST_2      00 06
+  1e4:    54  ST_NEAR_2       00 48
+  1e7:     1  JMP             02 50
+  1ea:    15  LD_FAR_BIT      00 18  00 11
+  1ef:     3  JMPCN           01 FB
+  1f2:    33  LD_CONST_2      00 00
+  1f5:    54  ST_NEAR_2       00 48
+  1f8:     1  JMP             02 50
+  1fb:    15  LD_FAR_BIT      00 18  00 12
+  200:     3  JMPCN           02 0C
+  203:    33  LD_CONST_2      00 06
+  206:    54  ST_NEAR_2       00 48
+  209:     1  JMP             02 50
+  20c:    15  LD_FAR_BIT      00 18  00 13
+  211:     3  JMPCN           02 1D
+  214:    33  LD_CONST_2      00 03
+  217:    54  ST_NEAR_2       00 48
+  21a:     1  JMP             02 50
+  21d:    15  LD_FAR_BIT      00 18  00 14
+  222:     3  JMPCN           02 2E
+  225:    33  LD_CONST_2      00 09
+  228:    54  ST_NEAR_2       00 48
+  22b:     1  JMP             02 50
+  22e:    15  LD_FAR_BIT      00 18  00 15
+  233:     3  JMPCN           02 3F
+  236:    33  LD_CONST_2      00 09
+  239:    54  ST_NEAR_2       00 48
+  23c:     1  JMP             02 50
+  23f:    15  LD_FAR_BIT      00 18  00 16
+  244:     3  JMPCN           02 50
+  247:    33  LD_CONST_2      00 09
+  24a:    54  ST_NEAR_2       00 48
+  24d:     1  JMP             02 50
+  250:     1  JMP             02 53
+  253:     1  JMP             05 0A
+  256:    12  LD_NEAR_2       00 48
+  259:   125  LDS_CONST_2     00 03
+  25c:   225  EQ_2           
+  25d:     3  JMPCN           02 B9
+  260:    31  LD_CONST_FALSE 
+  261:    57  ST_FAR_BIT      00 1C  00 14
+  266:    97  LD_REFERENCE    00 38
+  269:    98  ST_REFERENCE    00 1C  00 10
+  26e:     4  CAL             00 1C
+  271:    31  LD_CONST_FALSE 
+  272:    57  ST_FAR_BIT      00 20  00 14
+  277:    97  LD_REFERENCE    00 3C
+  27a:    98  ST_REFERENCE    00 20  00 10
+  27f:     4  CAL             00 20
+  282:    15  LD_FAR_BIT      00 1C  00 09
+  287:   107  LDS_FAR_BIT     00 20  00 09
+  28c:   155  OR_BIT         
+  28d:     3  JMPCN           02 99
+  290:    33  LD_CONST_2      00 00
+  293:    54  ST_NEAR_2       00 48
+  296:     1  JMP             02 B6
+  299:    15  LD_FAR_BIT      00 1C  00 08
+  29e:     1  NOT_BIT        
+  2a0:   144  PUSH_AE        
+  2a1:    15  LD_FAR_BIT      00 20  00 08
+  2a6:     1  NOT_BIT        
+  2a8:   145  POP_AE         
+  2a9:   151  AND_BIT        
+  2aa:     3  JMPCN           02 B6
+  2ad:    33  LD_CONST_2      00 00
+  2b0:    54  ST_NEAR_2       00 48
+  2b3:     1  JMP             02 B6
+  2b6:     1  JMP             05 0A
+  2b9:    12  LD_NEAR_2       00 48
+  2bc:   125  LDS_CONST_2     00 04
+  2bf:   225  EQ_2           
+  2c0:     3  JMPCN           02 DD
+  2c3:    31  LD_CONST_FALSE 
+  2c4:    57  ST_FAR_BIT      00 2C  00 14
+  2c9:    97  LD_REFERENCE    00 38
+  2cc:    98  ST_REFERENCE    00 2C  00 10
+  2d1:     4  CAL             00 2C
+  2d4:    33  LD_CONST_2      00 05
+  2d7:    54  ST_NEAR_2       00 48
+  2da:     1  JMP             05 0A
+  2dd:    12  LD_NEAR_2       00 48
+  2e0:   125  LDS_CONST_2     00 05
+  2e3:   225  EQ_2           
+  2e4:     3  JMPCN           03 1D
+  2e7:    30  LD_CONST_TRUE  
+  2e8:    57  ST_FAR_BIT      00 2C  00 14
+  2ed:    97  LD_REFERENCE    00 38
+  2f0:    98  ST_REFERENCE    00 2C  00 10
+  2f5:     4  CAL             00 2C
+  2f8:    15  LD_FAR_BIT      00 2C  00 09
+  2fd:     3  JMPCN           03 09
+  300:    33  LD_CONST_2      00 0C
+  303:    54  ST_NEAR_2       00 48
+  306:     1  JMP             03 1A
+  309:    15  LD_FAR_BIT      00 2C  00 08
+  30e:     3  JMPCN           03 1A
+  311:    33  LD_CONST_2      00 00
+  314:    54  ST_NEAR_2       00 48
+  317:     1  JMP             03 1A
+  31a:     1  JMP             05 0A
+  31d:    12  LD_NEAR_2       00 48
+  320:   125  LDS_CONST_2     00 06
+  323:   225  EQ_2           
+  324:     3  JMPCN           03 41
+  327:    31  LD_CONST_FALSE 
+  328:    57  ST_FAR_BIT      00 30  00 14
+  32d:    97  LD_REFERENCE    00 3C
+  330:    98  ST_REFERENCE    00 30  00 10
+  335:     4  CAL             00 30
+  338:    33  LD_CONST_2      00 07
+  33b:    54  ST_NEAR_2       00 48
+  33e:     1  JMP             05 0A
+  341:    12  LD_NEAR_2       00 48
+  344:   125  LDS_CONST_2     00 07
+  347:   225  EQ_2           
+  348:     3  JMPCN           03 8D
+  34b:    30  LD_CONST_TRUE  
+  34c:    57  ST_FAR_BIT      00 30  00 14
+  351:    97  LD_REFERENCE    00 3C
+  354:    98  ST_REFERENCE    00 30  00 10
+  359:     4  CAL             00 30
+  35c:    15  LD_FAR_BIT      00 30  00 09
+  361:     3  JMPCN           03 79
+  364:    13  LD_NEAR_4       00 44
+  367:   126  LDS_CONST_4     00 00  00 01
+  36c:   167  ADD_4          
+  36d:    55  ST_NEAR_4       00 44
+  370:    33  LD_CONST_2      00 00
+  373:    54  ST_NEAR_2       00 48
+  376:     1  JMP             03 8A
+  379:    15  LD_FAR_BIT      00 30  00 08
+  37e:     3  JMPCN           03 8A
+  381:    33  LD_CONST_2      00 00
+  384:    54  ST_NEAR_2       00 48
+  387:     1  JMP             03 8A
+  38a:     1  JMP             05 0A
+  38d:    12  LD_NEAR_2       00 48
+  390:   125  LDS_CONST_2     00 09
+  393:   225  EQ_2           
+  394:     3  JMPCN           03 D6
+  397:    34  LD_CONST_4      00 00  27 10
+  39c:    60  ST_FAR_4        00 24  00 18
+  3a1:    31  LD_CONST_FALSE 
+  3a2:    57  ST_FAR_BIT      00 24  00 14
+  3a7:    97  LD_REFERENCE    00 38
+  3aa:    98  ST_REFERENCE    00 24  00 10
+  3af:     4  CAL             00 24
+  3b2:    34  LD_CONST_4      00 00  27 10
+  3b7:    60  ST_FAR_4        00 28  00 18
+  3bc:    31  LD_CONST_FALSE 
+  3bd:    57  ST_FAR_BIT      00 28  00 14
+  3c2:    97  LD_REFERENCE    00 3C
+  3c5:    98  ST_REFERENCE    00 28  00 10
+  3ca:     4  CAL             00 28
+  3cd:    33  LD_CONST_2      00 0A
+  3d0:    54  ST_NEAR_2       00 48
+  3d3:     1  JMP             05 0A
+  3d6:    12  LD_NEAR_2       00 48
+  3d9:   125  LDS_CONST_2     00 0A
+  3dc:   225  EQ_2           
+  3dd:     3  JMPCN           04 47
+  3e0:    34  LD_CONST_4      00 00  27 10
+  3e5:    60  ST_FAR_4        00 24  00 18
+  3ea:    30  LD_CONST_TRUE  
+  3eb:    57  ST_FAR_BIT      00 24  00 14
+  3f0:    97  LD_REFERENCE    00 38
+  3f3:    98  ST_REFERENCE    00 24  00 10
+  3f8:     4  CAL             00 24
+  3fb:    34  LD_CONST_4      00 00  27 10
+  400:    60  ST_FAR_4        00 28  00 18
+  405:    30  LD_CONST_TRUE  
+  406:    57  ST_FAR_BIT      00 28  00 14
+  40b:    97  LD_REFERENCE    00 3C
+  40e:    98  ST_REFERENCE    00 28  00 10
+  413:     4  CAL             00 28
+  416:    15  LD_FAR_BIT      00 24  00 09
+  41b:   107  LDS_FAR_BIT     00 28  00 09
+  420:   155  OR_BIT         
+  421:     3  JMPCN           04 2D
+  424:    33  LD_CONST_2      00 00
+  427:    54  ST_NEAR_2       00 48
+  42a:     1  JMP             04 44
+  42d:    15  LD_FAR_BIT      00 24  00 08
+  432:   107  LDS_FAR_BIT     00 28  00 08
+  437:   151  AND_BIT        
+  438:     3  JMPCN           04 44
+  43b:    33  LD_CONST_2      00 00
+  43e:    54  ST_NEAR_2       00 48
+  441:     1  JMP             04 44
+  444:     1  JMP             05 0A
+  447:    12  LD_NEAR_2       00 48
+  44a:   125  LDS_CONST_2     00 08
+  44d:   225  EQ_2           
+  44e:     3  JMPCN           04 A2
+  451:    30  LD_CONST_TRUE  
+  452:    57  ST_FAR_BIT      00 1C  00 14
+  457:    97  LD_REFERENCE    00 38
+  45a:    98  ST_REFERENCE    00 1C  00 10
+  45f:     4  CAL             00 1C
+  462:    30  LD_CONST_TRUE  
+  463:    57  ST_FAR_BIT      00 20  00 14
+  468:    97  LD_REFERENCE    00 3C
+  46b:    98  ST_REFERENCE    00 20  00 10
+  470:     4  CAL             00 20
+  473:    15  LD_FAR_BIT      00 1C  00 09
+  478:   107  LDS_FAR_BIT     00 20  00 09
+  47d:   155  OR_BIT         
+  47e:     3  JMPCN           04 8A
+  481:    33  LD_CONST_2      00 00
+  484:    54  ST_NEAR_2       00 48
+  487:     1  JMP             04 9F
+  48a:    15  LD_FAR_BIT      00 1C  00 08
+  48f:   107  LDS_FAR_BIT     00 20  00 08
+  494:   151  AND_BIT        
+  495:     3  JMPCN           04 9F
+  498:    30  LD_CONST_TRUE  
+  499:    52  ST_NEAR_BIT     00 08
+  49c:     1  JMP             04 9F
+  49f:     1  JMP             05 0A
+  4a2:    12  LD_NEAR_2       00 48
+  4a5:   125  LDS_CONST_2     00 0C
+  4a8:   225  EQ_2           
+  4a9:     3  JMPCN           04 BE
+  4ac:    31  LD_CONST_FALSE 
+  4ad:    57  ST_FAR_BIT      00 34  00 10
+  4b2:     4  CAL             00 34
+  4b5:    33  LD_CONST_2      00 0D
+  4b8:    54  ST_NEAR_2       00 48
+  4bb:     1  JMP             05 0A
+  4be:    12  LD_NEAR_2       00 48
+  4c1:   125  LDS_CONST_2     00 0D
+  4c4:   225  EQ_2           
+  4c5:     3  JMPCN           05 0A
+  4c8:    30  LD_CONST_TRUE  
+  4c9:    57  ST_FAR_BIT      00 34  00 10
+  4ce:     4  CAL             00 34
+  4d1:    15  LD_FAR_BIT      00 34  00 09
+  4d6:     3  JMPCN           04 F6
+  4d9:    18  LD_FAR_4        00 34  00 0C
+  4de:    55  ST_NEAR_4       00 40
+  4e1:    13  LD_NEAR_4       00 44
+  4e4:   126  LDS_CONST_4     00 00  00 01
+  4e9:   167  ADD_4          
+  4ea:    55  ST_NEAR_4       00 44
+  4ed:    33  LD_CONST_2      00 00
+  4f0:    54  ST_NEAR_2       00 48
+  4f3:     1  JMP             05 07
+  4f6:    15  LD_FAR_BIT      00 34  00 08
+  4fb:     3  JMPCN           05 07
+  4fe:    33  LD_CONST_2      00 00
+  501:    54  ST_NEAR_2       00 48
+  504:     1  JMP             05 07
+  507:     1  JMP             05 0A
+  50a:     7  RET            
+
+Nr 75: Initialsegment
+28 00 02 10 4A 00 0C 00 00 00 2C 00 0C 00 00 00 
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+00 00 00 00 00 00 00 00 
+
+Nr 76: Datasegment
+24 00 01 08 19 00 CD CD 00 00 00 00 00 00 00 00 
+00 00 00 00 00 00 00 00 CD CD CD CD 00 00 00 00 
+00 00 00 00 
+
+Nr 77: Datasegment
+24 00 01 08 19 00 CD CD 00 00 00 00 00 00 00 00 
+00 00 00 00 00 00 00 00 CD CD CD CD 00 00 00 00 
+00 00 00 00 
+
+Nr 78: Datasegment
+38 00 01 08 11 00 CD CD 00 00 00 00 00 00 00 00 
+CD CD CD CD 00 00 00 00 00 00 00 00 00 00 00 00 
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+00 00 00 00 00 00 00 00 
+
+Nr 79: Datasegment
+38 00 01 08 11 00 CD CD 00 00 00 00 00 00 00 00 
+CD CD CD CD 00 00 00 00 00 00 00 00 00 00 00 00 
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+00 00 00 00 00 00 00 00 
+
+Nr 80: Datasegment
+3C 00 01 08 24 00 CD CD 00 00 00 00 00 00 00 00 
+CD CD CD CD 00 00 00 00 00 00 00 00 00 00 00 00 
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+00 00 00 00 00 00 00 00 00 00 00 00 
+
+Nr 81: Datasegment
+3C 00 01 08 24 00 CD CD 00 00 00 00 00 00 00 00 
+CD CD CD CD 00 00 00 00 00 00 00 00 00 00 00 00 
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+00 00 00 00 00 00 00 00 00 00 00 00 
+
+Nr 82: Datasegment
+38 00 01 08 15 00 CD CD 00 00 00 00 00 00 00 00 
+CD CD CD CD 00 00 00 00 00 00 00 00 00 00 00 00 
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+00 00 00 00 00 00 00 00 
+
+Nr 83: Datasegment
+38 00 01 08 15 00 CD CD 00 00 00 00 00 00 00 00 
+CD CD CD CD 00 00 00 00 00 00 00 00 00 00 00 00 
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+00 00 00 00 00 00 00 00 
+
+Nr 84: Datasegment
+3C 00 01 08 55 00 00 00 00 00 00 00 00 00 00 00 
+00 00 00 00 57 00 06 80 58 00 06 80 59 00 09 00 
+5A 00 09 80 5B 00 09 80 0A 00 08 00 0A 00 0C 00 
+00 00 00 00 00 00 00 00 00 00 00 00 
+
+Nr 85: Codesegment
+BE 01 00 06 56 00 0A 10 00 7B DF 03 2B 00 1F 34 
+08 00 22 00 00 00 00 37 30 00 22 00 00 00 00 37 
+34 00 21 00 00 36 38 00 01 BD 01 0C 38 00 7D 00 
+00 E1 03 57 00 0D 34 00 7E 05 00 00 00 C4 03 4E 
+00 1E 34 09 00 0D 30 00 37 0C 00 01 54 00 21 01 
+00 36 38 00 01 BD 01 0C 38 00 7D 01 00 E1 03 AF 
+00 1F 39 14 00 14 00 61 28 00 62 14 00 10 00 04 
+14 00 1F 39 18 00 14 00 61 2C 00 62 18 00 10 00 
+04 18 00 0F 14 00 08 00 FC 01 6B 14 00 09 00 9B 
+90 0F 18 00 08 00 FC 01 6B 18 00 09 00 9B 91 97 
+03 AC 00 21 02 00 36 38 00 01 AC 00 01 BD 01 0C 
+38 00 7D 02 00 E1 03 D5 00 22 E8 03 00 00 3C 1C 
+00 14 00 1F 39 1C 00 10 00 04 1C 00 21 05 00 36 
+38 00 01 BD 01 0C 38 00 7D 05 00 E1 03 06 01 22 
+E8 03 00 00 3C 1C 00 14 00 1E 39 1C 00 10 00 04 
+1C 00 0F 1C 00 08 00 03 03 01 21 03 00 36 38 00 
+01 03 01 01 BD 01 0C 38 00 7D 03 00 E1 03 3B 01 
+1F 39 20 00 14 00 61 28 00 62 20 00 10 00 04 20 
+00 1F 39 24 00 14 00 61 2C 00 62 24 00 10 00 04 
+24 00 21 04 00 36 38 00 01 BD 01 0C 38 00 7D 04 
+00 E1 03 BD 01 1E 39 20 00 14 00 61 28 00 62 20 
+00 10 00 04 20 00 1E 39 24 00 14 00 61 2C 00 62 
+24 00 10 00 04 24 00 0F 20 00 09 00 6B 24 00 09 
+00 9B 03 A5 01 0F 20 00 09 00 03 88 01 12 20 00 
+0C 00 37 30 00 01 90 01 12 24 00 0C 00 37 30 00 
+0D 34 00 7E 01 00 00 00 A7 37 34 00 21 00 00 36 
+38 00 01 BA 01 0F 20 00 08 00 6B 24 00 08 00 97 
+03 BA 01 1E 34 08 00 01 BA 01 01 BD 01 07 
+
+    IntelFormat
+      Die Parameterwerte der Funktionen
+      werden im Motorola-Format angezeigt.
+    ByteSize = 1.
+
+    6:    10  LD_NEAR_BIT     00 10
+    9:   123  LDS_CONST_FALSE
+    a:   223  EQ_BIT         
+    b:     3  JMPCN           00 2B
+    e:    31  LD_CONST_FALSE 
+    f:    52  ST_NEAR_BIT     00 08
+   12:    34  LD_CONST_4      00 00  00 00
+   17:    55  ST_NEAR_4       00 30
+   1a:    34  LD_CONST_4      00 00  00 00
+   1f:    55  ST_NEAR_4       00 34
+   22:    33  LD_CONST_2      00 00
+   25:    54  ST_NEAR_2       00 38
+   28:     1  JMP             01 BD
+   2b:    12  LD_NEAR_2       00 38
+   2e:   125  LDS_CONST_2     00 00
+   31:   225  EQ_2           
+   32:     3  JMPCN           00 57
+   35:    13  LD_NEAR_4       00 34
+   38:   126  LDS_CONST_4     00 00  00 05
+   3d:   196  GT_4           
+   3e:     3  JMPCN           00 4E
+   41:    30  LD_CONST_TRUE  
+   42:    52  ST_NEAR_BIT     00 09
+   45:    13  LD_NEAR_4       00 30
+   48:    55  ST_NEAR_4       00 0C
+   4b:     1  JMP             00 54
+   4e:    33  LD_CONST_2      00 01
+   51:    54  ST_NEAR_2       00 38
+   54:     1  JMP             01 BD
+   57:    12  LD_NEAR_2       00 38
+   5a:   125  LDS_CONST_2     00 01
+   5d:   225  EQ_2           
+   5e:     3  JMPCN           00 AF
+   61:    31  LD_CONST_FALSE 
+   62:    57  ST_FAR_BIT      00 14  00 14
+   67:    97  LD_REFERENCE    00 28
+   6a:    98  ST_REFERENCE    00 14  00 10
+   6f:     4  CAL             00 14
+   72:    31  LD_CONST_FALSE 
+   73:    57  ST_FAR_BIT      00 18  00 14
+   78:    97  LD_REFERENCE    00 2C
+   7b:    98  ST_REFERENCE    00 18  00 10
+   80:     4  CAL             00 18
+   83:    15  LD_FAR_BIT      00 14  00 08
+   88:     1  NOT_BIT        
+   8a:   107  LDS_FAR_BIT     00 14  00 09
+   8f:   155  OR_BIT         
+   90:   144  PUSH_AE        
+   91:    15  LD_FAR_BIT      00 18  00 08
+   96:     1  NOT_BIT        
+   98:   107  LDS_FAR_BIT     00 18  00 09
+   9d:   155  OR_BIT         
+   9e:   145  POP_AE         
+   9f:   151  AND_BIT        
+   a0:     3  JMPCN           00 AC
+   a3:    33  LD_CONST_2      00 02
+   a6:    54  ST_NEAR_2       00 38
+   a9:     1  JMP             00 AC
+   ac:     1  JMP             01 BD
+   af:    12  LD_NEAR_2       00 38
+   b2:   125  LDS_CONST_2     00 02
+   b5:   225  EQ_2           
+   b6:     3  JMPCN           00 D5
+   b9:    34  LD_CONST_4      00 00  03 E8
+   be:    60  ST_FAR_4        00 1C  00 14
+   c3:    31  LD_CONST_FALSE 
+   c4:    57  ST_FAR_BIT      00 1C  00 10
+   c9:     4  CAL             00 1C
+   cc:    33  LD_CONST_2      00 05
+   cf:    54  ST_NEAR_2       00 38
+   d2:     1  JMP             01 BD
+   d5:    12  LD_NEAR_2       00 38
+   d8:   125  LDS_CONST_2     00 05
+   db:   225  EQ_2           
+   dc:     3  JMPCN           01 06
+   df:    34  LD_CONST_4      00 00  03 E8
+   e4:    60  ST_FAR_4        00 1C  00 14
+   e9:    30  LD_CONST_TRUE  
+   ea:    57  ST_FAR_BIT      00 1C  00 10
+   ef:     4  CAL             00 1C
+   f2:    15  LD_FAR_BIT      00 1C  00 08
+   f7:     3  JMPCN           01 03
+   fa:    33  LD_CONST_2      00 03
+   fd:    54  ST_NEAR_2       00 38
+  100:     1  JMP             01 03
+  103:     1  JMP             01 BD
+  106:    12  LD_NEAR_2       00 38
+  109:   125  LDS_CONST_2     00 03
+  10c:   225  EQ_2           
+  10d:     3  JMPCN           01 3B
+  110:    31  LD_CONST_FALSE 
+  111:    57  ST_FAR_BIT      00 20  00 14
+  116:    97  LD_REFERENCE    00 28
+  119:    98  ST_REFERENCE    00 20  00 10
+  11e:     4  CAL             00 20
+  121:    31  LD_CONST_FALSE 
+  122:    57  ST_FAR_BIT      00 24  00 14
+  127:    97  LD_REFERENCE    00 2C
+  12a:    98  ST_REFERENCE    00 24  00 10
+  12f:     4  CAL             00 24
+  132:    33  LD_CONST_2      00 04
+  135:    54  ST_NEAR_2       00 38
+  138:     1  JMP             01 BD
+  13b:    12  LD_NEAR_2       00 38
+  13e:   125  LDS_CONST_2     00 04
+  141:   225  EQ_2           
+  142:     3  JMPCN           01 BD
+  145:    30  LD_CONST_TRUE  
+  146:    57  ST_FAR_BIT      00 20  00 14
+  14b:    97  LD_REFERENCE    00 28
+  14e:    98  ST_REFERENCE    00 20  00 10
+  153:     4  CAL             00 20
+  156:    30  LD_CONST_TRUE  
+  157:    57  ST_FAR_BIT      00 24  00 14
+  15c:    97  LD_REFERENCE    00 2C
+  15f:    98  ST_REFERENCE    00 24  00 10
+  164:     4  CAL             00 24
+  167:    15  LD_FAR_BIT      00 20  00 09
+  16c:   107  LDS_FAR_BIT     00 24  00 09
+  171:   155  OR_BIT         
+  172:     3  JMPCN           01 A5
+  175:    15  LD_FAR_BIT      00 20  00 09
+  17a:     3  JMPCN           01 88
+  17d:    18  LD_FAR_4        00 20  00 0C
+  182:    55  ST_NEAR_4       00 30
+  185:     1  JMP             01 90
+  188:    18  LD_FAR_4        00 24  00 0C
+  18d:    55  ST_NEAR_4       00 30
+  190:    13  LD_NEAR_4       00 34
+  193:   126  LDS_CONST_4     00 00  00 01
+  198:   167  ADD_4          
+  199:    55  ST_NEAR_4       00 34
+  19c:    33  LD_CONST_2      00 00
+  19f:    54  ST_NEAR_2       00 38
+  1a2:     1  JMP             01 BA
+  1a5:    15  LD_FAR_BIT      00 20  00 08
+  1aa:   107  LDS_FAR_BIT     00 24  00 08
+  1af:   151  AND_BIT        
+  1b0:     3  JMPCN           01 BA
+  1b3:    30  LD_CONST_TRUE  
+  1b4:    52  ST_NEAR_BIT     00 08
+  1b7:     1  JMP             01 BA
+  1ba:     1  JMP             01 BD
+  1bd:     7  RET            
+
+Nr 86: Initialsegment
+28 00 02 10 55 00 0C 00 00 00 1C 00 0C 00 00 00 
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+00 00 00 00 00 00 00 00 
+
+Nr 87: Datasegment
+38 00 01 08 11 00 CD CD 00 00 00 00 00 00 00 00 
+CD CD CD CD 00 00 00 00 00 00 00 00 00 00 00 00 
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+00 00 00 00 00 00 00 00 
+
+Nr 88: Datasegment
+38 00 01 08 11 00 CD CD 00 00 00 00 00 00 00 00 
+CD CD CD CD 00 00 00 00 00 00 00 00 00 00 00 00 
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+00 00 00 00 00 00 00 00 
+
+Nr 89: Datasegment
+24 00 01 08 3F 00 CD CD 00 00 00 00 00 00 00 00 
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+00 00 00 00 
+
+Nr 90: Datasegment
+38 00 01 08 15 00 CD CD 00 00 00 00 00 00 00 00 
+CD CD CD CD 00 00 00 00 00 00 00 00 00 00 00 00 
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+00 00 00 00 00 00 00 00 
+
+Nr 91: Datasegment
+38 00 01 08 15 00 CD CD 00 00 00 00 00 00 00 00 
+CD CD CD CD 00 00 00 00 00 00 00 00 00 00 00 00 
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+00 00 00 00 00 00 00 00 
+
+Nr 92: Datasegment
+3C 00 01 08 55 00 00 00 00 00 00 00 00 00 00 00 
+00 00 00 00 5D 00 06 80 5E 00 06 80 5F 00 09 00 
+60 00 09 80 61 00 09 80 0A 00 08 00 0A 00 0C 00 
+00 00 00 00 00 00 00 00 00 00 00 00 
+
+Nr 93: Datasegment
+38 00 01 08 11 00 CD CD 00 00 00 00 00 00 00 00 
+CD CD CD CD 00 00 00 00 00 00 00 00 00 00 00 00 
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+00 00 00 00 00 00 00 00 
+
+Nr 94: Datasegment
+38 00 01 08 11 00 CD CD 00 00 00 00 00 00 00 00 
+CD CD CD CD 00 00 00 00 00 00 00 00 00 00 00 00 
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+00 00 00 00 00 00 00 00 
+
+Nr 95: Datasegment
+24 00 01 08 3F 00 CD CD 00 00 00 00 00 00 00 00 
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+00 00 00 00 
+
+Nr 96: Datasegment
+38 00 01 08 15 00 CD CD 00 00 00 00 00 00 00 00 
+CD CD CD CD 00 00 00 00 00 00 00 00 00 00 00 00 
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+00 00 00 00 00 00 00 00 
+
+Nr 97: Datasegment
+38 00 01 08 15 00 CD CD 00 00 00 00 00 00 00 00 
+CD CD CD CD 00 00 00 00 00 00 00 00 00 00 00 00 
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+00 00 00 00 00 00 00 00 
+
+
+Program Nr: 0:
+Nr 9: SegHardwareConfig
+14 00 24 08 CD CD 00 00 E0 00 E0 00 48 01 08 00 
+E8 00 C8 01 
+
+Nr 10: Datasegment
+14 00 01 08 0B 00 00 00 04 00 00 00 04 00 01 00 
+00 00 00 00 
+
+Nr 11: Codesegment
+07 00 00 06 0C 00 07 
+
+    IntelFormat
+      Die Parameterwerte der Funktionen
+      werden im Motorola-Format angezeigt.
+    ByteSize = 1.
+
+    6:     7  RET            
+
+Nr 12: Initialsegment
+1C 00 02 10 0B 00 00 00 00 00 00 00 0C 00 00 00 
+04 00 00 00 04 00 01 00 00 00 00 00 
+
