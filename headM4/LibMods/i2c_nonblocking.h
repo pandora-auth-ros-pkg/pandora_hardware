@@ -17,7 +17,7 @@
 
 typedef struct i2c_s i2c_t;
 
-#define SI 3
+#define SI 3	///I2C Serial Interrupt flag
 
 
 //If queue.put() is executed inside an ISR, and we have continuous interrupts (not allowing non-ISR code to run),
