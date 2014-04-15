@@ -1,6 +1,5 @@
 #include "mbed.h"
 #include "rtos.h"
-#include "globals.hpp"
 #include "grideye.hpp"
 #include "CO2.hpp"
 //#include "gpdma.h"
@@ -11,11 +10,6 @@ int main (void) {
 	Thread tCO2(CO2Task);
 
 	CO2Init(p17, p18);	//p17=TX, p18=RX
-
-	typedef struct {
-		I2C *i2c_obj;
-		uint8_t i2c_addr;
-	}i2c_sensor_t;
 
     I2C i2c0(p32,p31);	//sda, scl
     I2C i2c1(p9,p10);

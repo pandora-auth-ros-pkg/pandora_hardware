@@ -20,11 +20,7 @@ void GridEYEInit(I2C *i2c0_obj, I2C *i2c1_obj) {
 }
 
 void GridEYETask(void const *args) {
-	struct i2c_sensor_s {
-		I2C *i2c_obj;
-		uint8_t i2c_addr;
-	};
-	const i2c_sensor_s *temp=(const i2c_sensor_s *)args;
+	const i2c_sensor_t *temp=(const i2c_sensor_t *)args;
 	I2C *i2c_obj = temp->i2c_obj;
 	uint8_t i2c_addr = temp->i2c_addr;
 
@@ -55,7 +51,7 @@ void GridEYETask(void const *args) {
 
 		pcg.printf("GridEye\r\n");
 
-		cmd[0] = I2C_THERM_ADDR;
+		cmd[0] = GRIDEYE_I2C_THERM_ADDR;
 		i2c_obj->write(i2c_addr, cmd, 1, 1);
 		i2c_obj->read(i2c_addr, thermistor_echo, 2);
 
@@ -67,7 +63,7 @@ void GridEYETask(void const *args) {
 
 		pcg.printf("Termistor Temp = %f\r\n", thermistor_value);
 
-		cmd[0] = I2C_TEMP_ADDR;
+		cmd[0] = GRIDEYE_I2C_TEMP_ADDR;
 		i2c_obj->write(i2c_addr, cmd, 1, 1);
 		i2c_obj->read(i2c_addr, temp_echo, 2*PIXELS_COUNT);
 
