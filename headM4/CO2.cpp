@@ -1,7 +1,8 @@
 #include "CO2.hpp"
 
-Serial pc(USBTX, USBRX);
-Serial2 co2uart(p17, p18);	//p17=TX, p18=RX
+Serial pcc(USBTX, USBRX);
+
+static Serial2 *co2uart;
 
 /**
  * CO2 sensor buffer.
@@ -9,7 +10,7 @@ Serial2 co2uart(p17, p18);	//p17=TX, p18=RX
  * @note Without the buffer, we would have to process data in the time between 2 consecutive
  * incoming bytes.
  */
-Queue<uint8_t, 19> CO2queue;
+static Queue<uint8_t, 19> CO2queue;
 
 
 //Both putc and printf() use serial_putc() in serial_api.c. Transmit FIFO size
@@ -22,14 +23,15 @@ Queue<uint8_t, 19> CO2queue;
 
 
 void RX_isr() {
-	uint8_t CO2recv = co2uart.getcNB();	//Reading UnRBR clears the interrupt. If we don't clear it
+	uint8_t CO2recv = co2uart->getcNB();	//Reading UnRBR clears the interrupt. If we don't clear it
 										//->the ISR would retrigger infinitely.
 	CO2queue.put((uint8_t *)CO2recv);
 }
 
-void CO2Init() {
-	co2uart.baud(38400);	///Baud 38400, 8N1
-	co2uart.attach(&RX_isr, Serial::RxIrq);
+void CO2Init(PinName tx, PinName rx) {
+	co2uart = new Serial2(tx, rx);	//TODO DEBUG
+	co2uart->baud(38400);	///Baud 38400, 8N1
+	co2uart->attach(&RX_isr, Serial::RxIrq);
 }
 
 void CO2Trigger() {
@@ -43,7 +45,7 @@ void CO2Trigger() {
 	Checksum_lo };
 
 	for (int i = 0; i < 7; ++i) {
-		co2uart.putcNB(co2TransmitBuffer[i]);//Message must be maximum 16 bytes
+		co2uart->putcNB(co2TransmitBuffer[i]);//Message must be maximum 16 bytes
 											 //->(FIFO size)
 	}
 }
@@ -157,7 +159,7 @@ void CO2Task(void const *args) {
 			if (ChecksumCalculated != *(uint16_t *)ChecksumReceived || StatusError)
 				CO2SensorError = 1;
 //TODO			if (!CO2SensorError) sendtoPC;
-			if (!CO2SensorError) pc.printf("CO2= %f \r\n", GasReading);
+			if (!CO2SensorError) pcc.printf("CO2= %f \r\n", GasReading);
 			state = 0;
 			break;
 		}

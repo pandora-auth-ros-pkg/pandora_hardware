@@ -5,6 +5,7 @@
 #include "mbed.h"
 #include "rtos.h"
 #include "LibMods/i2c_nonblocking.h"
+#include "globals.hpp"
 
 #define I2C_THERM_ADDR 0x0E	///Thermistor Register Starting Address
 #define I2C_TEMP_ADDR 0x80	///Temperature Registers Starting Address

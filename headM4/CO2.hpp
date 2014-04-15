@@ -23,7 +23,7 @@ void CO2Task(void const *args) ;
 
 void RX_isr() ;
 
-void CO2Init() ;
+void CO2Init(PinName tx, PinName rx) ;
 
 void CO2Trigger() ;
 

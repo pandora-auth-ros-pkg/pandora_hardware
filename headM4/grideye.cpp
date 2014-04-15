@@ -51,7 +51,7 @@ void GridEYETask(void const *args) {
 #endif
 
 	while (1) {
-
+		Thread::signal_wait(GRIDEYE_I2C_SIGNAL);
 
 		pcg.printf("GridEye\r\n");
 
