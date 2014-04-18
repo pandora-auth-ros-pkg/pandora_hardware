@@ -52,8 +52,8 @@ void GridEYETask(void const *args) {
 		pcg.printf("GridEye\r\n");
 
 		cmd[0] = GRIDEYE_I2C_THERM_ADDR;
-		i2c_obj->write(i2c_addr, cmd, 1, 1);
-		i2c_obj->read(i2c_addr, thermistor_echo, 2);
+		i2c_obj->write(i2c_addr, cmd, 1, true);
+		i2c_obj->read(i2c_addr, thermistor_echo, 2, true);
 
 		if (therm_echo_uint16 & 0x800) {  //if negative
 			thermistor_value = - 0.0625 * (0x7FF & therm_echo_uint16);
@@ -64,8 +64,8 @@ void GridEYETask(void const *args) {
 		pcg.printf("Termistor Temp = %f\r\n", thermistor_value);
 
 		cmd[0] = GRIDEYE_I2C_TEMP_ADDR;
-		i2c_obj->write(i2c_addr, cmd, 1, 1);
-		i2c_obj->read(i2c_addr, temp_echo, 2*PIXELS_COUNT);
+		i2c_obj->write(i2c_addr, cmd, 1, true);
+		i2c_obj->read(i2c_addr, temp_echo, 2*PIXELS_COUNT, true);
 
 		for (int i = 0; i < PIXELS_COUNT; ++i) {
 			if (temp_echo_uint16[i] & 0x800) {  //if negative

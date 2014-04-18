@@ -142,14 +142,14 @@ inline int i2c_start(i2c_t *obj) {
     //  -  1    0   0   0  x - -
     // if AA = 0, it can't enter slave mode
     i2c_conclr(obj, 1, 1, 1, 1);
-    
+
     // The master mode may now be entered by setting the STA bit
     // this will generate a start condition when the bus becomes free
-    i2c_conset(obj, 1, 0, 0, 1);
-    
+    i2c_conset(obj, 1, 0, 0, 0);	//CHANGED MBED LIBRARY HERE
+
     i2c_wait_SI(obj);
     status = i2c_status(obj);
-    
+
     // Clear start bit now transmitted, and interrupt bit
     i2c_conclr(obj, 1, 0, 0, 0);
     return status;
@@ -226,20 +226,26 @@ void i2c_frequency(i2c_t *obj, int hz) {
 // check for that
 int i2c_read(i2c_t *obj, int address, char *data, int length, int stop) {
     int count, status;
-    
-    status = i2c_start(obj);
-    
+
+    if (stop)	//CHANGED MBED LIBRARY HERE
+		status = i2c_start(obj);
+	else {	//CHANGED MBED LIBRARY HERE
+		i2c_wait_SI(obj);
+		status = i2c_status(obj);
+		i2c_conclr(obj, 1, 0, 0, 0);
+	}
+
     if ((status != 0x10) && (status != 0x08)) {
         i2c_stop(obj);
         return I2C_ERROR_BUS_BUSY;
     }
-    
+
     status = i2c_do_write(obj, (address | 0x01), 1);
     if (status != 0x40) {
         i2c_stop(obj);
         return I2C_ERROR_NO_SLAVE;
     }
-    
+
     // Read in all except last byte
     for (count = 0; count < (length - 1); count++) {
         int value = i2c_do_read(obj, 0);
@@ -250,7 +256,7 @@ int i2c_read(i2c_t *obj, int address, char *data, int length, int stop) {
         }
         data[count] = (char) value;
     }
-    
+
     // read in last byte
     int value = i2c_do_read(obj, 1);
     status = i2c_status(obj);
@@ -258,33 +264,30 @@ int i2c_read(i2c_t *obj, int address, char *data, int length, int stop) {
         i2c_stop(obj);
         return length - 1;
     }
-    
+
     data[count] = (char) value;
-    
-    // If not repeated start, send stop.
-    if (stop) {
-        i2c_stop(obj);
-    }
-    
+
+	i2c_stop(obj);		//CHANGED MBED LIBRARY HERE
+
     return length;
 }
 
 int i2c_write(i2c_t *obj, int address, const char *data, int length, int stop) {
     int i, status;
-    
+
     status = i2c_start(obj);
-    
+
     if ((status != 0x10) && (status != 0x08)) {
         i2c_stop(obj);
         return I2C_ERROR_BUS_BUSY;
     }
-    
+
     status = i2c_do_write(obj, (address & 0xFE), 1);
     if (status != 0x18) {
         i2c_stop(obj);
         return I2C_ERROR_NO_SLAVE;
     }
-    
+
     for (i=0; i<length; i++) {
         status = i2c_do_write(obj, data[i], 0);
         if (status != 0x28) {
@@ -292,16 +295,19 @@ int i2c_write(i2c_t *obj, int address, const char *data, int length, int stop) {
             return i;
         }
     }
-    
+
     // clearing the serial interrupt here might cause an unintended rewrite of the last byte
     // see also issue report https://mbed.org/users/mbed_official/code/mbed/issues/1
-    // i2c_clear_SI(obj);
-    
+    if (!stop) {		//CHANGED MBED LIBRARY HERE
+    	i2c_conset(obj,1,0,0,0);	//Set START bit
+    	i2c_clear_SI(obj);
+    }
+
     // If not repeated start, send stop.
     if (stop) {
         i2c_stop(obj);
     }
-    
+
     return length;
 }
 

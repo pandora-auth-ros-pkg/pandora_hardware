@@ -16,19 +16,21 @@ int main (void) {
 
     GridEYEInit(&i2c0, &i2c1);
 
-	i2c_sensor_t temp_sens;
+	i2c_sensor_t temp_sens1;	//If we pass starting arguments to threads we must be sure that their memory location
+	i2c_sensor_t temp_sens2;	//-> doesn't change long enough for the threads to be created.
+	i2c_sensor_t temp_sens3;
 
-	temp_sens.i2c_obj = &i2c0;
-	temp_sens.i2c_addr = GRIDEYE_I2C_ADDR_GND;
-    Thread tGridEYECenterI2C0(GridEYETask, (void *)&temp_sens);
+	temp_sens1.i2c_obj = &i2c0;
+	temp_sens1.i2c_addr = 0xD0;
+    Thread tGridEYECenterI2C0(GridEYETask, (void *)&temp_sens1);
 
-	temp_sens.i2c_obj = &i2c0;
-	temp_sens.i2c_addr = GRIDEYE_I2C_ADDR_VDD;
-    Thread tGridEYELeftI2C0(GridEYETask, (void *)&temp_sens);
+    temp_sens2.i2c_obj = &i2c0;
+    temp_sens2.i2c_addr = 0xD4;
+    Thread tGridEYELeftI2C0(GridEYETask, (void *)&temp_sens2);
 
-	temp_sens.i2c_obj = &i2c1;
-	temp_sens.i2c_addr = GRIDEYE_I2C_ADDR_GND;
-    Thread tGridEYERightI2C1(GridEYETask, (void *)&temp_sens);
+    temp_sens3.i2c_obj = &i2c1;
+    temp_sens3.i2c_addr = 0xD8;
+    Thread tGridEYERightI2C1(GridEYETask, (void *)&temp_sens3);
 
 
     while (true) {

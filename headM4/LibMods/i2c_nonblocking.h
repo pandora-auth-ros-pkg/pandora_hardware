@@ -15,10 +15,9 @@
 #include "error.h"
 #include "objects.h"
 
-typedef struct i2c_s i2c_t;
-
 #define SI 3	///I2C Serial Interrupt flag
 
+typedef struct i2c_s i2c_t;
 
 //If queue.put() is executed inside an ISR, and we have continuous interrupts (not allowing non-ISR code to run),
 //->queue uses a size 16 FIFO (independent from what the user sets). Shouldn't happen in a real case scenario.
