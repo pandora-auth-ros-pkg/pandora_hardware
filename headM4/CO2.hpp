@@ -19,6 +19,8 @@
 #define Checksum_lo 0x58    ///Checksum low byte
 
 
+float CO2valueGet();
+
 void CO2Task(void const *args) ;
 
 void RX_isr() ;

@@ -12,6 +12,10 @@
 
 Serial pcg(USBTX, USBRX);	//TODO delete this , and following printf, or make debug output
 
+static uint8_t GridEYECenterI2C0values[64];
+static uint8_t GridEYELeftI2C0values[64];
+static uint8_t GridEYERightI2C1values[64];
+
 void GridEYEInit(I2C *i2c0_obj, I2C *i2c1_obj) {
 	i2c0_obj->frequency(400000);
 	i2c1_obj->frequency(400000);

@@ -12,6 +12,15 @@ static Serial2 *co2uart;
  */
 static Queue<uint8_t, 19> CO2queue;
 
+static float CO2value;
+
+static void CO2valueSet(float value) {
+	CO2value = value;
+}
+
+float CO2valueGet() {
+	return CO2value;
+}
 
 //Both putc and printf() use serial_putc() in serial_api.c. Transmit FIFO size
 //is 16. If we transmit new data and FIFO is full the new data gets lost.
@@ -158,7 +167,7 @@ void CO2Task(void const *args) {
 			ChecksumReceived[0] = recv_char;
 			if (ChecksumCalculated != *(uint16_t *)ChecksumReceived || StatusError)
 				CO2SensorError = 1;
-//TODO			if (!CO2SensorError) sendtoPC;
+			if (!CO2SensorError) CO2valueSet(GasReading);
 			if (!CO2SensorError) pcc.printf("CO2= %f \r\n", GasReading);
 			state = 0;
 			break;
