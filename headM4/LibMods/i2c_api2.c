@@ -13,6 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
+//Important note: due to MBED Library bug i2c_write() and i2c_read() in i2c_api.c were changed, in order
+//-> to support a repeated start i2c_read after an i2c_write call. If you want repeated start functionality
+//-> delete original i2c_api.c and use i2c_api2.c in LibMods folder instead. Also there will be other additions in
+//-> i2c_api2.c. All changes are marked with "CHANGED MBED LIBRARY HERE" in comments.
+//Instructions if you want to use repeated start: 1) If you set "repeated" argument to true in I2C::write() the
+//->  following I2C::read() must also have "repeated" argument set to true. 2) An I2C transaction is not allowed to
+//-> start with I2C::read() with "repeated" argument set to true.
+
 #include "i2c_api.h"
 #include "cmsis.h"
 #include "pinmap.h"
@@ -62,7 +71,7 @@ static const uint32_t I2C_addr_offset[2][4] = {
 
 static inline void i2c_conclr(i2c_t *obj, int start, int stop, int interrupt, int acknowledge) {
     I2C_CONCLR(obj) = (start << 5)
-                    | (stop << 4)
+//                    | (stop << 4)		//We shouldn't write 1 in reserved bits. CHANGED MBED LIBRARY HERE
                     | (interrupt << 3)
                     | (acknowledge << 2);
 }
@@ -145,7 +154,7 @@ inline int i2c_start(i2c_t *obj) {
 
     // The master mode may now be entered by setting the STA bit
     // this will generate a start condition when the bus becomes free
-    i2c_conset(obj, 1, 0, 0, 0);	//CHANGED MBED LIBRARY HERE
+    i2c_conset(obj, 1, 0, 0, 0);	//AA = 0, it can't enter slave mode. CHANGED MBED LIBRARY HERE
 
     i2c_wait_SI(obj);
     status = i2c_status(obj);
@@ -177,6 +186,7 @@ static inline int i2c_do_write(i2c_t *obj, int value, uint8_t addr) {
     I2C_DAT(obj) = value;
     
     // clear SI to init a send
+    i2c_conset(obj,0,0,0,1);	//Set AA flag, don't know why, user manual says so. CHANGED MBED LIBRARY HERE
     i2c_clear_SI(obj);
     
     // wait and return status
@@ -232,7 +242,7 @@ int i2c_read(i2c_t *obj, int address, char *data, int length, int stop) {
 	else {	//CHANGED MBED LIBRARY HERE
 		i2c_wait_SI(obj);
 		status = i2c_status(obj);
-		i2c_conclr(obj, 1, 0, 0, 0);
+		i2c_conclr(obj, 1, 0, 0, 0);	//Clear START
 	}
 
     if ((status != 0x10) && (status != 0x08)) {
@@ -299,8 +309,8 @@ int i2c_write(i2c_t *obj, int address, const char *data, int length, int stop) {
     // clearing the serial interrupt here might cause an unintended rewrite of the last byte
     // see also issue report https://mbed.org/users/mbed_official/code/mbed/issues/1
     if (!stop) {		//CHANGED MBED LIBRARY HERE
-    	i2c_conset(obj,1,0,0,0);	//Set START bit
-    	i2c_clear_SI(obj);
+    	i2c_conset(obj,1,0,0,0);	//Set START bit, if START wasn't set before i2c_clear_SI, last byte sent is
+    	i2c_clear_SI(obj);			//-> rewritten to I2C bus. Check mbed library issue 1.
     }
 
     // If not repeated start, send stop.

@@ -1,5 +1,12 @@
 //Instructions: 1) Include this file in i2c_api.c and disable i2c_clear_SI() and i2c_wait_SI() in i2c_api.c.
 //2) In main()  call I2C?_queue_create()
+//Important note: due to MBED Library bug i2c_write() and i2c_read() in i2c_api.c were changed, in order
+//-> to support a repeated start i2c_read after an i2c_write call. If you want repeated start functionality
+//-> delete original i2c_api.c and use i2c_api2.c in LibMods folder instead. Also there will be other additions in
+//-> i2c_api2.c. All changes are marked with "CHANGED MBED LIBRARY HERE" in comments.
+//Instructions if you want to use repeated start: 1) If you set "repeated" argument to true in I2C::write() the
+//->  following I2C::read() must also have "repeated" argument set to true. 2) An I2C transaction is not allowed to
+//-> start with I2C::read() with "repeated" argument set to true.
 
 //Things to note: 1) Interrupts must be enabled in NVIC too (I2C is enabled only in NVIC), 2) NVIC_SetPriority() is
 //-> optional, default priority is 0 (highest), 3) if we want to choose the ISR during runtime, dynamic vectors must

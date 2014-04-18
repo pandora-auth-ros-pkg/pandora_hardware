@@ -77,7 +77,7 @@ public:
      *  @param address 8-bit I2C slave address [ addr | 1 ]
      *  @param data Pointer to the byte-array to read data in to
      *  @param length Number of bytes to read
-     *  @param repeated Repeated start, true - don't send stop at end
+     *  @param repeated Repeated start, true - don't send start
      *
      *  @returns
      *       0 on success (ack),

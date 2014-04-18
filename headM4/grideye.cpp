@@ -52,8 +52,8 @@ void GridEYETask(void const *args) {
 		pcg.printf("GridEye\r\n");
 
 		cmd[0] = GRIDEYE_I2C_THERM_ADDR;
-		i2c_obj->write(i2c_addr, cmd, 1, true);
-		i2c_obj->read(i2c_addr, thermistor_echo, 2, true);
+		i2c_obj->write(i2c_addr, cmd, 1, true);	//Repeated start is true in i2c_obj->write, so it must be true in
+		i2c_obj->read(i2c_addr, thermistor_echo, 2, true); //-> the following read, too.
 
 		if (therm_echo_uint16 & 0x800) {  //if negative
 			thermistor_value = - 0.0625 * (0x7FF & therm_echo_uint16);
