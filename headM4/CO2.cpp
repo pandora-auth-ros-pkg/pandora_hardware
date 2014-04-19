@@ -14,7 +14,7 @@ static Queue<uint8_t, 19> CO2queue;
 
 static float CO2value;
 
-static void CO2valueSet(float value) {
+void CO2valueSet(float value) {
 	CO2value = value;
 }
 

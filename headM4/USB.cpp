@@ -10,6 +10,7 @@ static USBSerial usb(20);
 
 Serial pcu(USBTX, USBRX);
 
+//USBTask could be made as interrupt callback
 void USBTask(const void *args) {
 	union {
 		float CO2value;
@@ -23,7 +24,16 @@ void USBTask(const void *args) {
 			command = usb._getc();
 
 			switch (command) {
-				case 0:
+				case GEYE_CENTER_REQUEST:
+					usb.writeBlock(GridEYEvaluesGet(GEYE_CENTER), 64);
+					break;
+				case GEYE_LEFT_REQUEST:
+					usb.writeBlock(GridEYEvaluesGet(GEYE_LEFT), 64);
+					break;
+				case GEYE_RIGHT_REQUEST:
+					usb.writeBlock(GridEYEvaluesGet(GEYE_RIGHT), 64);
+					break;
+				case CO2_REQUEST:
 					CO2value = CO2valueGet();
 					usb.writeBlock(&CO2value_uint8, 4);
 					break;

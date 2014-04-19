@@ -26,6 +26,7 @@
 
 typedef struct i2c_s i2c_t;
 
+
 //If queue.put() is executed inside an ISR, and we have continuous interrupts (not allowing non-ISR code to run),
 //->queue uses a size 16 FIFO (independent from what the user sets). Shouldn't happen in a real case scenario.
 //Things to note: 1) extern "C" is required if handler executed in C++ code, 2) Interrupt flag should be cleared

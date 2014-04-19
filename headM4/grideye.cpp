@@ -1,20 +1,10 @@
 #include "grideye.hpp"
 
-#define ENABLE_RGB_LEDMATRIX 0
-
-#if ENABLE_RGB_LEDMATRIX
-
-#define GREEN 0x1C
-#define RED 0xE0
-#define ORANGE 0xFC
-
-#endif
-
 Serial pcg(USBTX, USBRX);	//TODO delete this , and following printf, or make debug output
 
-static uint8_t GridEYECenterI2C0values[64];
-static uint8_t GridEYELeftI2C0values[64];
-static uint8_t GridEYERightI2C1values[64];
+static uint8_t GridEYECenterValues[PIXELS_COUNT];
+static uint8_t GridEYELeftValues[PIXELS_COUNT];
+static uint8_t GridEYERightValues[PIXELS_COUNT];
 
 void GridEYEInit(I2C *i2c0_obj, I2C *i2c1_obj) {
 	i2c0_obj->frequency(400000);
@@ -27,6 +17,7 @@ void GridEYETask(void const *args) {
 	const i2c_sensor_t *temp=(const i2c_sensor_t *)args;
 	I2C *i2c_obj = temp->i2c_obj;
 	uint8_t i2c_addr = temp->i2c_addr;
+	uint8_t grideye_num = temp->grideye_num;
 
 	char cmd[2];
 
@@ -37,10 +28,10 @@ void GridEYETask(void const *args) {
 	float thermistor_value;
 
 	union {
-		char temp_echo[2*PIXELS_COUNT];	//1 LSB = 0.25 C , result 12-bit as 2's complement
-		uint16_t temp_echo_uint16[PIXELS_COUNT];	//little endian
+		char temper_echo[2*PIXELS_COUNT];	//1 LSB = 0.25 C , result 12-bit as 2's complement
+		uint16_t temper_echo_uint16[PIXELS_COUNT];	//little endian
 	};
-	float temp_values[PIXELS_COUNT];
+	float temper_values[PIXELS_COUNT];
 
 #if ENABLE_RGB_LEDMATRIX
 
@@ -69,21 +60,35 @@ void GridEYETask(void const *args) {
 
 		cmd[0] = GRIDEYE_I2C_TEMP_ADDR;
 		i2c_obj->write(i2c_addr, cmd, 1, true);
-		i2c_obj->read(i2c_addr, temp_echo, 2*PIXELS_COUNT, true);
+		i2c_obj->read(i2c_addr, temper_echo, 2*PIXELS_COUNT, true);
 
 		for (int i = 0; i < PIXELS_COUNT; ++i) {
-			if (temp_echo_uint16[i] & 0x800) {  //if negative
-				temp_values[i] = 0.25 * (int16_t)(0xF000 | temp_echo_uint16[i]);
+			if (temper_echo_uint16[i] & 0x800) {  //if negative
+				temper_values[i] = 0.25 * (int16_t)(0xF000 | temper_echo_uint16[i]);
 			} else {	//else if positive
-				temp_values[i] = 0.25 * (0x7FF & temp_echo_uint16[i]);
+				temper_values[i] = 0.25 * (0x7FF & temper_echo_uint16[i]);
 			}
 		}
+
+		GridEYEvaluesSet(temper_values, grideye_num);
+
+//		switch (grideye_num) {
+//			case 1:
+//				GridEYECenterI2C0valuesSet(temper_values);
+//				break;
+//			case 2:
+//				GridEYELeftI2C0valuesSet(temper_values);
+//				break;
+//			case 3:
+//				GridEYERightI2C1valuesSet(temper_values);
+//				break;
+//		}
 
 		pcg.printf("Grid Temp =\r\n");
 
 #if ENABLE_RGB_LEDMATRIX
 		
-		if (i2c_addr == 0b1101001 << 1) {	//TODO Use the address of the GridEYE with the unique address
+		if (grideye_num == GEYE_CENTER) {	//TODO Use the address of the GridEYE with the unique address
 			char ledArray [64];
 			int celsius;
 
@@ -92,7 +97,7 @@ void GridEYETask(void const *args) {
 
 			//Determine LED Color for Pixel
 			for (int pixel = 0; pixel < PIXELS_COUNT; ++pixel) {
-				celsius = temp_values[pixel];
+				celsius = temper_values[pixel];
 				if (celsius < 26) {
 					ledArray[pixel] = GREEN;
 				} else if (celsius >= 26 && celsius <= 30) {
@@ -117,3 +122,82 @@ void GridEYETask(void const *args) {
 #endif
 	}
 }
+
+void GridEYEvaluesSet(float values[], uint8_t grideye_num) {
+	uint8_t *GridEYEvalues;
+	switch (grideye_num) {
+		case GEYE_CENTER:
+			GridEYEvalues = GridEYECenterValues;
+			break;
+		case GEYE_LEFT:
+			GridEYEvalues = GridEYELeftValues;
+			break;
+		case GEYE_RIGHT:
+			GridEYEvalues = GridEYERightValues;
+			break;
+		default:
+			return;
+	}
+
+	for (int i = 0; i < PIXELS_COUNT; ++i) {
+		if (values[i] < 0) {
+			GridEYEvalues[i] = 0;
+		} else if (values[i] > 80) {
+			GridEYEvalues[i] = 80;
+		} else {
+			GridEYEvalues[i] = (uint8_t)(values[i] + 0.5);	//rounding to nearest Celsius degree
+		}
+	}
+}
+
+uint8_t * GridEYEvaluesGet(uint8_t grideye_num) {
+	switch (grideye_num) {
+		case GEYE_CENTER:
+			return GridEYECenterValues;
+			break;
+		case GEYE_LEFT:
+			return GridEYELeftValues;
+			break;
+		case GEYE_RIGHT:
+			return GridEYERightValues;
+			break;
+	}
+	return GridEYECenterValues;	//Shouldn't come here
+}
+
+
+//static void GridEYECenterI2C0valuesSet(float values[]) {
+//	for (int i = 0; i < PIXELS_COUNT; ++i) {
+//		if (values[i] < 0) {
+//			GridEYECenterI2C0values[i] = 0;
+//		} else if (values[i] > 80) {
+//			GridEYECenterI2C0values[i] = 80;
+//		} else {
+//			GridEYECenterI2C0values[i] = (uint8_t)(values[i] + 0.5);	//rounding to nearest Celsius degree
+//		}
+//	}
+//}
+//
+//static void GridEYELeftI2C0valuesSet(float values[]) {
+//	for (int i = 0; i < PIXELS_COUNT; ++i) {
+//		if (values[i] < 0) {
+//			GridEYELeftI2C0values[i] = 0;
+//		} else if (values[i] > 80) {
+//			GridEYELeftI2C0values[i] = 80;
+//		} else {
+//			GridEYELeftI2C0values[i] = (uint8_t)(values[i] + 0.5);	//rounding to nearest Celsius degree
+//		}
+//	}
+//}
+//
+//static void GridEYERightI2C1valuesSet(float values[]) {
+//	for (int i = 0; i < PIXELS_COUNT; ++i) {
+//		if (values[i] < 0) {
+//			GridEYERightI2C1values[i] = 0;
+//		} else if (values[i] > 80) {
+//			GridEYERightI2C1values[i] = 80;
+//		} else {
+//			GridEYERightI2C1values[i] = (uint8_t)(values[i] + 0.5);	//rounding to nearest Celsius degree
+//		}
+//	}
+//}
