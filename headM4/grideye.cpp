@@ -1,7 +1,5 @@
 #include "grideye.hpp"
 
-Serial pcg(USBTX, USBRX);	//TODO delete this , and following printf, or make debug output
-
 static uint8_t GridEYECenterValues[PIXELS_COUNT];
 static uint8_t GridEYELeftValues[PIXELS_COUNT];
 static uint8_t GridEYERightValues[PIXELS_COUNT];
@@ -48,8 +46,6 @@ void GridEYETask(void const *args) {
 	while (1) {
 		Thread::signal_wait(GRIDEYE_I2C_SIGNAL);
 
-		pcg.printf("GridEye\r\n");
-
 		cmd[0] = GRIDEYE_I2C_THERM_ADDR;
 		i2c_lock(i2c_periph_num);
 		i2c_obj->write(i2c_addr, cmd, 1, true);	//Repeated start is true in i2c_obj->write, so it must be true in
@@ -61,8 +57,6 @@ void GridEYETask(void const *args) {
 		} else {	//else if positive
 			thermistor_value = 0.0625 * (0x7FF & therm_echo_uint16);
 		}
-
-		pcg.printf("Termistor Temp = %f\r\n", thermistor_value);
 
 		cmd[0] = GRIDEYE_I2C_TEMP_ADDR;
 		i2c_lock(i2c_periph_num);
@@ -80,11 +74,10 @@ void GridEYETask(void const *args) {
 
 		GridEYEvaluesSet(temper_values, grideye_num);
 
-		pcg.printf("Grid Temp =\r\n");
 
 #if ENABLE_RGB_LEDMATRIX
 		
-		if (grideye_num == GEYE_CENTER) {	//TODO Use the address of the GridEYE with the unique address
+		if (grideye_num == GEYE_CENTER) {
 			char ledArray [64];
 			int celsius;
 

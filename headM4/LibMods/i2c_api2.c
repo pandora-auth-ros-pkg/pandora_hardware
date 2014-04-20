@@ -21,6 +21,7 @@
 //Instructions if you want to use repeated start: 1) If you set "repeated" argument to true in I2C::write() the
 //->  following I2C::read() must also have "repeated" argument set to true. 2) An I2C transaction is not allowed to
 //-> start with I2C::read() with "repeated" argument set to true.
+//Note: As of now only the sequence write -> repeated start -> read is implemented.
 
 #include "i2c_api.h"
 #include "cmsis.h"

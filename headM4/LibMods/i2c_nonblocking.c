@@ -38,7 +38,6 @@ inline void i2c_clear_SI(i2c_t *obj) {
 }
 
 int i2c_wait_SI(i2c_t *obj) {
-//	osEvent evt = osMessageGet(I2C_QUEUE, osWaitForever);	//TODO: DEBUG: "osEvent evt =" needed ?
 	if (obj->i2c == (LPC_I2C_TypeDef *)I2C_0) {
 		osMessageGet(I2C0_queue, osWaitForever);	//TODO: well, maybe forever is too long
 	} else if (obj->i2c == (LPC_I2C_TypeDef *)I2C_1) {

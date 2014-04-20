@@ -8,10 +8,8 @@
 //to worry about missing packets.
 static USBSerial *usb;
 
-Serial pcu(USBTX, USBRX);
-
 void USBInit() {
-	usb = new USBSerial(20);	//TODO DEBUG
+	usb = new USBSerial(20);	//blocks if USB not plugged in
 }
 //USBTask could be made as interrupt callback
 void USBTask(const void *args) {
@@ -28,6 +26,7 @@ void USBTask(const void *args) {
 
 			switch (command) {
 				case GEYE_CENTER_REQUEST:
+					//writeBlock() waits for the host to connect
 					usb->writeBlock(GridEYEvaluesGet(GEYE_CENTER), PIXELS_COUNT);
 					break;
 				case GEYE_LEFT_REQUEST:

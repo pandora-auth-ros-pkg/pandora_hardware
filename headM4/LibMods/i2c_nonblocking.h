@@ -7,6 +7,7 @@
 //Instructions if you want to use repeated start: 1) If you set "repeated" argument to true in I2C::write() the
 //->  following I2C::read() must also have "repeated" argument set to true. 2) An I2C transaction is not allowed to
 //-> start with I2C::read() with "repeated" argument set to true.
+//Note: As of now only the sequence write -> repeated start -> read is implemented.
 
 //Things to note: 1) Interrupts must be enabled in NVIC too (I2C is enabled only in NVIC), 2) NVIC_SetPriority() is
 //-> optional, default priority is 0 (highest), 3) if we want to choose the ISR during runtime, dynamic vectors must
