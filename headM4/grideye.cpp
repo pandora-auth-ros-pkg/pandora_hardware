@@ -19,6 +19,7 @@ void GridEYEInit(I2C *i2c0_obj, I2C *i2c1_obj) {
 void GridEYETask(void const *args) {
 	const i2c_sensor_t *temp=(const i2c_sensor_t *)args;
 	I2C *i2c_obj = temp->i2c_obj;
+	uint8_t i2c_periph_num = temp->i2c_periph_num;
 	uint8_t i2c_addr = temp->i2c_addr;
 	uint8_t grideye_num = temp->grideye_num;
 
@@ -50,10 +51,10 @@ void GridEYETask(void const *args) {
 		pcg.printf("GridEye\r\n");
 
 		cmd[0] = GRIDEYE_I2C_THERM_ADDR;
-		i2c_lock(grideye_num);
+		i2c_lock(i2c_periph_num);
 		i2c_obj->write(i2c_addr, cmd, 1, true);	//Repeated start is true in i2c_obj->write, so it must be true in
 		i2c_obj->read(i2c_addr, thermistor_echo, 2, true); //-> the following read, too.
-		i2c_unlock(grideye_num);
+		i2c_unlock(i2c_periph_num);
 
 		if (therm_echo_uint16 & 0x800) {  //if negative
 			thermistor_value = - 0.0625 * (0x7FF & therm_echo_uint16);
@@ -64,10 +65,10 @@ void GridEYETask(void const *args) {
 		pcg.printf("Termistor Temp = %f\r\n", thermistor_value);
 
 		cmd[0] = GRIDEYE_I2C_TEMP_ADDR;
-		i2c_lock(grideye_num);
+		i2c_lock(i2c_periph_num);
 		i2c_obj->write(i2c_addr, cmd, 1, true);
 		i2c_obj->read(i2c_addr, temper_echo, 2*PIXELS_COUNT, true);
-		i2c_unlock(grideye_num);
+		i2c_unlock(i2c_periph_num);
 
 		for (int i = 0; i < PIXELS_COUNT; ++i) {
 			if (temper_echo_uint16[i] & 0x800) {  //if negative
@@ -160,29 +161,23 @@ uint8_t * GridEYEvaluesGet(uint8_t grideye_num) {
 	return GridEYECenterValues;	//Shouldn't come here
 }
 
-void i2c_lock(uint8_t grideye_num) {
-	switch (grideye_num) {
-		case GEYE_CENTER:
+void i2c_lock(uint8_t i2c_periph_num) {
+	switch (i2c_periph_num) {
+		case 0:
 			i2c0_mutex.lock();
 			break;
-		case GEYE_LEFT:
-			i2c0_mutex.lock();
-			break;
-		case GEYE_RIGHT:
+		case 1:
 			i2c1_mutex.lock();
 			break;
 	}
 }
 
-void i2c_unlock(uint8_t grideye_num) {
-	switch (grideye_num) {
-		case GEYE_CENTER:
+void i2c_unlock(uint8_t i2c_periph_num) {
+	switch (i2c_periph_num) {
+		case 0:
 			i2c0_mutex.unlock();
 			break;
-		case GEYE_LEFT:
-			i2c0_mutex.unlock();
-			break;
-		case GEYE_RIGHT:
+		case 1:
 			i2c1_mutex.unlock();
 			break;
 	}

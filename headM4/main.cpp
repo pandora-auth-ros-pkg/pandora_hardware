@@ -22,16 +22,19 @@ int main (void) {
 	i2c_sensor_t temp_sens3;
 
 	temp_sens1.i2c_obj = &i2c0;
+	temp_sens1.i2c_periph_num = 0;
 	temp_sens1.i2c_addr = GRIDEYE_I2C_ADDR_GND;
 	temp_sens1.grideye_num = GEYE_CENTER;
     Thread tGridEYECenter(GridEYETask, (void *)&temp_sens1);
 
     temp_sens2.i2c_obj = &i2c0;
+    temp_sens2.i2c_periph_num = 0;
     temp_sens2.i2c_addr = GRIDEYE_I2C_ADDR_VDD;
     temp_sens2.grideye_num = GEYE_LEFT;
     Thread tGridEYELeft(GridEYETask, (void *)&temp_sens2);
 
     temp_sens3.i2c_obj = &i2c1;
+    temp_sens3.i2c_periph_num = 1;
     temp_sens3.i2c_addr = GRIDEYE_I2C_ADDR_GND;
     temp_sens3.grideye_num = GEYE_RIGHT;
     Thread tGridEYERight(GridEYETask, (void *)&temp_sens3);
