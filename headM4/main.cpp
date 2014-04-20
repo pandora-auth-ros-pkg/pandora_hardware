@@ -36,6 +36,8 @@ int main (void) {
     temp_sens3.grideye_num = GEYE_RIGHT;
     Thread tGridEYERight(GridEYETask, (void *)&temp_sens3);
 
+    USBInit();
+
     Thread tUSB(USBTask);
 
     //I2C sensors in the same I2C bus have maximum distance ie 50ms in a 100ms loop

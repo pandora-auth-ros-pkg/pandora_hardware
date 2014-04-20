@@ -43,4 +43,7 @@ void GridEYETask(void const *args);
 void GridEYEvaluesSet(float values[], uint8_t grideye_num);
 uint8_t * GridEYEvaluesGet(uint8_t grideye_num);
 
+void i2c_lock(uint8_t grideye_num);
+void i2c_unlock(uint8_t grideye_num);
+
 #endif /* GRIDEYE_HPP_ */

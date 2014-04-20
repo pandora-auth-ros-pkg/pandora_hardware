@@ -15,6 +15,8 @@
 #define GEYE_RIGHT_REQUEST 3
 #define CO2_REQUEST 4
 
+void USBInit();
+
 void USBTask(const void *args);
 
 #endif /* USB_HPP_ */
