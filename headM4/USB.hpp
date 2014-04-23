@@ -19,4 +19,14 @@ void USBInit();
 
 void USBTask(const void *args);
 
+void USBGridEYEvaluesSet(uint8_t values[], uint8_t grideye_num);
+
+void USBGridEYEvaluesZero(uint8_t grideye_num);
+
+uint8_t * USBGridEYEvaluesGet(uint8_t grideye_num);
+
+void USBCO2valueSet(float value);
+
+float USBCO2valueGet();
+
 #endif /* USB_HPP_ */

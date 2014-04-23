@@ -10,14 +10,10 @@ static Serial2 *co2uart;
  */
 static Queue<uint8_t, 19> CO2queue;
 
-static float CO2value;
-
 void CO2valueSet(float value) {
-	CO2value = value;
-}
-
-float CO2valueGet() {
-	return CO2value;
+	if (value>=0 && value<2) {
+		HealthyCO2(value);
+	}
 }
 
 //Both putc and printf() use serial_putc() in serial_api.c. Transmit FIFO size

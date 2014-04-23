@@ -3,6 +3,7 @@
 #include "grideye.hpp"
 #include "CO2.hpp"
 #include "USB.hpp"
+#include "health.hpp"
 //#include "gpdma.h"
 //#include "dsp.h"
 //#include "USBSerial2.h"
@@ -43,8 +44,12 @@ int main (void) {
 
     Thread tUSB(USBTask);
 
+    Thread tHealth(HealthTask);
+
     //I2C sensors in the same I2C bus have maximum distance ie 50ms in a 100ms loop
     while (true) {
+    	clearHealthy();
+
     	tGridEYECenter.signal_set(GRIDEYE_I2C_SIGNAL);
 
 		Thread::wait(12);
@@ -57,7 +62,7 @@ int main (void) {
 		tGridEYELeft.signal_set(GRIDEYE_I2C_SIGNAL);
 
 		Thread::wait(40);
-		//usb
+		tHealth.signal_set(HEALTH_SIGNAL);
 
 		Thread::wait(10);
     }

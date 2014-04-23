@@ -5,6 +5,7 @@
 #include "mbed.h"
 #include "rtos.h"
 #include "LibMods/i2c_nonblocking.h"
+#include "health.hpp"
 
 #define ENABLE_RGB_LEDMATRIX 0
 
@@ -42,8 +43,6 @@ void GridEYEInit(I2C *i2c0_obj, I2C *i2c1_obj);
 void GridEYETask(void const *args);
 
 void GridEYEvaluesSet(float values[], uint8_t grideye_num);
-
-uint8_t * GridEYEvaluesGet(uint8_t grideye_num);
 
 void i2c_lock(uint8_t i2c_periph_num);
 

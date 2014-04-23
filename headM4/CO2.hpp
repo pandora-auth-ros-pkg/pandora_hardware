@@ -5,6 +5,7 @@
 #include "mbed.h"
 #include "rtos.h"
 #include "dsp.h"
+#include "health.hpp"
 
 #include "LibMods/Serial2.h"
 
@@ -19,7 +20,6 @@
 #define Checksum_lo 0x58    ///Checksum low byte
 
 void CO2valueSet(float value);
-float CO2valueGet();
 
 void CO2Task(void const *args) ;
 
