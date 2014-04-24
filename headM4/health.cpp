@@ -17,19 +17,20 @@ void HealthTask(void const *args) {
 			if (CO2_FailCount == 1) {
 				USBCO2valueSet(0);
 			}
-			if (CO2_FailCount > 4) {
-				CO2Trigger();
-			}
-		} else if (!GridEYECenter_health || !GridEYELeft_health) {
+			repairCO2(CO2_FailCount);
+		}
+		if (!GridEYECenter_health || !GridEYELeft_health) {
 			//TODO DO something here
-		} else if (!GridEYECenter_health && !GridEYELeft_health) {
+		}
+		if (!GridEYECenter_health && !GridEYELeft_health) {
 			I2C0_FailCount++;
 			if (I2C0_FailCount == 1) {
 				USBGridEYEvaluesZero(GEYE_LEFT);
 				USBGridEYEvaluesZero(GEYE_CENTER);
 			}
 			repairI2C(I2C0_FailCount, I2C_0);
-		} else if (!GridEYERight_health) {
+		}
+		if (!GridEYERight_health) {
 			I2C1_FailCount++;
 			if (I2C1_FailCount == 1) {
 				USBGridEYEvaluesZero(GEYE_RIGHT);
@@ -69,6 +70,12 @@ void HealthyGEyeRight(uint8_t values[]) {
 	GridEYERight_health = 1;
 	I2C1_FailCount = 0;
 	USBGridEYEvaluesSet(values, GEYE_RIGHT);
+}
+
+void repairCO2(uint8_t count) {
+	if (count > 4) {
+		CO2Trigger();
+	}
 }
 
 void repairI2C(uint8_t count, int i2c_base) {

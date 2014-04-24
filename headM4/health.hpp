@@ -24,6 +24,8 @@ void HealthyGEyeLeft(uint8_t values[]);
 
 void HealthyGEyeRight(uint8_t values[]);
 
+void repairCO2(uint8_t count);
+
 void repairI2C(uint8_t count, int i2c_base);
 
 #endif /* HEALTH_HPP_ */
