@@ -11,7 +11,7 @@ static Serial2 *co2uart;
 static Queue<uint8_t, 19> CO2queue;
 
 void CO2valueSet(float value) {
-	if (value>=0 && value<2) {
+	if (value>=0 && value<5) {
 		HealthyCO2(value);
 	}
 }

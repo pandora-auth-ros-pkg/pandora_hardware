@@ -3,7 +3,6 @@
 
 #include "grideye.hpp"
 #include "CO2.hpp"
-#include "grideye.hpp"
 #include "USB.hpp"
 #include "PeripheralNames.h"
 
