@@ -46,7 +46,7 @@ int main (void) {
 
     Thread tHealth(HealthTask);
 
-//    wait(1);	//TODO needed ?
+    wait(1);	//TODO needed ?
 
     //I2C sensors in the same I2C bus have maximum distance ie 50ms in a 100ms loop
     while (true) {
