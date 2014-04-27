@@ -48,28 +48,32 @@ void clearHealthy() {
 	GridEYERight_health = 0;
 }
 
-void HealthyCO2(float value) {
+void HealthyCO2valueSet(float value) {
 	CO2_health = 1;
 	CO2_FailCount = 0;
 	USBCO2valueSet(value);
 }
 
-void HealthyGEyeCenter(uint8_t values[]) {
-	GridEYECenter_health = 1;
-	I2C0_FailCount = 0;
-	USBGridEYEvaluesSet(values, GEYE_CENTER);
-}
-
-void HealthyGEyeLeft(uint8_t values[]) {
-	GridEYELeft_health = 1;
-	I2C0_FailCount = 0;
-	USBGridEYEvaluesSet(values, GEYE_LEFT);
-}
-
-void HealthyGEyeRight(uint8_t values[]) {
-	GridEYERight_health = 1;
-	I2C1_FailCount = 0;
-	USBGridEYEvaluesSet(values, GEYE_RIGHT);
+void HealthyGridEYEvaluesSet(uint8_t values[], uint8_t grideye_num) {
+	switch (grideye_num) {
+		case GEYE_CENTER:
+			GridEYECenter_health = 1;
+			I2C0_FailCount = 0;
+			USBGridEYEvaluesSet(values, grideye_num);
+			break;
+		case GEYE_LEFT:
+			GridEYELeft_health = 1;
+			I2C0_FailCount = 0;
+			USBGridEYEvaluesSet(values, grideye_num);
+			break;
+		case GEYE_RIGHT:
+			GridEYERight_health = 1;
+			I2C1_FailCount = 0;
+			USBGridEYEvaluesSet(values, grideye_num);
+			break;
+		default:
+			return;
+	}
 }
 
 void repairCO2(uint8_t count) {

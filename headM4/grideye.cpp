@@ -121,19 +121,7 @@ void GridEYEvaluesSet(float values[], uint8_t grideye_num) {
 	}
 
 	if (!OutOfBounds) {
-		switch (grideye_num) {
-			case GEYE_CENTER:
-				HealthyGEyeCenter(GridEYEvalues);
-				break;
-			case GEYE_LEFT:
-				HealthyGEyeLeft(GridEYEvalues);
-				break;
-			case GEYE_RIGHT:
-				HealthyGEyeRight(GridEYEvalues);
-				break;
-			default:
-				return;
-		}
+		HealthyGridEYEvaluesSet(GridEYEvalues, grideye_num);
 	}
 }
 

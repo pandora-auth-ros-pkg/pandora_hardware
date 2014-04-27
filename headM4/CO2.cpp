@@ -12,7 +12,7 @@ static Queue<uint8_t, 19> CO2queue;
 
 void CO2valueSet(float value) {
 	if (value>=0 && value<5) {
-		HealthyCO2(value);
+		HealthyCO2valueSet(value);
 	}
 }
 

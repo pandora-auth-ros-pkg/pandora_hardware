@@ -16,13 +16,9 @@ void HealthTask(void const *args);
 
 void clearHealthy();
 
-void HealthyCO2(float value);
+void HealthyCO2valueSet(float value);
 
-void HealthyGEyeCenter(uint8_t values[]);
-
-void HealthyGEyeLeft(uint8_t values[]);
-
-void HealthyGEyeRight(uint8_t values[]);
+void HealthyGridEYEvaluesSet(uint8_t values[], uint8_t grideye_num);
 
 void repairCO2(uint8_t count);
 
