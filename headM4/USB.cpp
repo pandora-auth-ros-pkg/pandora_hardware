@@ -33,12 +33,20 @@ void USBTask(const void *args) {
 				case GEYE_CENTER_REQUEST:
 					//writeBlock() waits for the host to connect
 					usb->writeBlock(USBGridEYEvaluesGet(GEYE_CENTER), PIXELS_COUNT);
+					//Because the array we send is a multiple of max packet size (64 bytes) a zero-lenth-packet (ZLP) is
+					//-> required after the data packet. If we don't send the ZLP the read() in the PC program would
+					//-> wait forever. I tried sending 128 bytes, but this time it worked without the ZLP. So, if read()
+					//-> blocks while waiting for a packet multiple of max packet size try ZLP.
+					//To send a ZLP the second argument in writeBlock() must be 0. First argument can be anything.
+					usb->writeBlock(&command, 0);
 					break;
 				case GEYE_LEFT_REQUEST:
 					usb->writeBlock(USBGridEYEvaluesGet(GEYE_LEFT), PIXELS_COUNT);
+					usb->writeBlock(&command, 0);
 					break;
 				case GEYE_RIGHT_REQUEST:
 					usb->writeBlock(USBGridEYEvaluesGet(GEYE_RIGHT), PIXELS_COUNT);
+					usb->writeBlock(&command, 0);
 					break;
 				case CO2_REQUEST:
 					CO2value = USBCO2valueGet();
