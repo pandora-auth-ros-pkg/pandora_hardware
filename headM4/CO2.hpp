@@ -18,6 +18,8 @@
 #define Checksum_hi 0x00    ///Checksum High byte
 #define Checksum_lo 0x58    ///Checksum low byte
 
+void CO2TaskCaller(void const *args);
+
 void CO2valueSet(float value);
 
 void CO2Task(void const *args);

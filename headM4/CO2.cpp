@@ -2,6 +2,8 @@
 
 static Serial2 *co2uart;
 
+static Thread *tCO2Health;
+
 /**
  * CO2 sensor buffer.
  * @note buffer_size=19 (worst case scenario with 4 byte stuffings)
@@ -9,6 +11,27 @@ static Serial2 *co2uart;
  * incoming bytes.
  */
 static Queue<uint8_t, 19> CO2queue;
+
+void CO2TaskCaller(void const *args) {
+    while (true) {
+    	clearHealthyCO2();
+
+    	CO2Trigger();
+
+    	//The readings in the sensor are calculated every 500ms which is the rate of the infrared source within the
+    	//-> sensor. During the cycles when the signals are being tracked, the sensor will not respond to the
+    	//-> communication requests. The requests will be queued and dealt with in the next cycle. There is no "flush"
+    	//->  command to clear the queue. It is not suggested to pool the sensor more often than 500ms. The time for
+    	//-> the sensor to respond may also vary by a few ms depends on the internal operations. @official response
+    	//This means it will take a random time up to 500ms for the sensor to answer.
+		Thread::wait(500);
+
+		Thread::wait(100);	//Timeout time.
+		tCO2Health->signal_set(HEALTH_SIGNAL);
+
+		Thread::wait(10);
+    }
+}
 
 void CO2valueSet(float value) {
 	if (value>=0 && value<5) {
@@ -35,6 +58,8 @@ void CO2Init(PinName tx, PinName rx) {
 	co2uart = new Serial2(tx, rx);
 	co2uart->baud(38400);	///Baud 38400, 8N1
 	co2uart->attach(&RX_isr, Serial::RxIrq);
+
+	tCO2Health = new Thread(CO2HealthTask);
 }
 
 void CO2Trigger() {

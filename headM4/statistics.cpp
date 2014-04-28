@@ -19,6 +19,6 @@ void CpuLoadTask(void const *args) {
 			}
 			tLast = tNow;
 		} while (tNow - tStart < dt);
-		printf("Load = %5.2f %%\r\n", 100.0 - 100.0 * (float) tAccumul / dt); //TODO remove print ? Send over USB ?
+		printf("Load = %5.2f %%\r\n", 100.0 - 100.0 * (float) tAccumul / dt); //TODO remove printf ? Send over USB ?
 	}
 }

@@ -40,6 +40,8 @@ typedef struct {
 
 void GridEYEInit(I2C *i2c0_obj, I2C *i2c1_obj);
 
+void GridEYETaskCaller(void const *args);
+
 void GridEYETask(void const *args);
 
 void GridEYEvaluesSet(float values[], uint8_t grideye_num);

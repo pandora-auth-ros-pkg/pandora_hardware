@@ -13,7 +13,7 @@ static DigitalOut CO2_LifeLED(LED3);
 static DigitalOut I2C0_LifeLED(LED1);
 static DigitalOut I2C1_LifeLED(LED2);
 
-void HealthTask(void const *args) {
+void CO2HealthTask(void const *args) {
 	while (true) {
 		Thread::signal_wait(HEALTH_SIGNAL);
 		if (!CO2_health) {
@@ -23,6 +23,12 @@ void HealthTask(void const *args) {
 			}
 			repairCO2(CO2_FailCount);
 		}
+	}
+}
+
+void GridEYEHealthTask(void const *args) {
+	while (true) {
+		Thread::signal_wait(HEALTH_SIGNAL);
 		if (!GridEYECenter_health || !GridEYELeft_health) {
 			//TODO DO something here
 		}
@@ -44,9 +50,11 @@ void HealthTask(void const *args) {
 	}
 }
 
-void clearHealthy() {
+void clearHealthyCO2() {
 	CO2_health = 0;
+}
 
+void clearHealthyGridEYE() {
 	GridEYECenter_health = 0;
 	GridEYELeft_health = 0;
 	GridEYERight_health = 0;

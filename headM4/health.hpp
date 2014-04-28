@@ -12,7 +12,13 @@
 #define I2C_STOP 4	///I2C STOP flag
 #define I2C_START 5	///I2C START flag
 
-void HealthTask(void const *args);
+void GridEYEHealthTask(void const *args);
+
+void CO2HealthTask(void const *args);
+
+void clearHealthyCO2() ;
+
+void clearHealthyGridEYE();
 
 void clearHealthy();
 
