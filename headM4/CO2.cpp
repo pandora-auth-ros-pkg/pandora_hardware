@@ -48,8 +48,7 @@ void CO2Trigger() {
 	Checksum_lo };
 
 	for (int i = 0; i < 7; ++i) {
-		co2uart->putcNB(co2TransmitBuffer[i]);//Message must be maximum 16 bytes
-											 //->(FIFO size)
+		co2uart->putcNB(co2TransmitBuffer[i]);//Message must be maximum 16 bytes (FIFO size)
 	}
 }
 

@@ -9,6 +9,10 @@ static uint8_t CO2_FailCount = 0;
 static uint8_t I2C0_FailCount = 0;
 static uint8_t I2C1_FailCount = 0;
 
+static DigitalOut CO2_LifeLED(LED3);
+static DigitalOut I2C0_LifeLED(LED1);
+static DigitalOut I2C1_LifeLED(LED2);
+
 void HealthTask(void const *args) {
 	while (true) {
 		Thread::signal_wait(HEALTH_SIGNAL);
@@ -52,6 +56,7 @@ void HealthyCO2valueSet(float value) {
 	CO2_health = 1;
 	CO2_FailCount = 0;
 	USBCO2valueSet(value);
+	CO2_LifeLED = !CO2_LifeLED;
 }
 
 void HealthyGridEYEvaluesSet(uint8_t values[], uint8_t grideye_num) {
@@ -60,16 +65,19 @@ void HealthyGridEYEvaluesSet(uint8_t values[], uint8_t grideye_num) {
 			GridEYECenter_health = 1;
 			I2C0_FailCount = 0;
 			USBGridEYEvaluesSet(values, grideye_num);
+			I2C0_LifeLED = !I2C0_LifeLED;
 			break;
 		case GEYE_LEFT:
 			GridEYELeft_health = 1;
 			I2C0_FailCount = 0;
 			USBGridEYEvaluesSet(values, grideye_num);
+			I2C0_LifeLED = !I2C0_LifeLED;
 			break;
 		case GEYE_RIGHT:
 			GridEYERight_health = 1;
 			I2C1_FailCount = 0;
 			USBGridEYEvaluesSet(values, grideye_num);
+			I2C1_LifeLED = !I2C1_LifeLED;
 			break;
 		default:
 			return;
