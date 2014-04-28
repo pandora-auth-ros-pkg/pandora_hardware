@@ -20,7 +20,7 @@
 
 void CO2valueSet(float value);
 
-void CO2Task(void const *args) ;
+void CO2Task(void const *args);
 
 void RX_isr() ;
 

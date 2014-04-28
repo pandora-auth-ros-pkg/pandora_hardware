@@ -1,5 +1,6 @@
 #include "mbed.h"
 #include "rtos.h"
+#include "statistics.hpp"
 #include "grideye.hpp"
 #include "CO2.hpp"
 #include "USB.hpp"
@@ -45,6 +46,8 @@ int main (void) {
     Thread tUSB(USBTask);
 
     Thread tHealth(HealthTask);
+
+    Thread tStatistics(CpuLoadTask, NULL, osPriorityIdle);
 
     wait(1);	//TODO needed ?
 
