@@ -2,6 +2,8 @@
 
 static Serial2 *co2uart;
 
+static Thread *tCO2;
+
 static Thread *tCO2Health;
 
 /**
@@ -59,6 +61,7 @@ void CO2Init(PinName tx, PinName rx) {
 	co2uart->baud(38400);	///Baud 38400, 8N1
 	co2uart->attach(&RX_isr, Serial::RxIrq);
 
+	tCO2 = new Thread(CO2Task);
 	tCO2Health = new Thread(CO2HealthTask);
 }
 

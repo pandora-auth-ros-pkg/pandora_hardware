@@ -36,7 +36,7 @@ typedef struct {
 	uint8_t i2c_periph_num;
 	uint8_t i2c_addr;
 	uint8_t grideye_num;
-}i2c_sensor_t;
+}grideye_sensor_t;
 
 void GridEYEInit(I2C *i2c0_obj, I2C *i2c1_obj);
 

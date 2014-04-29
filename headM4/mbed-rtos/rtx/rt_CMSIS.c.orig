@@ -595,13 +595,15 @@ osThreadId svcThreadCreate (osThreadDef_t *thread_def, void *argument) {
   task_context->priv_stack = thread_def->stacksize;
   /* Pass parameter 'argv' to 'rt_init_context' */
   task_context->msg = argument;
+  OS_TID tsk = rt_get_TID ();	//CHANGED MBED LIBRARY HERE
+  task_context->task_id = tsk;	//CHANGED MBED LIBRARY HERE
   /* For 'size == 0' system allocates the user stack from the memory pool. */
   rt_init_context (task_context, priority, (FUNCP)thread_def->pthread);
 
   /* Find a free entry in 'os_active_TCB' table. */
-  OS_TID tsk = rt_get_TID ();
+//  OS_TID tsk = rt_get_TID ();	//CHANGED MBED LIBRARY HERE
   os_active_TCB[tsk-1] = task_context;
-  task_context->task_id = tsk;
+//  task_context->task_id = tsk;	//CHANGED MBED LIBRARY HERE
   DBG_TASK_NOTIFY(task_context, __TRUE);
   rt_dispatch (task_context);
   

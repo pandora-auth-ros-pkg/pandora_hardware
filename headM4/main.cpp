@@ -9,13 +9,10 @@
 //#include "dsp.h"
 
 int main (void) {
-	Thread tCO2(CO2Task);
-
 	CO2Init(p17, p18);	//p17=TX, p18=RX
 
     I2C i2c0(p32,p31);	//sda, scl
     I2C i2c1(p9,p10);
-
     GridEYEInit(&i2c0, &i2c1);
 
     USBInit();

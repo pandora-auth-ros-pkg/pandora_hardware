@@ -15,9 +15,9 @@ void GridEYEInit(I2C *i2c0_obj, I2C *i2c1_obj) {
     I2C0_queue_create();
     I2C1_queue_create();
 
-	i2c_sensor_t temp_sens1;	//If we pass starting arguments to threads we must be sure that their memory contents
-	i2c_sensor_t temp_sens2;	//-> doesn't change long enough for the threads to be created. So we create a temp
-	i2c_sensor_t temp_sens3;	//-> variable for each thread.
+	grideye_sensor_t temp_sens1;	//If we pass starting arguments to threads we must be sure that their memory contents
+	grideye_sensor_t temp_sens2;	//-> doesn't change long enough for the threads to be created. So we create a temp
+	grideye_sensor_t temp_sens3;	//-> variable for each thread.
 
 	temp_sens1.i2c_obj = i2c0_obj;
 	temp_sens1.i2c_periph_num = 0;
@@ -57,18 +57,19 @@ void GridEYETaskCaller(void const *args) {
 		tGridEYELeft->signal_set(GRIDEYE_I2C_SIGNAL);
 
 		Thread::wait(40);
-		tGridEYEHealth->signal_set(HEALTH_SIGNAL);
+//		tGridEYEHealth->signal_set(HEALTH_SIGNAL);
 
 		Thread::wait(10);
     }
 }
 
 void GridEYETask(void const *args) {
-	const i2c_sensor_t *temp=(const i2c_sensor_t *)args;
-	I2C *i2c_obj = temp->i2c_obj;
-	uint8_t i2c_periph_num = temp->i2c_periph_num;
-	uint8_t i2c_addr = temp->i2c_addr;
-	uint8_t grideye_num = temp->grideye_num;
+	const grideye_sensor_t * geye = (const grideye_sensor_t *) args;
+
+	I2C *i2c_obj = geye->i2c_obj;
+	uint8_t i2c_periph_num = geye->i2c_periph_num;
+	uint8_t i2c_addr = geye->i2c_addr;
+	uint8_t grideye_num = geye->grideye_num;
 
 	char cmd[2];
 
