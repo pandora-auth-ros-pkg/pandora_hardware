@@ -15,7 +15,7 @@ void GridEYEInit(I2C *i2c0_obj, I2C *i2c1_obj) {
     I2C0_queue_create();
     I2C1_queue_create();
 
-	i2c_sensor_t temp_sens1;	//If we pass starting arguments to threads we must be sure that their memory location
+	i2c_sensor_t temp_sens1;	//If we pass starting arguments to threads we must be sure that their memory contents
 	i2c_sensor_t temp_sens2;	//-> doesn't change long enough for the threads to be created. So we create a temp
 	i2c_sensor_t temp_sens3;	//-> variable for each thread.
 
@@ -38,6 +38,9 @@ void GridEYEInit(I2C *i2c0_obj, I2C *i2c1_obj) {
     tGridEYERight = new Thread(GridEYETask, (void *)&temp_sens3);
 
     tGridEYEHealth = new Thread(GridEYEHealthTask);
+
+    Thread::wait(10);	//We must wait at least 1 ms before the function ends or temp_sens? will be destroyed
+    					//-> before the threads initialize.
 }
 
 void GridEYETaskCaller(void const *args) {

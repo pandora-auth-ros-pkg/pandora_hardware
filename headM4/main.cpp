@@ -24,8 +24,6 @@ int main (void) {
 
     Thread tStatistics(CpuLoadTask, NULL, osPriorityIdle);
 
-    wait(1);	//TODO needed ?
-
     Thread tCO2Caller(CO2TaskCaller);
 
     Thread tGridEYECaller(GridEYETaskCaller);
