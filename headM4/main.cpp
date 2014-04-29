@@ -7,7 +7,6 @@
 #include "health.hpp"
 //#include "gpdma.h"
 //#include "dsp.h"
-//#include "USBSerial2.h"
 
 int main (void) {
 	Thread tCO2(CO2Task);
@@ -30,4 +29,6 @@ int main (void) {
     Thread tCO2Caller(CO2TaskCaller);
 
     Thread tGridEYECaller(GridEYETaskCaller);
+
+    Thread::wait(osWaitForever);
 }
