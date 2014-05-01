@@ -14,7 +14,7 @@ static Thread *tCO2Health;
  */
 static Queue<uint8_t, 19> CO2queue;
 
-void CO2TaskCaller(void const *args) {
+void CO2SchedulerTask(void const *args) {
     while (true) {
     	clearHealthyCO2();
 
@@ -57,11 +57,13 @@ void RX_isr() {
 }
 
 void CO2Init(PinName tx, PinName rx) {
+	//Check comment about sdram in main() before using new
+
 	co2uart = new Serial2(tx, rx);
 	co2uart->baud(38400);	///Baud 38400, 8N1
 	co2uart->attach(&RX_isr, Serial::RxIrq);
 
-	tCO2 = new Thread(CO2Task);
+	tCO2 = new Thread(CO2ReceiverTask);
 	tCO2Health = new Thread(CO2HealthTask);
 }
 
@@ -80,7 +82,7 @@ void CO2Trigger() {
 	}
 }
 
-void CO2Task(void const *args) {
+void CO2ReceiverTask(void const *args) {
 	uint8_t state = 0;
 	uint8_t DATaPacket = 0;
 	uint8_t NAKPacket = 0;

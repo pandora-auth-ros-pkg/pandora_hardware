@@ -10,14 +10,16 @@ static Thread *tGridEYERight;
 static Thread *tGridEYEHealth;
 
 void GridEYEInit(I2C *i2c0_obj, I2C *i2c1_obj) {
+	//Check comment about sdram in main() before using new
+
 	i2c0_obj->frequency(400000);
 	i2c1_obj->frequency(400000);
     I2C0_queue_create();
     I2C1_queue_create();
 
-	grideye_sensor_t temp_sens1;	//If we pass starting arguments to threads we must be sure that their memory contents
-	grideye_sensor_t temp_sens2;	//-> doesn't change long enough for the threads to be created. So we create a temp
-	grideye_sensor_t temp_sens3;	//-> variable for each thread.
+	grideye_sensor_t temp_sens1;	//Because we pass starting arguments to threads with a pointer we must be sure that
+	grideye_sensor_t temp_sens2;	//-> their memory contents don't change long enough for the threads to copy the data
+	grideye_sensor_t temp_sens3;	//-> to local variables. So we create a temporary structure for each thread.
 
 	temp_sens1.i2c_obj = i2c0_obj;
 	temp_sens1.i2c_periph_num = 0;
@@ -39,16 +41,16 @@ void GridEYEInit(I2C *i2c0_obj, I2C *i2c1_obj) {
 
     tGridEYEHealth = new Thread(GridEYEHealthTask);
 
-    Thread::wait(10);	//We must wait at least 1 ms before the function ends or temp_sens? will be destroyed
-    					//-> before the threads initialize.
+    Thread::wait(5);	//We must wait some time before the function ends or temp_sens? will be destroyed
+    					//-> before the threads assign them to local variables. (I tested with 1ms and it was OK)
 }
 
-void GridEYETaskCaller(void const *args) {
+void GridEYESchedulerTask(void const *args) {
 	//I2C sensors in the same I2C bus have maximum distance ie 50ms in a 100ms loop
     while (true) {
-    	clearHealthyGridEYE();
+		clearHealthyGridEYE();
 
-    	tGridEYECenter->signal_set(GRIDEYE_I2C_SIGNAL);
+		tGridEYECenter->signal_set(GRIDEYE_I2C_SIGNAL);
 
 		Thread::wait(25);
 		tGridEYERight->signal_set(GRIDEYE_I2C_SIGNAL);
@@ -60,7 +62,7 @@ void GridEYETaskCaller(void const *args) {
 //		tGridEYEHealth->signal_set(HEALTH_SIGNAL);
 
 		Thread::wait(10);
-    }
+	}
 }
 
 void GridEYETask(void const *args) {
