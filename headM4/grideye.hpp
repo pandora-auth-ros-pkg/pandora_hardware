@@ -31,6 +31,7 @@
 
 #define PIXELS_COUNT 64
 
+
 typedef struct {
 	I2C *i2c_obj;
 	uint8_t i2c_periph_num;
@@ -38,16 +39,18 @@ typedef struct {
 	uint8_t grideye_num;
 }grideye_sensor_t;
 
+
 void GridEYEInit(I2C *i2c0_obj, I2C *i2c1_obj);
 
-void GridEYESchedulerTask(void const *args);
-
 void GridEYETask(void const *args);
-
-void GridEYEvaluesSet(float values[], uint8_t grideye_num);
 
 void i2c_lock(uint8_t i2c_periph_num);
 
 void i2c_unlock(uint8_t i2c_periph_num);
+
+void GridEYEvaluesSet(float values[], uint8_t grideye_num);
+
+void GridEYESchedulerTask(void const *args);
+
 
 #endif /* GRIDEYE_HPP_ */

@@ -14,47 +14,6 @@ static Thread *tCO2Health;
  */
 static Queue<uint8_t, 19> CO2queue;
 
-void CO2SchedulerTask(void const *args) {
-    while (true) {
-    	clearHealthyCO2();
-
-    	CO2Trigger();
-
-    	//The readings in the sensor are calculated every 500ms which is the rate of the infrared source within the
-    	//-> sensor. During the cycles when the signals are being tracked, the sensor will not respond to the
-    	//-> communication requests. The requests will be queued and dealt with in the next cycle. There is no "flush"
-    	//->  command to clear the queue. It is not suggested to pool the sensor more often than 500ms. The time for
-    	//-> the sensor to respond may also vary by a few ms depends on the internal operations. @official response
-    	//This means it will take a random time up to 500ms for the sensor to answer.
-		Thread::wait(500);
-
-		Thread::wait(100);	//Timeout time.
-		tCO2Health->signal_set(HEALTH_SIGNAL);
-
-		Thread::wait(10);
-    }
-}
-
-void CO2valueSet(float value) {
-	if (value>=0 && value<5) {
-		HealthyCO2valueSet(value);
-	}
-}
-
-//Both putc and printf() use serial_putc() in serial_api.c. Transmit FIFO size
-//is 16. If we transmit new data and FIFO is full the new data gets lost.
-//Same goes for Receive FIFO according to user manual (Overrun Error). UART
-//peripheral starts to transmit immediately after feeding it. If we don't
-//feed with new data fast enough and transmit buffer gets empty we have a THRE
-//interrupt.
-//Required time to transmit n bytes is (1/Baud)*(1+8+1)*n
-
-
-void RX_isr() {
-	uint8_t CO2recv = co2uart->getcNB();	//Reading UnRBR clears the interrupt. If we don't clear it
-										//->the ISR would retrigger infinitely.
-	CO2queue.put((uint8_t *)CO2recv);
-}
 
 void CO2Init(PinName tx, PinName rx) {
 	//Check comment about sdram in main() before using new
@@ -67,6 +26,14 @@ void CO2Init(PinName tx, PinName rx) {
 	tCO2Health = new Thread(CO2HealthTask);
 }
 
+
+//Both putc and printf() use serial_putc() in serial_api.c. Transmit FIFO size
+//is 16. If we transmit new data and FIFO is full the new data gets lost.
+//Same goes for Receive FIFO according to user manual (Overrun Error). UART
+//peripheral starts to transmit immediately after feeding it. If we don't
+//feed with new data fast enough and transmit buffer gets empty we have a THRE
+//interrupt.
+//Required time to transmit n bytes is (1/Baud)*(1+8+1)*n
 void CO2Trigger() {
 	/**
 	 * @brief Live Data Simple request to CO2 sensor
@@ -81,6 +48,14 @@ void CO2Trigger() {
 		co2uart->putcNB(co2TransmitBuffer[i]);//Message must be maximum 16 bytes (FIFO size)
 	}
 }
+
+
+void RX_isr() {
+	uint8_t CO2recv = co2uart->getcNB();	//Reading UnRBR clears the interrupt. If we don't clear it
+										//->the ISR would retrigger infinitely.
+	CO2queue.put((uint8_t *)CO2recv);
+}
+
 
 void CO2ReceiverTask(void const *args) {
 	uint8_t state = 0;
@@ -195,4 +170,33 @@ void CO2ReceiverTask(void const *args) {
 			break;
 		}
 	}
+}
+
+
+void CO2valueSet(float value) {
+	if (value>=0 && value<5) {
+		HealthyCO2valueSet(value);
+	}
+}
+
+
+void CO2SchedulerTask(void const *args) {
+    while (true) {
+    	clearHealthyCO2();
+
+    	CO2Trigger();
+
+    	//The readings in the sensor are calculated every 500ms which is the rate of the infrared source within the
+    	//-> sensor. During the cycles when the signals are being tracked, the sensor will not respond to the
+    	//-> communication requests. The requests will be queued and dealt with in the next cycle. There is no "flush"
+    	//->  command to clear the queue. It is not suggested to pool the sensor more often than 500ms. The time for
+    	//-> the sensor to respond may also vary by a few ms depends on the internal operations. @official response
+    	//This means it will take a random time up to 500ms for the sensor to answer.
+		Thread::wait(500);
+
+		Thread::wait(100);	//Timeout time.
+		tCO2Health->signal_set(HEALTH_SIGNAL);
+
+		Thread::wait(10);
+    }
 }

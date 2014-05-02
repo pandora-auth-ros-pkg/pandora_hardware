@@ -9,6 +9,7 @@ static Thread *tGridEYERight;
 
 static Thread *tGridEYEHealth;
 
+
 void GridEYEInit(I2C *i2c0_obj, I2C *i2c1_obj) {
 	//Check comment about sdram in main() before using new
 
@@ -45,25 +46,6 @@ void GridEYEInit(I2C *i2c0_obj, I2C *i2c1_obj) {
     					//-> before the threads assign them to local variables. (I tested with 1ms and it was OK)
 }
 
-void GridEYESchedulerTask(void const *args) {
-	//I2C sensors in the same I2C bus have maximum distance ie 50ms in a 100ms loop
-    while (true) {
-		clearHealthyGridEYE();
-
-		tGridEYECenter->signal_set(GRIDEYE_I2C_SIGNAL);
-
-		Thread::wait(25);
-		tGridEYERight->signal_set(GRIDEYE_I2C_SIGNAL);
-
-		Thread::wait(25);
-		tGridEYELeft->signal_set(GRIDEYE_I2C_SIGNAL);
-
-		Thread::wait(40);
-//		tGridEYEHealth->signal_set(HEALTH_SIGNAL);
-
-		Thread::wait(10);
-	}
-}
 
 void GridEYETask(void const *args) {
 	const grideye_sensor_t * geye = (const grideye_sensor_t *) args;
@@ -164,22 +146,6 @@ void GridEYETask(void const *args) {
 	}
 }
 
-void GridEYEvaluesSet(float values[], uint8_t grideye_num) {
-	uint8_t GridEYEvalues[PIXELS_COUNT];
-	uint8_t OutOfBounds = 0;
-
-	for (int i = 0; i < PIXELS_COUNT; ++i) {
-		if (values[i] >= 0 && values[i] < 80) {
-			GridEYEvalues[i] = (uint8_t)(values[i] + 0.5);	//rounding to nearest Celsius degree
-		} else {
-			OutOfBounds =1;
-		}
-	}
-
-	if (!OutOfBounds) {
-		HealthyGridEYEvaluesSet(GridEYEvalues, grideye_num);
-	}
-}
 
 void i2c_lock(uint8_t i2c_periph_num) {
 	switch (i2c_periph_num) {
@@ -200,5 +166,44 @@ void i2c_unlock(uint8_t i2c_periph_num) {
 		case 1:
 			i2c1_mutex.unlock();
 			break;
+	}
+}
+
+
+void GridEYEvaluesSet(float values[], uint8_t grideye_num) {
+	uint8_t GridEYEvalues[PIXELS_COUNT];
+	uint8_t OutOfBounds = 0;
+
+	for (int i = 0; i < PIXELS_COUNT; ++i) {
+		if (values[i] >= 0 && values[i] < 80) {
+			GridEYEvalues[i] = (uint8_t)(values[i] + 0.5);	//rounding to nearest Celsius degree
+		} else {
+			OutOfBounds =1;
+		}
+	}
+
+	if (!OutOfBounds) {
+		HealthyGridEYEvaluesSet(GridEYEvalues, grideye_num);
+	}
+}
+
+
+void GridEYESchedulerTask(void const *args) {
+	//I2C sensors in the same I2C bus have maximum distance ie 50ms in a 100ms loop
+    while (true) {
+		clearHealthyGridEYE();
+
+		tGridEYECenter->signal_set(GRIDEYE_I2C_SIGNAL);
+
+		Thread::wait(25);
+		tGridEYERight->signal_set(GRIDEYE_I2C_SIGNAL);
+
+		Thread::wait(25);
+		tGridEYELeft->signal_set(GRIDEYE_I2C_SIGNAL);
+
+		Thread::wait(40);
+//		tGridEYEHealth->signal_set(HEALTH_SIGNAL);
+
+		Thread::wait(10);
 	}
 }

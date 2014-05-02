@@ -8,6 +8,7 @@
 
 #include "LibMods/Serial2.h"
 
+
 /** CO2 Sensor Protocol Instructions */
 #define RD   0x13        ///Read
 #define DLE 0x10            ///Data Link Escape
@@ -18,16 +19,18 @@
 #define Checksum_hi 0x00    ///Checksum High byte
 #define Checksum_lo 0x58    ///Checksum low byte
 
-void CO2SchedulerTask(void const *args);
-
-void CO2valueSet(float value);
-
-void CO2ReceiverTask(void const *args);
-
-void RX_isr() ;
 
 void CO2Init(PinName tx, PinName rx) ;
 
-void CO2Trigger() ;
+void CO2Trigger();
+
+void RX_isr();
+
+void CO2ReceiverTask(void const *args);
+
+void CO2valueSet(float value);
+
+void CO2SchedulerTask(void const *args);
+
 
 #endif /* CO2_HPP_ */

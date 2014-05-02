@@ -13,6 +13,7 @@ static DigitalOut CO2_LifeLED(LED3);
 static DigitalOut I2C0_LifeLED(LED1);
 static DigitalOut I2C1_LifeLED(LED2);
 
+
 void CO2HealthTask(void const *args) {
 	while (true) {
 		Thread::signal_wait(HEALTH_SIGNAL);
@@ -20,6 +21,9 @@ void CO2HealthTask(void const *args) {
 			CO2_FailCount++;
 			if (CO2_FailCount == 1) {
 				USBCO2valueSet(0);
+			}
+			if (CO2_FailCount > 5) {
+				CO2_FailCount = 1;
 			}
 			repairCO2(CO2_FailCount);
 		}
@@ -38,12 +42,18 @@ void GridEYEHealthTask(void const *args) {
 				USBGridEYEvaluesZero(GEYE_LEFT);
 				USBGridEYEvaluesZero(GEYE_CENTER);
 			}
+			if (I2C0_FailCount > 40) {	//reset counter so that repair cycle starts from beginning
+				I2C0_FailCount = 1;
+			}
 			repairI2C(I2C0_FailCount, I2C_0);
 		}
 		if (!GridEYERight_health) {
 			I2C1_FailCount++;
 			if (I2C1_FailCount == 1) {
 				USBGridEYEvaluesZero(GEYE_RIGHT);
+			}
+			if (I2C1_FailCount > 40) {	//reset counter so that repair cycle starts from beginning
+				I2C1_FailCount = 1;
 			}
 			repairI2C(I2C1_FailCount, I2C_1);
 		}
@@ -93,7 +103,7 @@ void HealthyGridEYEvaluesSet(uint8_t values[], uint8_t grideye_num) {
 }
 
 void repairCO2(uint8_t count) {
-	if (count > 4) {
+	if (count >2) {
 		CO2Trigger();
 	}
 }
