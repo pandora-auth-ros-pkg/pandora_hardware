@@ -204,7 +204,7 @@ void GridEYESchedulerTask(void const *args) {
 		tGridEYELeft->signal_set(GRIDEYE_I2C_SIGNAL);
 
 		Thread::wait(40);
-//		tGridEYEHealth->signal_set(HEALTH_SIGNAL);
+		tGridEYEHealth->signal_set(HEALTH_SIGNAL);
 
 		Thread::wait(10);
 	}
