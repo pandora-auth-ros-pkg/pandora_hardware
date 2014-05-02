@@ -123,9 +123,11 @@ void GridEYETask(void const *args) {
 				celsius = temper_values[pixel];
 				if (celsius < 26) {
 					ledArray[pixel] = GREEN;
-				} else if (celsius >= 26 && celsius <= 30) {
+				} else if (celsius >= 26 && celsius < 28) {
+					ledArray[pixel] = YELLOW;
+				} else if (celsius >= 28 && celsius < 30) {
 					ledArray[pixel] = ORANGE;
-				} else {
+				} else if (celsius >= 30) {
 					ledArray[pixel] = RED;
 				}
 			}

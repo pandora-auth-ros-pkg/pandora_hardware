@@ -7,13 +7,14 @@
 #include "LibMods/i2c_nonblocking.h"
 #include "health.hpp"
 
-#define ENABLE_RGB_LEDMATRIX 0
+#define ENABLE_RGB_LEDMATRIX 1
 
 #if ENABLE_RGB_LEDMATRIX
 
 #define GREEN 0x1C
+#define YELLOW 0xFC
+#define ORANGE 0xEC
 #define RED 0xE0
-#define ORANGE 0xFC
 
 #endif
 
