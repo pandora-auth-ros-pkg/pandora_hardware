@@ -13,10 +13,22 @@ static DigitalOut CO2_LifeLED(LED3);
 static DigitalOut I2C0_LifeLED(LED1);
 static DigitalOut I2C1_LifeLED(LED2);
 
+static Mutex WDT_mutex;
+
+
+void HealthInit() {
+    LPC_WDT->TC = (int)( (WDT_MS / 1000) * (500000 / 4) );
+    LPC_WDT->MOD = (1 << WDRESET) | (1 << WDEN);	//enable watchdog reset
+    WDT_feed();	//A valid feed sequence must be completed after setting WDEN before the Watchdog
+    			//-> is capable of generating a reset
+}
 
 void CO2HealthTask(void const *args) {
 	while (true) {
 		Thread::signal_wait(HEALTH_SIGNAL);
+
+		WDT_feed();
+
 		if (!CO2_health) {
 			CO2_FailCount++;
 			if (CO2_FailCount == 1) {
@@ -33,6 +45,9 @@ void CO2HealthTask(void const *args) {
 void GridEYEHealthTask(void const *args) {
 	while (true) {
 		Thread::signal_wait(HEALTH_SIGNAL);
+
+		WDT_feed();
+
 		if (!GridEYECenter_health || !GridEYELeft_health) {
 			//TODO DO something here
 		}
@@ -128,4 +143,11 @@ void repairI2C(uint8_t count, int i2c_base) {
 		i2c_periph->CONSET = 1 << I2C_START;
 		i2c_periph->CONSET = 1 << I2C_STOP;
 	}
+}
+
+void WDT_feed() {
+	WDT_mutex.lock();
+    LPC_WDT->FEED = 0xAA;
+    LPC_WDT->FEED = 0x55;
+    WDT_mutex.unlock();
 }

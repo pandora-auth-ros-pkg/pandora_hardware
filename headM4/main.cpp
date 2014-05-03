@@ -18,6 +18,10 @@
 
 //Note3: RTOS Timer callback functions are not executed, check issue https://github.com/mbedmicro/mbed/issues/276
 
+//Note4: Memory is allocated as can been seen here: https://mbed.org/handbook/RTOS-Memory-Model . Each individual
+//-> thread's stack is allocated in Heap (as can been seen in mbed-rtos/rtos/Thread.cpp constructor). There is no
+//-> collision detection between heap and main stack. Insufficient stack space usually leads to HardFault.
+
 int main (void) {
 	printf("Start\r\n");
 
@@ -28,6 +32,8 @@ int main (void) {
     GridEYEInit(&i2c0, &i2c1);
 
     USBInit();
+
+    HealthInit();
 
     Thread tUSB(USBTask);
 
