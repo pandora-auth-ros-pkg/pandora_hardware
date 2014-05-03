@@ -1,7 +1,6 @@
 #include "gpio_api.h"
 #include "wait_api.h"
-
-#define DEVELOPMENT 1
+#include "conf.h"
 
 //mbed_die() is called in various error conditions. It is declared in common/board.c as WEAK so we can
 //-> easily override it.

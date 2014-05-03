@@ -6,8 +6,8 @@
 #include "rtos.h"
 #include "LibMods/i2c_nonblocking.h"
 #include "health.hpp"
+#include "conf.h"
 
-#define ENABLE_RGB_LEDMATRIX 1
 
 #if ENABLE_RGB_LEDMATRIX
 

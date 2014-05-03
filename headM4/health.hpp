@@ -5,6 +5,8 @@
 #include "CO2.hpp"
 #include "USB.hpp"
 #include "PeripheralNames.h"
+#include "conf.h"
+
 
 #define HEALTH_SIGNAL 0x1
 

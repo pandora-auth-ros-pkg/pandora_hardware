@@ -17,10 +17,12 @@ static Mutex WDT_mutex;
 
 
 void HealthInit() {
+#if !DEVELOPMENT
     LPC_WDT->TC = (int)( (WDT_MS / 1000) * (500000 / 4) );
     LPC_WDT->MOD = (1 << WDRESET) | (1 << WDEN);	//enable watchdog reset
     WDT_feed();	//A valid feed sequence must be completed after setting WDEN before the Watchdog
     			//-> is capable of generating a reset
+#endif
 }
 
 void CO2HealthTask(void const *args) {

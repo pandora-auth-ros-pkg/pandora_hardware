@@ -5,6 +5,7 @@
 #include "CO2.hpp"
 #include "USB.hpp"
 #include "health.hpp"
+#include "conf.h"
 //#include "gpdma.h"
 //#include "dsp.h"
 
@@ -23,7 +24,7 @@
 //-> collision detection between heap and main stack. Insufficient stack space usually leads to HardFault.
 
 int main (void) {
-	printf("Start\r\n");
+	DEBUG_PRINT(("Start\r\n"));
 
 	CO2Init(p17, p18);	//p17=TX, p18=RX
 
@@ -35,10 +36,11 @@ int main (void) {
 
     HealthInit();
 
-    Thread tUSB(USBTask);
-
-    //Comment out next line for performance boost.
+#if DEVELOPMENT
     Thread tStatistics(CpuLoadTask, NULL, osPriorityIdle);
+#endif
+
+    Thread tUSB(USBTask);
 
     Thread tCO2Caller(CO2SchedulerTask);
 
