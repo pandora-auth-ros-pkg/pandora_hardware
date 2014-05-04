@@ -10,6 +10,8 @@
 #include "serial_api.h"
 #include "Serial.h"
 
+#define NONBLOCKING 0	//Makes every I/O function Non-Blocking		//"CHANGED MBED LIBRARY HERE"
+
 namespace mbed {
 
 /** A serial port (UART) for communication with other serial devices
@@ -49,10 +51,10 @@ public:
 	 * @return c On successful completion, returns back the same character
 	 * @note Based on serial_putc() in serial_api.c . To use replace Serial
 	 * object declarations with Serial2
+	 * @warning Care should be taken that there is empty space in the 16 byte FIFO before putting new characters
 	 */
-	int putcNB(int c){
+	int putcNB(int c){	//"CHANGED MBED LIBRARY HERE"
 		serial_t obj = this->_serial;
-//		while (!serial_writable(&obj));
 		obj.uart->THR = c;
 		return c;
 	}
@@ -60,26 +62,28 @@ public:
 	/** A non-blocking version of _getc().
 	 *
 	 * @return Returns the character from the serial port.
-	 * @note Based on serial_gettc() in serial_api.c . To use replace Serial
+	 * @note Based on serial_getc() in serial_api.c . To use replace Serial
 	 * object declarations with Serial2
+	 * @warning Care should be taken that there is an available character in the 16 byte FIFO before calling this function
 	 */
-	int getcNB() {
+	int getcNB() {	//"CHANGED MBED LIBRARY HERE"
 		serial_t obj = this->_serial;
 	    return obj.uart->RBR;
 	}
 
-/*####  If you want to make every I/O function Non-Blocking uncomment the following  #####*/
-/*protected:
-    virtual int _getc(){
+protected:
+#if NONBLOCKING
+    virtual int _getc(){	//"CHANGED MBED LIBRARY HERE"
 		serial_t obj = this->_serial;
 	    return obj.uart->RBR;
 	}
 
-    virtual int _putc(int c){
+    virtual int _putc(int c){	//"CHANGED MBED LIBRARY HERE"
 		serial_t obj = this->_serial;
 		obj.uart->THR = c;
 		return c;
-	}*/
+	}
+#endif
 
 };
 

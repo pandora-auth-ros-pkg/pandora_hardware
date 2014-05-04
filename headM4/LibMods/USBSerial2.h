@@ -50,13 +50,16 @@ public:
     /**
     *   Constructor
     *
+    * @param bufLength Incoming USB packet buffer in bytes
     * @param vendor_id Your vendor_id (default: 0x1f00)
     * @param product_id Your product_id (default: 0x2012)
     * @param product_release Your preoduct_release (default: 0x0001)
     * @param connect_blocking define if the connection must be blocked if USB not plugged in
     *
     */
-    USBSerial(uint8_t bufLength, uint16_t vendor_id = 0x1f00, uint16_t product_id = 0x2012, uint16_t product_release = 0x0001, bool connect_blocking = true): USBCDC(vendor_id, product_id, product_release, connect_blocking), buf(bufLength){
+    USBSerial(uint8_t bufLength, uint16_t vendor_id = 0x1f00, uint16_t product_id = 0x2012, \
+    		uint16_t product_release = 0x0001, bool connect_blocking = true): \
+    		USBCDC(vendor_id, product_id, product_release, connect_blocking), buf(bufLength){ //"CHANGED MBED LIBRARY HERE"
         settingsChangedCallback = 0;
     };
 
@@ -158,6 +161,6 @@ private:
     void (*settingsChangedCallback)(int baud, int bits, int parity, int stop);
 };
 
-#elif defined USBSERIAL_H
+#elif defined USBSERIAL_H	//"CHANGED MBED LIBRARY HERE"
 #error "Original USBserial.h compiled, that is not good"
 #endif
