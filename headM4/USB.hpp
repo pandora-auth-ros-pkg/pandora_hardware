@@ -16,6 +16,8 @@
 
 void USBInit();
 
+void command_recv_isr();
+
 void USBTask(const void *args);
 
 void USBGridEYEvaluesSet(uint8_t values[], uint8_t grideye_num);
