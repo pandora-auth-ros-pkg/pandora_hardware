@@ -36,9 +36,6 @@ void CO2HealthTask(void const *args) {
 			if (CO2_FailCount == 1) {
 				USBCO2valueSet(0);
 			}
-			if (CO2_FailCount > 5) {
-				CO2_FailCount = 1;
-			}
 			repairCO2(CO2_FailCount);
 		}
 	}
@@ -51,7 +48,7 @@ void GridEYEHealthTask(void const *args) {
 		WDT_feed();
 
 		if (!GridEYECenter_health || !GridEYELeft_health) {
-			//TODO DO something here
+			//TODO DO something here, though unlikely to come here
 		}
 		if (!GridEYECenter_health && !GridEYELeft_health) {
 			I2C0_FailCount++;
@@ -59,18 +56,12 @@ void GridEYEHealthTask(void const *args) {
 				USBGridEYEvaluesZero(GEYE_LEFT);
 				USBGridEYEvaluesZero(GEYE_CENTER);
 			}
-			if (I2C0_FailCount > 40) {	//reset counter so that repair cycle starts from beginning
-				I2C0_FailCount = 1;
-			}
 			repairI2C(I2C0_FailCount, I2C_0);
 		}
 		if (!GridEYERight_health) {
 			I2C1_FailCount++;
 			if (I2C1_FailCount == 1) {
 				USBGridEYEvaluesZero(GEYE_RIGHT);
-			}
-			if (I2C1_FailCount > 40) {	//reset counter so that repair cycle starts from beginning
-				I2C1_FailCount = 1;
 			}
 			repairI2C(I2C1_FailCount, I2C_1);
 		}
@@ -123,6 +114,11 @@ void repairCO2(uint8_t count) {
 	if (count >2) {
 		CO2Trigger();
 	}
+
+	//Determines the rate at which the repair measures are repeated (we can't know how long the cause of the problem lasts)
+	if (CO2_FailCount > 5) {
+		CO2_FailCount = 1;
+	}
 }
 
 void repairI2C(uint8_t count, int i2c_base) {
@@ -144,6 +140,11 @@ void repairI2C(uint8_t count, int i2c_base) {
 	} else if (count == 7) {
 		i2c_periph->CONSET = 1 << I2C_START;
 		i2c_periph->CONSET = 1 << I2C_STOP;
+	}
+
+	//Determines the rate at which the repair measures are repeated (we can't know how long the cause of the problem lasts)
+	if (I2C0_FailCount > 40) {
+		I2C0_FailCount = 1;
 	}
 }
 
