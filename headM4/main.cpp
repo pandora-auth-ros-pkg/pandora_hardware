@@ -27,6 +27,10 @@
 //-> thread's stack is allocated in Heap (as can been seen in mbed-rtos/rtos/Thread.cpp constructor). There is no
 //-> collision detection between heap and main stack. Insufficient stack space usually leads to HardFault.
 
+/** @brief Program entry point
+ *
+ * Initializes and starts tasks.
+ */
 int main (void) {
 	DEBUG_PRINT(("Start\r\n"));
 

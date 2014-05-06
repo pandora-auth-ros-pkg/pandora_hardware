@@ -7,9 +7,12 @@
 static Mutex i2c0_mutex;	///<The mutex that locks access to I2C0 peripheral
 static Mutex i2c1_mutex;	///<The mutex that locks access to I2C1 peripheral
 
+/** @name GridEYETask() threads */
+//@{
 static Thread *tGridEYECenter;	///<Thread pointer for center GridEYE sensor's GridEYETask()
 static Thread *tGridEYELeft;	///<Thread pointer for left GridEYE sensor's GridEYETask()
 static Thread *tGridEYERight;	///<Thread pointer for right GridEYE sensor's GridEYETask()
+//@}
 
 static Thread *tGridEYEHealth;	///<<Thread pointer for GridEYEHealthTask()
 

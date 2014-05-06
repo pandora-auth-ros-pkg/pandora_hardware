@@ -83,7 +83,7 @@ void GridEYETask(void const *args);
  *
  * Uses mutexes to allow only one sensor of each I2C peripheral request and receive data at the same time
  *
- * @param grideye_sensor_t::i2c_periph_num of the current sensor
+ * @param i2c_periph_num grideye_sensor_t::i2c_periph_num of the current sensor
  */
 void i2c_lock(uint8_t i2c_periph_num);
 

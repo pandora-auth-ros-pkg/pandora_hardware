@@ -4,20 +4,32 @@
  */
 #include "health.hpp"
 
-static uint8_t CO2_health;
-static uint8_t GridEYECenter_health;
-static uint8_t GridEYELeft_health;
-static uint8_t GridEYERight_health;
+/** @name Sensors health status
+ * 1 if healty, 0 else */
+//@{
+static uint8_t CO2_healthy;
+static uint8_t GridEYECenter_healthy;
+static uint8_t GridEYELeft_healthy;
+static uint8_t GridEYERight_healthy;
+//@}
 
+/** @name Sensors timeout expired counter
+ * Each variable counts the number of times each sensor or peripheral failed to respond in time */
+//@{
 static uint8_t CO2_FailCount = 0;
 static uint8_t I2C0_FailCount = 0;
 static uint8_t I2C1_FailCount = 0;
+//@}
 
+/** @name Status Leds
+ * If a sensor or assigned peripheral works the led is blinking  */
+//@{
 static DigitalOut CO2_LifeLED(LED3);
 static DigitalOut I2C0_LifeLED(LED1);
 static DigitalOut I2C1_LifeLED(LED2);
+//@}
 
-static Mutex WDT_mutex;
+static Mutex WDT_mutex;	///<Mutex that protects Watchdog feeding sequence
 
 
 void HealthInit() {
@@ -35,7 +47,7 @@ void CO2HealthTask(void const *args) {
 
 		WDT_feed();
 
-		if (!CO2_health) {
+		if (!CO2_healthy) {
 			CO2_FailCount++;
 			if (CO2_FailCount == 1) {
 				USBCO2valueSet(0);
@@ -51,10 +63,10 @@ void GridEYEHealthTask(void const *args) {
 
 		WDT_feed();
 
-		if (!GridEYECenter_health || !GridEYELeft_health) {
-			//TODO DO something here, though unlikely to come here
+		if (!GridEYECenter_healthy || !GridEYELeft_healthy) {
+			//TODO Do something here, though unlikely to come here
 		}
-		if (!GridEYECenter_health && !GridEYELeft_health) {
+		if (!GridEYECenter_healthy && !GridEYELeft_healthy) {
 			I2C0_FailCount++;
 			if (I2C0_FailCount == 1) {
 				USBGridEYEvaluesZero(GEYE_LEFT);
@@ -62,7 +74,7 @@ void GridEYEHealthTask(void const *args) {
 			}
 			repairI2C(I2C0_FailCount, I2C_0);
 		}
-		if (!GridEYERight_health) {
+		if (!GridEYERight_healthy) {
 			I2C1_FailCount++;
 			if (I2C1_FailCount == 1) {
 				USBGridEYEvaluesZero(GEYE_RIGHT);
@@ -73,17 +85,17 @@ void GridEYEHealthTask(void const *args) {
 }
 
 void clearHealthyCO2() {
-	CO2_health = 0;
+	CO2_healthy = 0;
 }
 
 void clearHealthyGridEYE() {
-	GridEYECenter_health = 0;
-	GridEYELeft_health = 0;
-	GridEYERight_health = 0;
+	GridEYECenter_healthy = 0;
+	GridEYELeft_healthy = 0;
+	GridEYERight_healthy = 0;
 }
 
 void HealthyCO2valueSet(float value) {
-	CO2_health = 1;
+	CO2_healthy = 1;
 	CO2_FailCount = 0;
 	USBCO2valueSet(value);
 	CO2_LifeLED = !CO2_LifeLED;
@@ -92,19 +104,19 @@ void HealthyCO2valueSet(float value) {
 void HealthyGridEYEvaluesSet(uint8_t values[], uint8_t grideye_num) {
 	switch (grideye_num) {
 		case GEYE_CENTER:
-			GridEYECenter_health = 1;
+			GridEYECenter_healthy = 1;
 			I2C0_FailCount = 0;
 			USBGridEYEvaluesSet(values, grideye_num);
 			I2C0_LifeLED = !I2C0_LifeLED;
 			break;
 		case GEYE_LEFT:
-			GridEYELeft_health = 1;
+			GridEYELeft_healthy = 1;
 			I2C0_FailCount = 0;
 			USBGridEYEvaluesSet(values, grideye_num);
 			I2C0_LifeLED = !I2C0_LifeLED;
 			break;
 		case GEYE_RIGHT:
-			GridEYERight_health = 1;
+			GridEYERight_healthy = 1;
 			I2C1_FailCount = 0;
 			USBGridEYEvaluesSet(values, grideye_num);
 			I2C1_LifeLED = !I2C1_LifeLED;
@@ -115,7 +127,7 @@ void HealthyGridEYEvaluesSet(uint8_t values[], uint8_t grideye_num) {
 }
 
 void repairCO2(uint8_t count) {
-	if (count >2) {
+	if (count == 3) {
 		CO2Trigger();
 	}
 
