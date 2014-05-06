@@ -1,3 +1,7 @@
+/** @file
+ * @author Orestis Zachariadis
+ * @brief
+ */
 #include "mbed.h"
 #include "rtos.h"
 #include "statistics.hpp"

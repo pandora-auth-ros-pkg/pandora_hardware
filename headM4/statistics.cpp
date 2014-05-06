@@ -1,3 +1,7 @@
+/** @file
+ * @author Orestis Zachariadis
+ * @brief
+ */
 #include "statistics.hpp"
 
 void CpuLoadTask(void const *args) {

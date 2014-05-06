@@ -1,3 +1,7 @@
+/** @file
+ * @author Orestis Zachariadis
+ * @brief
+ */
 #include "grideye.hpp"
 
 static Mutex i2c0_mutex;

@@ -1,3 +1,8 @@
+/** @file
+ * @author Orestis Zachariadis
+ * @brief
+ */
+
 //Instructions: 1) Include this file in i2c_api.c and disable i2c_clear_SI() and i2c_wait_SI() in i2c_api.c.
 //2) In main()  call I2C?_queue_create()
 //Important note: due to MBED Library bug i2c_write() and i2c_read() in i2c_api.c were changed, in order

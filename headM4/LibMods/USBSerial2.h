@@ -29,7 +29,7 @@
 *
 * @code
 * #include "mbed.h"
-* #include "USBSerial.h"
+* #include "USBSerial2.h"
 *
 * //Virtual serial port over USB
 * USBSerial serial;

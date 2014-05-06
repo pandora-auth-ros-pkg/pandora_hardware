@@ -1,3 +1,7 @@
+/** @file
+ * @author Orestis Zachariadis
+ * @brief
+ */
 #include "i2c_nonblocking.h"
 
 //static makes a variable visible only to this file, so it helps to eliminate global variables.

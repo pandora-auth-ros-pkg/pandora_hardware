@@ -1,15 +1,27 @@
+/** @file
+ * @author Orestis Zachariadis
+ * @brief Implements CO2 sensor functionality
+ */
 #include "CO2.hpp"
 
-static Serial2 *co2uart;
+//Note1: Both putc and printf() use serial_putc() in serial_api.c. Transmit FIFO
+//size is 16. If we transmit new data and FIFO is full the new data gets lost.
+//Same goes for Receive FIFO according to user manual (Overrun Error). UART
+//peripheral starts to transmit immediately after feeding it. If we don't
+//feed with new data fast enough and transmit buffer gets empty we have a THRE
+//interrupt.
+//Required time to transmit n bytes is (1/Baud)*(1+8+1)*n
 
-static Thread *tCO2;
+static Serial2 *co2uart;	///<The Serial2 class object that implements the CO2 sensor
 
-static Thread *tCO2Health;
+static Thread *tCO2;	///<Thread pointer for CO2ReceiverTask()
+
+static Thread *tCO2Health;	///<<Thread pointer for CO2HealthTask()
 
 /**
  * CO2 sensor buffer.
- * @note buffer_size=19 (worst case scenario with 4 byte stuffings)
- * @note Without the buffer, we would have to process data in the time between 2 consecutive
+ * @note Buffer_size=19 (worst case scenario with 4 byte stuffings)
+ * @n Without the buffer, we would have to process data in the time between 2 consecutive
  * incoming bytes.
  */
 static Queue<uint8_t, 19> CO2queue;
@@ -19,7 +31,7 @@ void CO2Init(PinName tx, PinName rx) {
 	//Check comment about sdram in main() before using new
 
 	co2uart = new Serial2(tx, rx);
-	co2uart->baud(38400);	///Baud 38400, 8N1
+	co2uart->baud(38400);	//Baud 38400, 8N1
 	co2uart->attach(&RX_isr, Serial::RxIrq);
 
 	tCO2 = new Thread(CO2ReceiverTask);
@@ -27,20 +39,7 @@ void CO2Init(PinName tx, PinName rx) {
 }
 
 
-//Both putc and printf() use serial_putc() in serial_api.c. Transmit FIFO size
-//is 16. If we transmit new data and FIFO is full the new data gets lost.
-//Same goes for Receive FIFO according to user manual (Overrun Error). UART
-//peripheral starts to transmit immediately after feeding it. If we don't
-//feed with new data fast enough and transmit buffer gets empty we have a THRE
-//interrupt.
-//Required time to transmit n bytes is (1/Baud)*(1+8+1)*n
 void CO2Trigger() {
-	/**
-	 * @brief Live Data Simple request to CO2 sensor
-	 * We use the fact that uC UART FIFO is 16 bytes long and we send this 7 byte message
-	 * periodically after a long period of time (from UART's point of view) to achieve
-	 * maximum performance without using DMA or interrupts.
-	 */
 	uint8_t co2TransmitBuffer[7] = { DLE, RD, Var_ID, DLE, EOFF, Checksum_hi,
 	Checksum_lo };
 
@@ -61,11 +60,11 @@ void CO2ReceiverTask(void const *args) {
 	uint8_t state = 0;
 	uint8_t DATaPacket = 0;
 	uint8_t NAKPacket = 0;
-	uint8_t DataLength;	///Data field length minus version and status flag bytes
+	uint8_t DataLength;	//Data field length minus version and status flag bytes
 	uint8_t vi = 0, si = 0, gi = 0;
-	uint8_t gj = 0;	///Index in uint8ieee[4]
-	uint8_t StatusError =0;	///When Status flag !=0 indicates Status Error
-	uint8_t uint8ieee[4];	///Contains the IEEE-754 as integers (CPU is little Endian)
+	uint8_t gj = 0;	//Index in uint8ieee[4]
+	uint8_t StatusError =0;	//When Status flag !=0 indicates Status Error
+	uint8_t uint8ieee[4];	//Contains the IEEE-754 as integers (CPU is little Endian)
 	float GasReading;
 	uint8_t ByteStuffing = 0;
 	uint8_t ChecksumReceived[2];
@@ -73,7 +72,7 @@ void CO2ReceiverTask(void const *args) {
 	uint8_t CO2SensorError = 0;
 	while (1) {
 		osEvent evt = CO2queue.get();	//If queue empty, stops here and lets other threads run
-		int recv_char = evt.value.v;	///Received character from CO2UART
+		int recv_char = evt.value.v;	//Received character from CO2UART
 		if (state>0 && state<=7) ChecksumCalculated += recv_char;
 		switch (state) {
 		case 0:

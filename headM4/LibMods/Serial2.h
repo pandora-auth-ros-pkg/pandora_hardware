@@ -1,3 +1,7 @@
+/** @file Serial2.h
+ * @author Orestis Zachariadis
+ * @brief
+ */
 #ifndef MBED_SERIAL2_H
 #define MBED_SERIAL2_H
 
@@ -10,11 +14,12 @@
 #include "serial_api.h"
 #include "Serial.h"
 
-#define NONBLOCKING 0	//Makes every I/O function Non-Blocking		//"CHANGED MBED LIBRARY HERE"
+#define NONBLOCKING 0	//Makes every I/O function Non-Blocking
 
 namespace mbed {
 
-/** A serial port (UART) for communication with other serial devices
+/** @class Serial2 Serial2.h "LibMods/Serial2.h"
+ * @brief A serial port (UART) for communication with other serial devices
  *
  * Can be used for Full Duplex communication, or Simplex by specifying
  * one pin as NC (Not Connected)
@@ -53,7 +58,7 @@ public:
 	 * object declarations with Serial2
 	 * @warning Care should be taken that there is empty space in the 16 byte FIFO before putting new characters
 	 */
-	int putcNB(int c){	//"CHANGED MBED LIBRARY HERE"
+	int putcNB(int c){
 		serial_t obj = this->_serial;
 		obj.uart->THR = c;
 		return c;
@@ -66,19 +71,19 @@ public:
 	 * object declarations with Serial2
 	 * @warning Care should be taken that there is an available character in the 16 byte FIFO before calling this function
 	 */
-	int getcNB() {	//"CHANGED MBED LIBRARY HERE"
+	int getcNB() {
 		serial_t obj = this->_serial;
 	    return obj.uart->RBR;
 	}
 
 protected:
 #if NONBLOCKING
-    virtual int _getc(){	//"CHANGED MBED LIBRARY HERE"
+    virtual int _getc(){
 		serial_t obj = this->_serial;
 	    return obj.uart->RBR;
 	}
 
-    virtual int _putc(int c){	//"CHANGED MBED LIBRARY HERE"
+    virtual int _putc(int c){
 		serial_t obj = this->_serial;
 		obj.uart->THR = c;
 		return c;

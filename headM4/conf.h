@@ -1,3 +1,7 @@
+/** @file
+ * @author Orestis Zachariadis
+ * @brief
+ */
 #ifndef CONF_H_
 #define CONF_H_
 

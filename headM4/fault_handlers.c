@@ -1,3 +1,7 @@
+/** @file
+ * @author Orestis Zachariadis
+ * @brief
+ */
 #include "gpio_api.h"
 #include "wait_api.h"
 #include "conf.h"

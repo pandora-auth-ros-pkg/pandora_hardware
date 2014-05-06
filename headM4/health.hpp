@@ -1,3 +1,7 @@
+/** @file
+ * @author Orestis Zachariadis
+ * @brief
+ */
 #ifndef HEALTH_HPP_
 #define HEALTH_HPP_
 
@@ -25,24 +29,60 @@
 #define WDRESET 1	///Watchdog reset enable bit
 
 
+/** @brief
+ *
+ */
 void HealthInit();
 
+/** @brief
+ *
+ */
 void CO2HealthTask(void const *args);
 
+/** @brief
+ *
+ */
 void GridEYEHealthTask(void const *args);
 
+/** @brief
+ *
+ */
 void clearHealthyCO2() ;
 
+/** @brief
+ *
+ */
 void clearHealthyGridEYE();
 
+/** @brief
+ *
+ * @param
+ */
 void HealthyCO2valueSet(float value);
 
+/** @brief
+ *
+ * @param
+ * @param
+ */
 void HealthyGridEYEvaluesSet(uint8_t values[], uint8_t grideye_num);
 
+/** @brief
+ *
+ * @param
+ */
 void repairCO2(uint8_t count);
 
+/** @brief
+ *
+ * @param
+ * @param
+ */
 void repairI2C(uint8_t count, int i2c_base);
 
+/** @brief
+ *
+ */
 void WDT_feed();
 
 #endif /* HEALTH_HPP_ */
