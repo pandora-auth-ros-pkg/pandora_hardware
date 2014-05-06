@@ -4,14 +4,14 @@
  */
 #include "grideye.hpp"
 
-static Mutex i2c0_mutex;
-static Mutex i2c1_mutex;
+static Mutex i2c0_mutex;	///<The mutex that locks access to I2C0 peripheral
+static Mutex i2c1_mutex;	///<The mutex that locks access to I2C1 peripheral
 
-static Thread *tGridEYECenter;
-static Thread *tGridEYELeft;
-static Thread *tGridEYERight;
+static Thread *tGridEYECenter;	///<Thread pointer for center GridEYE sensor's GridEYETask()
+static Thread *tGridEYELeft;	///<Thread pointer for left GridEYE sensor's GridEYETask()
+static Thread *tGridEYERight;	///<Thread pointer for right GridEYE sensor's GridEYETask()
 
-static Thread *tGridEYEHealth;
+static Thread *tGridEYEHealth;	///<<Thread pointer for GridEYEHealthTask()
 
 
 void GridEYEInit(I2C *i2c0_obj, I2C *i2c1_obj) {

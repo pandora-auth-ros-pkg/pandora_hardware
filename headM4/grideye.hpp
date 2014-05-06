@@ -49,7 +49,8 @@
 
 #define PIXELS_COUNT 64	///<GridEYE number of pixels
 
-/** @brief Required info to handle each GridEYE sensor */
+/** @struct grideye_sensor_t
+ * @brief Required info to handle each GridEYE sensor */
 typedef struct {
 	I2C *i2c_obj;	///<I2C object pointer (one pointer per I2C peripheral)
 	uint8_t i2c_periph_num;	///<0 for I2C0 peripheral, 1 for I2C1 etc
@@ -58,40 +59,60 @@ typedef struct {
 }grideye_sensor_t;
 
 
-/** @brief
+/** @brief GridEYE sensors initialization
  *
- * @param
- * @param
+ * Initialize GridEYE sensors communication and required threads
+ *
+ * @param i2c0_obj I2C pointer of I2C0 peripheral
+ * @param i2c1_obj I2C pointer of I2C1 peripheral
  */
 void GridEYEInit(I2C *i2c0_obj, I2C *i2c1_obj);
 
-/** @brief
+
+/** @brief Gets temperature data from GridEYE sensors
  *
- * @param
+ * Gets temperature and thermistor data from GridEYE sensors. Also sends temperature data to
+ * RGB Led Matrix if enabled in conf.h
+ *
+ * @param args A pointer to the grideye_sensor_t with the required info to handle each GridEYE sensor
  */
 void GridEYETask(void const *args);
 
-/** @brief
+
+/** @brief Locks access to I2C bus
  *
- * @param
+ * Uses mutexes to allow only one sensor of each I2C peripheral request and receive data at the same time
+ *
+ * @param grideye_sensor_t::i2c_periph_num of the current sensor
  */
 void i2c_lock(uint8_t i2c_periph_num);
 
-/** @brief
+
+/** @brief Unlocks access to I2C bus
  *
- * @param
+ * Uses mutexes to allow only one sensor of each I2C peripheral request and receive data at the same time
+ *
+ * @param i2c_periph_num grideye_sensor_t::i2c_periph_num of the current sensor
  */
 void i2c_unlock(uint8_t i2c_periph_num);
 
-/** @brief
+
+/** @brief Sets the buffer of each GridEYE sensor so that it will be available for transfer
  *
- * @param
- * @param
+ * Checks if temperature readings is inside their manufacturer's specified limits, rounds each temperature value
+ * so it can fit to a byte and sets the buffer of each GridEYE sensor that will be send over USB after it passes
+ * through the health monitoring layer.
+ *
+ * @param values The values that was just read from the GridEYE sensors
+ * @param grideye_num grideye_sensor_t::grideye_num
  */
 void GridEYEvaluesSet(float values[], uint8_t grideye_num);
 
-/** @brief
+
+/** @brief Schedules when we acquire data from the GridEYE sensors
  *
+ * Manages GridEYE sensors triggering period and signals GridEYEHealthTask() after a timeout period to check if there
+ * was any response.
  */
 void GridEYESchedulerTask(void const *args);
 

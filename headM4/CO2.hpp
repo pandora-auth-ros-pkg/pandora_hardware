@@ -54,6 +54,8 @@ void CO2ReceiverTask(void const *args);
  *
  * Checks if gas reading is inside it's manufacturer's specified limits and sets the CO2 buffer that will be
  * send over USB after it passes through the health monitoring layer.
+ *
+ * @param value The value that was just read from the CO2 sensor
  */
 void CO2valueSet(float value);
 

@@ -12,7 +12,7 @@
 //interrupt.
 //Required time to transmit n bytes is (1/Baud)*(1+8+1)*n
 
-static Serial2 *co2uart;	///<The Serial2 class object that implements the CO2 sensor
+static Serial2 *co2uart;	///<Pointer to the Serial2 class object that implements the CO2 sensor
 
 static Thread *tCO2;	///<Thread pointer for CO2ReceiverTask()
 
