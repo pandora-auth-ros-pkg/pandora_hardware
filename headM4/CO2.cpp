@@ -19,7 +19,7 @@ static Thread *tCO2;	///<Thread pointer for CO2ReceiverTask()
 static Thread *tCO2Health;	///<<Thread pointer for CO2HealthTask()
 
 /**
- * CO2 sensor buffer.
+ * @brief CO2 sensor buffer.
  * @note Buffer_size=19 (worst case scenario with 4 byte stuffings)
  * @n Without the buffer, we would have to process data in the time between 2 consecutive
  * incoming bytes.

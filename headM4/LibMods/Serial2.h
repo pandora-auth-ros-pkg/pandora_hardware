@@ -1,24 +1,22 @@
 /** @file Serial2.h
  * @author Orestis Zachariadis
- * @brief
+ * @brief Expands http://mbed.org/handbook/Serial with non-blocking functionality
  */
 #ifndef MBED_SERIAL2_H
 #define MBED_SERIAL2_H
 
 #include "platform.h"
 
-#if DEVICE_SERIAL
-
 #include "Stream.h"
 #include "SerialBase.h"
 #include "serial_api.h"
 #include "Serial.h"
 
-#define NONBLOCKING 0	//Makes every I/O function Non-Blocking
+#define NONBLOCKING 0	///<Makes every serial I/O function with this port Non-Blocking
 
 namespace mbed {
 
-/** @class Serial2 Serial2.h "LibMods/Serial2.h"
+/**
  * @brief A serial port (UART) for communication with other serial devices
  *
  * Can be used for Full Duplex communication, or Simplex by specifying
@@ -44,6 +42,7 @@ public:
      *
      *  @param tx Transmit pin
      *  @param rx Receive pin
+     *  @param name NULL
      *
      *  @note
      *    Either tx or rx may be specified as NC if unused
@@ -56,7 +55,8 @@ public:
 	 * @return c On successful completion, returns back the same character
 	 * @note Based on serial_putc() in serial_api.c . To use replace Serial
 	 * object declarations with Serial2
-	 * @warning Care should be taken that there is empty space in the 16 byte FIFO before putting new characters
+	 * @warning Care should be taken that there is empty space in the 16 byte outbound
+	 * FIFO before putting new characters
 	 */
 	int putcNB(int c){
 		serial_t obj = this->_serial;
@@ -69,7 +69,8 @@ public:
 	 * @return Returns the character from the serial port.
 	 * @note Based on serial_getc() in serial_api.c . To use replace Serial
 	 * object declarations with Serial2
-	 * @warning Care should be taken that there is an available character in the 16 byte FIFO before calling this function
+	 * @warning Care should be taken that there is an available character in the 16 byte inbound
+	 * FIFO before calling this function
 	 */
 	int getcNB() {
 		serial_t obj = this->_serial;
@@ -93,7 +94,5 @@ protected:
 };
 
 } // namespace mbed
-
-#endif
 
 #endif

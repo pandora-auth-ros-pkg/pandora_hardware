@@ -4,19 +4,17 @@
  */
 #include "USB.hpp"
 
-static float uCO2value;
-static uint8_t uGridEYECenterValues[PIXELS_COUNT];
-static uint8_t uGridEYELeftValues[PIXELS_COUNT];
-static uint8_t uGridEYERightValues[PIXELS_COUNT];
+/** @name Buffers that store the values to be send to PC */
+//@{
+static float uCO2value;	///<usb CO2 value buffer
+static uint8_t uGridEYECenterValues[PIXELS_COUNT];	///<usb GridEYECenter values buffer
+static uint8_t uGridEYELeftValues[PIXELS_COUNT];	///<usb GridEYECenter values buffer
+static uint8_t uGridEYERightValues[PIXELS_COUNT];	///<usb GridEYECenter values buffer
+//@}
 
-//I copied USBSerial.h to USBSerial2.h. Only changed the constructor so we can
-//input the circular buffer size (buf). It would be a good idea for the buffer
-//size to be a multiple of the incoming packet size. Haven't tested for packets
-//bigger than 64 byte.
-//The circular buffer fills up transparently with a callback, so we don't have
-//to worry about missing packets. (Check USBSerial::EP2_OUT_callback())
-static USBSerial *usb;
+static USBSerial *usb;	///<Pointer to the USBSerial class object that implements the USB communication
 
+/**RTOS queue that stores incoming command packets. USBTask() waits for this queue to get filled*/
 static Queue<uint8_t, 20> UsbRecvQueue;
 
 void USBInit() {

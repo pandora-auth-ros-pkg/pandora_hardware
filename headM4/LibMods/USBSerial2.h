@@ -15,6 +15,14 @@
 * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
+/** @file
+ * I copied USBSerial.h to USBSerial2.h. Only changed the constructor so we can
+* input the circular buffer size (buf). It would be a good idea for the buffer
+* size to be a multiple of the incoming packet size. Haven't tested for packets
+* bigger than 64 byte.@n
+* The circular buffer fills up transparently with a callback, so we don't have
+* to worry about missing packets. (Check EP2_OUT_callback() implementation in USBDevice/USBSerial/USBSerial.cpp)
+ */
 
 #ifndef USBSERIAL_H
 #define USBSERIAL_H
@@ -24,7 +32,8 @@
 #include "CircBuffer.h"
 
 
-/**
+/** @brief Communication with USB Communication Device Class (CDC)
+ *
 * USBSerial example
 *
 * @code
