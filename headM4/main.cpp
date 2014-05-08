@@ -1,6 +1,6 @@
 /** @file
  * @author Orestis Zachariadis
- * @brief
+ * @brief Initializes and starts tasks.
  */
 #include "mbed.h"
 #include "rtos.h"

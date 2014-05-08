@@ -1,6 +1,6 @@
 /** @file
  * @author Orestis Zachariadis
- * @brief
+ * @brief Processsor statistics. Currently only CPU Load.
  */
 #include "statistics.hpp"
 

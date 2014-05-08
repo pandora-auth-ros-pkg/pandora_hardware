@@ -1,6 +1,6 @@
 /** @file
  * @author Orestis Zachariadis
- * @brief
+ * @brief Implements GridEYE sensor functionality
  */
 #include "grideye.hpp"
 

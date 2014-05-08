@@ -1,6 +1,6 @@
 /** @file
  * @author Orestis Zachariadis
- * @brief
+ * @brief Implements USB communication with the PC.
  */
 #include "USB.hpp"
 

@@ -1,6 +1,6 @@
 /** @file
  * @author Orestis Zachariadis
- * @brief
+ * @brief Implements I2C communication with interrupts
  */
 #include "i2c_nonblocking.h"
 

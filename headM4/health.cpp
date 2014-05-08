@@ -1,6 +1,6 @@
 /** @file
  * @author Orestis Zachariadis
- * @brief
+ * @brief Implements sensor health monitoring functionality
  */
 #include "health.hpp"
 

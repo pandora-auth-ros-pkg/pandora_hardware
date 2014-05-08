@@ -1,7 +1,7 @@
 /** @file
  * @author Orestis Zachariadis
  *
- * @brief Implements I2C communication with interrupts
+ * @brief Includes, defines and function prototypes for interrupt based I2C communication implementation
  *
  * @b Instructions:
  * @li Include this file in i2c_api.c and disable %i2c_clear_SI() and %i2c_wait_SI() in i2c_api.c.

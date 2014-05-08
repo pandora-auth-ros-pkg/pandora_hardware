@@ -1,6 +1,6 @@
 /** @file
  * @author Orestis Zachariadis
- * @brief
+ * @brief Includes, defines and function prototypes used for USB functionality.
  */
 #ifndef USB_HPP_
 #define USB_HPP_
