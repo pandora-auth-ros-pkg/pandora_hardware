@@ -58,4 +58,4 @@ core*
 
 # xMega stack specific #
 #####################
-Debug/
+#Debug/
