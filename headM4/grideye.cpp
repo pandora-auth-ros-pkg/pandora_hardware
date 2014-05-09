@@ -184,7 +184,7 @@ void GridEYEvaluesSet(float values[], uint8_t grideye_num) {
 	uint8_t OutOfBounds = 0;
 
 	for (int i = 0; i < PIXELS_COUNT; ++i) {
-		if (values[i] >= 0 && values[i] < 80) {
+		if (values[i] > 0 && values[i] < 80) {
 			GridEYEvalues[i] = (uint8_t)(values[i] + 0.5);	//rounding to nearest Celsius degree
 		} else {
 			OutOfBounds =1;

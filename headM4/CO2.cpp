@@ -166,7 +166,7 @@ void CO2ReceiverTask(void const *args) {
 
 
 void CO2valueSet(float value) {
-	if (value>=0 && value<5) {
+	if (value > 0 && value < 5) {
 		HealthyCO2valueSet(value);
 	}
 }
