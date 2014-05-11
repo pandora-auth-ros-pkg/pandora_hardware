@@ -62,4 +62,4 @@ core*
 Debug/
 doxygen/
 doxyfile
-*.xml
+doxySettings.xml
