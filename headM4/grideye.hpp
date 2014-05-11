@@ -1,6 +1,6 @@
 /** @file
  * @author Orestis Zachariadis
- * @brief
+ * @brief Includes, defines and function prototypes used for the GridEYE sensor
  */
 #ifndef GRIDEYE_HPP_
 #define GRIDEYE_HPP_

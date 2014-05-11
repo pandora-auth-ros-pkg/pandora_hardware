@@ -1,7 +1,23 @@
 /** @file Serial2.h
  * @author Orestis Zachariadis
  * @brief Expands http://mbed.org/handbook/Serial with non-blocking functionality
+ *
+ * @note
+ * Both putc and printf() use serial_putc() in serial_api.c.
+ * @n
+ * @n
+ * Transmit FIFO size is 16. If we transmit new data and FIFO is full the new data gets lost.
+ * Same goes for Receive FIFO according to user manual (Overrun Error).
+ * @n
+ * @n
+ * UART peripheral starts to transmit immediately after feeding it. If we don't
+ * feed with new data fast enough and transmit buffer gets empty we have a THRE
+ * interrupt.
+ * @n
+ * @n
+ * Required time to transmit n bytes is (1/Baud)*(1+8+1)*n
  */
+
 #ifndef MBED_SERIAL2_H
 #define MBED_SERIAL2_H
 

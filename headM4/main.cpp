@@ -1,6 +1,6 @@
 /** @file
  * @author Orestis Zachariadis
- * @brief
+ * @brief Initializes and starts tasks.
  */
 #include "mbed.h"
 #include "rtos.h"
@@ -13,19 +13,6 @@
 //#include "gpdma.h"
 //#include "dsp.h"
 
-//Note1: if EALib/sdram.cpp exists (even if we don't include sdram.h) _sbrk() in that file will override every call
-//-> in malloc (this includes new) and the external sdram will be used instead of the internal. External is huge
-//-> (32MB > 96KB) but slower (load increased from 7% to 11%). Also note that just calling sdram_disableMallocSdram()
-//-> will not disable the override instead will make every call to malloc() return with -1, that could lead to HardFault
-//-> when creating objects like Serial, I2C etc.
-
-//Note2: Max number of threads allowed are 14. This can be changed in RTX_Conf_CM.c
-
-//Note3: RTOS Timer callback functions are not executed, check issue https://github.com/mbedmicro/mbed/issues/276
-
-//Note4: Memory is allocated as can been seen here: https://mbed.org/handbook/RTOS-Memory-Model . Each individual
-//-> thread's stack is allocated in Heap (as can been seen in mbed-rtos/rtos/Thread.cpp constructor). There is no
-//-> collision detection between heap and main stack. Insufficient stack space usually leads to HardFault.
 
 /** @brief Program entry point
  *

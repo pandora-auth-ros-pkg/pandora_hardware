@@ -4,13 +4,6 @@
  */
 #include "CO2.hpp"
 
-//Note1: Both putc and printf() use serial_putc() in serial_api.c. Transmit FIFO
-//size is 16. If we transmit new data and FIFO is full the new data gets lost.
-//Same goes for Receive FIFO according to user manual (Overrun Error). UART
-//peripheral starts to transmit immediately after feeding it. If we don't
-//feed with new data fast enough and transmit buffer gets empty we have a THRE
-//interrupt.
-//Required time to transmit n bytes is (1/Baud)*(1+8+1)*n
 
 static Serial2 *co2uart;	///<Pointer to the Serial2 class object that implements the CO2 sensor
 
@@ -173,7 +166,7 @@ void CO2ReceiverTask(void const *args) {
 
 
 void CO2valueSet(float value) {
-	if (value>=0 && value<5) {
+	if (value > 0 && value < 5) {
 		HealthyCO2valueSet(value);
 	}
 }

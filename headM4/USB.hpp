@@ -1,6 +1,6 @@
 /** @file
  * @author Orestis Zachariadis
- * @brief
+ * @brief Includes, defines and function prototypes used for USB functionality.
  */
 #ifndef USB_HPP_
 #define USB_HPP_
@@ -54,7 +54,7 @@ void USBGridEYEvaluesSet(uint8_t values[], uint8_t grideye_num);
 /** @brief Zeroes GridEYE USB buffers
  *
  * Zeroes out the usb buffer of the GridEYE sensor indicated by grideye_num. @n
- * We zero the buffer when the sesnor failed to respond before timeout period. When a sensor is
+ * We zero the buffer when the sensor failed to respond before timeout period. When a sensor is
  * not healthy its buffer remains zero.
  *
  * @param grideye_num grideye_sensor_t::grideye_num

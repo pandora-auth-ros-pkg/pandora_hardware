@@ -1,0 +1,59 @@
+/** @mainpage 
+ *
+ * @section General
+ *
+ * @note
+ * The special keyword @c static is used before variables to limit their scope to a file only. This effectively
+ * eliminates global variables. To access them from different files setters and getters must be used. This way a file
+ * resembles a class and a static variable resets a private member. Classes weren't used because thread handling was
+ * simpler in C style.
+ * @par
+ * @note
+ * If EALib/sdram.cpp exists (even if we don't include sdram.h) _sbrk() in that file will override every call
+ * in malloc (this includes new) and the external sdram will be used instead of the internal. External is huge
+ * (32MB > 96KB) but slower (load increased from 7% to 11%). Also note that just calling sdram_disableMallocSdram()
+ * will not disable the override instead will make every call to malloc() return with -1, that could lead to HardFault
+ * when creating objects like Serial, I2C etc.
+ * @par
+ * @note
+ * Interrupts:
+ * @li Interrupts must be enabled in NVIC to have effect,
+ * @li NVIC_SetPriority() is optional, default priority is 0 (highest),
+ * @li If we want to choose the ISR during runtime, dynamic vectors must be used (MBED
+ * has NVIC_SetVector() implemented for this task),
+ * @li Interrupt priority registers for interrupts 32-40 don't appear to LPCExpresso's Peripheral+ view,
+ * but they exist if we check the memory manually,
+ * @li @code extern "C" @endcode is required if handler is executed in C++ code,
+ * @li Interrupt flag should be cleared or we will enter the ISR continuously,
+ * @li An ISR can't be interrupted by the same interrupt that caused it, only by a higher priority one.
+ *
+ *
+ * @section RTOS
+ *
+ * @note
+ * Max number of threads allowed are 14. This can be changed in RTX_Conf_CM.c
+ * @par
+ * @note
+ * RTOS Timer callback functions are not executed, check issue https://github.com/mbedmicro/mbed/issues/276
+ * @par
+ * @note
+ * Memory is allocated as can been seen here: https://mbed.org/handbook/RTOS-Memory-Model . Each individual
+ * thread's stack is allocated in Heap (as can been seen in mbed-rtos/rtos/Thread.cpp constructor). There is no
+ * collision detection between heap and main stack. Insufficient stack space usually leads to HardFault.
+ * @par
+ * @note
+ * If queue.put() is executed inside an ISR, and we have continuous interrupts (not allowing non-ISR code to run),
+ * queue uses a size 16 FIFO (internal to the RTX, not configured by user). Shouldn't happen in a real case scenario.
+ *
+ * @section Useful Links
+ * http://mbed.org/handbook/Homepage
+ * @n
+ * http://mbed.org/handbook/RTOS
+ * @n
+ * http://mbed.org/handbook/CMSIS-RTOS
+ * @n
+ * http://www.keil.com/pack/doc/cmsis_rtx/modules.html
+ * @n
+ * http://www.keil.com/pack/doc/CMSIS/Core/html/group___n_v_i_c__gr.html
+ * @n
+ */

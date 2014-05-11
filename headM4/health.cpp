@@ -1,6 +1,27 @@
 /** @file
  * @author Orestis Zachariadis
- * @brief
+ * @brief Implements sensor health monitoring functionality
+ *
+ * @note Replace {sensor_name} in the next paragraph with CO2 or GridEYE or another sensor accordingly.
+ *
+ * In the beginning of each sensor scanning cycle ( see {sensor_name}SchedulerTask() ) healthy status
+ * of {sensor_name} is resetted ( clearHealthy{sensor_name}() is called, which sets {sensor_name}_healthy = 0 ).
+ * If {sensor_name} responds in time, Healthy{sensor_name}valueSet() is called, which sets {sensor_name} as
+ * healthy ( {sensor_name}_healthy = 1 ). But if {sensor_name} doesn't respond in time, {sensor_name}_healthy
+ * stays 0. {sensor_name}HealthTask() is signaled after an appropriate time (timeout) to check if {sensor_name}
+ * is healthy or not (checks if {sensor_name}_healthy was set or remained at zero ). If remained at zero, ie
+ * {sensor_name} didn't answer in time, {sensor_name}HealthTask() starts monitoring the number of failures and
+ *  attempts repair measures.
+ *
+ * @note Healthy{sensor_name}valueSet() is a direct replacement of USB{sensor_name}valueSet(). Thus we could just
+ * bypass the health layer by calling USB{sensor_name}valueSet() instead of Healthy{sensor_name}valueSet() inside
+ * the sensor's source file.
+ * @par
+ * @note To clear any confusion: {sensor_name}valueSet() in {sensor_name}.cpp just checks if the value(s) returned
+ * is(are) inside limits as defined by {sensor_name}'s manufacturer and calls either  USB{sensor_name}valueSet() ( if
+ * it just needs USB communication ) or Healthy{sensor_name}valueSet() (if it needs health monitoring layer)
+ * @par
+ * @note While a sensor is considered not healthy, its USB buffer is set to zero.
  */
 #include "health.hpp"
 

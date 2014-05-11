@@ -1,6 +1,6 @@
 /** @file
  * @author Orestis Zachariadis
- * @brief
+ * @brief Includes, defines and function prototypes used for health monitoring functionality.
  */
 #ifndef HEALTH_HPP_
 #define HEALTH_HPP_

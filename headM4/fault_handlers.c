@@ -1,13 +1,13 @@
 /** @file
  * @author Orestis Zachariadis
- * @brief
+ * @brief Error handling routines
  */
 #include "gpio_api.h"
 #include "wait_api.h"
 #include "conf.h"
 
-//mbed_die() is called in various error conditions. It is declared in common/board.c as WEAK so we can
-//-> easily override it.
+/**@brief This function is called in various unrecoverable error conditions
+ * @note It is declared in common/board.c as WEAK so we can easily override it*/
 void mbed_die() {
 
 #if DEVELOPMENT
@@ -42,24 +42,39 @@ void mbed_die() {
 }
 
 
-//-------------Processor Exception Handlers-----------------------
+/** @name Processor Fault Handlers
+ *  Cortex microprocessor exceptions that occur due to some fault.
+ *  @see Cortex™-M4 Devices : Generic User Guide
+ */
+///@{
 
+/** A HardFault is an exception that occurs because of an error during
+* exception processing, or because an exception cannot be managed by any
+* other exception mechanism. */
 void HardFault_Handler(void)
 {
 	mbed_die();
 }
 
+/** A MemManage fault is an exception that occurs because of a memory
+* protection related fault. */
 void MemManage_Handler(void)
 {
 	mbed_die();
 }
 
+/** A BusFault is an exception that occurs because of a memory related fault
+* for an instruction or data memory transaction. */
 void BusFault_Handler(void)
 {
 	mbed_die();
 }
 
+/** A UsageFault is an exception that occurs because of a fault related to
+* instruction execution. */
 void UsageFault_Handler(void)
 {
 	mbed_die();
 }
+
+///@}

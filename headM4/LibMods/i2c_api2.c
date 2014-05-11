@@ -14,21 +14,29 @@
  * limitations under the License.
  */
 
-//Important note: due to MBED Library bug i2c_write() and i2c_read() in i2c_api.c were changed, in order
-//-> to support a repeated start i2c_read after an i2c_write call. If you want repeated start functionality
-//-> delete original i2c_api.c and use i2c_api2.c in LibMods folder instead. Also there will be other additions in
-//-> i2c_api2.c. All changes are marked with "CHANGED MBED LIBRARY HERE" in comments.
-//Instructions if you want to use repeated start: 1) If you set "repeated" argument to true in I2C::write() the
-//->  following I2C::read() must also have "repeated" argument set to true. 2) An I2C transaction is not allowed to
-//-> start with I2C::read() with "repeated" argument set to true.
-//Note: As of now only the sequence write -> repeated start -> read is implemented.
+/** @file
+ * @brief MBED i2c_api.c with modifications and fixes.
+ *
+ * @note
+ * Due to MBED Library bug, %i2c_write() and %i2c_read() in i2c_api.c were changed in order
+ * to support a repeated start i2c_read after an i2c_write call.
+ * @n @n
+ * Instructions if you want to use repeated start:
+ * @li Delete original i2c_api.c and use i2c_api2.c in LibMods folder instead.
+ * @li If you set "repeated" argument to true in I2C::write() the following I2C::read() must also
+ * have "repeated" argument set to true.
+ * @li An I2C transaction is not allowed to start with I2C::read() with "repeated" argument set to true.
+ *
+ * @attention As of now only the sequence write -> repeated start -> read is implemented.
+ * @note Changes in original i2c_api.c are marked with "CHANGED MBED LIBRARY HERE" in comments.
+ */
 
 #include "i2c_api.h"
 #include "cmsis.h"
 #include "pinmap.h"
 #include "error.h"
 
-#include "LibMods/i2c_nonblocking.h"
+#include "LibMods/i2c_nonblocking.h"	//"CHANGED MBED LIBRARY HERE"
 
 static const PinMap PinMap_I2C_SDA[] = {
     {P0_0 , I2C_1, 3},

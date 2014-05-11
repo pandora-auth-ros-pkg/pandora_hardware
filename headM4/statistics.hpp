@@ -1,6 +1,6 @@
 /** @file
  * @author Orestis Zachariadis
- * @brief
+ * @brief Includes, defines and function prototypes used for statistics functionality.
  */
 #ifndef STATISTICS_HPP_
 #define STATISTICS_HPP_

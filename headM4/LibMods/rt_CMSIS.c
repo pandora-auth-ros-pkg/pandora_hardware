@@ -32,8 +32,13 @@
  * POSSIBILITY OF SUCH DAMAGE.
  *---------------------------------------------------------------------------*/
 
-//Fixed issue outlined here: https://github.com/mbedmicro/mbed/issues/285. I marked changes with
-//-> "CHANGED MBED LIBRARY HERE" for easy searching.
+/** @file
+ * @brief MBED %rt_CMSIS.c fixed. See details.
+ *
+ * Fixed issue outlined here: https://github.com/mbedmicro/mbed/issues/285.
+ * @n @n
+ * I marked changes with "CHANGED MBED LIBRARY HERE" for easy searching.
+ */
 
 #define __CMSIS_GENERIC
 

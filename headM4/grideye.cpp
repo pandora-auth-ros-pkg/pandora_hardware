@@ -1,6 +1,6 @@
 /** @file
  * @author Orestis Zachariadis
- * @brief
+ * @brief Implements GridEYE sensor functionality
  */
 #include "grideye.hpp"
 
@@ -14,7 +14,7 @@ static Thread *tGridEYELeft;	///<Thread pointer for left GridEYE sensor's GridEY
 static Thread *tGridEYERight;	///<Thread pointer for right GridEYE sensor's GridEYETask()
 //@}
 
-static Thread *tGridEYEHealth;	///<<Thread pointer for GridEYEHealthTask()
+static Thread *tGridEYEHealth;	///<Thread pointer for GridEYEHealthTask()
 
 
 void GridEYEInit(I2C *i2c0_obj, I2C *i2c1_obj) {
@@ -184,7 +184,7 @@ void GridEYEvaluesSet(float values[], uint8_t grideye_num) {
 	uint8_t OutOfBounds = 0;
 
 	for (int i = 0; i < PIXELS_COUNT; ++i) {
-		if (values[i] >= 0 && values[i] < 80) {
+		if (values[i] > 0 && values[i] < 80) {
 			GridEYEvalues[i] = (uint8_t)(values[i] + 0.5);	//rounding to nearest Celsius degree
 		} else {
 			OutOfBounds =1;
