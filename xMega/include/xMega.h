@@ -1,46 +1,23 @@
 ﻿/*
- * PandoraFSM.h
+ * \file xMega.h
+ * \brief xMega main Header file.
  *
- * Created: 1/1/2013 1:45:32 πμ
- *  Author: dikan
- */ 
+ * Created: 5/9/2014 5:24:02 PM
+ *  Author:	Panayiotou Kostantinos
+ *  Email:	glagloui@gmail.com
+ */
 
-
-#ifndef PANDORAFSM_H_
-#define PANDORAFSM_H_
+#ifndef XMEGA_H_
+#define XMEGA_H_
 
 #include "system.h"
+#include "fsm.h"
+#include "sensors.h"
+#include "pcInterface.h"
 
-// Globals
-uint16_t PCTXBufferLen;
-uint16_t PCTXBufferCrc;
+/* <#define _PCTX_DEBUG_ON> */
+/* <#define _GROUP_HANDLING_DEBUG_ON> */
 
-#define Tick200us	0x01
-#define Tick400us	0x02
-#define Tick1ms		0x04
-#define Tick200ms	0x08
-#define Tick5ms		0x10
-#define Tick10ms	0x20
-#define Tick50ms	0x40
-#define Tick100ms	0x80
+void _startup_system_init(void);
 
-volatile uint8_t	TCTimingFlags;
-volatile uint8_t	NextSensor;
-volatile uint16_t	PCTXPointer;
-volatile uint8_t	PCTXFlags;
-
-#define PCTX_Busy		0x01
-#define PCTX_WaitAckNaK	0x02
-#define PCTX_DebugMode	0x04
-#define PCTX_DebugMode2	0x08
-
-#define PCTXLenDebugMode 15
-
-//#define _PCTX_DEBUG_ON
-//#define _GROUP_HANDLING_DEBUG_ON
-
-uint16_t batteryVoltage_PSU, batteryVoltage_MOTOR;
-//uint16_t gADC_CH0_ZeroOffset,gADC_CH1_ZeroOffset;		// Calibration
-uint8_t *PCTXBuffer;
-
-#endif /* PANDORAFSM_H_ */
+#endif /* XMEGA_H_ */

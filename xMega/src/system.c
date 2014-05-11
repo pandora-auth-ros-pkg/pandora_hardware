@@ -1,13 +1,15 @@
-/*
- * system.c
+/*!
+ *	\file system.c
+ *	\brief System Configurations and Initializations Source file
  *
- * Created: 5/7/2014 9:55:23 PM
- *  Author: Kostantinos
+ *	Created: 5/7/2014 9:55:23 PM
+ *	Author:	Panayiotou Kostantinos
+ *	Email:	glagloui@gmail.com
  */ 
 
 #include "system.h"
 
-TWI_Master_t twiMaster;    /*!< TWI master module. */
+TWI_Master_t twiMaster;  
 
 void clock_init(void)
 {
@@ -42,28 +44,78 @@ void clock_init(void)
 }
 
 void init_uC_clock(void){
-	//Swap Main Clock to Internal RC 2MHz(Default)
-	CLKSYS_Enable(OSC_RC2MEN_bm); 									//Enable Internal RC Clock 2MHz
-	do {} while(CLKSYS_IsReady(OSC_RC2MRDY_bm) == 0);				//Wait 2MHz RC Clock Stable
-	CLKSYS_Main_ClockSource_Select(CLK_SCLKSEL_RC2M_gc);			//Select System Clock = Internal RC 2MHz
-	CLKSYS_Prescalers_Config(CLK_PSADIV_1_gc,CLK_PSBCDIV_1_1_gc);	//Prescale Divide by 1 ,Divide B by 1 and C by 1
-	CLKSYS_Disable(OSC_XOSCEN_bm);									//Disable External XTAL Clock
-	CLKSYS_Disable(OSC_RC32MEN_bm);									//Disable Internal RC 32MHz
-	CLKSYS_Disable(OSC_RC32KEN_bm);									//Disable Internal RC 32KHz
-	CLKSYS_Disable(OSC_PLLEN_bm);									//Disable PLL Clock
-	/* Now System Clock is Ready = 2MHz */
+	/* <Swap Main Clock to Internal RC 2MHz(Default)> */
+	CLKSYS_Enable(OSC_RC2MEN_bm); 									/* <Enable Internal RC Clock 2MHz> */
+	do {} while(CLKSYS_IsReady(OSC_RC2MRDY_bm) == 0);				/* <Wait 2MHz RC Clock Stable> */
+	CLKSYS_Main_ClockSource_Select(CLK_SCLKSEL_RC2M_gc);			/* <Select System Clock = Internal RC 2MHz> */
+	CLKSYS_Prescalers_Config(CLK_PSADIV_1_gc,CLK_PSBCDIV_1_1_gc);	/* <Prescale Divide by 1 ,Divide B by 1 and C by 1> */
+	CLKSYS_Disable(OSC_XOSCEN_bm);									/* <Disable External XTAL Clock> */
+	CLKSYS_Disable(OSC_RC32MEN_bm);									/* <Disable Internal RC 32MHz> */
+	CLKSYS_Disable(OSC_RC32KEN_bm);									/* <Disable Internal RC 32KHz> */
+	CLKSYS_Disable(OSC_PLLEN_bm);									/* <Disable PLL Clock> */
+	/* <Now System Clock is Ready = 2MHz> */
 
-	//Start Config New Main Clock Source
-	CLKSYS_XOSC_Config( OSC_FRQRANGE_2TO9_gc,			  			//Used Frequency Range 2-9MHz(8MHz)
-	true,										//Used High-quality watch crystals
-	OSC_XOSCSEL_XTAL_256CLK_gc);		  		//Select 8MHz XTAL + Startup 256 Cycle
-	CLKSYS_Enable(OSC_XOSCEN_bm);						  			//Enable External Clock
-	do {} while (CLKSYS_IsReady(OSC_XOSCRDY_bm) == 0);  			//Wait Clock is Stable
-	CLKSYS_Prescalers_Config(CLK_PSADIV_1_gc,CLK_PSBCDIV_1_1_gc);	//Prescale Divide by 1 ,Divide B by 1 and C by 1
-	CLKSYS_PLL_Config( OSC_PLLSRC_XOSC_gc, 8 );  					//External Oscillator(8MHz) x 8 = 64MHz
-	CLKSYS_Enable( OSC_PLLEN_bm );									//Enable PLL
-	CLKSYS_Prescalers_Config(CLK_PSADIV_1_gc,CLK_PSBCDIV_1_2_gc);	//Prescale Divide by 1 ,Divide B by 1 and C by 2
-	do {} while ( CLKSYS_IsReady(OSC_PLLRDY_bm ) == 0);				//Wait PLL ready
-	CLKSYS_Main_ClockSource_Select(CLK_SCLKSEL_PLL_gc);				//Select System Clock = Phase Locked Loop(32MHz)
+	/* <Start Config New Main Clock Source> */
+	CLKSYS_XOSC_Config( OSC_FRQRANGE_2TO9_gc,			  			/* <Used Frequency Range 2-9MHz(8MHz)> */
+						true,										/* <Used High-quality watch crystals> */
+						OSC_XOSCSEL_XTAL_256CLK_gc					/* <Select 8MHz XTAL + Startup 256 Cycle> */
+						);		  		
+	CLKSYS_Enable(OSC_XOSCEN_bm);						  			/* <Enable External Clock> */
+	do {} while (CLKSYS_IsReady(OSC_XOSCRDY_bm) == 0);  			/* <Wait Clock is Stable> */
+	CLKSYS_Prescalers_Config(CLK_PSADIV_1_gc,CLK_PSBCDIV_1_1_gc);	/* <Prescale Divide by 1 ,Divide B by 1 and C by 1> */
+	CLKSYS_PLL_Config( OSC_PLLSRC_XOSC_gc, 8 );  					/* <External Oscillator(8MHz) x 8 = 64MHz> */
+	CLKSYS_Enable( OSC_PLLEN_bm );									/* <Enable PLL> */
+	CLKSYS_Prescalers_Config(CLK_PSADIV_1_gc,CLK_PSBCDIV_1_2_gc);	/* <Prescale Divide by 1 ,Divide B by 1 and C by 2> */
+	do {} while ( CLKSYS_IsReady(OSC_PLLRDY_bm ) == 0);				/* <Wait PLL ready> */
+	CLKSYS_Main_ClockSource_Select(CLK_SCLKSEL_PLL_gc);				/* <Select System Clock = Phase Locked Loop(32MHz)> */
 	/* Now System Clock is Ready = 32MHz */
+}
+
+/*!
+		Brief Description
+	Initialize and startup uController Modules:
+	Initialize uClock.
+	Initialize Watchdog timer.
+	Initialize Timer 0 for Event capturing.
+	Initialize UART. (PC communication)
+	Initialize I2C Interface.
+	Initialize two Analog to Digital Signal Inputs. (ADCB)
+	Initialize Encoder.
+ */
+void _startup_system_init(void)
+{
+	init_uC_clock();											/* <Initialize Fsys clock to use external XTAL and PLL for Fsys=32MHz> */
+	WDT_EnableAndSetTimeout(WDT_PER_8CLK_gc);					/* <Initialize WDT module with 8ms Timeout> */
+	
+	/*============================Initialize TCC0 interrupt every 200us===============================*/
+	TC_SetPeriod( &TCC0, 799 );									/* <Set period/TOP value> */
+	TC0_ConfigWGM( &TCC0, TC_WGMODE_SS_gc );					/* <Configure the TC for single slope mode> */
+	TC0_SetOverflowIntLevel( &TCC0, TC_OVFINTLVL_LO_gc );		/* <Enable overflow interrupt at low level> */
+	TC0_ConfigClockSource( &TCC0, TC_CLKSEL_DIV8_gc );			/* <Select clock source> */
+	/*================================================================================================*/
+	init_uart();												/* <Initialize USART> */
+	
+	/*================================ Initialize TWI master =========================================*/
+	TWI_MasterInit(&twiMaster,
+	&TWIC,TWI_MASTER_INTLVL_LO_gc,
+	TWI_BAUDSETTING);
+	/*================================================================================================*/
+	PMIC.CTRL |= PMIC_LOLVLEN_bm;								/* <Enable LO interrupt level> */
+	
+	/*================================ Enable ADCB CH0 & CH1 =========================================*/
+	PORTB.OUT=0x00;
+	PORTB.DIR = 0x00;											/* <Configure PORTB as input> */
+	ADCB.CTRLA |= 0x1;											/* <Enable ADCB> */
+	ADCB.CTRLB = ADC_RESOLUTION_12BIT_gc; 						/* <Set 12 bit conversion> */
+	ADCB.CTRLB |= ADC_FREERUN_bm;								/* <Enable Freerunning mode> */
+	ADCB.REFCTRL = ADC_REFSEL_AREFB_gc;							/* <External reference from AREF pin on PORT B> */
+	ADCB.PRESCALER = ADC_PRESCALER_DIV512_gc; 					/* <Peripheral clk/512 (32MHz/512=62.5kHz)> */
+	ADCB.CH0.CTRL = ADC_CH_INPUTMODE_SINGLEENDED_gc; 			/* <Single Ended> */
+	ADCB.CH1.CTRL = ADC_CH_INPUTMODE_SINGLEENDED_gc; 			/* <Single Ended> */
+	ADCB.CH0.MUXCTRL = ADC_CH_MUXPOS_PIN1_gc; 					/* <ADC_CHANNEL0 Converts Analog Input PORTB:1 (Motor Battery)> */
+	ADCB.CH1.MUXCTRL = ADC_CH_MUXPOS_PIN3_gc; 					/* <ADC_CHANNEL1 Converts Analog Input PORTB:3 (PSU Battery)> */
+	ADCB.EVCTRL = ADC_SWEEP_01_gc;								/* <SWEEP mode 01 selected> */
+	/*================================================================================================*/
+	
+	init_encoder(&_encoder);
 }
