@@ -1,0 +1,1286 @@
+\hypertarget{_t_c__driver_8h}{\section{drivers/\-T\-C\-\_\-driver.h File Reference}
+\label{_t_c__driver_8h}\index{drivers/\-T\-C\-\_\-driver.\-h@{drivers/\-T\-C\-\_\-driver.\-h}}
+}
+
+
+X\-M\-E\-G\-A Timer/\-Counter driver header file.  
+
+
+{\ttfamily \#include \char`\"{}avr\-\_\-compiler.\-h\char`\"{}}\\*
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{_t_c__driver_8h_a4b1fa59d76f86ced01740b22278ba23b}{T\-C\-\_\-\-Enable\-Event\-Delay}(\-\_\-tc)~( (\-\_\-tc)-\/$>$C\-T\-R\-L\-D $|$= T\-C0\-\_\-\-E\-V\-D\-L\-Y\-\_\-bm )
+\begin{DoxyCompactList}\small\item\em Enables the event delay for this T\-C. \end{DoxyCompactList}\item 
+\#define \hyperlink{_t_c__driver_8h_a09a1d9fa80b12d69a5c6c54ac4acb568}{T\-C\-\_\-\-Disable\-Event\-Delay}(\-\_\-tc)~( (\-\_\-tc)-\/$>$C\-T\-R\-L\-D \&= $\sim$T\-C0\-\_\-\-E\-V\-D\-L\-Y\-\_\-bm )
+\begin{DoxyCompactList}\small\item\em This macro disables the event delay for this T\-C. \end{DoxyCompactList}\item 
+\#define \hyperlink{_t_c__driver_8h_a73684604998fb3a11524d2d3143bc5bf}{T\-C\-\_\-\-Lock\-Compare\-Update}(\-\_\-tc)~( (\-\_\-tc)-\/$>$C\-T\-R\-L\-F\-S\-E\-T = T\-C0\-\_\-\-L\-U\-P\-D\-\_\-bm )
+\begin{DoxyCompactList}\small\item\em Locks automatic updating of compare and period registers. \end{DoxyCompactList}\item 
+\#define \hyperlink{_t_c__driver_8h_a5a969399e96e90ddd97ee94c487dcfe5}{T\-C\-\_\-\-Unlock\-Compare\-Update}(\-\_\-tc)~( (\-\_\-tc)-\/$>$C\-T\-R\-L\-F\-C\-L\-R = T\-C0\-\_\-\-L\-U\-P\-D\-\_\-bm )
+\begin{DoxyCompactList}\small\item\em Unlocks automatic updating of compare and period registers. \end{DoxyCompactList}\item 
+\#define \hyperlink{_t_c__driver_8h_ac585f9b311ce57ee16c1cd309e81aae2}{T\-C\-\_\-\-Force\-Update}(\-\_\-tc)~( (\-\_\-tc)-\/$>$C\-T\-R\-L\-F\-S\-E\-T = T\-C\-\_\-\-C\-M\-D\-\_\-\-U\-P\-D\-A\-T\-E\-\_\-gc )
+\begin{DoxyCompactList}\small\item\em Force an update of the output compare and period registers. \end{DoxyCompactList}\item 
+\#define \hyperlink{_t_c__driver_8h_a0a837eeef0e057214725bfcd57688a7c}{T\-C\-\_\-\-Restart}(\-\_\-tc)~( (\-\_\-tc)-\/$>$C\-T\-R\-L\-F\-S\-E\-T = T\-C\-\_\-\-C\-M\-D\-\_\-\-R\-E\-S\-T\-A\-R\-T\-\_\-gc )
+\begin{DoxyCompactList}\small\item\em Restart the Timer/\-Counter. \end{DoxyCompactList}\item 
+\#define \hyperlink{_t_c__driver_8h_abaac6e289006eefa97dd4c1fe9d39464}{T\-C\-\_\-\-Set\-Count}(\-\_\-tc, \-\_\-count)~( (\-\_\-tc)-\/$>$C\-N\-T = (\-\_\-count) )
+\begin{DoxyCompactList}\small\item\em Manually set the count. \end{DoxyCompactList}\item 
+\#define \hyperlink{_t_c__driver_8h_a4faaf2813b83a03cd6d3720fa884bfe4}{T\-C\-\_\-\-Set\-Period}(\-\_\-tc, \-\_\-period)~( (\-\_\-tc)-\/$>$P\-E\-R = (\-\_\-period) )
+\begin{DoxyCompactList}\small\item\em Sets the timer period. \end{DoxyCompactList}\item 
+\#define \hyperlink{_t_c__driver_8h_aaebcc08be007b67a2d0b001e44d077b7}{T\-C\-\_\-\-Set\-Period\-Buffered}(\-\_\-tc, \-\_\-period)~( (\-\_\-tc)-\/$>$P\-E\-R\-B\-U\-F = (\-\_\-period) )
+\begin{DoxyCompactList}\small\item\em Sets the timer period ( double buffered ). \end{DoxyCompactList}\item 
+\#define \hyperlink{_t_c__driver_8h_a11829e0c86eba6c2f20351060fa3c1b2}{T\-C\-\_\-\-Set\-Compare\-A}(\-\_\-tc, \-\_\-compare\-Value)~( (\-\_\-tc)-\/$>$C\-C\-A\-B\-U\-F = (\-\_\-compare\-Value) )
+\begin{DoxyCompactList}\small\item\em Set new compare value for compare channel A. ( Double buffered ) \end{DoxyCompactList}\item 
+\#define \hyperlink{_t_c__driver_8h_afdb25320eb2c2d824aee058650b7e9f1}{T\-C\-\_\-\-Set\-Compare\-B}(\-\_\-tc, \-\_\-compare\-Value)~( (\-\_\-tc)-\/$>$C\-C\-B\-B\-U\-F = (\-\_\-compare\-Value) )
+\begin{DoxyCompactList}\small\item\em Set new compare value for compare channel B. ( Double buffered ) \end{DoxyCompactList}\item 
+\#define \hyperlink{_t_c__driver_8h_ac68c401778ed8dea4c24706c48b1fe3e}{T\-C\-\_\-\-Set\-Compare\-C}(\-\_\-tc, \-\_\-compare\-Value)~( (\-\_\-tc)-\/$>$C\-C\-C\-B\-U\-F = (\-\_\-compare\-Value) )
+\begin{DoxyCompactList}\small\item\em Set new compare value for compare channel C. ( Double buffered ) \end{DoxyCompactList}\item 
+\#define \hyperlink{_t_c__driver_8h_aeb6a2da8eb30b2e2457a4f4d959cc546}{T\-C\-\_\-\-Set\-Compare\-D}(\-\_\-tc, \-\_\-compare\-Value)~( (\-\_\-tc)-\/$>$C\-C\-D\-B\-U\-F = (\-\_\-compare\-Value) )
+\begin{DoxyCompactList}\small\item\em Set new compare value for compare channel D. ( Double buffered ) \end{DoxyCompactList}\item 
+\#define \hyperlink{_t_c__driver_8h_a41ba6e4bbe21de7dfcc85146835858e9}{T\-C\-\_\-\-Get\-Overflow\-Flag}(\-\_\-tc)~( (\-\_\-tc)-\/$>$I\-N\-T\-F\-L\-A\-G\-S \& T\-C0\-\_\-\-O\-V\-F\-I\-F\-\_\-bm )
+\begin{DoxyCompactList}\small\item\em Test whether an overflow has occurred. \end{DoxyCompactList}\item 
+\#define \hyperlink{_t_c__driver_8h_aedc4d516e9f796432730cc7fa61e81d9}{T\-C\-\_\-\-Clear\-Overflow\-Flag}(\-\_\-tc)~( (\-\_\-tc)-\/$>$I\-N\-T\-F\-L\-A\-G\-S = T\-C0\-\_\-\-O\-V\-F\-I\-F\-\_\-bm )
+\begin{DoxyCompactList}\small\item\em Clears the Timer/\-Counter overflow flag. \end{DoxyCompactList}\item 
+\#define \hyperlink{_t_c__driver_8h_a35d45f4d1b006672ac430901536347f5}{T\-C\-\_\-\-Get\-Error\-Flag}(\-\_\-tc)~( (\-\_\-tc)-\/$>$I\-N\-T\-F\-L\-A\-G\-S \& T\-C0\-\_\-\-E\-R\-R\-I\-F\-\_\-bm )
+\begin{DoxyCompactList}\small\item\em Test whether an error has occurred. \end{DoxyCompactList}\item 
+\#define \hyperlink{_t_c__driver_8h_ada5a426aca38d12a362695f0941e460e}{T\-C\-\_\-\-Clear\-Error\-Flag}(\-\_\-tc)~( (\-\_\-tc)-\/$>$I\-N\-T\-F\-L\-A\-G\-S = T\-C0\-\_\-\-E\-R\-R\-I\-F\-\_\-bm )
+\begin{DoxyCompactList}\small\item\em Clears the Timer/\-Counter error flag. \end{DoxyCompactList}\item 
+\#define \hyperlink{_t_c__driver_8h_a5b1d20f74d1a3083b536f27017f45767}{T\-C\-\_\-\-Get\-C\-C\-A\-Flag}(\-\_\-tc)~( (\-\_\-tc)-\/$>$I\-N\-T\-F\-L\-A\-G\-S \& T\-C0\-\_\-\-C\-C\-A\-I\-F\-\_\-bm )
+\begin{DoxyCompactList}\small\item\em Get the status for Compare or Capture channel A. \end{DoxyCompactList}\item 
+\#define \hyperlink{_t_c__driver_8h_a0ed6eaa40a0f5b5b3322ce48166bee16}{T\-C\-\_\-\-Clear\-C\-C\-A\-Flag}(\-\_\-tc)~( (\-\_\-tc)-\/$>$I\-N\-T\-F\-L\-A\-G\-S = T\-C0\-\_\-\-C\-C\-A\-I\-F\-\_\-bm )
+\begin{DoxyCompactList}\small\item\em Clears the Timer/\-Counter compare or capture A interrupt flag. \end{DoxyCompactList}\item 
+\#define \hyperlink{_t_c__driver_8h_ae126b7a72512efa058c21dfc1ad6c6e1}{T\-C\-\_\-\-Get\-C\-C\-B\-Flag}(\-\_\-tc)~( (\-\_\-tc)-\/$>$I\-N\-T\-F\-L\-A\-G\-S \& T\-C0\-\_\-\-C\-C\-B\-I\-F\-\_\-bm )
+\begin{DoxyCompactList}\small\item\em Get the status for Compare or Capture channel B. \end{DoxyCompactList}\item 
+\#define \hyperlink{_t_c__driver_8h_a76d044a29d90a5ac7f28204b5eaae65c}{T\-C\-\_\-\-Clear\-C\-C\-B\-Flag}(\-\_\-tc)~( (\-\_\-tc)-\/$>$I\-N\-T\-F\-L\-A\-G\-S = T\-C0\-\_\-\-C\-C\-B\-I\-F\-\_\-bm )
+\begin{DoxyCompactList}\small\item\em Clears the Timer/\-Counter compare or capture B interrupt flag. \end{DoxyCompactList}\item 
+\#define \hyperlink{_t_c__driver_8h_a7497125c7b6c8ef02b8d75ba6b811254}{T\-C\-\_\-\-Get\-C\-C\-C\-Flag}(\-\_\-tc)~( (\-\_\-tc)-\/$>$I\-N\-T\-F\-L\-A\-G\-S \& T\-C0\-\_\-\-C\-C\-C\-I\-F\-\_\-bm )
+\begin{DoxyCompactList}\small\item\em Get the status for Compare or Capture channel C. \end{DoxyCompactList}\item 
+\#define \hyperlink{_t_c__driver_8h_a548e3d1742703a2ca51a7a957302741b}{T\-C\-\_\-\-Clear\-C\-C\-C\-Flag}(\-\_\-tc)~( (\-\_\-tc)-\/$>$I\-N\-T\-F\-L\-A\-G\-S = T\-C0\-\_\-\-C\-C\-C\-I\-F\-\_\-bm )
+\begin{DoxyCompactList}\small\item\em Clears the Timer/\-Counter compare or capture C interrupt flag. \end{DoxyCompactList}\item 
+\#define \hyperlink{_t_c__driver_8h_a444c6e56839302d35cd1fdcdb7c41001}{T\-C\-\_\-\-Get\-C\-C\-D\-Flag}(\-\_\-tc)~( (\-\_\-tc)-\/$>$I\-N\-T\-F\-L\-A\-G\-S \& T\-C0\-\_\-\-C\-C\-D\-I\-F\-\_\-bm )
+\begin{DoxyCompactList}\small\item\em Get the status for Compare or Capture channel D. \end{DoxyCompactList}\item 
+\#define \hyperlink{_t_c__driver_8h_a2e059c95fdd9b233a8d3c99ddf433b5c}{T\-C\-\_\-\-Clear\-C\-C\-D\-Flag}(\-\_\-tc)~( (\-\_\-tc)-\/$>$I\-N\-T\-F\-L\-A\-G\-S = T\-C0\-\_\-\-C\-C\-D\-I\-F\-\_\-bm )
+\begin{DoxyCompactList}\small\item\em Clears the Timer/\-Counter compare or capture D interrupt flag. \end{DoxyCompactList}\item 
+\#define \hyperlink{_t_c__driver_8h_a047c98cc70b77b9133143155a575a2db}{T\-C\-\_\-\-Get\-Capture\-A}(\-\_\-tc)~( (\-\_\-tc)-\/$>$C\-C\-A )
+\begin{DoxyCompactList}\small\item\em Reads the first available input capture value for channel A. \end{DoxyCompactList}\item 
+\#define \hyperlink{_t_c__driver_8h_a3eeb1ab0f3f2d536de4164628780fb78}{T\-C\-\_\-\-Get\-Capture\-B}(\-\_\-tc)~( (\-\_\-tc)-\/$>$C\-C\-B )
+\begin{DoxyCompactList}\small\item\em Reads the first available input capture value for channel B. \end{DoxyCompactList}\item 
+\#define \hyperlink{_t_c__driver_8h_a72ef542e1bce10b16d89e3182750fc3c}{T\-C\-\_\-\-Get\-Capture\-C}(\-\_\-tc)~( (\-\_\-tc)-\/$>$C\-C\-C )
+\begin{DoxyCompactList}\small\item\em Reads the first available input capture value for channel C. \end{DoxyCompactList}\item 
+\#define \hyperlink{_t_c__driver_8h_ae71f41fdf7aacb64d3b09609781669e5}{T\-C\-\_\-\-Get\-Capture\-D}(\-\_\-tc)~( (\-\_\-tc)-\/$>$C\-C\-D )
+\begin{DoxyCompactList}\small\item\em Reads the first available input capture value for channel D. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{_t_c__driver_8h_a1a5b3ccf2b872dcdf8f4162e5cdc6e81}{T\-C0\-\_\-\-Config\-Clock\-Source} (volatile T\-C0\-\_\-t $\ast$tc, T\-C\-\_\-\-C\-L\-K\-S\-E\-L\-\_\-t clock\-Selection)
+\begin{DoxyCompactList}\small\item\em Configures clock source for the Timer/\-Counter 0. \end{DoxyCompactList}\item 
+void \hyperlink{_t_c__driver_8h_a45e98ab822bfcd2e284c13fddac90f32}{T\-C0\-\_\-\-Config\-W\-G\-M} (volatile T\-C0\-\_\-t $\ast$tc, T\-C\-\_\-\-W\-G\-M\-O\-D\-E\-\_\-t wgm)
+\begin{DoxyCompactList}\small\item\em Configures the Waveform Generation Mode for the Timer/\-Counter 0. \end{DoxyCompactList}\item 
+void \hyperlink{_t_c__driver_8h_a309a2ca4eaf39437b57ca13edb23b70b}{T\-C0\-\_\-\-Config\-Input\-Capture} (volatile T\-C0\-\_\-t $\ast$tc, T\-C\-\_\-\-E\-V\-S\-E\-L\-\_\-t event\-Source)
+\begin{DoxyCompactList}\small\item\em Configures the Timer/\-Counter 0 for input capture operation. \end{DoxyCompactList}\item 
+void \hyperlink{_t_c__driver_8h_ae6b05576247ef4109e9249ea4f8e6b28}{T\-C0\-\_\-\-Enable\-C\-C\-Channels} (volatile T\-C0\-\_\-t $\ast$tc, uint8\-\_\-t enable\-Mask)
+\begin{DoxyCompactList}\small\item\em Enables compare/capture channels for Timer/\-Counter 0. \end{DoxyCompactList}\item 
+void \hyperlink{_t_c__driver_8h_aec887336e135fc7f2c95532b7b2bee3f}{T\-C0\-\_\-\-Disable\-C\-C\-Channels} (volatile T\-C0\-\_\-t $\ast$tc, uint8\-\_\-t disable\-Mask)
+\begin{DoxyCompactList}\small\item\em Disables compare/capture channels on Timer/\-Counter 0. \end{DoxyCompactList}\item 
+void \hyperlink{_t_c__driver_8h_a5630e34078d4a93db2a655703c13c71a}{T\-C0\-\_\-\-Set\-Overflow\-Int\-Level} (volatile T\-C0\-\_\-t $\ast$tc, T\-C\-\_\-\-O\-V\-F\-I\-N\-T\-L\-V\-L\-\_\-t int\-Level)
+\begin{DoxyCompactList}\small\item\em Sets the overflow interrupt level. \end{DoxyCompactList}\item 
+void \hyperlink{_t_c__driver_8h_a7932285622e0f6f66821a24aa18d8892}{T\-C0\-\_\-\-Set\-Error\-Int\-Level} (volatile T\-C0\-\_\-t $\ast$tc, T\-C\-\_\-\-E\-R\-R\-I\-N\-T\-L\-V\-L\-\_\-t int\-Level)
+\begin{DoxyCompactList}\small\item\em Sets the Error interrupt level. \end{DoxyCompactList}\item 
+void \hyperlink{_t_c__driver_8h_a9dc297c8345a7b55099ab0b63454e109}{T\-C0\-\_\-\-Set\-C\-C\-A\-Int\-Level} (volatile T\-C0\-\_\-t $\ast$tc, T\-C\-\_\-\-C\-C\-A\-I\-N\-T\-L\-V\-L\-\_\-t int\-Level)
+\begin{DoxyCompactList}\small\item\em Sets the interrupt level for compare/capture channel A interrupt. \end{DoxyCompactList}\item 
+void \hyperlink{_t_c__driver_8h_a0eb6006987f0c6c1227ae21303840380}{T\-C0\-\_\-\-Set\-C\-C\-B\-Int\-Level} (volatile T\-C0\-\_\-t $\ast$tc, T\-C\-\_\-\-C\-C\-B\-I\-N\-T\-L\-V\-L\-\_\-t int\-Level)
+\begin{DoxyCompactList}\small\item\em Sets the interrupt level for compare/capture channel B interrupt. \end{DoxyCompactList}\item 
+void \hyperlink{_t_c__driver_8h_a1c1cbcd5f0dff77d207d95754ce9ff1f}{T\-C0\-\_\-\-Set\-C\-C\-C\-Int\-Level} (volatile T\-C0\-\_\-t $\ast$tc, T\-C\-\_\-\-C\-C\-C\-I\-N\-T\-L\-V\-L\-\_\-t int\-Level)
+\begin{DoxyCompactList}\small\item\em Sets the interrupt level for compare/capture channel C interrupt. \end{DoxyCompactList}\item 
+void \hyperlink{_t_c__driver_8h_a764c59955faaa6cd1463848330c6ea34}{T\-C0\-\_\-\-Set\-C\-C\-D\-Int\-Level} (volatile T\-C0\-\_\-t $\ast$tc, T\-C\-\_\-\-C\-C\-D\-I\-N\-T\-L\-V\-L\-\_\-t int\-Level)
+\begin{DoxyCompactList}\small\item\em Sets the interrupt level for compare/capture channel D interrupt. \end{DoxyCompactList}\item 
+void \hyperlink{_t_c__driver_8h_ad7b63210eec1da33632c95d26fe3fd02}{T\-C0\-\_\-\-Reset} (volatile T\-C0\-\_\-t $\ast$tc)
+\begin{DoxyCompactList}\small\item\em Resets the Timer/\-Counter 0. \end{DoxyCompactList}\item 
+void \hyperlink{_t_c__driver_8h_aef27c3126f89d13b02732de352bff21f}{T\-C1\-\_\-\-Config\-Clock\-Source} (volatile T\-C1\-\_\-t $\ast$tc, T\-C\-\_\-\-C\-L\-K\-S\-E\-L\-\_\-t clock\-Selection)
+\begin{DoxyCompactList}\small\item\em Configures clock source for the Timer/\-Counter 1. \end{DoxyCompactList}\item 
+void \hyperlink{_t_c__driver_8h_aea811f24d3ebc34c561eb648f2952314}{T\-C1\-\_\-\-Config\-W\-G\-M} (volatile T\-C1\-\_\-t $\ast$tc, T\-C\-\_\-\-W\-G\-M\-O\-D\-E\-\_\-t wgm)
+\begin{DoxyCompactList}\small\item\em Configures the Waveform Generation Mode for the Timer/\-Counter 1. \end{DoxyCompactList}\item 
+void \hyperlink{_t_c__driver_8h_a8d41d6b130f6fd3928e8198e9bf9512b}{T\-C1\-\_\-\-Config\-Input\-Capture} (volatile T\-C1\-\_\-t $\ast$tc, T\-C\-\_\-\-E\-V\-S\-E\-L\-\_\-t event\-Source)
+\begin{DoxyCompactList}\small\item\em Configures the Timer/\-Counter 1 for input capture operation. \end{DoxyCompactList}\item 
+void \hyperlink{_t_c__driver_8h_a41d8a44ed53255f2bb991a2aab3bf031}{T\-C1\-\_\-\-Enable\-C\-C\-Channels} (volatile T\-C1\-\_\-t $\ast$tc, uint8\-\_\-t enable\-Mask)
+\begin{DoxyCompactList}\small\item\em Enables compare/capture channels for Timer/\-Counter 1. \end{DoxyCompactList}\item 
+void \hyperlink{_t_c__driver_8h_a0573753afe3df7200cd686d84e1fded6}{T\-C1\-\_\-\-Disable\-C\-C\-Channels} (volatile T\-C1\-\_\-t $\ast$tc, uint8\-\_\-t disable\-Mask)
+\begin{DoxyCompactList}\small\item\em Disables compare/capture channels on Timer/\-Counter 1. \end{DoxyCompactList}\item 
+void \hyperlink{_t_c__driver_8h_aa99bc1615bda1604c9ea7a738c1e595f}{T\-C1\-\_\-\-Set\-Overflow\-Int\-Level} (volatile T\-C1\-\_\-t $\ast$tc, T\-C\-\_\-\-O\-V\-F\-I\-N\-T\-L\-V\-L\-\_\-t int\-Level)
+\begin{DoxyCompactList}\small\item\em Sets the overflow interrupt level. \end{DoxyCompactList}\item 
+void \hyperlink{_t_c__driver_8h_aa65e4c1ee730d914d555eeee8aee0503}{T\-C1\-\_\-\-Set\-Error\-Int\-Level} (volatile T\-C1\-\_\-t $\ast$tc, T\-C\-\_\-\-E\-R\-R\-I\-N\-T\-L\-V\-L\-\_\-t int\-Level)
+\begin{DoxyCompactList}\small\item\em Sets the Error interrupt level. \end{DoxyCompactList}\item 
+void \hyperlink{_t_c__driver_8h_ae26379528dcd7aa2c51407453e81b764}{T\-C1\-\_\-\-Set\-C\-C\-A\-Int\-Level} (volatile T\-C1\-\_\-t $\ast$tc, T\-C\-\_\-\-C\-C\-A\-I\-N\-T\-L\-V\-L\-\_\-t int\-Level)
+\begin{DoxyCompactList}\small\item\em Sets the interrupt level for compare/capture channel A interrupt. \end{DoxyCompactList}\item 
+void \hyperlink{_t_c__driver_8h_a8ba5a300c68f0d88e0450aa95be0d76d}{T\-C1\-\_\-\-Set\-C\-C\-B\-Int\-Level} (volatile T\-C1\-\_\-t $\ast$tc, T\-C\-\_\-\-C\-C\-B\-I\-N\-T\-L\-V\-L\-\_\-t int\-Level)
+\begin{DoxyCompactList}\small\item\em Sets the interrupt level for compare/capture channel B interrupt. \end{DoxyCompactList}\item 
+\hypertarget{_t_c__driver_8h_acbb8bcb56ffae6f884e49adbafd93128}{void {\bfseries T\-C1\-\_\-\-Set\-C\-C\-C\-Int\-Level} (volatile T\-C1\-\_\-t $\ast$tc, T\-C\-\_\-\-C\-C\-C\-I\-N\-T\-L\-V\-L\-\_\-t int\-Level)}\label{_t_c__driver_8h_acbb8bcb56ffae6f884e49adbafd93128}
+
+\item 
+\hypertarget{_t_c__driver_8h_a3db14d65afb9ea1f2cf7131333be9451}{void {\bfseries T\-C1\-\_\-\-Set\-C\-C\-D\-Int\-Level} (volatile T\-C1\-\_\-t $\ast$tc, T\-C\-\_\-\-C\-C\-D\-I\-N\-T\-L\-V\-L\-\_\-t int\-Level)}\label{_t_c__driver_8h_a3db14d65afb9ea1f2cf7131333be9451}
+
+\item 
+void \hyperlink{_t_c__driver_8h_ac6857a58e93965b3a74007c5c9952880}{T\-C1\-\_\-\-Reset} (volatile T\-C1\-\_\-t $\ast$tc)
+\begin{DoxyCompactList}\small\item\em Resets the Timer/\-Counter 1. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+X\-M\-E\-G\-A Timer/\-Counter driver header file. \begin{DoxyVerb} This file contains the function prototypes and enumerator definitions
+ for various configuration parameters for the XMEGA Timer/Counter driver.
+
+ The driver is not intended for size and/or speed critical code, since
+ most functions are just a few lines of code, and the function call
+ overhead would decrease code performance. The driver is intended for
+ rapid prototyping and documentation purposes for getting started with
+ the XMEGA Timer/Counter module.
+
+ For size and/or speed critical code, it is recommended to copy the
+ function contents directly into your application instead of making
+ a function call.
+\end{DoxyVerb}
+
+
+\begin{DoxyParagraph}{Application note\-:}
+A\-V\-R1306\-: Using the X\-M\-E\-G\-A Timer/\-Counter
+\end{DoxyParagraph}
+\begin{DoxyParagraph}{Documentation}
+For comprehensive code documentation, supported compilers, compiler settings and supported devices see readme.\-html
+\end{DoxyParagraph}
+\begin{DoxyAuthor}{Author}
+Atmel Corporation\-: \href{http://www.atmel.com}{\tt http\-://www.\-atmel.\-com} \par
+ Support email\-: \href{mailto:avr@atmel.com}{\tt avr@atmel.\-com}
+\end{DoxyAuthor}
+\begin{DoxyParagraph}{Revision\-:}
+1569 
+\end{DoxyParagraph}
+\begin{DoxyParagraph}{Date\-:}
+2008-\/04-\/22 13\-:03\-:43 +0200 (ti, 22 apr 2008) 
+\end{DoxyParagraph}
+\par
+
+
+Copyright (c) 2008, Atmel Corporation All rights reserved.
+
+Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met\-:
+
+
+\begin{DoxyEnumerate}
+\item Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+\end{DoxyEnumerate}
+
+
+\begin{DoxyEnumerate}
+\item Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+\end{DoxyEnumerate}
+
+
+\begin{DoxyEnumerate}
+\item The name of A\-T\-M\-E\-L may not be used to endorse or promote products derived from this software without specific prior written permission.
+\end{DoxyEnumerate}
+
+T\-H\-I\-S S\-O\-F\-T\-W\-A\-R\-E I\-S P\-R\-O\-V\-I\-D\-E\-D B\-Y A\-T\-M\-E\-L \char`\"{}\-A\-S I\-S\char`\"{} A\-N\-D A\-N\-Y E\-X\-P\-R\-E\-S\-S O\-R I\-M\-P\-L\-I\-E\-D W\-A\-R\-R\-A\-N\-T\-I\-E\-S, I\-N\-C\-L\-U\-D\-I\-N\-G, B\-U\-T N\-O\-T L\-I\-M\-I\-T\-E\-D T\-O, T\-H\-E I\-M\-P\-L\-I\-E\-D W\-A\-R\-R\-A\-N\-T\-I\-E\-S O\-F M\-E\-R\-C\-H\-A\-N\-T\-A\-B\-I\-L\-I\-T\-Y A\-N\-D F\-I\-T\-N\-E\-S\-S F\-O\-R A P\-A\-R\-T\-I\-C\-U\-L\-A\-R P\-U\-R\-P\-O\-S\-E A\-R\-E E\-X\-P\-R\-E\-S\-S\-L\-Y A\-N\-D S\-P\-E\-C\-I\-F\-I\-C\-A\-L\-L\-Y D\-I\-S\-C\-L\-A\-I\-M\-E\-D. I\-N N\-O E\-V\-E\-N\-T S\-H\-A\-L\-L A\-T\-M\-E\-L B\-E L\-I\-A\-B\-L\-E F\-O\-R A\-N\-Y D\-I\-R\-E\-C\-T, I\-N\-D\-I\-R\-E\-C\-T, I\-N\-C\-I\-D\-E\-N\-T\-A\-L, S\-P\-E\-C\-I\-A\-L, E\-X\-E\-M\-P\-L\-A\-R\-Y, O\-R C\-O\-N\-S\-E\-Q\-U\-E\-N\-T\-I\-A\-L D\-A\-M\-A\-G\-E\-S (I\-N\-C\-L\-U\-D\-I\-N\-G, B\-U\-T N\-O\-T L\-I\-M\-I\-T\-E\-D T\-O, P\-R\-O\-C\-U\-R\-E\-M\-E\-N\-T O\-F S\-U\-B\-S\-T\-I\-T\-U\-T\-E G\-O\-O\-D\-S O\-R S\-E\-R\-V\-I\-C\-E\-S; L\-O\-S\-S O\-F U\-S\-E, D\-A\-T\-A, O\-R P\-R\-O\-F\-I\-T\-S; O\-R B\-U\-S\-I\-N\-E\-S\-S I\-N\-T\-E\-R\-R\-U\-P\-T\-I\-O\-N) H\-O\-W\-E\-V\-E\-R C\-A\-U\-S\-E\-D A\-N\-D O\-N A\-N\-Y T\-H\-E\-O\-R\-Y O\-F L\-I\-A\-B\-I\-L\-I\-T\-Y, W\-H\-E\-T\-H\-E\-R I\-N C\-O\-N\-T\-R\-A\-C\-T, S\-T\-R\-I\-C\-T L\-I\-A\-B\-I\-L\-I\-T\-Y, O\-R T\-O\-R\-T (I\-N\-C\-L\-U\-D\-I\-N\-G N\-E\-G\-L\-I\-G\-E\-N\-C\-E O\-R O\-T\-H\-E\-R\-W\-I\-S\-E) A\-R\-I\-S\-I\-N\-G I\-N A\-N\-Y W\-A\-Y O\-U\-T O\-F T\-H\-E U\-S\-E O\-F T\-H\-I\-S S\-O\-F\-T\-W\-A\-R\-E, E\-V\-E\-N I\-F A\-D\-V\-I\-S\-E\-D O\-F T\-H\-E P\-O\-S\-S\-I\-B\-I\-L\-I\-T\-Y O\-F S\-U\-C\-H D\-A\-M\-A\-G\-E. 
+
+\subsection{Macro Definition Documentation}
+\hypertarget{_t_c__driver_8h_a0ed6eaa40a0f5b5b3322ce48166bee16}{\index{T\-C\-\_\-driver.\-h@{T\-C\-\_\-driver.\-h}!T\-C\-\_\-\-Clear\-C\-C\-A\-Flag@{T\-C\-\_\-\-Clear\-C\-C\-A\-Flag}}
+\index{T\-C\-\_\-\-Clear\-C\-C\-A\-Flag@{T\-C\-\_\-\-Clear\-C\-C\-A\-Flag}!TC_driver.h@{T\-C\-\_\-driver.\-h}}
+\subsubsection[{T\-C\-\_\-\-Clear\-C\-C\-A\-Flag}]{\setlength{\rightskip}{0pt plus 5cm}\#define T\-C\-\_\-\-Clear\-C\-C\-A\-Flag(
+\begin{DoxyParamCaption}
+\item[{}]{\-\_\-tc}
+\end{DoxyParamCaption}
+)~( (\-\_\-tc)-\/$>$I\-N\-T\-F\-L\-A\-G\-S = T\-C0\-\_\-\-C\-C\-A\-I\-F\-\_\-bm )}}\label{_t_c__driver_8h_a0ed6eaa40a0f5b5b3322ce48166bee16}
+
+
+Clears the Timer/\-Counter compare or capture A interrupt flag. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \-\_\-tc} & Timer/\-Counter 0 or 1 module instance. \\
+\hline
+\end{DoxyParams}
+\hypertarget{_t_c__driver_8h_a76d044a29d90a5ac7f28204b5eaae65c}{\index{T\-C\-\_\-driver.\-h@{T\-C\-\_\-driver.\-h}!T\-C\-\_\-\-Clear\-C\-C\-B\-Flag@{T\-C\-\_\-\-Clear\-C\-C\-B\-Flag}}
+\index{T\-C\-\_\-\-Clear\-C\-C\-B\-Flag@{T\-C\-\_\-\-Clear\-C\-C\-B\-Flag}!TC_driver.h@{T\-C\-\_\-driver.\-h}}
+\subsubsection[{T\-C\-\_\-\-Clear\-C\-C\-B\-Flag}]{\setlength{\rightskip}{0pt plus 5cm}\#define T\-C\-\_\-\-Clear\-C\-C\-B\-Flag(
+\begin{DoxyParamCaption}
+\item[{}]{\-\_\-tc}
+\end{DoxyParamCaption}
+)~( (\-\_\-tc)-\/$>$I\-N\-T\-F\-L\-A\-G\-S = T\-C0\-\_\-\-C\-C\-B\-I\-F\-\_\-bm )}}\label{_t_c__driver_8h_a76d044a29d90a5ac7f28204b5eaae65c}
+
+
+Clears the Timer/\-Counter compare or capture B interrupt flag. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \-\_\-tc} & Timer/\-Counter 0 or 1 module instance. \\
+\hline
+\end{DoxyParams}
+\hypertarget{_t_c__driver_8h_a548e3d1742703a2ca51a7a957302741b}{\index{T\-C\-\_\-driver.\-h@{T\-C\-\_\-driver.\-h}!T\-C\-\_\-\-Clear\-C\-C\-C\-Flag@{T\-C\-\_\-\-Clear\-C\-C\-C\-Flag}}
+\index{T\-C\-\_\-\-Clear\-C\-C\-C\-Flag@{T\-C\-\_\-\-Clear\-C\-C\-C\-Flag}!TC_driver.h@{T\-C\-\_\-driver.\-h}}
+\subsubsection[{T\-C\-\_\-\-Clear\-C\-C\-C\-Flag}]{\setlength{\rightskip}{0pt plus 5cm}\#define T\-C\-\_\-\-Clear\-C\-C\-C\-Flag(
+\begin{DoxyParamCaption}
+\item[{}]{\-\_\-tc}
+\end{DoxyParamCaption}
+)~( (\-\_\-tc)-\/$>$I\-N\-T\-F\-L\-A\-G\-S = T\-C0\-\_\-\-C\-C\-C\-I\-F\-\_\-bm )}}\label{_t_c__driver_8h_a548e3d1742703a2ca51a7a957302741b}
+
+
+Clears the Timer/\-Counter compare or capture C interrupt flag. 
+
+This macro clears the Timer/\-Counter compare or capture C interrupt flag.
+
+\begin{DoxyNote}{Note}
+The C\-C\-C channel is not available on T\-Cx1.
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em \-\_\-tc} & Timer/\-Counter 0 module instance. \\
+\hline
+\end{DoxyParams}
+\hypertarget{_t_c__driver_8h_a2e059c95fdd9b233a8d3c99ddf433b5c}{\index{T\-C\-\_\-driver.\-h@{T\-C\-\_\-driver.\-h}!T\-C\-\_\-\-Clear\-C\-C\-D\-Flag@{T\-C\-\_\-\-Clear\-C\-C\-D\-Flag}}
+\index{T\-C\-\_\-\-Clear\-C\-C\-D\-Flag@{T\-C\-\_\-\-Clear\-C\-C\-D\-Flag}!TC_driver.h@{T\-C\-\_\-driver.\-h}}
+\subsubsection[{T\-C\-\_\-\-Clear\-C\-C\-D\-Flag}]{\setlength{\rightskip}{0pt plus 5cm}\#define T\-C\-\_\-\-Clear\-C\-C\-D\-Flag(
+\begin{DoxyParamCaption}
+\item[{}]{\-\_\-tc}
+\end{DoxyParamCaption}
+)~( (\-\_\-tc)-\/$>$I\-N\-T\-F\-L\-A\-G\-S = T\-C0\-\_\-\-C\-C\-D\-I\-F\-\_\-bm )}}\label{_t_c__driver_8h_a2e059c95fdd9b233a8d3c99ddf433b5c}
+
+
+Clears the Timer/\-Counter compare or capture D interrupt flag. 
+
+This macro clears the Timer/\-Counter compare or capture D interrupt flag.
+
+\begin{DoxyNote}{Note}
+The C\-C\-D channel is not available on T\-Cx1.
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em \-\_\-tc} & Timer/\-Counter 0 module instance. \\
+\hline
+\end{DoxyParams}
+\hypertarget{_t_c__driver_8h_ada5a426aca38d12a362695f0941e460e}{\index{T\-C\-\_\-driver.\-h@{T\-C\-\_\-driver.\-h}!T\-C\-\_\-\-Clear\-Error\-Flag@{T\-C\-\_\-\-Clear\-Error\-Flag}}
+\index{T\-C\-\_\-\-Clear\-Error\-Flag@{T\-C\-\_\-\-Clear\-Error\-Flag}!TC_driver.h@{T\-C\-\_\-driver.\-h}}
+\subsubsection[{T\-C\-\_\-\-Clear\-Error\-Flag}]{\setlength{\rightskip}{0pt plus 5cm}\#define T\-C\-\_\-\-Clear\-Error\-Flag(
+\begin{DoxyParamCaption}
+\item[{}]{\-\_\-tc}
+\end{DoxyParamCaption}
+)~( (\-\_\-tc)-\/$>$I\-N\-T\-F\-L\-A\-G\-S = T\-C0\-\_\-\-E\-R\-R\-I\-F\-\_\-bm )}}\label{_t_c__driver_8h_ada5a426aca38d12a362695f0941e460e}
+
+
+Clears the Timer/\-Counter error flag. 
+
+This macro clears the Timer/\-Counter error flag.
+
+
+\begin{DoxyParams}{Parameters}
+{\em \-\_\-tc} & Timer/\-Counter module instance. \\
+\hline
+\end{DoxyParams}
+\hypertarget{_t_c__driver_8h_aedc4d516e9f796432730cc7fa61e81d9}{\index{T\-C\-\_\-driver.\-h@{T\-C\-\_\-driver.\-h}!T\-C\-\_\-\-Clear\-Overflow\-Flag@{T\-C\-\_\-\-Clear\-Overflow\-Flag}}
+\index{T\-C\-\_\-\-Clear\-Overflow\-Flag@{T\-C\-\_\-\-Clear\-Overflow\-Flag}!TC_driver.h@{T\-C\-\_\-driver.\-h}}
+\subsubsection[{T\-C\-\_\-\-Clear\-Overflow\-Flag}]{\setlength{\rightskip}{0pt plus 5cm}\#define T\-C\-\_\-\-Clear\-Overflow\-Flag(
+\begin{DoxyParamCaption}
+\item[{}]{\-\_\-tc}
+\end{DoxyParamCaption}
+)~( (\-\_\-tc)-\/$>$I\-N\-T\-F\-L\-A\-G\-S = T\-C0\-\_\-\-O\-V\-F\-I\-F\-\_\-bm )}}\label{_t_c__driver_8h_aedc4d516e9f796432730cc7fa61e81d9}
+
+
+Clears the Timer/\-Counter overflow flag. 
+
+This macro clears the Timer/\-Counter overflow flag.
+
+
+\begin{DoxyParams}{Parameters}
+{\em \-\_\-tc} & Timer/\-Counter module instance. \\
+\hline
+\end{DoxyParams}
+\hypertarget{_t_c__driver_8h_a09a1d9fa80b12d69a5c6c54ac4acb568}{\index{T\-C\-\_\-driver.\-h@{T\-C\-\_\-driver.\-h}!T\-C\-\_\-\-Disable\-Event\-Delay@{T\-C\-\_\-\-Disable\-Event\-Delay}}
+\index{T\-C\-\_\-\-Disable\-Event\-Delay@{T\-C\-\_\-\-Disable\-Event\-Delay}!TC_driver.h@{T\-C\-\_\-driver.\-h}}
+\subsubsection[{T\-C\-\_\-\-Disable\-Event\-Delay}]{\setlength{\rightskip}{0pt plus 5cm}\#define T\-C\-\_\-\-Disable\-Event\-Delay(
+\begin{DoxyParamCaption}
+\item[{}]{\-\_\-tc}
+\end{DoxyParamCaption}
+)~( (\-\_\-tc)-\/$>$C\-T\-R\-L\-D \&= $\sim$T\-C0\-\_\-\-E\-V\-D\-L\-Y\-\_\-bm )}}\label{_t_c__driver_8h_a09a1d9fa80b12d69a5c6c54ac4acb568}
+
+
+This macro disables the event delay for this T\-C. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \-\_\-tc} & The Timer/\-Counter to disable delay on. \\
+\hline
+\end{DoxyParams}
+\hypertarget{_t_c__driver_8h_a4b1fa59d76f86ced01740b22278ba23b}{\index{T\-C\-\_\-driver.\-h@{T\-C\-\_\-driver.\-h}!T\-C\-\_\-\-Enable\-Event\-Delay@{T\-C\-\_\-\-Enable\-Event\-Delay}}
+\index{T\-C\-\_\-\-Enable\-Event\-Delay@{T\-C\-\_\-\-Enable\-Event\-Delay}!TC_driver.h@{T\-C\-\_\-driver.\-h}}
+\subsubsection[{T\-C\-\_\-\-Enable\-Event\-Delay}]{\setlength{\rightskip}{0pt plus 5cm}\#define T\-C\-\_\-\-Enable\-Event\-Delay(
+\begin{DoxyParamCaption}
+\item[{}]{\-\_\-tc}
+\end{DoxyParamCaption}
+)~( (\-\_\-tc)-\/$>$C\-T\-R\-L\-D $|$= T\-C0\-\_\-\-E\-V\-D\-L\-Y\-\_\-bm )}}\label{_t_c__driver_8h_a4b1fa59d76f86ced01740b22278ba23b}
+
+
+Enables the event delay for this T\-C. 
+
+This macro enables a one clock cycle delay of event sources for this T\-C. Mainly used for the high word T\-C when two T\-Cs are cascaded to form a 32-\/bit T\-C.
+
+
+\begin{DoxyParams}{Parameters}
+{\em \-\_\-tc} & The Timer/\-Counter to enable delay on. \\
+\hline
+\end{DoxyParams}
+\hypertarget{_t_c__driver_8h_ac585f9b311ce57ee16c1cd309e81aae2}{\index{T\-C\-\_\-driver.\-h@{T\-C\-\_\-driver.\-h}!T\-C\-\_\-\-Force\-Update@{T\-C\-\_\-\-Force\-Update}}
+\index{T\-C\-\_\-\-Force\-Update@{T\-C\-\_\-\-Force\-Update}!TC_driver.h@{T\-C\-\_\-driver.\-h}}
+\subsubsection[{T\-C\-\_\-\-Force\-Update}]{\setlength{\rightskip}{0pt plus 5cm}\#define T\-C\-\_\-\-Force\-Update(
+\begin{DoxyParamCaption}
+\item[{}]{\-\_\-tc}
+\end{DoxyParamCaption}
+)~( (\-\_\-tc)-\/$>$C\-T\-R\-L\-F\-S\-E\-T = T\-C\-\_\-\-C\-M\-D\-\_\-\-U\-P\-D\-A\-T\-E\-\_\-gc )}}\label{_t_c__driver_8h_ac585f9b311ce57ee16c1cd309e81aae2}
+
+
+Force an update of the output compare and period registers. 
+
+This macro will trigger a transfer from the output compare and period buffer registers ( C\-Cx\-B\-U\-F and P\-E\-R\-B\-U\-F ) to the output compare and period registers ( C\-Cx and P\-E\-R ). Calling this macro has the same effect as an update condition.
+
+
+\begin{DoxyParams}{Parameters}
+{\em \-\_\-tc} & Timer/\-Counter module instance. \\
+\hline
+\end{DoxyParams}
+\hypertarget{_t_c__driver_8h_a047c98cc70b77b9133143155a575a2db}{\index{T\-C\-\_\-driver.\-h@{T\-C\-\_\-driver.\-h}!T\-C\-\_\-\-Get\-Capture\-A@{T\-C\-\_\-\-Get\-Capture\-A}}
+\index{T\-C\-\_\-\-Get\-Capture\-A@{T\-C\-\_\-\-Get\-Capture\-A}!TC_driver.h@{T\-C\-\_\-driver.\-h}}
+\subsubsection[{T\-C\-\_\-\-Get\-Capture\-A}]{\setlength{\rightskip}{0pt plus 5cm}\#define T\-C\-\_\-\-Get\-Capture\-A(
+\begin{DoxyParamCaption}
+\item[{}]{\-\_\-tc}
+\end{DoxyParamCaption}
+)~( (\-\_\-tc)-\/$>$C\-C\-A )}}\label{_t_c__driver_8h_a047c98cc70b77b9133143155a575a2db}
+
+
+Reads the first available input capture value for channel A. 
+
+This macro returns the first available input capture value for capture channel A.
+
+
+\begin{DoxyParams}{Parameters}
+{\em \-\_\-tc} & Timer/\-Counter 0 or 1 module instance.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The first available input capture value for channel A. 
+\end{DoxyReturn}
+\hypertarget{_t_c__driver_8h_a3eeb1ab0f3f2d536de4164628780fb78}{\index{T\-C\-\_\-driver.\-h@{T\-C\-\_\-driver.\-h}!T\-C\-\_\-\-Get\-Capture\-B@{T\-C\-\_\-\-Get\-Capture\-B}}
+\index{T\-C\-\_\-\-Get\-Capture\-B@{T\-C\-\_\-\-Get\-Capture\-B}!TC_driver.h@{T\-C\-\_\-driver.\-h}}
+\subsubsection[{T\-C\-\_\-\-Get\-Capture\-B}]{\setlength{\rightskip}{0pt plus 5cm}\#define T\-C\-\_\-\-Get\-Capture\-B(
+\begin{DoxyParamCaption}
+\item[{}]{\-\_\-tc}
+\end{DoxyParamCaption}
+)~( (\-\_\-tc)-\/$>$C\-C\-B )}}\label{_t_c__driver_8h_a3eeb1ab0f3f2d536de4164628780fb78}
+
+
+Reads the first available input capture value for channel B. 
+
+This macro returns the first available input capture value for capture channel B.
+
+
+\begin{DoxyParams}{Parameters}
+{\em \-\_\-tc} & Timer/\-Counter 0 or 1 module instance.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The first available input capture value for channel B. 
+\end{DoxyReturn}
+\hypertarget{_t_c__driver_8h_a72ef542e1bce10b16d89e3182750fc3c}{\index{T\-C\-\_\-driver.\-h@{T\-C\-\_\-driver.\-h}!T\-C\-\_\-\-Get\-Capture\-C@{T\-C\-\_\-\-Get\-Capture\-C}}
+\index{T\-C\-\_\-\-Get\-Capture\-C@{T\-C\-\_\-\-Get\-Capture\-C}!TC_driver.h@{T\-C\-\_\-driver.\-h}}
+\subsubsection[{T\-C\-\_\-\-Get\-Capture\-C}]{\setlength{\rightskip}{0pt plus 5cm}\#define T\-C\-\_\-\-Get\-Capture\-C(
+\begin{DoxyParamCaption}
+\item[{}]{\-\_\-tc}
+\end{DoxyParamCaption}
+)~( (\-\_\-tc)-\/$>$C\-C\-C )}}\label{_t_c__driver_8h_a72ef542e1bce10b16d89e3182750fc3c}
+
+
+Reads the first available input capture value for channel C. 
+
+This macro returns the first available input capture value for capture channel C.
+
+\begin{DoxyNote}{Note}
+The C\-C\-C channel is not available on T\-Cx1.
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em \-\_\-tc} & Timer/\-Counter 0 module instance.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The first available input capture value for channel C. 
+\end{DoxyReturn}
+\hypertarget{_t_c__driver_8h_ae71f41fdf7aacb64d3b09609781669e5}{\index{T\-C\-\_\-driver.\-h@{T\-C\-\_\-driver.\-h}!T\-C\-\_\-\-Get\-Capture\-D@{T\-C\-\_\-\-Get\-Capture\-D}}
+\index{T\-C\-\_\-\-Get\-Capture\-D@{T\-C\-\_\-\-Get\-Capture\-D}!TC_driver.h@{T\-C\-\_\-driver.\-h}}
+\subsubsection[{T\-C\-\_\-\-Get\-Capture\-D}]{\setlength{\rightskip}{0pt plus 5cm}\#define T\-C\-\_\-\-Get\-Capture\-D(
+\begin{DoxyParamCaption}
+\item[{}]{\-\_\-tc}
+\end{DoxyParamCaption}
+)~( (\-\_\-tc)-\/$>$C\-C\-D )}}\label{_t_c__driver_8h_ae71f41fdf7aacb64d3b09609781669e5}
+
+
+Reads the first available input capture value for channel D. 
+
+This macro returns the first available input capture value for capture channel D.
+
+\begin{DoxyNote}{Note}
+The C\-C\-D channel is not available on T\-Cx1.
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em \-\_\-tc} & Timer/\-Counter 0 module instance.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The first available input capture value for channel D. 
+\end{DoxyReturn}
+\hypertarget{_t_c__driver_8h_a5b1d20f74d1a3083b536f27017f45767}{\index{T\-C\-\_\-driver.\-h@{T\-C\-\_\-driver.\-h}!T\-C\-\_\-\-Get\-C\-C\-A\-Flag@{T\-C\-\_\-\-Get\-C\-C\-A\-Flag}}
+\index{T\-C\-\_\-\-Get\-C\-C\-A\-Flag@{T\-C\-\_\-\-Get\-C\-C\-A\-Flag}!TC_driver.h@{T\-C\-\_\-driver.\-h}}
+\subsubsection[{T\-C\-\_\-\-Get\-C\-C\-A\-Flag}]{\setlength{\rightskip}{0pt plus 5cm}\#define T\-C\-\_\-\-Get\-C\-C\-A\-Flag(
+\begin{DoxyParamCaption}
+\item[{}]{\-\_\-tc}
+\end{DoxyParamCaption}
+)~( (\-\_\-tc)-\/$>$I\-N\-T\-F\-L\-A\-G\-S \& T\-C0\-\_\-\-C\-C\-A\-I\-F\-\_\-bm )}}\label{_t_c__driver_8h_a5b1d20f74d1a3083b536f27017f45767}
+
+
+Get the status for Compare or Capture channel A. 
+
+When the T\-C is in Input Capture mode, the return value of this macro indicates whether there is an unread input capture value available for capture channel A.
+
+When the T\-C is in any other mode, the return value of this macro indicates whether there has been a compare match between channel A and the counter.
+
+
+\begin{DoxyParams}{Parameters}
+{\em \-\_\-tc} & Timer/\-Counter 0 or 1 module instance.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Non-\/zero if Compare or capture has occured, zero otherwise. 
+\end{DoxyReturn}
+\hypertarget{_t_c__driver_8h_ae126b7a72512efa058c21dfc1ad6c6e1}{\index{T\-C\-\_\-driver.\-h@{T\-C\-\_\-driver.\-h}!T\-C\-\_\-\-Get\-C\-C\-B\-Flag@{T\-C\-\_\-\-Get\-C\-C\-B\-Flag}}
+\index{T\-C\-\_\-\-Get\-C\-C\-B\-Flag@{T\-C\-\_\-\-Get\-C\-C\-B\-Flag}!TC_driver.h@{T\-C\-\_\-driver.\-h}}
+\subsubsection[{T\-C\-\_\-\-Get\-C\-C\-B\-Flag}]{\setlength{\rightskip}{0pt plus 5cm}\#define T\-C\-\_\-\-Get\-C\-C\-B\-Flag(
+\begin{DoxyParamCaption}
+\item[{}]{\-\_\-tc}
+\end{DoxyParamCaption}
+)~( (\-\_\-tc)-\/$>$I\-N\-T\-F\-L\-A\-G\-S \& T\-C0\-\_\-\-C\-C\-B\-I\-F\-\_\-bm )}}\label{_t_c__driver_8h_ae126b7a72512efa058c21dfc1ad6c6e1}
+
+
+Get the status for Compare or Capture channel B. 
+
+When the T\-C is in Input Capture mode, the return value of this macro indicates whether there is an unread input capture value available for capture channel B.
+
+When the T\-C is in any other mode, the return value of this macro indicates whether there has been a compare match between channel B and the counter.
+
+
+\begin{DoxyParams}{Parameters}
+{\em \-\_\-tc} & Timer/\-Counter 0 or 1 module instance.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Non-\/zero if Compare or capture has occured, zero otherwise. 
+\end{DoxyReturn}
+\hypertarget{_t_c__driver_8h_a7497125c7b6c8ef02b8d75ba6b811254}{\index{T\-C\-\_\-driver.\-h@{T\-C\-\_\-driver.\-h}!T\-C\-\_\-\-Get\-C\-C\-C\-Flag@{T\-C\-\_\-\-Get\-C\-C\-C\-Flag}}
+\index{T\-C\-\_\-\-Get\-C\-C\-C\-Flag@{T\-C\-\_\-\-Get\-C\-C\-C\-Flag}!TC_driver.h@{T\-C\-\_\-driver.\-h}}
+\subsubsection[{T\-C\-\_\-\-Get\-C\-C\-C\-Flag}]{\setlength{\rightskip}{0pt plus 5cm}\#define T\-C\-\_\-\-Get\-C\-C\-C\-Flag(
+\begin{DoxyParamCaption}
+\item[{}]{\-\_\-tc}
+\end{DoxyParamCaption}
+)~( (\-\_\-tc)-\/$>$I\-N\-T\-F\-L\-A\-G\-S \& T\-C0\-\_\-\-C\-C\-C\-I\-F\-\_\-bm )}}\label{_t_c__driver_8h_a7497125c7b6c8ef02b8d75ba6b811254}
+
+
+Get the status for Compare or Capture channel C. 
+
+When the T\-C is in Input Capture mode, the return value of this macro indicates whether there is an unread input capture value available for capture channel C.
+
+When the T\-C is in any other mode, the return value of this macro indicates whether there has been a compare match between channel C and the counter.
+
+\begin{DoxyNote}{Note}
+The C\-C\-C channel is not available on T\-Cx1.
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em \-\_\-tc} & Timer/\-Counter 0 module instance.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Non-\/zero if Compare or capture has occured, zero otherwise. 
+\end{DoxyReturn}
+\hypertarget{_t_c__driver_8h_a444c6e56839302d35cd1fdcdb7c41001}{\index{T\-C\-\_\-driver.\-h@{T\-C\-\_\-driver.\-h}!T\-C\-\_\-\-Get\-C\-C\-D\-Flag@{T\-C\-\_\-\-Get\-C\-C\-D\-Flag}}
+\index{T\-C\-\_\-\-Get\-C\-C\-D\-Flag@{T\-C\-\_\-\-Get\-C\-C\-D\-Flag}!TC_driver.h@{T\-C\-\_\-driver.\-h}}
+\subsubsection[{T\-C\-\_\-\-Get\-C\-C\-D\-Flag}]{\setlength{\rightskip}{0pt plus 5cm}\#define T\-C\-\_\-\-Get\-C\-C\-D\-Flag(
+\begin{DoxyParamCaption}
+\item[{}]{\-\_\-tc}
+\end{DoxyParamCaption}
+)~( (\-\_\-tc)-\/$>$I\-N\-T\-F\-L\-A\-G\-S \& T\-C0\-\_\-\-C\-C\-D\-I\-F\-\_\-bm )}}\label{_t_c__driver_8h_a444c6e56839302d35cd1fdcdb7c41001}
+
+
+Get the status for Compare or Capture channel D. 
+
+When the T\-C is in Input Capture mode, the return value of this macro indicates whether there is an unread input capture value available for capture channel D.
+
+When the T\-C is in any other mode, the return value of this macro indicates whether there has been a compare match between channel D and the counter.
+
+\begin{DoxyNote}{Note}
+The C\-C\-D channel is not available on T\-Cx1.
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em \-\_\-tc} & Timer/\-Counter 0 module instance.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Non-\/zero if Compare or capture has occured, zero otherwise. 
+\end{DoxyReturn}
+\hypertarget{_t_c__driver_8h_a35d45f4d1b006672ac430901536347f5}{\index{T\-C\-\_\-driver.\-h@{T\-C\-\_\-driver.\-h}!T\-C\-\_\-\-Get\-Error\-Flag@{T\-C\-\_\-\-Get\-Error\-Flag}}
+\index{T\-C\-\_\-\-Get\-Error\-Flag@{T\-C\-\_\-\-Get\-Error\-Flag}!TC_driver.h@{T\-C\-\_\-driver.\-h}}
+\subsubsection[{T\-C\-\_\-\-Get\-Error\-Flag}]{\setlength{\rightskip}{0pt plus 5cm}\#define T\-C\-\_\-\-Get\-Error\-Flag(
+\begin{DoxyParamCaption}
+\item[{}]{\-\_\-tc}
+\end{DoxyParamCaption}
+)~( (\-\_\-tc)-\/$>$I\-N\-T\-F\-L\-A\-G\-S \& T\-C0\-\_\-\-E\-R\-R\-I\-F\-\_\-bm )}}\label{_t_c__driver_8h_a35d45f4d1b006672ac430901536347f5}
+
+
+Test whether an error has occurred. 
+
+The return value of this macro indicates if an error has occurred.
+
+
+\begin{DoxyParams}{Parameters}
+{\em \-\_\-tc} & Timer/\-Counter module instance.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Non-\/zero if the Timer error flag is set. 
+\end{DoxyReturn}
+\hypertarget{_t_c__driver_8h_a41ba6e4bbe21de7dfcc85146835858e9}{\index{T\-C\-\_\-driver.\-h@{T\-C\-\_\-driver.\-h}!T\-C\-\_\-\-Get\-Overflow\-Flag@{T\-C\-\_\-\-Get\-Overflow\-Flag}}
+\index{T\-C\-\_\-\-Get\-Overflow\-Flag@{T\-C\-\_\-\-Get\-Overflow\-Flag}!TC_driver.h@{T\-C\-\_\-driver.\-h}}
+\subsubsection[{T\-C\-\_\-\-Get\-Overflow\-Flag}]{\setlength{\rightskip}{0pt plus 5cm}\#define T\-C\-\_\-\-Get\-Overflow\-Flag(
+\begin{DoxyParamCaption}
+\item[{}]{\-\_\-tc}
+\end{DoxyParamCaption}
+)~( (\-\_\-tc)-\/$>$I\-N\-T\-F\-L\-A\-G\-S \& T\-C0\-\_\-\-O\-V\-F\-I\-F\-\_\-bm )}}\label{_t_c__driver_8h_a41ba6e4bbe21de7dfcc85146835858e9}
+
+
+Test whether an overflow has occurred. 
+
+The return value of this macro indicates if an overflow has occurred.
+
+
+\begin{DoxyParams}{Parameters}
+{\em \-\_\-tc} & Timer/\-Counter module instance.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Non-\/zero if overflow flag is set, zero otherwise. 
+\end{DoxyReturn}
+\hypertarget{_t_c__driver_8h_a73684604998fb3a11524d2d3143bc5bf}{\index{T\-C\-\_\-driver.\-h@{T\-C\-\_\-driver.\-h}!T\-C\-\_\-\-Lock\-Compare\-Update@{T\-C\-\_\-\-Lock\-Compare\-Update}}
+\index{T\-C\-\_\-\-Lock\-Compare\-Update@{T\-C\-\_\-\-Lock\-Compare\-Update}!TC_driver.h@{T\-C\-\_\-driver.\-h}}
+\subsubsection[{T\-C\-\_\-\-Lock\-Compare\-Update}]{\setlength{\rightskip}{0pt plus 5cm}\#define T\-C\-\_\-\-Lock\-Compare\-Update(
+\begin{DoxyParamCaption}
+\item[{}]{\-\_\-tc}
+\end{DoxyParamCaption}
+)~( (\-\_\-tc)-\/$>$C\-T\-R\-L\-F\-S\-E\-T = T\-C0\-\_\-\-L\-U\-P\-D\-\_\-bm )}}\label{_t_c__driver_8h_a73684604998fb3a11524d2d3143bc5bf}
+
+
+Locks automatic updating of compare and period registers. 
+
+This macro will lock automatic updates of compare registers from the corresponding buffer registers. To enable automatic updates again, use the \hyperlink{_t_c__driver_8h_a5a969399e96e90ddd97ee94c487dcfe5}{T\-C\-\_\-\-Unlock\-Compare\-Update} macro.
+
+
+\begin{DoxyParams}{Parameters}
+{\em \-\_\-tc} & Timer/\-Counter module instance. \\
+\hline
+\end{DoxyParams}
+\hypertarget{_t_c__driver_8h_a0a837eeef0e057214725bfcd57688a7c}{\index{T\-C\-\_\-driver.\-h@{T\-C\-\_\-driver.\-h}!T\-C\-\_\-\-Restart@{T\-C\-\_\-\-Restart}}
+\index{T\-C\-\_\-\-Restart@{T\-C\-\_\-\-Restart}!TC_driver.h@{T\-C\-\_\-driver.\-h}}
+\subsubsection[{T\-C\-\_\-\-Restart}]{\setlength{\rightskip}{0pt plus 5cm}\#define T\-C\-\_\-\-Restart(
+\begin{DoxyParamCaption}
+\item[{}]{\-\_\-tc}
+\end{DoxyParamCaption}
+)~( (\-\_\-tc)-\/$>$C\-T\-R\-L\-F\-S\-E\-T = T\-C\-\_\-\-C\-M\-D\-\_\-\-R\-E\-S\-T\-A\-R\-T\-\_\-gc )}}\label{_t_c__driver_8h_a0a837eeef0e057214725bfcd57688a7c}
+
+
+Restart the Timer/\-Counter. 
+
+This macro will restart the timer. The effect of running this command is\-:
+\begin{DoxyItemize}
+\item The C\-N\-T\mbox{[}H\-:L\mbox{]} register is cleared.
+\item The direction (D\-I\-R ) is reset. (Next clock cycle will increase the counter )
+\item All compare outputs are set to 0.
+\item If a D\-T\-I module is connected to the timer, it will be reset as well.
+\end{DoxyItemize}
+
+
+\begin{DoxyParams}{Parameters}
+{\em \-\_\-tc} & Timer/\-Counter module instance. \\
+\hline
+\end{DoxyParams}
+\hypertarget{_t_c__driver_8h_a11829e0c86eba6c2f20351060fa3c1b2}{\index{T\-C\-\_\-driver.\-h@{T\-C\-\_\-driver.\-h}!T\-C\-\_\-\-Set\-Compare\-A@{T\-C\-\_\-\-Set\-Compare\-A}}
+\index{T\-C\-\_\-\-Set\-Compare\-A@{T\-C\-\_\-\-Set\-Compare\-A}!TC_driver.h@{T\-C\-\_\-driver.\-h}}
+\subsubsection[{T\-C\-\_\-\-Set\-Compare\-A}]{\setlength{\rightskip}{0pt plus 5cm}\#define T\-C\-\_\-\-Set\-Compare\-A(
+\begin{DoxyParamCaption}
+\item[{}]{\-\_\-tc, }
+\item[{}]{\-\_\-compare\-Value}
+\end{DoxyParamCaption}
+)~( (\-\_\-tc)-\/$>$C\-C\-A\-B\-U\-F = (\-\_\-compare\-Value) )}}\label{_t_c__driver_8h_a11829e0c86eba6c2f20351060fa3c1b2}
+
+
+Set new compare value for compare channel A. ( Double buffered ) 
+
+This macro sets a new compare value for compare channel A. The compare channel A buffer register is used, so the new period will be valid from the next update condition.
+
+
+\begin{DoxyParams}{Parameters}
+{\em \-\_\-tc} & Timer/\-Counter 0 or 1 module instance. \\
+\hline
+{\em \-\_\-compare\-Value} & New compare value for compare channel A. \\
+\hline
+\end{DoxyParams}
+\hypertarget{_t_c__driver_8h_afdb25320eb2c2d824aee058650b7e9f1}{\index{T\-C\-\_\-driver.\-h@{T\-C\-\_\-driver.\-h}!T\-C\-\_\-\-Set\-Compare\-B@{T\-C\-\_\-\-Set\-Compare\-B}}
+\index{T\-C\-\_\-\-Set\-Compare\-B@{T\-C\-\_\-\-Set\-Compare\-B}!TC_driver.h@{T\-C\-\_\-driver.\-h}}
+\subsubsection[{T\-C\-\_\-\-Set\-Compare\-B}]{\setlength{\rightskip}{0pt plus 5cm}\#define T\-C\-\_\-\-Set\-Compare\-B(
+\begin{DoxyParamCaption}
+\item[{}]{\-\_\-tc, }
+\item[{}]{\-\_\-compare\-Value}
+\end{DoxyParamCaption}
+)~( (\-\_\-tc)-\/$>$C\-C\-B\-B\-U\-F = (\-\_\-compare\-Value) )}}\label{_t_c__driver_8h_afdb25320eb2c2d824aee058650b7e9f1}
+
+
+Set new compare value for compare channel B. ( Double buffered ) 
+
+This macro sets a new compare value for compare channel B. The compare channel B buffer register is used, so the new period will be valid from the next update condition.
+
+
+\begin{DoxyParams}{Parameters}
+{\em \-\_\-tc} & Timer/\-Counter 0 or 1 module instance. \\
+\hline
+{\em \-\_\-compare\-Value} & New compare value for compare channel B. \\
+\hline
+\end{DoxyParams}
+\hypertarget{_t_c__driver_8h_ac68c401778ed8dea4c24706c48b1fe3e}{\index{T\-C\-\_\-driver.\-h@{T\-C\-\_\-driver.\-h}!T\-C\-\_\-\-Set\-Compare\-C@{T\-C\-\_\-\-Set\-Compare\-C}}
+\index{T\-C\-\_\-\-Set\-Compare\-C@{T\-C\-\_\-\-Set\-Compare\-C}!TC_driver.h@{T\-C\-\_\-driver.\-h}}
+\subsubsection[{T\-C\-\_\-\-Set\-Compare\-C}]{\setlength{\rightskip}{0pt plus 5cm}\#define T\-C\-\_\-\-Set\-Compare\-C(
+\begin{DoxyParamCaption}
+\item[{}]{\-\_\-tc, }
+\item[{}]{\-\_\-compare\-Value}
+\end{DoxyParamCaption}
+)~( (\-\_\-tc)-\/$>$C\-C\-C\-B\-U\-F = (\-\_\-compare\-Value) )}}\label{_t_c__driver_8h_ac68c401778ed8dea4c24706c48b1fe3e}
+
+
+Set new compare value for compare channel C. ( Double buffered ) 
+
+This macro sets a new compare value for compare channel C. The compare channel C buffer register is used, so the new period will be valid from the next update condition.
+
+\begin{DoxyNote}{Note}
+The C\-C\-C channel is not available on T\-Cx1.
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em \-\_\-tc} & Timer/\-Counter 0 module instance. \\
+\hline
+{\em \-\_\-compare\-Value} & New compare value for compare channel C. \\
+\hline
+\end{DoxyParams}
+\hypertarget{_t_c__driver_8h_aeb6a2da8eb30b2e2457a4f4d959cc546}{\index{T\-C\-\_\-driver.\-h@{T\-C\-\_\-driver.\-h}!T\-C\-\_\-\-Set\-Compare\-D@{T\-C\-\_\-\-Set\-Compare\-D}}
+\index{T\-C\-\_\-\-Set\-Compare\-D@{T\-C\-\_\-\-Set\-Compare\-D}!TC_driver.h@{T\-C\-\_\-driver.\-h}}
+\subsubsection[{T\-C\-\_\-\-Set\-Compare\-D}]{\setlength{\rightskip}{0pt plus 5cm}\#define T\-C\-\_\-\-Set\-Compare\-D(
+\begin{DoxyParamCaption}
+\item[{}]{\-\_\-tc, }
+\item[{}]{\-\_\-compare\-Value}
+\end{DoxyParamCaption}
+)~( (\-\_\-tc)-\/$>$C\-C\-D\-B\-U\-F = (\-\_\-compare\-Value) )}}\label{_t_c__driver_8h_aeb6a2da8eb30b2e2457a4f4d959cc546}
+
+
+Set new compare value for compare channel D. ( Double buffered ) 
+
+This macro sets a new compare value for compare channel D. The compare channel D buffer register is used, so the new period will be valid from the next update condition.
+
+\begin{DoxyNote}{Note}
+The C\-C\-D channel is not available on T\-Cx1.
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em \-\_\-tc} & Timer/\-Counter 0 module instance. \\
+\hline
+{\em \-\_\-compare\-Value} & New compare value for compare channel D. \\
+\hline
+\end{DoxyParams}
+\hypertarget{_t_c__driver_8h_abaac6e289006eefa97dd4c1fe9d39464}{\index{T\-C\-\_\-driver.\-h@{T\-C\-\_\-driver.\-h}!T\-C\-\_\-\-Set\-Count@{T\-C\-\_\-\-Set\-Count}}
+\index{T\-C\-\_\-\-Set\-Count@{T\-C\-\_\-\-Set\-Count}!TC_driver.h@{T\-C\-\_\-driver.\-h}}
+\subsubsection[{T\-C\-\_\-\-Set\-Count}]{\setlength{\rightskip}{0pt plus 5cm}\#define T\-C\-\_\-\-Set\-Count(
+\begin{DoxyParamCaption}
+\item[{}]{\-\_\-tc, }
+\item[{}]{\-\_\-count}
+\end{DoxyParamCaption}
+)~( (\-\_\-tc)-\/$>$C\-N\-T = (\-\_\-count) )}}\label{_t_c__driver_8h_abaac6e289006eefa97dd4c1fe9d39464}
+
+
+Manually set the count. 
+
+This macro writes a new value to the C\-N\-T\mbox{[}H\-:L\mbox{]} register. Note that the C\-N\-T\mbox{[}H\-:L\mbox{]} register is not double buffered, so it is recommended that the timer is not running when this macro is used.
+
+
+\begin{DoxyParams}{Parameters}
+{\em \-\_\-tc} & Timer/\-Counter module instance. \\
+\hline
+{\em \-\_\-count} & New count value. \\
+\hline
+\end{DoxyParams}
+\hypertarget{_t_c__driver_8h_a4faaf2813b83a03cd6d3720fa884bfe4}{\index{T\-C\-\_\-driver.\-h@{T\-C\-\_\-driver.\-h}!T\-C\-\_\-\-Set\-Period@{T\-C\-\_\-\-Set\-Period}}
+\index{T\-C\-\_\-\-Set\-Period@{T\-C\-\_\-\-Set\-Period}!TC_driver.h@{T\-C\-\_\-driver.\-h}}
+\subsubsection[{T\-C\-\_\-\-Set\-Period}]{\setlength{\rightskip}{0pt plus 5cm}\#define T\-C\-\_\-\-Set\-Period(
+\begin{DoxyParamCaption}
+\item[{}]{\-\_\-tc, }
+\item[{}]{\-\_\-period}
+\end{DoxyParamCaption}
+)~( (\-\_\-tc)-\/$>$P\-E\-R = (\-\_\-period) )}}\label{_t_c__driver_8h_a4faaf2813b83a03cd6d3720fa884bfe4}
+
+
+Sets the timer period. 
+
+This macro sets a new timer period. The period buffer register is not used, so the new period will be valid immediately after the 16-\/bit write is finished.
+
+
+\begin{DoxyParams}{Parameters}
+{\em \-\_\-tc} & Timer/\-Counter module instance. \\
+\hline
+{\em \-\_\-period} & New Timer/\-Counter period. \\
+\hline
+\end{DoxyParams}
+\hypertarget{_t_c__driver_8h_aaebcc08be007b67a2d0b001e44d077b7}{\index{T\-C\-\_\-driver.\-h@{T\-C\-\_\-driver.\-h}!T\-C\-\_\-\-Set\-Period\-Buffered@{T\-C\-\_\-\-Set\-Period\-Buffered}}
+\index{T\-C\-\_\-\-Set\-Period\-Buffered@{T\-C\-\_\-\-Set\-Period\-Buffered}!TC_driver.h@{T\-C\-\_\-driver.\-h}}
+\subsubsection[{T\-C\-\_\-\-Set\-Period\-Buffered}]{\setlength{\rightskip}{0pt plus 5cm}\#define T\-C\-\_\-\-Set\-Period\-Buffered(
+\begin{DoxyParamCaption}
+\item[{}]{\-\_\-tc, }
+\item[{}]{\-\_\-period}
+\end{DoxyParamCaption}
+)~( (\-\_\-tc)-\/$>$P\-E\-R\-B\-U\-F = (\-\_\-period) )}}\label{_t_c__driver_8h_aaebcc08be007b67a2d0b001e44d077b7}
+
+
+Sets the timer period ( double buffered ). 
+
+This macro sets a new timer period. The period buffer register is used, so the new period will be valid after the next update condition.
+
+
+\begin{DoxyParams}{Parameters}
+{\em \-\_\-tc} & Timer/\-Counter 0 or 1 module instance. \\
+\hline
+{\em \-\_\-period} & New Timer/\-Counter period. \\
+\hline
+\end{DoxyParams}
+\hypertarget{_t_c__driver_8h_a5a969399e96e90ddd97ee94c487dcfe5}{\index{T\-C\-\_\-driver.\-h@{T\-C\-\_\-driver.\-h}!T\-C\-\_\-\-Unlock\-Compare\-Update@{T\-C\-\_\-\-Unlock\-Compare\-Update}}
+\index{T\-C\-\_\-\-Unlock\-Compare\-Update@{T\-C\-\_\-\-Unlock\-Compare\-Update}!TC_driver.h@{T\-C\-\_\-driver.\-h}}
+\subsubsection[{T\-C\-\_\-\-Unlock\-Compare\-Update}]{\setlength{\rightskip}{0pt plus 5cm}\#define T\-C\-\_\-\-Unlock\-Compare\-Update(
+\begin{DoxyParamCaption}
+\item[{}]{\-\_\-tc}
+\end{DoxyParamCaption}
+)~( (\-\_\-tc)-\/$>$C\-T\-R\-L\-F\-C\-L\-R = T\-C0\-\_\-\-L\-U\-P\-D\-\_\-bm )}}\label{_t_c__driver_8h_a5a969399e96e90ddd97ee94c487dcfe5}
+
+
+Unlocks automatic updating of compare and period registers. 
+
+This macro will unlock automatic updates of compare registers from the corresponding buffer registers. Note that the output compare registers will not be updated until an update event occurs, e.\-g. that the counter hits T\-O\-P or B\-O\-T\-T\-O\-M. To force an update of the compare register from the buffer register, use the \hyperlink{_t_c__driver_8h_ac585f9b311ce57ee16c1cd309e81aae2}{T\-C\-\_\-\-Force\-Update} macro.
+
+
+\begin{DoxyParams}{Parameters}
+{\em \-\_\-tc} & Timer/\-Counter module instance. \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Function Documentation}
+\hypertarget{_t_c__driver_8h_a1a5b3ccf2b872dcdf8f4162e5cdc6e81}{\index{T\-C\-\_\-driver.\-h@{T\-C\-\_\-driver.\-h}!T\-C0\-\_\-\-Config\-Clock\-Source@{T\-C0\-\_\-\-Config\-Clock\-Source}}
+\index{T\-C0\-\_\-\-Config\-Clock\-Source@{T\-C0\-\_\-\-Config\-Clock\-Source}!TC_driver.h@{T\-C\-\_\-driver.\-h}}
+\subsubsection[{T\-C0\-\_\-\-Config\-Clock\-Source}]{\setlength{\rightskip}{0pt plus 5cm}void T\-C0\-\_\-\-Config\-Clock\-Source (
+\begin{DoxyParamCaption}
+\item[{volatile T\-C0\-\_\-t $\ast$}]{tc, }
+\item[{T\-C\-\_\-\-C\-L\-K\-S\-E\-L\-\_\-t}]{clock\-Selection}
+\end{DoxyParamCaption}
+)}}\label{_t_c__driver_8h_a1a5b3ccf2b872dcdf8f4162e5cdc6e81}
+
+
+Configures clock source for the Timer/\-Counter 0. 
+
+This function clears the old clock source setting of the Timer/\-Counter and sets a new clock source according to the clock\-Selection parameter.
+
+
+\begin{DoxyParams}{Parameters}
+{\em tc} & Timer/\-Counter module instance. \\
+\hline
+{\em clock\-Selection} & Timer/\-Counter clock source setting. \\
+\hline
+\end{DoxyParams}
+\hypertarget{_t_c__driver_8h_a309a2ca4eaf39437b57ca13edb23b70b}{\index{T\-C\-\_\-driver.\-h@{T\-C\-\_\-driver.\-h}!T\-C0\-\_\-\-Config\-Input\-Capture@{T\-C0\-\_\-\-Config\-Input\-Capture}}
+\index{T\-C0\-\_\-\-Config\-Input\-Capture@{T\-C0\-\_\-\-Config\-Input\-Capture}!TC_driver.h@{T\-C\-\_\-driver.\-h}}
+\subsubsection[{T\-C0\-\_\-\-Config\-Input\-Capture}]{\setlength{\rightskip}{0pt plus 5cm}void T\-C0\-\_\-\-Config\-Input\-Capture (
+\begin{DoxyParamCaption}
+\item[{volatile T\-C0\-\_\-t $\ast$}]{tc, }
+\item[{T\-C\-\_\-\-E\-V\-S\-E\-L\-\_\-t}]{event\-Source}
+\end{DoxyParamCaption}
+)}}\label{_t_c__driver_8h_a309a2ca4eaf39437b57ca13edb23b70b}
+
+
+Configures the Timer/\-Counter 0 for input capture operation. 
+
+This function sets the Timer/\-Counter in input capture mode and selects the event lines that will trigger the individual input capture channels.
+
+\begin{DoxyNote}{Note}
+Output compare operation is disabled when input capture operation is enabled.
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em tc} & Timer/\-Counter module instance. \\
+\hline
+{\em event\-Source} & Event source selection. \\
+\hline
+\end{DoxyParams}
+\hypertarget{_t_c__driver_8h_a45e98ab822bfcd2e284c13fddac90f32}{\index{T\-C\-\_\-driver.\-h@{T\-C\-\_\-driver.\-h}!T\-C0\-\_\-\-Config\-W\-G\-M@{T\-C0\-\_\-\-Config\-W\-G\-M}}
+\index{T\-C0\-\_\-\-Config\-W\-G\-M@{T\-C0\-\_\-\-Config\-W\-G\-M}!TC_driver.h@{T\-C\-\_\-driver.\-h}}
+\subsubsection[{T\-C0\-\_\-\-Config\-W\-G\-M}]{\setlength{\rightskip}{0pt plus 5cm}void T\-C0\-\_\-\-Config\-W\-G\-M (
+\begin{DoxyParamCaption}
+\item[{volatile T\-C0\-\_\-t $\ast$}]{tc, }
+\item[{T\-C\-\_\-\-W\-G\-M\-O\-D\-E\-\_\-t}]{wgm}
+\end{DoxyParamCaption}
+)}}\label{_t_c__driver_8h_a45e98ab822bfcd2e284c13fddac90f32}
+
+
+Configures the Waveform Generation Mode for the Timer/\-Counter 0. 
+
+This function clears the old W\-G\-M setting of the Timer/\-Counter and sets a new W\-G\-M setting according to the wgm parameter.
+
+
+\begin{DoxyParams}{Parameters}
+{\em tc} & Timer/\-Counter module instance. \\
+\hline
+{\em wgm} & Waveform generation mode. \\
+\hline
+\end{DoxyParams}
+\hypertarget{_t_c__driver_8h_aec887336e135fc7f2c95532b7b2bee3f}{\index{T\-C\-\_\-driver.\-h@{T\-C\-\_\-driver.\-h}!T\-C0\-\_\-\-Disable\-C\-C\-Channels@{T\-C0\-\_\-\-Disable\-C\-C\-Channels}}
+\index{T\-C0\-\_\-\-Disable\-C\-C\-Channels@{T\-C0\-\_\-\-Disable\-C\-C\-Channels}!TC_driver.h@{T\-C\-\_\-driver.\-h}}
+\subsubsection[{T\-C0\-\_\-\-Disable\-C\-C\-Channels}]{\setlength{\rightskip}{0pt plus 5cm}void T\-C0\-\_\-\-Disable\-C\-C\-Channels (
+\begin{DoxyParamCaption}
+\item[{volatile T\-C0\-\_\-t $\ast$}]{tc, }
+\item[{uint8\-\_\-t}]{disable\-Mask}
+\end{DoxyParamCaption}
+)}}\label{_t_c__driver_8h_aec887336e135fc7f2c95532b7b2bee3f}
+
+
+Disables compare/capture channels on Timer/\-Counter 0. 
+
+This function disables compare/capture channels according to the supplied disable\-Mask. The disable\-Mask can be obtained by O\-Ring together the symbols
+\begin{DoxyItemize}
+\item T\-C0\-\_\-\-C\-C\-A\-E\-N\-\_\-bm
+\item T\-C0\-\_\-\-C\-C\-B\-E\-N\-\_\-bm
+\item T\-C0\-\_\-\-C\-C\-C\-E\-N\-\_\-bm
+\item T\-C0\-\_\-\-C\-C\-D\-E\-N\-\_\-bm
+\end{DoxyItemize}
+
+Example\-: T\-C0\-\_\-\-Disable\-C\-C\-Channels( \&T\-C\-C0, T\-C0\-\_\-\-C\-C\-A\-E\-N\-\_\-bm $|$ T\-C0\-\_\-\-C\-C\-C\-E\-N\-\_\-bm ) will disable channels A and C.
+
+
+\begin{DoxyParams}{Parameters}
+{\em tc} & Timer/\-Counter module instance. \\
+\hline
+{\em disable\-Mask} & Mask of channels to disable. \\
+\hline
+\end{DoxyParams}
+\hypertarget{_t_c__driver_8h_ae6b05576247ef4109e9249ea4f8e6b28}{\index{T\-C\-\_\-driver.\-h@{T\-C\-\_\-driver.\-h}!T\-C0\-\_\-\-Enable\-C\-C\-Channels@{T\-C0\-\_\-\-Enable\-C\-C\-Channels}}
+\index{T\-C0\-\_\-\-Enable\-C\-C\-Channels@{T\-C0\-\_\-\-Enable\-C\-C\-Channels}!TC_driver.h@{T\-C\-\_\-driver.\-h}}
+\subsubsection[{T\-C0\-\_\-\-Enable\-C\-C\-Channels}]{\setlength{\rightskip}{0pt plus 5cm}void T\-C0\-\_\-\-Enable\-C\-C\-Channels (
+\begin{DoxyParamCaption}
+\item[{volatile T\-C0\-\_\-t $\ast$}]{tc, }
+\item[{uint8\-\_\-t}]{enable\-Mask}
+\end{DoxyParamCaption}
+)}}\label{_t_c__driver_8h_ae6b05576247ef4109e9249ea4f8e6b28}
+
+
+Enables compare/capture channels for Timer/\-Counter 0. 
+
+This function enables compare/capture channels according to the supplied enable\-Mask. The enable\-Mask can be obtained by O\-Ring together the symbols
+\begin{DoxyItemize}
+\item T\-C0\-\_\-\-C\-C\-A\-E\-N\-\_\-bm
+\item T\-C0\-\_\-\-C\-C\-B\-E\-N\-\_\-bm
+\item T\-C0\-\_\-\-C\-C\-C\-E\-N\-\_\-bm
+\item T\-C0\-\_\-\-C\-C\-D\-E\-N\-\_\-bm
+\end{DoxyItemize}
+
+Example\-: T\-C0\-\_\-\-Enable\-C\-C\-Channels( \&T\-C\-C0, T\-C0\-\_\-\-C\-C\-A\-E\-N\-\_\-bm $|$ T\-C0\-\_\-\-C\-C\-C\-E\-N\-\_\-bm ) will enable channels A and C.
+
+\begin{DoxyNote}{Note}
+No capture/compare channels are disabled by calling this function. Disabling is done by calling \hyperlink{_t_c__driver_8h_aec887336e135fc7f2c95532b7b2bee3f}{T\-C0\-\_\-\-Disable\-C\-C\-Channels}.
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em tc} & Timer/\-Counter module instance. \\
+\hline
+{\em enable\-Mask} & Mask of channels to enable. \\
+\hline
+\end{DoxyParams}
+\hypertarget{_t_c__driver_8h_ad7b63210eec1da33632c95d26fe3fd02}{\index{T\-C\-\_\-driver.\-h@{T\-C\-\_\-driver.\-h}!T\-C0\-\_\-\-Reset@{T\-C0\-\_\-\-Reset}}
+\index{T\-C0\-\_\-\-Reset@{T\-C0\-\_\-\-Reset}!TC_driver.h@{T\-C\-\_\-driver.\-h}}
+\subsubsection[{T\-C0\-\_\-\-Reset}]{\setlength{\rightskip}{0pt plus 5cm}void T\-C0\-\_\-\-Reset (
+\begin{DoxyParamCaption}
+\item[{volatile T\-C0\-\_\-t $\ast$}]{tc}
+\end{DoxyParamCaption}
+)}}\label{_t_c__driver_8h_ad7b63210eec1da33632c95d26fe3fd02}
+
+
+Resets the Timer/\-Counter 0. 
+
+This function will reset the Timer/\-Counter. After calling this function, the Timer/\-Counter will be in the same state as it would after a full reset of the device.
+
+
+\begin{DoxyParams}{Parameters}
+{\em tc} & Timer/\-Counter 0 module instance. \\
+\hline
+\end{DoxyParams}
+\hypertarget{_t_c__driver_8h_a9dc297c8345a7b55099ab0b63454e109}{\index{T\-C\-\_\-driver.\-h@{T\-C\-\_\-driver.\-h}!T\-C0\-\_\-\-Set\-C\-C\-A\-Int\-Level@{T\-C0\-\_\-\-Set\-C\-C\-A\-Int\-Level}}
+\index{T\-C0\-\_\-\-Set\-C\-C\-A\-Int\-Level@{T\-C0\-\_\-\-Set\-C\-C\-A\-Int\-Level}!TC_driver.h@{T\-C\-\_\-driver.\-h}}
+\subsubsection[{T\-C0\-\_\-\-Set\-C\-C\-A\-Int\-Level}]{\setlength{\rightskip}{0pt plus 5cm}void T\-C0\-\_\-\-Set\-C\-C\-A\-Int\-Level (
+\begin{DoxyParamCaption}
+\item[{volatile T\-C0\-\_\-t $\ast$}]{tc, }
+\item[{T\-C\-\_\-\-C\-C\-A\-I\-N\-T\-L\-V\-L\-\_\-t}]{int\-Level}
+\end{DoxyParamCaption}
+)}}\label{_t_c__driver_8h_a9dc297c8345a7b55099ab0b63454e109}
+
+
+Sets the interrupt level for compare/capture channel A interrupt. 
+
+This function sets the interrupt level for compare/capture channel A interrupt in Timer/\-Counter 0.
+
+
+\begin{DoxyParams}{Parameters}
+{\em tc} & Timer/\-Counter module instance. \\
+\hline
+{\em int\-Level} & New compare/capture channel A interrupt level. \\
+\hline
+\end{DoxyParams}
+\hypertarget{_t_c__driver_8h_a0eb6006987f0c6c1227ae21303840380}{\index{T\-C\-\_\-driver.\-h@{T\-C\-\_\-driver.\-h}!T\-C0\-\_\-\-Set\-C\-C\-B\-Int\-Level@{T\-C0\-\_\-\-Set\-C\-C\-B\-Int\-Level}}
+\index{T\-C0\-\_\-\-Set\-C\-C\-B\-Int\-Level@{T\-C0\-\_\-\-Set\-C\-C\-B\-Int\-Level}!TC_driver.h@{T\-C\-\_\-driver.\-h}}
+\subsubsection[{T\-C0\-\_\-\-Set\-C\-C\-B\-Int\-Level}]{\setlength{\rightskip}{0pt plus 5cm}void T\-C0\-\_\-\-Set\-C\-C\-B\-Int\-Level (
+\begin{DoxyParamCaption}
+\item[{volatile T\-C0\-\_\-t $\ast$}]{tc, }
+\item[{T\-C\-\_\-\-C\-C\-B\-I\-N\-T\-L\-V\-L\-\_\-t}]{int\-Level}
+\end{DoxyParamCaption}
+)}}\label{_t_c__driver_8h_a0eb6006987f0c6c1227ae21303840380}
+
+
+Sets the interrupt level for compare/capture channel B interrupt. 
+
+This function sets the interrupt level for compare/capture channel B interrupt in Timer/\-Counter 0.
+
+
+\begin{DoxyParams}{Parameters}
+{\em tc} & Timer/\-Counter module instance. \\
+\hline
+{\em int\-Level} & New compare/capture channel B interrupt level. \\
+\hline
+\end{DoxyParams}
+\hypertarget{_t_c__driver_8h_a1c1cbcd5f0dff77d207d95754ce9ff1f}{\index{T\-C\-\_\-driver.\-h@{T\-C\-\_\-driver.\-h}!T\-C0\-\_\-\-Set\-C\-C\-C\-Int\-Level@{T\-C0\-\_\-\-Set\-C\-C\-C\-Int\-Level}}
+\index{T\-C0\-\_\-\-Set\-C\-C\-C\-Int\-Level@{T\-C0\-\_\-\-Set\-C\-C\-C\-Int\-Level}!TC_driver.h@{T\-C\-\_\-driver.\-h}}
+\subsubsection[{T\-C0\-\_\-\-Set\-C\-C\-C\-Int\-Level}]{\setlength{\rightskip}{0pt plus 5cm}void T\-C0\-\_\-\-Set\-C\-C\-C\-Int\-Level (
+\begin{DoxyParamCaption}
+\item[{volatile T\-C0\-\_\-t $\ast$}]{tc, }
+\item[{T\-C\-\_\-\-C\-C\-C\-I\-N\-T\-L\-V\-L\-\_\-t}]{int\-Level}
+\end{DoxyParamCaption}
+)}}\label{_t_c__driver_8h_a1c1cbcd5f0dff77d207d95754ce9ff1f}
+
+
+Sets the interrupt level for compare/capture channel C interrupt. 
+
+This function sets the interrupt level for compare/capture channel C interrupt in Timer/\-Counter 0.
+
+
+\begin{DoxyParams}{Parameters}
+{\em tc} & Timer/\-Counter module instance. \\
+\hline
+{\em int\-Level} & New compare/capture channel A interrupt level. \\
+\hline
+\end{DoxyParams}
+\hypertarget{_t_c__driver_8h_a764c59955faaa6cd1463848330c6ea34}{\index{T\-C\-\_\-driver.\-h@{T\-C\-\_\-driver.\-h}!T\-C0\-\_\-\-Set\-C\-C\-D\-Int\-Level@{T\-C0\-\_\-\-Set\-C\-C\-D\-Int\-Level}}
+\index{T\-C0\-\_\-\-Set\-C\-C\-D\-Int\-Level@{T\-C0\-\_\-\-Set\-C\-C\-D\-Int\-Level}!TC_driver.h@{T\-C\-\_\-driver.\-h}}
+\subsubsection[{T\-C0\-\_\-\-Set\-C\-C\-D\-Int\-Level}]{\setlength{\rightskip}{0pt plus 5cm}void T\-C0\-\_\-\-Set\-C\-C\-D\-Int\-Level (
+\begin{DoxyParamCaption}
+\item[{volatile T\-C0\-\_\-t $\ast$}]{tc, }
+\item[{T\-C\-\_\-\-C\-C\-D\-I\-N\-T\-L\-V\-L\-\_\-t}]{int\-Level}
+\end{DoxyParamCaption}
+)}}\label{_t_c__driver_8h_a764c59955faaa6cd1463848330c6ea34}
+
+
+Sets the interrupt level for compare/capture channel D interrupt. 
+
+This function sets the interrupt level for compare/capture channel D interrupt in Timer/\-Counter 0.
+
+
+\begin{DoxyParams}{Parameters}
+{\em tc} & Timer/\-Counter module instance. \\
+\hline
+{\em int\-Level} & New compare/capture channel A interrupt level. \\
+\hline
+\end{DoxyParams}
+\hypertarget{_t_c__driver_8h_a7932285622e0f6f66821a24aa18d8892}{\index{T\-C\-\_\-driver.\-h@{T\-C\-\_\-driver.\-h}!T\-C0\-\_\-\-Set\-Error\-Int\-Level@{T\-C0\-\_\-\-Set\-Error\-Int\-Level}}
+\index{T\-C0\-\_\-\-Set\-Error\-Int\-Level@{T\-C0\-\_\-\-Set\-Error\-Int\-Level}!TC_driver.h@{T\-C\-\_\-driver.\-h}}
+\subsubsection[{T\-C0\-\_\-\-Set\-Error\-Int\-Level}]{\setlength{\rightskip}{0pt plus 5cm}void T\-C0\-\_\-\-Set\-Error\-Int\-Level (
+\begin{DoxyParamCaption}
+\item[{volatile T\-C0\-\_\-t $\ast$}]{tc, }
+\item[{T\-C\-\_\-\-E\-R\-R\-I\-N\-T\-L\-V\-L\-\_\-t}]{int\-Level}
+\end{DoxyParamCaption}
+)}}\label{_t_c__driver_8h_a7932285622e0f6f66821a24aa18d8892}
+
+
+Sets the Error interrupt level. 
+
+This function sets the overflow interrupt level of this Timer/\-Counter 0.
+
+
+\begin{DoxyParams}{Parameters}
+{\em tc} & Timer/\-Counter module instance. \\
+\hline
+{\em int\-Level} & New error interrupt level. \\
+\hline
+\end{DoxyParams}
+\hypertarget{_t_c__driver_8h_a5630e34078d4a93db2a655703c13c71a}{\index{T\-C\-\_\-driver.\-h@{T\-C\-\_\-driver.\-h}!T\-C0\-\_\-\-Set\-Overflow\-Int\-Level@{T\-C0\-\_\-\-Set\-Overflow\-Int\-Level}}
+\index{T\-C0\-\_\-\-Set\-Overflow\-Int\-Level@{T\-C0\-\_\-\-Set\-Overflow\-Int\-Level}!TC_driver.h@{T\-C\-\_\-driver.\-h}}
+\subsubsection[{T\-C0\-\_\-\-Set\-Overflow\-Int\-Level}]{\setlength{\rightskip}{0pt plus 5cm}void T\-C0\-\_\-\-Set\-Overflow\-Int\-Level (
+\begin{DoxyParamCaption}
+\item[{volatile T\-C0\-\_\-t $\ast$}]{tc, }
+\item[{T\-C\-\_\-\-O\-V\-F\-I\-N\-T\-L\-V\-L\-\_\-t}]{int\-Level}
+\end{DoxyParamCaption}
+)}}\label{_t_c__driver_8h_a5630e34078d4a93db2a655703c13c71a}
+
+
+Sets the overflow interrupt level. 
+
+This function sets the overflow interrupt level of this Timer/\-Counter 0.
+
+
+\begin{DoxyParams}{Parameters}
+{\em tc} & Timer/\-Counter module instance. \\
+\hline
+{\em int\-Level} & New overflow interrupt level. \\
+\hline
+\end{DoxyParams}
+\hypertarget{_t_c__driver_8h_aef27c3126f89d13b02732de352bff21f}{\index{T\-C\-\_\-driver.\-h@{T\-C\-\_\-driver.\-h}!T\-C1\-\_\-\-Config\-Clock\-Source@{T\-C1\-\_\-\-Config\-Clock\-Source}}
+\index{T\-C1\-\_\-\-Config\-Clock\-Source@{T\-C1\-\_\-\-Config\-Clock\-Source}!TC_driver.h@{T\-C\-\_\-driver.\-h}}
+\subsubsection[{T\-C1\-\_\-\-Config\-Clock\-Source}]{\setlength{\rightskip}{0pt plus 5cm}void T\-C1\-\_\-\-Config\-Clock\-Source (
+\begin{DoxyParamCaption}
+\item[{volatile T\-C1\-\_\-t $\ast$}]{tc, }
+\item[{T\-C\-\_\-\-C\-L\-K\-S\-E\-L\-\_\-t}]{clock\-Selection}
+\end{DoxyParamCaption}
+)}}\label{_t_c__driver_8h_aef27c3126f89d13b02732de352bff21f}
+
+
+Configures clock source for the Timer/\-Counter 1. 
+
+This function clears the old clock source setting of the Timer/\-Counter and sets a new clock source according to the clock\-Selection parameter.
+
+
+\begin{DoxyParams}{Parameters}
+{\em tc} & Timer/\-Counter module instance. \\
+\hline
+{\em clock\-Selection} & Timer/\-Counter clock source setting. \\
+\hline
+\end{DoxyParams}
+\hypertarget{_t_c__driver_8h_a8d41d6b130f6fd3928e8198e9bf9512b}{\index{T\-C\-\_\-driver.\-h@{T\-C\-\_\-driver.\-h}!T\-C1\-\_\-\-Config\-Input\-Capture@{T\-C1\-\_\-\-Config\-Input\-Capture}}
+\index{T\-C1\-\_\-\-Config\-Input\-Capture@{T\-C1\-\_\-\-Config\-Input\-Capture}!TC_driver.h@{T\-C\-\_\-driver.\-h}}
+\subsubsection[{T\-C1\-\_\-\-Config\-Input\-Capture}]{\setlength{\rightskip}{0pt plus 5cm}void T\-C1\-\_\-\-Config\-Input\-Capture (
+\begin{DoxyParamCaption}
+\item[{volatile T\-C1\-\_\-t $\ast$}]{tc, }
+\item[{T\-C\-\_\-\-E\-V\-S\-E\-L\-\_\-t}]{event\-Source}
+\end{DoxyParamCaption}
+)}}\label{_t_c__driver_8h_a8d41d6b130f6fd3928e8198e9bf9512b}
+
+
+Configures the Timer/\-Counter 1 for input capture operation. 
+
+This function sets the Timer/\-Counter in input capture mode and selects the event lines that will trigger the individual input capture channels.
+
+\begin{DoxyNote}{Note}
+Output compare operation is disabled when input capture operation is enabled.
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em tc} & Timer/\-Counter module instance. \\
+\hline
+{\em event\-Source} & Event source selection. \\
+\hline
+\end{DoxyParams}
+\hypertarget{_t_c__driver_8h_aea811f24d3ebc34c561eb648f2952314}{\index{T\-C\-\_\-driver.\-h@{T\-C\-\_\-driver.\-h}!T\-C1\-\_\-\-Config\-W\-G\-M@{T\-C1\-\_\-\-Config\-W\-G\-M}}
+\index{T\-C1\-\_\-\-Config\-W\-G\-M@{T\-C1\-\_\-\-Config\-W\-G\-M}!TC_driver.h@{T\-C\-\_\-driver.\-h}}
+\subsubsection[{T\-C1\-\_\-\-Config\-W\-G\-M}]{\setlength{\rightskip}{0pt plus 5cm}void T\-C1\-\_\-\-Config\-W\-G\-M (
+\begin{DoxyParamCaption}
+\item[{volatile T\-C1\-\_\-t $\ast$}]{tc, }
+\item[{T\-C\-\_\-\-W\-G\-M\-O\-D\-E\-\_\-t}]{wgm}
+\end{DoxyParamCaption}
+)}}\label{_t_c__driver_8h_aea811f24d3ebc34c561eb648f2952314}
+
+
+Configures the Waveform Generation Mode for the Timer/\-Counter 1. 
+
+This function clears the old W\-G\-M setting of the Timer/\-Counter and sets a new W\-G\-M setting according to the wgm parameter.
+
+
+\begin{DoxyParams}{Parameters}
+{\em tc} & Timer/\-Counter module instance. \\
+\hline
+{\em wgm} & Waveform generation mode. \\
+\hline
+\end{DoxyParams}
+\hypertarget{_t_c__driver_8h_a0573753afe3df7200cd686d84e1fded6}{\index{T\-C\-\_\-driver.\-h@{T\-C\-\_\-driver.\-h}!T\-C1\-\_\-\-Disable\-C\-C\-Channels@{T\-C1\-\_\-\-Disable\-C\-C\-Channels}}
+\index{T\-C1\-\_\-\-Disable\-C\-C\-Channels@{T\-C1\-\_\-\-Disable\-C\-C\-Channels}!TC_driver.h@{T\-C\-\_\-driver.\-h}}
+\subsubsection[{T\-C1\-\_\-\-Disable\-C\-C\-Channels}]{\setlength{\rightskip}{0pt plus 5cm}void T\-C1\-\_\-\-Disable\-C\-C\-Channels (
+\begin{DoxyParamCaption}
+\item[{volatile T\-C1\-\_\-t $\ast$}]{tc, }
+\item[{uint8\-\_\-t}]{disable\-Mask}
+\end{DoxyParamCaption}
+)}}\label{_t_c__driver_8h_a0573753afe3df7200cd686d84e1fded6}
+
+
+Disables compare/capture channels on Timer/\-Counter 1. 
+
+This function disables compare/capture channels according to the supplied disable\-Mask. The disable\-Mask can be obtained by O\-Ring together the symbols
+\begin{DoxyItemize}
+\item T\-C1\-\_\-\-C\-C\-A\-E\-N\-\_\-bm
+\item T\-C1\-\_\-\-C\-C\-B\-E\-N\-\_\-bm
+\end{DoxyItemize}
+
+Example\-: T\-C1\-\_\-\-Disable\-C\-C\-Channels( \&T\-C\-C1, T\-C1\-\_\-\-C\-C\-A\-E\-N\-\_\-bm $|$ T\-C1\-\_\-\-C\-C\-B\-E\-N\-\_\-bm ) will disable channels A and B.
+
+
+\begin{DoxyParams}{Parameters}
+{\em tc} & Timer/\-Counter module instance. \\
+\hline
+{\em disable\-Mask} & Mask of channels to disable. \\
+\hline
+\end{DoxyParams}
+\hypertarget{_t_c__driver_8h_a41d8a44ed53255f2bb991a2aab3bf031}{\index{T\-C\-\_\-driver.\-h@{T\-C\-\_\-driver.\-h}!T\-C1\-\_\-\-Enable\-C\-C\-Channels@{T\-C1\-\_\-\-Enable\-C\-C\-Channels}}
+\index{T\-C1\-\_\-\-Enable\-C\-C\-Channels@{T\-C1\-\_\-\-Enable\-C\-C\-Channels}!TC_driver.h@{T\-C\-\_\-driver.\-h}}
+\subsubsection[{T\-C1\-\_\-\-Enable\-C\-C\-Channels}]{\setlength{\rightskip}{0pt plus 5cm}void T\-C1\-\_\-\-Enable\-C\-C\-Channels (
+\begin{DoxyParamCaption}
+\item[{volatile T\-C1\-\_\-t $\ast$}]{tc, }
+\item[{uint8\-\_\-t}]{enable\-Mask}
+\end{DoxyParamCaption}
+)}}\label{_t_c__driver_8h_a41d8a44ed53255f2bb991a2aab3bf031}
+
+
+Enables compare/capture channels for Timer/\-Counter 1. 
+
+This function enables compare/capture channels according to the supplied enable\-Mask. The enable\-Mask can be obtained by O\-Ring together the symbols
+\begin{DoxyItemize}
+\item T\-C1\-\_\-\-C\-C\-A\-E\-N\-\_\-bm
+\item T\-C1\-\_\-\-C\-C\-B\-E\-N\-\_\-bm
+\end{DoxyItemize}
+
+Example\-: T\-C1\-\_\-\-Enable\-C\-C\-Channels( \&T\-C\-C1, T\-C1\-\_\-\-C\-C\-A\-E\-N\-\_\-bm $|$ T\-C1\-\_\-\-C\-C\-B\-E\-N\-\_\-bm ) will enable channels A and B.
+
+\begin{DoxyNote}{Note}
+No capture/compare channels are disabled by calling this function. Disabling is done by calling \hyperlink{_t_c__driver_8h_a0573753afe3df7200cd686d84e1fded6}{T\-C1\-\_\-\-Disable\-C\-C\-Channels}.
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em tc} & Timer/\-Counter module instance. \\
+\hline
+{\em enable\-Mask} & Mask of channels to enable. \\
+\hline
+\end{DoxyParams}
+\hypertarget{_t_c__driver_8h_ac6857a58e93965b3a74007c5c9952880}{\index{T\-C\-\_\-driver.\-h@{T\-C\-\_\-driver.\-h}!T\-C1\-\_\-\-Reset@{T\-C1\-\_\-\-Reset}}
+\index{T\-C1\-\_\-\-Reset@{T\-C1\-\_\-\-Reset}!TC_driver.h@{T\-C\-\_\-driver.\-h}}
+\subsubsection[{T\-C1\-\_\-\-Reset}]{\setlength{\rightskip}{0pt plus 5cm}void T\-C1\-\_\-\-Reset (
+\begin{DoxyParamCaption}
+\item[{volatile T\-C1\-\_\-t $\ast$}]{tc}
+\end{DoxyParamCaption}
+)}}\label{_t_c__driver_8h_ac6857a58e93965b3a74007c5c9952880}
+
+
+Resets the Timer/\-Counter 1. 
+
+This function will reset the Timer/\-Counter. After calling this function, the Timer/\-Counter will be in the same state as it would after a full reset of the device.
+
+
+\begin{DoxyParams}{Parameters}
+{\em tc} & Timer/\-Counter 1 module instance. \\
+\hline
+\end{DoxyParams}
+\hypertarget{_t_c__driver_8h_ae26379528dcd7aa2c51407453e81b764}{\index{T\-C\-\_\-driver.\-h@{T\-C\-\_\-driver.\-h}!T\-C1\-\_\-\-Set\-C\-C\-A\-Int\-Level@{T\-C1\-\_\-\-Set\-C\-C\-A\-Int\-Level}}
+\index{T\-C1\-\_\-\-Set\-C\-C\-A\-Int\-Level@{T\-C1\-\_\-\-Set\-C\-C\-A\-Int\-Level}!TC_driver.h@{T\-C\-\_\-driver.\-h}}
+\subsubsection[{T\-C1\-\_\-\-Set\-C\-C\-A\-Int\-Level}]{\setlength{\rightskip}{0pt plus 5cm}void T\-C1\-\_\-\-Set\-C\-C\-A\-Int\-Level (
+\begin{DoxyParamCaption}
+\item[{volatile T\-C1\-\_\-t $\ast$}]{tc, }
+\item[{T\-C\-\_\-\-C\-C\-A\-I\-N\-T\-L\-V\-L\-\_\-t}]{int\-Level}
+\end{DoxyParamCaption}
+)}}\label{_t_c__driver_8h_ae26379528dcd7aa2c51407453e81b764}
+
+
+Sets the interrupt level for compare/capture channel A interrupt. 
+
+This function sets the interrupt level for compare/capture channel A interrupt in Timer/\-Counter 1.
+
+
+\begin{DoxyParams}{Parameters}
+{\em tc} & Timer/\-Counter module instance. \\
+\hline
+{\em int\-Level} & New compare/capture channel A interrupt level. \\
+\hline
+\end{DoxyParams}
+\hypertarget{_t_c__driver_8h_a8ba5a300c68f0d88e0450aa95be0d76d}{\index{T\-C\-\_\-driver.\-h@{T\-C\-\_\-driver.\-h}!T\-C1\-\_\-\-Set\-C\-C\-B\-Int\-Level@{T\-C1\-\_\-\-Set\-C\-C\-B\-Int\-Level}}
+\index{T\-C1\-\_\-\-Set\-C\-C\-B\-Int\-Level@{T\-C1\-\_\-\-Set\-C\-C\-B\-Int\-Level}!TC_driver.h@{T\-C\-\_\-driver.\-h}}
+\subsubsection[{T\-C1\-\_\-\-Set\-C\-C\-B\-Int\-Level}]{\setlength{\rightskip}{0pt plus 5cm}void T\-C1\-\_\-\-Set\-C\-C\-B\-Int\-Level (
+\begin{DoxyParamCaption}
+\item[{volatile T\-C1\-\_\-t $\ast$}]{tc, }
+\item[{T\-C\-\_\-\-C\-C\-B\-I\-N\-T\-L\-V\-L\-\_\-t}]{int\-Level}
+\end{DoxyParamCaption}
+)}}\label{_t_c__driver_8h_a8ba5a300c68f0d88e0450aa95be0d76d}
+
+
+Sets the interrupt level for compare/capture channel B interrupt. 
+
+This function sets the interrupt level for compare/capture channel B interrupt in Timer/\-Counter 1.
+
+
+\begin{DoxyParams}{Parameters}
+{\em tc} & Timer/\-Counter module instance. \\
+\hline
+{\em int\-Level} & New compare/capture channel B interrupt level. \\
+\hline
+\end{DoxyParams}
+\hypertarget{_t_c__driver_8h_aa65e4c1ee730d914d555eeee8aee0503}{\index{T\-C\-\_\-driver.\-h@{T\-C\-\_\-driver.\-h}!T\-C1\-\_\-\-Set\-Error\-Int\-Level@{T\-C1\-\_\-\-Set\-Error\-Int\-Level}}
+\index{T\-C1\-\_\-\-Set\-Error\-Int\-Level@{T\-C1\-\_\-\-Set\-Error\-Int\-Level}!TC_driver.h@{T\-C\-\_\-driver.\-h}}
+\subsubsection[{T\-C1\-\_\-\-Set\-Error\-Int\-Level}]{\setlength{\rightskip}{0pt plus 5cm}void T\-C1\-\_\-\-Set\-Error\-Int\-Level (
+\begin{DoxyParamCaption}
+\item[{volatile T\-C1\-\_\-t $\ast$}]{tc, }
+\item[{T\-C\-\_\-\-E\-R\-R\-I\-N\-T\-L\-V\-L\-\_\-t}]{int\-Level}
+\end{DoxyParamCaption}
+)}}\label{_t_c__driver_8h_aa65e4c1ee730d914d555eeee8aee0503}
+
+
+Sets the Error interrupt level. 
+
+This function sets the overflow interrupt level of this Timer/\-Counter 1.
+
+
+\begin{DoxyParams}{Parameters}
+{\em tc} & Timer/\-Counter module instance. \\
+\hline
+{\em int\-Level} & New error interrupt level. \\
+\hline
+\end{DoxyParams}
+\hypertarget{_t_c__driver_8h_aa99bc1615bda1604c9ea7a738c1e595f}{\index{T\-C\-\_\-driver.\-h@{T\-C\-\_\-driver.\-h}!T\-C1\-\_\-\-Set\-Overflow\-Int\-Level@{T\-C1\-\_\-\-Set\-Overflow\-Int\-Level}}
+\index{T\-C1\-\_\-\-Set\-Overflow\-Int\-Level@{T\-C1\-\_\-\-Set\-Overflow\-Int\-Level}!TC_driver.h@{T\-C\-\_\-driver.\-h}}
+\subsubsection[{T\-C1\-\_\-\-Set\-Overflow\-Int\-Level}]{\setlength{\rightskip}{0pt plus 5cm}void T\-C1\-\_\-\-Set\-Overflow\-Int\-Level (
+\begin{DoxyParamCaption}
+\item[{volatile T\-C1\-\_\-t $\ast$}]{tc, }
+\item[{T\-C\-\_\-\-O\-V\-F\-I\-N\-T\-L\-V\-L\-\_\-t}]{int\-Level}
+\end{DoxyParamCaption}
+)}}\label{_t_c__driver_8h_aa99bc1615bda1604c9ea7a738c1e595f}
+
+
+Sets the overflow interrupt level. 
+
+This function sets the overflow interrupt level of this Timer/\-Counter 1.
+
+
+\begin{DoxyParams}{Parameters}
+{\em tc} & Timer/\-Counter module instance. \\
+\hline
+{\em int\-Level} & New overflow interrupt level. \\
+\hline
+\end{DoxyParams}

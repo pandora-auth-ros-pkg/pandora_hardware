@@ -1,0 +1,75 @@
+\hypertarget{system_8h}{\section{include/system.h File Reference}
+\label{system_8h}\index{include/system.\-h@{include/system.\-h}}
+}
+
+
+System Configurations and Initializations Header file.  
+
+
+{\ttfamily \#include $<$stdio.\-h$>$}\\*
+{\ttfamily \#include $<$stdlib.\-h$>$}\\*
+{\ttfamily \#include $<$avr/io.\-h$>$}\\*
+{\ttfamily \#include $<$stdint.\-h$>$}\\*
+{\ttfamily \#include \char`\"{}T\-C\-\_\-driver.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}avr\-\_\-compiler.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}clksys\-\_\-driver.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}twi\-\_\-master\-\_\-driver.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}wdt\-\_\-driver.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}usart\-\_\-driver.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}sensors.\-h\char`\"{}}\\*
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{system_8h_afd4923597290c08970d16d3c12adf1de}{C\-P\-U\-\_\-\-S\-P\-E\-E\-D}~32000000\-U\-L				/$\ast$! $<$u\-Controller C\-P\-U speed definition$>$ $\ast$/
+\item 
+\hypertarget{system_8h_a734bbab06e1a9fd2e5522db0221ff6e3}{\#define {\bfseries B\-A\-U\-D\-R\-A\-T\-E}~75000\-U\-L}\label{system_8h_a734bbab06e1a9fd2e5522db0221ff6e3}
+
+\item 
+\hypertarget{system_8h_a51b7ad73648d0c7ad6f9c1f4a65400bf}{\#define {\bfseries T\-W\-I\-\_\-\-B\-A\-U\-D\-S\-E\-T\-T\-I\-N\-G}~\hyperlink{twi__master__driver_8h_af373fdbc2054cf1a070ba2a24ddaedf3}{T\-W\-I\-\_\-\-B\-A\-U\-D}(\hyperlink{system_8h_afd4923597290c08970d16d3c12adf1de}{C\-P\-U\-\_\-\-S\-P\-E\-E\-D}, B\-A\-U\-D\-R\-A\-T\-E)}\label{system_8h_a51b7ad73648d0c7ad6f9c1f4a65400bf}
+
+\item 
+\hypertarget{system_8h_a90aa44fb1d74474b56b0d1d37fa768d7}{\#define {\bfseries U\-S\-A\-R\-T\-D0\-B\-A\-U\-D\-R\-A\-T\-E}~115200					/$\ast$! $<$U\-A\-R\-T Baudrate definition$>$ $\ast$/}\label{system_8h_a90aa44fb1d74474b56b0d1d37fa768d7}
+
+\item 
+\hypertarget{system_8h_ab908bf5e11a07e37406f24860f2fe877}{\#define {\bfseries R\-S232}~U\-S\-A\-R\-T\-D0}\label{system_8h_ab908bf5e11a07e37406f24860f2fe877}
+
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{system_8h_a78ab77b57cf2e00089f0a3a22508524c}{void {\bfseries clock\-\_\-init} (void)}\label{system_8h_a78ab77b57cf2e00089f0a3a22508524c}
+
+\item 
+\hypertarget{system_8h_ae82ce3c7deac1cee0ceed3afb298d7f0}{void {\bfseries init\-\_\-u\-C\-\_\-clock} (void)}\label{system_8h_ae82ce3c7deac1cee0ceed3afb298d7f0}
+
+\item 
+void \hyperlink{system_8h_abcae607a2763e08bb0db0ce083fe22f9}{\-\_\-startup\-\_\-system\-\_\-init} (void)
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{system_8h_a8433aa0647e1adf0c64231f9cad945a8}{\hyperlink{twi__master__driver_8h_a88e46d8238f0b96a4de3bb400e96a844}{T\-W\-I\-\_\-\-Master\-\_\-t} {\bfseries twi\-Master}}\label{system_8h_a8433aa0647e1adf0c64231f9cad945a8}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+System Configurations and Initializations Header file. Created\-: 1/6/2012 2\-:09\-:50 πμ Author\-: Panayiotou Konstantinos Email\-: \href{mailto:glagloui@gmail.com}{\tt glagloui@gmail.\-com} 
+
+\subsection{Macro Definition Documentation}
+\hypertarget{system_8h_afd4923597290c08970d16d3c12adf1de}{\index{system.\-h@{system.\-h}!C\-P\-U\-\_\-\-S\-P\-E\-E\-D@{C\-P\-U\-\_\-\-S\-P\-E\-E\-D}}
+\index{C\-P\-U\-\_\-\-S\-P\-E\-E\-D@{C\-P\-U\-\_\-\-S\-P\-E\-E\-D}!system.h@{system.\-h}}
+\subsubsection[{C\-P\-U\-\_\-\-S\-P\-E\-E\-D}]{\setlength{\rightskip}{0pt plus 5cm}\#define C\-P\-U\-\_\-\-S\-P\-E\-E\-D~32000000\-U\-L				/$\ast$! $<$u\-Controller C\-P\-U speed definition$>$ $\ast$/}}\label{system_8h_afd4923597290c08970d16d3c12adf1de}
+C\-P\-U speed 32\-M\-Hz, T\-W\-I B\-A\-U\-D\-R\-A\-T\-E 100k\-Hz and Baudrate Register Settings 
+
+\subsection{Function Documentation}
+\hypertarget{system_8h_abcae607a2763e08bb0db0ce083fe22f9}{\index{system.\-h@{system.\-h}!\-\_\-startup\-\_\-system\-\_\-init@{\-\_\-startup\-\_\-system\-\_\-init}}
+\index{\-\_\-startup\-\_\-system\-\_\-init@{\-\_\-startup\-\_\-system\-\_\-init}!system.h@{system.\-h}}
+\subsubsection[{\-\_\-startup\-\_\-system\-\_\-init}]{\setlength{\rightskip}{0pt plus 5cm}void \-\_\-startup\-\_\-system\-\_\-init (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}\label{system_8h_abcae607a2763e08bb0db0ce083fe22f9}
+\begin{DoxyVerb}    Brief Description
+\end{DoxyVerb}
+ Initialize and startup u\-Controller Modules\-: Initialize u\-Clock. Initialize Watchdog timer. Initialize Timer 0 for Event capturing. Initialize U\-A\-R\-T. (P\-C communication) Initialize I2\-C Interface. Initialize two Analog to Digital Signal Inputs. (A\-D\-C\-B) Initialize Encoder. 

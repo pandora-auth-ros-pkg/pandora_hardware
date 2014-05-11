@@ -1,0 +1,57 @@
+\hypertarget{sensors_8c}{\section{src/sensors.c File Reference}
+\label{sensors_8c}\index{src/sensors.\-c@{src/sensors.\-c}}
+}
+
+
+System Sensors Services Source file.  
+
+
+{\ttfamily \#include \char`\"{}sensors.\-h\char`\"{}}\\*
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{sensors_8c_a7aff6b2ea8228daee9e7587814855952}{uint16\-\_\-t {\bfseries Create\-Sensor\-Structs} (void)}\label{sensors_8c_a7aff6b2ea8228daee9e7587814855952}
+
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{sensors_8c_adbdab89151d8b3aecb425ab5b1424ec4}{uint16\-\_\-t {\bfseries battery\-Voltage\-\_\-\-P\-S\-U}}\label{sensors_8c_adbdab89151d8b3aecb425ab5b1424ec4}
+
+\item 
+\hypertarget{sensors_8c_a4d0445b0dbbc0cd6afe0d4a0d2540373}{uint16\-\_\-t {\bfseries battery\-Voltage\-\_\-\-M\-O\-T\-O\-R}}\label{sensors_8c_a4d0445b0dbbc0cd6afe0d4a0d2540373}
+
+\item 
+\hypertarget{sensors_8c_a72c514867fb48d229b42fa382d0dc24a}{\hyperlink{structencoder__struct}{encoder\-\_\-struct} {\bfseries \-\_\-encoder}}\label{sensors_8c_a72c514867fb48d229b42fa382d0dc24a}
+
+\item 
+\hyperlink{structbatteries__struct}{batteries\-\_\-struct} \hyperlink{sensors_8c_a45e4b966249a7f7c314dceeba4149748}{\-\_\-batteries}
+\item 
+const int8\-\_\-t \hyperlink{sensors_8c_a04515d7f717efc3e371d02ad0cb99a08}{I2\-C\-Address\-L\-U\-T} \mbox{[}\hyperlink{sensors_8h_ae7fbb368afd42bdb64627400ff6db4b9}{I2\-C\-S\-E\-N\-S\-N\-U\-M}\mbox{]}\mbox{[}3\mbox{]}
+\item 
+\hypertarget{sensors_8c_af2033b299d888ec0a680db871d85fc5f}{\hyperlink{structi2c__sensor__struct}{i2c\-\_\-sensor\-\_\-struct} {\bfseries Sensor\-Module} \mbox{[}\hyperlink{sensors_8h_ae7fbb368afd42bdb64627400ff6db4b9}{I2\-C\-S\-E\-N\-S\-N\-U\-M}\mbox{]}}\label{sensors_8c_af2033b299d888ec0a680db871d85fc5f}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+System Sensors Services Source file. Created\-: 5/9/2014 4\-:20\-:52 P\-M Author\-: Panayiotou Kostantinos Email\-: \href{mailto:glagloui@gmail.com}{\tt glagloui@gmail.\-com} 
+
+\subsection{Variable Documentation}
+\hypertarget{sensors_8c_a45e4b966249a7f7c314dceeba4149748}{\index{sensors.\-c@{sensors.\-c}!\-\_\-batteries@{\-\_\-batteries}}
+\index{\-\_\-batteries@{\-\_\-batteries}!sensors.c@{sensors.\-c}}
+\subsubsection[{\-\_\-batteries}]{\setlength{\rightskip}{0pt plus 5cm}{\bf batteries\-\_\-struct} \-\_\-batteries}}\label{sensors_8c_a45e4b966249a7f7c314dceeba4149748}
+Look Up Table holding information about the sensors on I2\-C bus. Columns\-: 0 = Sensor\-Type 1 = Address on 2 = Group that sensor belongs. \hypertarget{sensors_8c_a04515d7f717efc3e371d02ad0cb99a08}{\index{sensors.\-c@{sensors.\-c}!I2\-C\-Address\-L\-U\-T@{I2\-C\-Address\-L\-U\-T}}
+\index{I2\-C\-Address\-L\-U\-T@{I2\-C\-Address\-L\-U\-T}!sensors.c@{sensors.\-c}}
+\subsubsection[{I2\-C\-Address\-L\-U\-T}]{\setlength{\rightskip}{0pt plus 5cm}const int8\-\_\-t I2\-C\-Address\-L\-U\-T\mbox{[}{\bf I2\-C\-S\-E\-N\-S\-N\-U\-M}\mbox{]}\mbox{[}3\mbox{]}}}\label{sensors_8c_a04515d7f717efc3e371d02ad0cb99a08}
+{\bfseries Initial value\-:}
+\begin{DoxyCode}
+ \{
+        \{SRF05tinym, 0x80, 1\},          
+        \{SRF05tinym, 0x82, 1\},          
+        \{SRF05tinym, 0x84, 2\},          
+        \{SRF05tinym, 0x86, 2\},          
+        \{SRF05tinym, 0x88, 3\},          
+\}
+\end{DoxyCode}
+An array of \hyperlink{structi2c__sensor__struct}{i2c\-\_\-sensor\-\_\-struct} objects. Holding i2c sensors info 

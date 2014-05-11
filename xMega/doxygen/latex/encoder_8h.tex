@@ -1,0 +1,94 @@
+\hypertarget{encoder_8h}{\section{include/encoder.h File Reference}
+\label{encoder_8h}\index{include/encoder.\-h@{include/encoder.\-h}}
+}
+
+
+Rotary Encoder Services Header file.  
+
+
+{\ttfamily \#include $<$util/delay.\-h$>$}\\*
+{\ttfamily \#include $<$avr/io.\-h$>$}\\*
+{\ttfamily \#include \char`\"{}avr\-\_\-compiler.\-h\char`\"{}}\\*
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structencoder__struct}{encoder\-\_\-struct}
+\begin{DoxyCompactList}\small\item\em Structure Holding Rotary encoder Info and measurements. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{encoder_8h_a43bafb28b29491ec7f871319b5a3b2f8}{\#define {\bfseries F\-\_\-\-C\-P\-U}~32000000\-U\-L}\label{encoder_8h_a43bafb28b29491ec7f871319b5a3b2f8}
+
+\item 
+\hypertarget{encoder_8h_a24a924fe293453face7592c75a0f7ac0}{\#define {\bfseries N\-U\-M\-B\-E\-R\-\_\-\-O\-F\-\_\-\-B\-I\-T\-S}~10}\label{encoder_8h_a24a924fe293453face7592c75a0f7ac0}
+
+\item 
+\hypertarget{encoder_8h_a1853203243a9173e69e5a5454966d1ef}{\#define {\bfseries E\-N\-C\-O\-D\-E\-R\-\_\-\-I\-N\-I\-T\-I\-A\-L\-\_\-\-V\-A\-L\-U\-E}~0x0000}\label{encoder_8h_a1853203243a9173e69e5a5454966d1ef}
+
+\item 
+\hypertarget{encoder_8h_a06c967e78bcedcee909a70764f879433}{\#define {\bfseries S\-C\-L\-\_\-\-P\-I\-N}~1}\label{encoder_8h_a06c967e78bcedcee909a70764f879433}
+
+\item 
+\hypertarget{encoder_8h_ac290a46b6e8e07654c81d01d5e5f288b}{\#define {\bfseries S\-C\-L\-\_\-\-P\-O\-R\-T}~P\-O\-R\-T\-A}\label{encoder_8h_ac290a46b6e8e07654c81d01d5e5f288b}
+
+\item 
+\hypertarget{encoder_8h_ade0fb7dd3abd429354e0715d25f3d03a}{\#define {\bfseries D\-O\-U\-T\-\_\-\-P\-I\-N}~2}\label{encoder_8h_ade0fb7dd3abd429354e0715d25f3d03a}
+
+\item 
+\hypertarget{encoder_8h_ab88d90064179ed9295086b67c4a5b066}{\#define {\bfseries D\-O\-U\-T\-\_\-\-P\-O\-R\-T}~P\-O\-R\-T\-A}\label{encoder_8h_ab88d90064179ed9295086b67c4a5b066}
+
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{encoder_8h_a2f92ee6a8754e54dcff093c7d8a07c09}{init\-\_\-encoder} (\hyperlink{structencoder__struct}{encoder\-\_\-struct} $\ast$encoder\-\_\-)
+\item 
+\hypertarget{encoder_8h_af2263937d93832328bf303a198670213}{uint16\-\_\-t {\bfseries read\-\_\-encoder} (void)}\label{encoder_8h_af2263937d93832328bf303a198670213}
+
+\item 
+void \hyperlink{encoder_8h_af9f2dd66437996c14e7a19ab6342416c}{get\-\_\-encoder\-\_\-values} (\hyperlink{structencoder__struct}{encoder\-\_\-struct} $\ast$encoder\-\_\-)
+\item 
+\hypertarget{encoder_8h_a922b43a5dc5a4db3699affd73e4f1984}{uint16\-\_\-t {\bfseries encoder\-\_\-convert\-\_\-degrees} (uint16\-\_\-t encoder\-\_\-value)}\label{encoder_8h_a922b43a5dc5a4db3699affd73e4f1984}
+
+\item 
+\hypertarget{encoder_8h_aa529a9d561d47be855a35bd2370e5bc3}{uint16\-\_\-t {\bfseries gray\-\_\-to\-\_\-binary} (uint16\-\_\-t num)}\label{encoder_8h_aa529a9d561d47be855a35bd2370e5bc3}
+
+\item 
+uint16\-\_\-t \hyperlink{encoder_8h_abf9f91a158133b2d4b0f5c2faf4c20a5}{get\-\_\-encoder\-\_\-degrees} (void)
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Rotary Encoder Services Header file. Created\-: 4/6/2014 2\-:09\-:02 A\-M Author\-: Panayiotou Kostantinos Email\-: \href{mailto:glagloui@gmail.com}{\tt glagloui@gmail.\-com} 
+
+\subsection{Function Documentation}
+\hypertarget{encoder_8h_abf9f91a158133b2d4b0f5c2faf4c20a5}{\index{encoder.\-h@{encoder.\-h}!get\-\_\-encoder\-\_\-degrees@{get\-\_\-encoder\-\_\-degrees}}
+\index{get\-\_\-encoder\-\_\-degrees@{get\-\_\-encoder\-\_\-degrees}!encoder.h@{encoder.\-h}}
+\subsubsection[{get\-\_\-encoder\-\_\-degrees}]{\setlength{\rightskip}{0pt plus 5cm}uint16\-\_\-t get\-\_\-encoder\-\_\-degrees (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}\label{encoder_8h_abf9f91a158133b2d4b0f5c2faf4c20a5}
+$<$\-Clear global=\char`\"{}\char`\"{} interrupts=\char`\"{}\char`\"{} for=\char`\"{}\char`\"{} scl=\char`\"{}\char`\"{} generation$>$=\char`\"{}\char`\"{}$>$
+
+$<$\-Enable global=\char`\"{}\char`\"{} interrupts$>$=\char`\"{}\char`\"{}$>$ \hypertarget{encoder_8h_af9f2dd66437996c14e7a19ab6342416c}{\index{encoder.\-h@{encoder.\-h}!get\-\_\-encoder\-\_\-values@{get\-\_\-encoder\-\_\-values}}
+\index{get\-\_\-encoder\-\_\-values@{get\-\_\-encoder\-\_\-values}!encoder.h@{encoder.\-h}}
+\subsubsection[{get\-\_\-encoder\-\_\-values}]{\setlength{\rightskip}{0pt plus 5cm}void get\-\_\-encoder\-\_\-values (
+\begin{DoxyParamCaption}
+\item[{{\bf encoder\-\_\-struct} $\ast$}]{encoder\-\_\-}
+\end{DoxyParamCaption}
+)}}\label{encoder_8h_af9f2dd66437996c14e7a19ab6342416c}
+$<$\-Clear global=\char`\"{}\char`\"{} interrupts=\char`\"{}\char`\"{} for=\char`\"{}\char`\"{} scl=\char`\"{}\char`\"{} generation$>$=\char`\"{}\char`\"{}$>$
+
+$<$\-Enable global=\char`\"{}\char`\"{} interrupts$>$=\char`\"{}\char`\"{}$>$ \hypertarget{encoder_8h_a2f92ee6a8754e54dcff093c7d8a07c09}{\index{encoder.\-h@{encoder.\-h}!init\-\_\-encoder@{init\-\_\-encoder}}
+\index{init\-\_\-encoder@{init\-\_\-encoder}!encoder.h@{encoder.\-h}}
+\subsubsection[{init\-\_\-encoder}]{\setlength{\rightskip}{0pt plus 5cm}void init\-\_\-encoder (
+\begin{DoxyParamCaption}
+\item[{{\bf encoder\-\_\-struct} $\ast$}]{encoder\-\_\-}
+\end{DoxyParamCaption}
+)}}\label{encoder_8h_a2f92ee6a8754e54dcff093c7d8a07c09}
+$<$Set Port\-B\-\_\-\-Pin0 as output -\/$>$ S\-C\-L$>$
+
+$<$\-Set portc\-\_\-pin0$>$=\char`\"{}\char`\"{}$>$
+
+$<$\-Initialize encoder=\char`\"{}\char`\"{} values=\char`\"{}\char`\"{} in=\char`\"{}\char`\"{} encoder=\char`\"{}\char`\"{} struct$>$=\char`\"{}\char`\"{}$>$ 

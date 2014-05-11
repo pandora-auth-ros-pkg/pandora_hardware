@@ -1,0 +1,53 @@
+\hypertarget{usart__driver_8c}{\section{drivers/usart\-\_\-driver.c File Reference}
+\label{usart__driver_8c}\index{drivers/usart\-\_\-driver.\-c@{drivers/usart\-\_\-driver.\-c}}
+}
+
+
+U\-S\-A\-R\-T driver Source file.  
+
+
+{\ttfamily \#include \char`\"{}usart\-\_\-driver.\-h\char`\"{}}\\*
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{usart__driver_8c_ac7b3df0fa68526d64c732d5f916e34b1}{void {\bfseries init\-\_\-uart} (void)}\label{usart__driver_8c_ac7b3df0fa68526d64c732d5f916e34b1}
+
+\item 
+void \hyperlink{usart__driver_8c_a9a742269cf0568a6f30ca3fb41400b27}{usart\-\_\-putc} (char c)
+\begin{DoxyCompactList}\small\item\em Brief Function Description. \end{DoxyCompactList}\item 
+char \hyperlink{usart__driver_8c_a8331e035d6236a06b79abf0157317656}{usart\-\_\-getc} (void)
+\item 
+\hypertarget{usart__driver_8c_a1ffabc6c741c5d1318a700d8cdb1727c}{void {\bfseries usart\-\_\-sendstring} (char $\ast$s)}\label{usart__driver_8c_a1ffabc6c741c5d1318a700d8cdb1727c}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+U\-S\-A\-R\-T driver Source file. Created\-: 5/6/2014 1\-:01\-:48 pm Author\-: Panayiotou Konstantinos Email\-: \href{mailto:glagloui@gmail.com}{\tt glagloui@gmail.\-com} 
+
+\subsection{Function Documentation}
+\hypertarget{usart__driver_8c_a8331e035d6236a06b79abf0157317656}{\index{usart\-\_\-driver.\-c@{usart\-\_\-driver.\-c}!usart\-\_\-getc@{usart\-\_\-getc}}
+\index{usart\-\_\-getc@{usart\-\_\-getc}!usart_driver.c@{usart\-\_\-driver.\-c}}
+\subsubsection[{usart\-\_\-getc}]{\setlength{\rightskip}{0pt plus 5cm}char usart\-\_\-getc (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}\label{usart__driver_8c_a8331e035d6236a06b79abf0157317656}
+Brief Function Description \begin{DoxyVerb}   Send a series of characters over USART.
+\end{DoxyVerb}
+ Input\-: Character array to send. Uses \hyperlink{usart__driver_8c_a9a742269cf0568a6f30ca3fb41400b27}{usart\-\_\-putc()} to send the data. \hypertarget{usart__driver_8c_a9a742269cf0568a6f30ca3fb41400b27}{\index{usart\-\_\-driver.\-c@{usart\-\_\-driver.\-c}!usart\-\_\-putc@{usart\-\_\-putc}}
+\index{usart\-\_\-putc@{usart\-\_\-putc}!usart_driver.c@{usart\-\_\-driver.\-c}}
+\subsubsection[{usart\-\_\-putc}]{\setlength{\rightskip}{0pt plus 5cm}void usart\-\_\-putc (
+\begin{DoxyParamCaption}
+\item[{char}]{c}
+\end{DoxyParamCaption}
+)}}\label{usart__driver_8c_a9a742269cf0568a6f30ca3fb41400b27}
+
+
+Brief Function Description. 
+
+Brief Function Description
+
+Returns a char from U\-S\-A\-R\-T R\-X Buffer. B\-Locking Function waiting for data to arrive in U\-S\-A\-R\-T Module
+
+This function gets as input a character and sends it over U\-S\-A\-R\-T 

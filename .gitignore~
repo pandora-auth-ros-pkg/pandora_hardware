@@ -61,3 +61,5 @@ core*
 #####################
 Debug/
 doxygen/
+doxyfile
+*.xml

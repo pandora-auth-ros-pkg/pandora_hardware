@@ -1,0 +1,169 @@
+\hypertarget{sensors_8h}{\section{include/sensors.h File Reference}
+\label{sensors_8h}\index{include/sensors.\-h@{include/sensors.\-h}}
+}
+
+
+System Sensors Services Header file.  
+
+
+{\ttfamily \#include $<$stdint.\-h$>$}\\*
+{\ttfamily \#include $<$stdlib.\-h$>$}\\*
+{\ttfamily \#include \char`\"{}encoder.\-h\char`\"{}}\\*
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+union \hyperlink{union_sensor_status_flags}{Sensor\-Status\-Flags}
+\item 
+struct \hyperlink{structi2c__sensor__struct}{i2c\-\_\-sensor\-\_\-struct}
+\item 
+struct \hyperlink{structbatteries__struct}{batteries\-\_\-struct}
+\end{DoxyCompactItemize}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{sensors_8h_ac21e89637d397b37bfd373f46c409b05}{\#define {\bfseries S\-R\-F05tiny\-\_\-\-W\-R\-I\-T\-E\-\_\-\-L\-E\-N}~1	/$\ast$ $<$1st byte\-:command , 2nd byte\-:data// command1\-:data contains delay time to trigger sonar, command2\-:send me status (1 byte) and data (3 bytes, sonar time + I\-R value)$>$ $\ast$/}\label{sensors_8h_ac21e89637d397b37bfd373f46c409b05}
+
+\item 
+\hypertarget{sensors_8h_a4a42d942fd054de263f733e8aaeef51b}{\#define {\bfseries S\-R\-F05tiny\-\_\-\-R\-E\-A\-D\-\_\-\-L\-E\-N}~4	/$\ast$ $<$1st byte S\-T\-A\-T\-U\-S, 2nd..\-3rd byte range, 4th byte I\-R A\-D\-C conv Value$>$ $\ast$/}\label{sensors_8h_a4a42d942fd054de263f733e8aaeef51b}
+
+\item 
+\hypertarget{sensors_8h_a52b0eb13ce77c16a139e01a824c815fa}{\#define {\bfseries S\-R\-F05tiny\-Wait\-For\-Bus\-Time\-Out}~15			/$\ast$ $<$ms$>$ $\ast$/}\label{sensors_8h_a52b0eb13ce77c16a139e01a824c815fa}
+
+\item 
+\hypertarget{sensors_8h_acf376b8d8e9222c0465289d275c36657}{\#define {\bfseries S\-R\-F05tiny\-Com\-Repeat\-Time\-Out}~30			/$\ast$ $<$ms$>$ $\ast$/}\label{sensors_8h_acf376b8d8e9222c0465289d275c36657}
+
+\item 
+\hypertarget{sensors_8h_a70a74401584f0edb132614cddcf7ebdd}{\#define {\bfseries S\-R\-F05tiny\-Wait\-Revive\-Sensor\-Counts}~500			/$\ast$ $<$ms$>$ $\ast$/}\label{sensors_8h_a70a74401584f0edb132614cddcf7ebdd}
+
+\item 
+\hypertarget{sensors_8h_a510c14baae6ee8633a74142a1a97106f}{\#define {\bfseries S\-R\-F05tiny\-Communication\-Cycle}~100			/$\ast$ $<$ms$>$ $\ast$/}\label{sensors_8h_a510c14baae6ee8633a74142a1a97106f}
+
+\item 
+\hypertarget{sensors_8h_a0d66d1e2014ddba6d5de67fe22fc61b8}{\#define {\bfseries S\-R\-F05tiny\-Delay\-After\-Nack}~5			/$\ast$ $<$ms$>$ $\ast$/}\label{sensors_8h_a0d66d1e2014ddba6d5de67fe22fc61b8}
+
+\item 
+\#define \hyperlink{sensors_8h_ae7fbb368afd42bdb64627400ff6db4b9}{I2\-C\-S\-E\-N\-S\-N\-U\-M}~5
+\item 
+\#define \hyperlink{sensors_8h_aab07ca4536b5bc169caea763a697a5c8}{S\-E\-N\-S\-O\-R\-G\-R\-O\-U\-P\-S}~3
+\item 
+\#define \hyperlink{sensors_8h_ac03bf5e7a0549c4bd7988083db7d631d}{S\-E\-N\-S\-N\-U\-M}~7
+\end{DoxyCompactItemize}
+\subsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \hyperlink{sensors_8h_a63d96832389a129c44e0b3f902f4d475}{Sensor\-\_\-\-Types} \{ {\bfseries S\-R\-F05tinym}, 
+\hyperlink{sensors_8h_a63d96832389a129c44e0b3f902f4d475a3734b0fdecdf25c998d4b53879dd5fb9}{Battery}, 
+\hyperlink{sensors_8h_a63d96832389a129c44e0b3f902f4d475a02a62ce45faf24b418a365adca5d8bd1}{Rotary\-Encoder}
+ \}
+\begin{DoxyCompactList}\small\item\em Enumerated sensor types on x\-Mega. Currently own S\-R\-F05 Sonar Sensors, Battery voltage level Measurements and Rotary Encoder. \end{DoxyCompactList}\item 
+enum \hyperlink{sensors_8h_a997d87feaf07c9c4fccccc4577207ee2}{Sensor\-States} \{ \\*
+\hyperlink{sensors_8h_a997d87feaf07c9c4fccccc4577207ee2adc95824e9ccd43ed6e34d2b3e664b620}{Revive\-State}, 
+\hyperlink{sensors_8h_a997d87feaf07c9c4fccccc4577207ee2ad2ae9682b7be57fd3f69eb87133b324e}{First\-Run\-State}, 
+\hyperlink{sensors_8h_a997d87feaf07c9c4fccccc4577207ee2ae791b3be8048d663e51a1b0a5180ba5e}{First\-Communication\-State}, 
+\hyperlink{sensors_8h_a997d87feaf07c9c4fccccc4577207ee2a9b511ed391fc52d9a582b7ab97ddad60}{First\-Communication\-State\-Wait}, 
+\\*
+\hyperlink{sensors_8h_a997d87feaf07c9c4fccccc4577207ee2a2262f407abbe75bbd1f05f275f065cf4}{Second\-Communication\-State}, 
+\hyperlink{sensors_8h_a997d87feaf07c9c4fccccc4577207ee2a29a6812e15e16b11afa77d8e2a065940}{Second\-Communication\-State\-Wait}, 
+\hyperlink{sensors_8h_a997d87feaf07c9c4fccccc4577207ee2a3641a215f609ac7bdf8d49f4d56a4b95}{Idle\-State1}, 
+\hyperlink{sensors_8h_a997d87feaf07c9c4fccccc4577207ee2a6d39f1cfc2cc3c9d32a5aaef456ab835}{Idle\-State2}, 
+\\*
+\hyperlink{sensors_8h_a997d87feaf07c9c4fccccc4577207ee2a1217402fe955e923e30a3b79cea6cc1b}{Idle\-State}
+ \}
+\begin{DoxyCompactList}\small\item\em Enumerated States for I2\-C sensors. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{sensors_8h_a7aff6b2ea8228daee9e7587814855952}{uint16\-\_\-t {\bfseries Create\-Sensor\-Structs} (void)}\label{sensors_8h_a7aff6b2ea8228daee9e7587814855952}
+
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+const int8\-\_\-t \hyperlink{sensors_8h_a04515d7f717efc3e371d02ad0cb99a08}{I2\-C\-Address\-L\-U\-T} \mbox{[}\hyperlink{sensors_8h_ae7fbb368afd42bdb64627400ff6db4b9}{I2\-C\-S\-E\-N\-S\-N\-U\-M}\mbox{]}\mbox{[}3\mbox{]}
+\item 
+\hypertarget{sensors_8h_af2033b299d888ec0a680db871d85fc5f}{\hyperlink{structi2c__sensor__struct}{i2c\-\_\-sensor\-\_\-struct} {\bfseries Sensor\-Module} \mbox{[}\hyperlink{sensors_8h_ae7fbb368afd42bdb64627400ff6db4b9}{I2\-C\-S\-E\-N\-S\-N\-U\-M}\mbox{]}}\label{sensors_8h_af2033b299d888ec0a680db871d85fc5f}
+
+\item 
+\hyperlink{structbatteries__struct}{batteries\-\_\-struct} \hyperlink{sensors_8h_a45e4b966249a7f7c314dceeba4149748}{\-\_\-batteries}
+\item 
+\hypertarget{sensors_8h_a72c514867fb48d229b42fa382d0dc24a}{\hyperlink{structencoder__struct}{encoder\-\_\-struct} {\bfseries \-\_\-encoder}}\label{sensors_8h_a72c514867fb48d229b42fa382d0dc24a}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+System Sensors Services Header file. Created\-: 5/9/2014 11\-:46\-:04 P\-M Author\-: dikan / Panayiotou Konstantinos Email\-: \href{mailto:glagloui@gmail.com}{\tt glagloui@gmail.\-com} 
+
+\subsection{Macro Definition Documentation}
+\hypertarget{sensors_8h_ae7fbb368afd42bdb64627400ff6db4b9}{\index{sensors.\-h@{sensors.\-h}!I2\-C\-S\-E\-N\-S\-N\-U\-M@{I2\-C\-S\-E\-N\-S\-N\-U\-M}}
+\index{I2\-C\-S\-E\-N\-S\-N\-U\-M@{I2\-C\-S\-E\-N\-S\-N\-U\-M}!sensors.h@{sensors.\-h}}
+\subsubsection[{I2\-C\-S\-E\-N\-S\-N\-U\-M}]{\setlength{\rightskip}{0pt plus 5cm}\#define I2\-C\-S\-E\-N\-S\-N\-U\-M~5}}\label{sensors_8h_ae7fbb368afd42bdb64627400ff6db4b9}
+Number of sensors on i2c bus. Currently 5 Sonars \hypertarget{sensors_8h_ac03bf5e7a0549c4bd7988083db7d631d}{\index{sensors.\-h@{sensors.\-h}!S\-E\-N\-S\-N\-U\-M@{S\-E\-N\-S\-N\-U\-M}}
+\index{S\-E\-N\-S\-N\-U\-M@{S\-E\-N\-S\-N\-U\-M}!sensors.h@{sensors.\-h}}
+\subsubsection[{S\-E\-N\-S\-N\-U\-M}]{\setlength{\rightskip}{0pt plus 5cm}\#define S\-E\-N\-S\-N\-U\-M~7}}\label{sensors_8h_ac03bf5e7a0549c4bd7988083db7d631d}
+(5$\ast$\-Sonars on I2\-C bus) (Batteries as 1 sensor) (1$\ast$encoder) \hypertarget{sensors_8h_aab07ca4536b5bc169caea763a697a5c8}{\index{sensors.\-h@{sensors.\-h}!S\-E\-N\-S\-O\-R\-G\-R\-O\-U\-P\-S@{S\-E\-N\-S\-O\-R\-G\-R\-O\-U\-P\-S}}
+\index{S\-E\-N\-S\-O\-R\-G\-R\-O\-U\-P\-S@{S\-E\-N\-S\-O\-R\-G\-R\-O\-U\-P\-S}!sensors.h@{sensors.\-h}}
+\subsubsection[{S\-E\-N\-S\-O\-R\-G\-R\-O\-U\-P\-S}]{\setlength{\rightskip}{0pt plus 5cm}\#define S\-E\-N\-S\-O\-R\-G\-R\-O\-U\-P\-S~3}}\label{sensors_8h_aab07ca4536b5bc169caea763a697a5c8}
+I2\-C sensors groups. Group0 is group-\/free. 3 means group0 + 3 more groups 
+
+\subsection{Enumeration Type Documentation}
+\hypertarget{sensors_8h_a63d96832389a129c44e0b3f902f4d475}{\index{sensors.\-h@{sensors.\-h}!Sensor\-\_\-\-Types@{Sensor\-\_\-\-Types}}
+\index{Sensor\-\_\-\-Types@{Sensor\-\_\-\-Types}!sensors.h@{sensors.\-h}}
+\subsubsection[{Sensor\-\_\-\-Types}]{\setlength{\rightskip}{0pt plus 5cm}enum {\bf Sensor\-\_\-\-Types}}}\label{sensors_8h_a63d96832389a129c44e0b3f902f4d475}
+
+
+Enumerated sensor types on x\-Mega. Currently own S\-R\-F05 Sonar Sensors, Battery voltage level Measurements and Rotary Encoder. 
+
+\begin{Desc}
+\item[Enumerator\-: ]\par
+\begin{description}
+\index{Battery@{Battery}!sensors.\-h@{sensors.\-h}}\index{sensors.\-h@{sensors.\-h}!Battery@{Battery}}\item[{\em 
+\hypertarget{sensors_8h_a63d96832389a129c44e0b3f902f4d475a3734b0fdecdf25c998d4b53879dd5fb9}{Battery}\label{sensors_8h_a63d96832389a129c44e0b3f902f4d475a3734b0fdecdf25c998d4b53879dd5fb9}
+}]$<$\-Sonars on=\char`\"{}\char`\"{} i2c=\char`\"{}\char`\"{} bus$>$=\char`\"{}\char`\"{}$>$ \index{Rotary\-Encoder@{Rotary\-Encoder}!sensors.\-h@{sensors.\-h}}\index{sensors.\-h@{sensors.\-h}!Rotary\-Encoder@{Rotary\-Encoder}}\item[{\em 
+\hypertarget{sensors_8h_a63d96832389a129c44e0b3f902f4d475a02a62ce45faf24b418a365adca5d8bd1}{Rotary\-Encoder}\label{sensors_8h_a63d96832389a129c44e0b3f902f4d475a02a62ce45faf24b418a365adca5d8bd1}
+}]$<$N\-O\-T I2\-C S\-E\-N\-S\-O\-R (A\-D\-C\-B)$>$
+
+$<$\-S\-S\-I communication=\char`\"{}\char`\"{} protocol$>$=\char`\"{}\char`\"{}$>$ \end{description}
+\end{Desc}
+
+\hypertarget{sensors_8h_a997d87feaf07c9c4fccccc4577207ee2}{\index{sensors.\-h@{sensors.\-h}!Sensor\-States@{Sensor\-States}}
+\index{Sensor\-States@{Sensor\-States}!sensors.h@{sensors.\-h}}
+\subsubsection[{Sensor\-States}]{\setlength{\rightskip}{0pt plus 5cm}enum {\bf Sensor\-States}}}\label{sensors_8h_a997d87feaf07c9c4fccccc4577207ee2}
+
+
+Enumerated States for I2\-C sensors. 
+
+\begin{Desc}
+\item[Enumerator\-: ]\par
+\begin{description}
+\index{Revive\-State@{Revive\-State}!sensors.\-h@{sensors.\-h}}\index{sensors.\-h@{sensors.\-h}!Revive\-State@{Revive\-State}}\item[{\em 
+\hypertarget{sensors_8h_a997d87feaf07c9c4fccccc4577207ee2adc95824e9ccd43ed6e34d2b3e664b620}{Revive\-State}\label{sensors_8h_a997d87feaf07c9c4fccccc4577207ee2adc95824e9ccd43ed6e34d2b3e664b620}
+}]Revive State $<$0$>$ \index{First\-Run\-State@{First\-Run\-State}!sensors.\-h@{sensors.\-h}}\index{sensors.\-h@{sensors.\-h}!First\-Run\-State@{First\-Run\-State}}\item[{\em 
+\hypertarget{sensors_8h_a997d87feaf07c9c4fccccc4577207ee2ad2ae9682b7be57fd3f69eb87133b324e}{First\-Run\-State}\label{sensors_8h_a997d87feaf07c9c4fccccc4577207ee2ad2ae9682b7be57fd3f69eb87133b324e}
+}]First Run State $<$1$>$ \index{First\-Communication\-State@{First\-Communication\-State}!sensors.\-h@{sensors.\-h}}\index{sensors.\-h@{sensors.\-h}!First\-Communication\-State@{First\-Communication\-State}}\item[{\em 
+\hypertarget{sensors_8h_a997d87feaf07c9c4fccccc4577207ee2ae791b3be8048d663e51a1b0a5180ba5e}{First\-Communication\-State}\label{sensors_8h_a997d87feaf07c9c4fccccc4577207ee2ae791b3be8048d663e51a1b0a5180ba5e}
+}]First Communication State $<$2$>$ \index{First\-Communication\-State\-Wait@{First\-Communication\-State\-Wait}!sensors.\-h@{sensors.\-h}}\index{sensors.\-h@{sensors.\-h}!First\-Communication\-State\-Wait@{First\-Communication\-State\-Wait}}\item[{\em 
+\hypertarget{sensors_8h_a997d87feaf07c9c4fccccc4577207ee2a9b511ed391fc52d9a582b7ab97ddad60}{First\-Communication\-State\-Wait}\label{sensors_8h_a997d87feaf07c9c4fccccc4577207ee2a9b511ed391fc52d9a582b7ab97ddad60}
+}]First Communication Wait State $<$3$>$ \index{Second\-Communication\-State@{Second\-Communication\-State}!sensors.\-h@{sensors.\-h}}\index{sensors.\-h@{sensors.\-h}!Second\-Communication\-State@{Second\-Communication\-State}}\item[{\em 
+\hypertarget{sensors_8h_a997d87feaf07c9c4fccccc4577207ee2a2262f407abbe75bbd1f05f275f065cf4}{Second\-Communication\-State}\label{sensors_8h_a997d87feaf07c9c4fccccc4577207ee2a2262f407abbe75bbd1f05f275f065cf4}
+}]Second Communication State $<$4$>$ \index{Second\-Communication\-State\-Wait@{Second\-Communication\-State\-Wait}!sensors.\-h@{sensors.\-h}}\index{sensors.\-h@{sensors.\-h}!Second\-Communication\-State\-Wait@{Second\-Communication\-State\-Wait}}\item[{\em 
+\hypertarget{sensors_8h_a997d87feaf07c9c4fccccc4577207ee2a29a6812e15e16b11afa77d8e2a065940}{Second\-Communication\-State\-Wait}\label{sensors_8h_a997d87feaf07c9c4fccccc4577207ee2a29a6812e15e16b11afa77d8e2a065940}
+}]Second Communication Wait State $<$5$>$ \index{Idle\-State1@{Idle\-State1}!sensors.\-h@{sensors.\-h}}\index{sensors.\-h@{sensors.\-h}!Idle\-State1@{Idle\-State1}}\item[{\em 
+\hypertarget{sensors_8h_a997d87feaf07c9c4fccccc4577207ee2a3641a215f609ac7bdf8d49f4d56a4b95}{Idle\-State1}\label{sensors_8h_a997d87feaf07c9c4fccccc4577207ee2a3641a215f609ac7bdf8d49f4d56a4b95}
+}]Idle State 1 $<$6$>$ \index{Idle\-State2@{Idle\-State2}!sensors.\-h@{sensors.\-h}}\index{sensors.\-h@{sensors.\-h}!Idle\-State2@{Idle\-State2}}\item[{\em 
+\hypertarget{sensors_8h_a997d87feaf07c9c4fccccc4577207ee2a6d39f1cfc2cc3c9d32a5aaef456ab835}{Idle\-State2}\label{sensors_8h_a997d87feaf07c9c4fccccc4577207ee2a6d39f1cfc2cc3c9d32a5aaef456ab835}
+}]Idle State 2 $<$7$>$ \index{Idle\-State@{Idle\-State}!sensors.\-h@{sensors.\-h}}\index{sensors.\-h@{sensors.\-h}!Idle\-State@{Idle\-State}}\item[{\em 
+\hypertarget{sensors_8h_a997d87feaf07c9c4fccccc4577207ee2a1217402fe955e923e30a3b79cea6cc1b}{Idle\-State}\label{sensors_8h_a997d87feaf07c9c4fccccc4577207ee2a1217402fe955e923e30a3b79cea6cc1b}
+}]Idle\-State $<$8$>$ \end{description}
+\end{Desc}
+
+
+
+\subsection{Variable Documentation}
+\hypertarget{sensors_8h_a45e4b966249a7f7c314dceeba4149748}{\index{sensors.\-h@{sensors.\-h}!\-\_\-batteries@{\-\_\-batteries}}
+\index{\-\_\-batteries@{\-\_\-batteries}!sensors.h@{sensors.\-h}}
+\subsubsection[{\-\_\-batteries}]{\setlength{\rightskip}{0pt plus 5cm}{\bf batteries\-\_\-struct} \-\_\-batteries}}\label{sensors_8h_a45e4b966249a7f7c314dceeba4149748}
+Look Up Table holding information about the sensors on I2\-C bus. Columns\-: 0 = Sensor\-Type 1 = Address on 2 = Group that sensor belongs. \hypertarget{sensors_8h_a04515d7f717efc3e371d02ad0cb99a08}{\index{sensors.\-h@{sensors.\-h}!I2\-C\-Address\-L\-U\-T@{I2\-C\-Address\-L\-U\-T}}
+\index{I2\-C\-Address\-L\-U\-T@{I2\-C\-Address\-L\-U\-T}!sensors.h@{sensors.\-h}}
+\subsubsection[{I2\-C\-Address\-L\-U\-T}]{\setlength{\rightskip}{0pt plus 5cm}const int8\-\_\-t I2\-C\-Address\-L\-U\-T\mbox{[}{\bf I2\-C\-S\-E\-N\-S\-N\-U\-M}\mbox{]}\mbox{[}3\mbox{]}}}\label{sensors_8h_a04515d7f717efc3e371d02ad0cb99a08}
+An array of \hyperlink{structi2c__sensor__struct}{i2c\-\_\-sensor\-\_\-struct} objects. Holding i2c sensors info 

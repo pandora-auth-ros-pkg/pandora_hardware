@@ -1,0 +1,78 @@
+\hypertarget{struct_t_w_i___master}{\section{T\-W\-I\-\_\-\-Master Struct Reference}
+\label{struct_t_w_i___master}\index{T\-W\-I\-\_\-\-Master@{T\-W\-I\-\_\-\-Master}}
+}
+
+
+T\-W\-I master driver struct.  
+
+
+
+
+{\ttfamily \#include $<$twi\-\_\-master\-\_\-driver.\-h$>$}
+
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+T\-W\-I\-\_\-t $\ast$ \hyperlink{struct_t_w_i___master_ad00bb11bf1747236879a7e733b232838}{interface}
+\item 
+register8\-\_\-t \hyperlink{struct_t_w_i___master_a927a9325a0f1fed17f3f3d3b2d192f72}{address}
+\item 
+register8\-\_\-t \hyperlink{struct_t_w_i___master_ad32de221cbcd3561a486be89617dcea3}{write\-Data} \mbox{[}\hyperlink{twi__master__driver_8h_a1847bea28211bab8fdc2d31adcdb82a3}{T\-W\-I\-M\-\_\-\-W\-R\-I\-T\-E\-\_\-\-B\-U\-F\-F\-E\-R\-\_\-\-S\-I\-Z\-E}\mbox{]}
+\item 
+register8\-\_\-t \hyperlink{struct_t_w_i___master_aac0c87e8f5d8ae80e507ccf0c63f7c71}{read\-Data} \mbox{[}T\-W\-I\-M\-\_\-\-R\-E\-A\-D\-\_\-\-B\-U\-F\-F\-E\-R\-\_\-\-S\-I\-Z\-E\mbox{]}
+\item 
+register8\-\_\-t \hyperlink{struct_t_w_i___master_a5860f84e0d602e92e216c769d611a9ce}{bytes\-To\-Write}
+\item 
+register8\-\_\-t \hyperlink{struct_t_w_i___master_a0af10445062189fc458400b2e8effc91}{bytes\-To\-Read}
+\item 
+register8\-\_\-t \hyperlink{struct_t_w_i___master_a7fad10bdf554d3ab318b83c2f384f29a}{bytes\-Written}
+\item 
+register8\-\_\-t \hyperlink{struct_t_w_i___master_aaac863ad508d7eeb9bebd2cf0b42b0ac}{bytes\-Read}
+\item 
+register8\-\_\-t \hyperlink{struct_t_w_i___master_a4213be5b8a0e683ea1ea46b73871af2d}{status}
+\item 
+register8\-\_\-t \hyperlink{struct_t_w_i___master_ac9aada323447f8e15387c7bf302b2a75}{result}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+T\-W\-I master driver struct. 
+
+T\-W\-I master struct. Holds pointer to T\-W\-I module, buffers and necessary varibles. 
+
+\subsection{Member Data Documentation}
+\hypertarget{struct_t_w_i___master_a927a9325a0f1fed17f3f3d3b2d192f72}{\index{T\-W\-I\-\_\-\-Master@{T\-W\-I\-\_\-\-Master}!address@{address}}
+\index{address@{address}!TWI_Master@{T\-W\-I\-\_\-\-Master}}
+\subsubsection[{address}]{\setlength{\rightskip}{0pt plus 5cm}register8\-\_\-t T\-W\-I\-\_\-\-Master\-::address}}\label{struct_t_w_i___master_a927a9325a0f1fed17f3f3d3b2d192f72}
+Slave address \hypertarget{struct_t_w_i___master_aaac863ad508d7eeb9bebd2cf0b42b0ac}{\index{T\-W\-I\-\_\-\-Master@{T\-W\-I\-\_\-\-Master}!bytes\-Read@{bytes\-Read}}
+\index{bytes\-Read@{bytes\-Read}!TWI_Master@{T\-W\-I\-\_\-\-Master}}
+\subsubsection[{bytes\-Read}]{\setlength{\rightskip}{0pt plus 5cm}register8\-\_\-t T\-W\-I\-\_\-\-Master\-::bytes\-Read}}\label{struct_t_w_i___master_aaac863ad508d7eeb9bebd2cf0b42b0ac}
+Number of bytes read \hypertarget{struct_t_w_i___master_a0af10445062189fc458400b2e8effc91}{\index{T\-W\-I\-\_\-\-Master@{T\-W\-I\-\_\-\-Master}!bytes\-To\-Read@{bytes\-To\-Read}}
+\index{bytes\-To\-Read@{bytes\-To\-Read}!TWI_Master@{T\-W\-I\-\_\-\-Master}}
+\subsubsection[{bytes\-To\-Read}]{\setlength{\rightskip}{0pt plus 5cm}register8\-\_\-t T\-W\-I\-\_\-\-Master\-::bytes\-To\-Read}}\label{struct_t_w_i___master_a0af10445062189fc458400b2e8effc91}
+Number of bytes to read \hypertarget{struct_t_w_i___master_a5860f84e0d602e92e216c769d611a9ce}{\index{T\-W\-I\-\_\-\-Master@{T\-W\-I\-\_\-\-Master}!bytes\-To\-Write@{bytes\-To\-Write}}
+\index{bytes\-To\-Write@{bytes\-To\-Write}!TWI_Master@{T\-W\-I\-\_\-\-Master}}
+\subsubsection[{bytes\-To\-Write}]{\setlength{\rightskip}{0pt plus 5cm}register8\-\_\-t T\-W\-I\-\_\-\-Master\-::bytes\-To\-Write}}\label{struct_t_w_i___master_a5860f84e0d602e92e216c769d611a9ce}
+Number of bytes to write \hypertarget{struct_t_w_i___master_a7fad10bdf554d3ab318b83c2f384f29a}{\index{T\-W\-I\-\_\-\-Master@{T\-W\-I\-\_\-\-Master}!bytes\-Written@{bytes\-Written}}
+\index{bytes\-Written@{bytes\-Written}!TWI_Master@{T\-W\-I\-\_\-\-Master}}
+\subsubsection[{bytes\-Written}]{\setlength{\rightskip}{0pt plus 5cm}register8\-\_\-t T\-W\-I\-\_\-\-Master\-::bytes\-Written}}\label{struct_t_w_i___master_a7fad10bdf554d3ab318b83c2f384f29a}
+Number of bytes written \hypertarget{struct_t_w_i___master_ad00bb11bf1747236879a7e733b232838}{\index{T\-W\-I\-\_\-\-Master@{T\-W\-I\-\_\-\-Master}!interface@{interface}}
+\index{interface@{interface}!TWI_Master@{T\-W\-I\-\_\-\-Master}}
+\subsubsection[{interface}]{\setlength{\rightskip}{0pt plus 5cm}T\-W\-I\-\_\-t$\ast$ T\-W\-I\-\_\-\-Master\-::interface}}\label{struct_t_w_i___master_ad00bb11bf1747236879a7e733b232838}
+Pointer to what interface to use \hypertarget{struct_t_w_i___master_aac0c87e8f5d8ae80e507ccf0c63f7c71}{\index{T\-W\-I\-\_\-\-Master@{T\-W\-I\-\_\-\-Master}!read\-Data@{read\-Data}}
+\index{read\-Data@{read\-Data}!TWI_Master@{T\-W\-I\-\_\-\-Master}}
+\subsubsection[{read\-Data}]{\setlength{\rightskip}{0pt plus 5cm}register8\-\_\-t T\-W\-I\-\_\-\-Master\-::read\-Data\mbox{[}T\-W\-I\-M\-\_\-\-R\-E\-A\-D\-\_\-\-B\-U\-F\-F\-E\-R\-\_\-\-S\-I\-Z\-E\mbox{]}}}\label{struct_t_w_i___master_aac0c87e8f5d8ae80e507ccf0c63f7c71}
+Read data \hypertarget{struct_t_w_i___master_ac9aada323447f8e15387c7bf302b2a75}{\index{T\-W\-I\-\_\-\-Master@{T\-W\-I\-\_\-\-Master}!result@{result}}
+\index{result@{result}!TWI_Master@{T\-W\-I\-\_\-\-Master}}
+\subsubsection[{result}]{\setlength{\rightskip}{0pt plus 5cm}register8\-\_\-t T\-W\-I\-\_\-\-Master\-::result}}\label{struct_t_w_i___master_ac9aada323447f8e15387c7bf302b2a75}
+Result of transaction \hypertarget{struct_t_w_i___master_a4213be5b8a0e683ea1ea46b73871af2d}{\index{T\-W\-I\-\_\-\-Master@{T\-W\-I\-\_\-\-Master}!status@{status}}
+\index{status@{status}!TWI_Master@{T\-W\-I\-\_\-\-Master}}
+\subsubsection[{status}]{\setlength{\rightskip}{0pt plus 5cm}register8\-\_\-t T\-W\-I\-\_\-\-Master\-::status}}\label{struct_t_w_i___master_a4213be5b8a0e683ea1ea46b73871af2d}
+Status of transaction \hypertarget{struct_t_w_i___master_ad32de221cbcd3561a486be89617dcea3}{\index{T\-W\-I\-\_\-\-Master@{T\-W\-I\-\_\-\-Master}!write\-Data@{write\-Data}}
+\index{write\-Data@{write\-Data}!TWI_Master@{T\-W\-I\-\_\-\-Master}}
+\subsubsection[{write\-Data}]{\setlength{\rightskip}{0pt plus 5cm}register8\-\_\-t T\-W\-I\-\_\-\-Master\-::write\-Data\mbox{[}{\bf T\-W\-I\-M\-\_\-\-W\-R\-I\-T\-E\-\_\-\-B\-U\-F\-F\-E\-R\-\_\-\-S\-I\-Z\-E}\mbox{]}}}\label{struct_t_w_i___master_ad32de221cbcd3561a486be89617dcea3}
+Data to write 
+
+The documentation for this struct was generated from the following file\-:\begin{DoxyCompactItemize}
+\item 
+drivers/\hyperlink{twi__master__driver_8h}{twi\-\_\-master\-\_\-driver.\-h}\end{DoxyCompactItemize}
