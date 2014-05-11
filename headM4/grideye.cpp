@@ -14,7 +14,7 @@ static Thread *tGridEYELeft;	///<Thread pointer for left GridEYE sensor's GridEY
 static Thread *tGridEYERight;	///<Thread pointer for right GridEYE sensor's GridEYETask()
 //@}
 
-static Thread *tGridEYEHealth;	///<<Thread pointer for GridEYEHealthTask()
+static Thread *tGridEYEHealth;	///<Thread pointer for GridEYEHealthTask()
 
 
 void GridEYEInit(I2C *i2c0_obj, I2C *i2c1_obj) {
