@@ -14,8 +14,8 @@ LDFLAGS=-Wl,-gc-sections -lpololu_$(DEVICE) -Wl,-relax
 
 PORT ?= /dev/ttyACM0
 AVRDUDE=avrdude
-TARGET=motion_control
-OBJECT_FILES=motion_control.o
+TARGET=ser
+OBJECT_FILES=ser.o
 
 all: $(TARGET).hex
 
@@ -25,11 +25,10 @@ clean:
 %.hex: %.obj
 	$(OBJ2HEX) -R .eeprom -O ihex $< $@
 
-motion_control.o: motion_control.c
+test.o: ser.c
 
 %.obj: $(OBJECT_FILES)
 	$(CC) $(CFLAGS) $(OBJECT_FILES) $(LDFLAGS) -o $@
 
 program: $(TARGET).hex
 	$(AVRDUDE) -p $(AVRDUDE_DEVICE) -c avrisp2 -P $(PORT) -U flash:w:$(TARGET).hex
-
