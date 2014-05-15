@@ -1,0 +1,7 @@
+authors: Orestis Zachariadis
+maintainers: Orestis Zachariadis <orestis@ee.auth.gr>
+repo_url: https://github.com/pandora-auth-ros-pkg/pandora_hardware
+bugtracker: https://github.com/pandora-auth-ros-pkg/pandora_hardware/issues
+description: Code for reading PANDORA head sensors using the ARM platform.
+license: ''
+url: ''
