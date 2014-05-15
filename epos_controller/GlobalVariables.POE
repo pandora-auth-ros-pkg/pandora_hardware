@@ -3,10 +3,13 @@ GLOBALDEFINITIONS = 1
 $END_IT_HEADER
 PROGRAM GlobalVariables
 VAR_GLOBAL
-	Axis0 				: Axis_REF 	:= (AxisNo := 0);  (* Axis definitions *)
-	Axis1 				: Axis_REF 	:= (AxisNo := 1);
-	eStateMain          : MAIN_STATE;                  (* Process-State *)
+	Axis0 					: Axis_REF 	:= (AxisNo := 0);  (* Axis definitions *)
+	Axis1 					: Axis_REF 	:= (AxisNo := 1);
+	Axis2                   : Axis_REF  := (AxisNo := 2);
+	Axis3                   : Axis_REF  := (AxisNo := 3);
+	eStateMain          	: MAIN_STATE;                  (* Process-State *)
 END_VAR
+
 
 
 
