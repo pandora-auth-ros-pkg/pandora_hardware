@@ -329,26 +329,7 @@ END_VAR
 			Value := velocityActualValue
 		)
 
-(** 	fbWriteVelocity(Axis := Axis2, Execute := FALSE, Index := 16#206B, Subindex := 16#00, Value:= velocityActualValue); **)
-		(* call - Stmt *)
-		CAL fbWriteVelocity (
-			Axis := Axis2,
-			Execute := FALSE,
-			Index := 16#206B,
-			Subindex := 16#00,
-			Value := velocityActualValue
-		)
-
-(** 	fbWriteVelocity(Axis := Axis3, Execute := FALSE, Index := 16#206B, Subindex := 16#00, Value:= velocityActualValue); **)
-		(* call - Stmt *)
-		CAL fbWriteVelocity (
-			Axis := Axis3,
-			Execute := FALSE,
-			Index := 16#206B,
-			Subindex := 16#00,
-			Value := velocityActualValue
-		)
-
+(** 	 **)
 (** 	eStateMain := MAIN_Write_Velocity_loop; **)
 		(* assign - Stmt *)
 		LD MAIN_Write_Velocity_loop
@@ -376,26 +357,7 @@ END_VAR
 			Value := velocityActualValue
 		)
 
-(** 	fbWriteVelocity(Axis := Axis2, Execute := TRUE, Index := 16#206B, Subindex := 16#00, Value:= velocityActualValue); **)
-		(* call - Stmt *)
-		CAL fbWriteVelocity (
-			Axis := Axis2,
-			Execute := TRUE,
-			Index := 16#206B,
-			Subindex := 16#00,
-			Value := velocityActualValue
-		)
-
-(** 	fbWriteVelocity(Axis := Axis3, Execute := TRUE, Index := 16#206B, Subindex := 16#00, Value:= velocityActualValue); **)
-		(* call - Stmt *)
-		CAL fbWriteVelocity (
-			Axis := Axis3,
-			Execute := TRUE,
-			Index := 16#206B,
-			Subindex := 16#00,
-			Value := velocityActualValue
-		)
-
+(**  **)
 (** 	IF fbWriteVelocity.Error THEN **)
 		(* if - Cond *)
 		LD fbWriteVelocity.Error
@@ -559,26 +521,7 @@ END_VAR
 			Value := velocityActualValue
 		)
 
-(** 	fbWriteCurrent(Axis := Axis2, Execute := FALSE, Index := 16#2030, Subindex := 16#00, Value:= velocityActualValue); **)
-		(* call - Stmt *)
-		CAL fbWriteCurrent (
-			Axis := Axis2,
-			Execute := FALSE,
-			Index := 16#2030,
-			Subindex := 16#00,
-			Value := velocityActualValue
-		)
-
-(** 	fbWriteCurrent(Axis := Axis3, Execute := FALSE, Index := 16#2030, Subindex := 16#00, Value:= velocityActualValue); **)
-		(* call - Stmt *)
-		CAL fbWriteCurrent (
-			Axis := Axis3,
-			Execute := FALSE,
-			Index := 16#2030,
-			Subindex := 16#00,
-			Value := velocityActualValue
-		)
-
+(** 	 **)
 (** 	eStateMain := MAIN_Write_Current_loop; **)
 		(* assign - Stmt *)
 		LD MAIN_Write_Current_loop
@@ -606,26 +549,7 @@ END_VAR
 			Value := velocityActualValue
 		)
 
-(** 	fbWriteCurrent(Axis := Axis2, Execute := TRUE, Index := 16#2030, Subindex := 16#00, Value:= velocityActualValue); **)
-		(* call - Stmt *)
-		CAL fbWriteCurrent (
-			Axis := Axis2,
-			Execute := TRUE,
-			Index := 16#2030,
-			Subindex := 16#00,
-			Value := velocityActualValue
-		)
-
-(** 	fbWriteCurrent(Axis := Axis3, Execute := TRUE, Index := 16#2030, Subindex := 16#00, Value:= velocityActualValue); **)
-		(* call - Stmt *)
-		CAL fbWriteCurrent (
-			Axis := Axis3,
-			Execute := TRUE,
-			Index := 16#2030,
-			Subindex := 16#00,
-			Value := velocityActualValue
-		)
-
+(** 	 **)
 (**     IF (fbWriteCurrent.Error) THEN **)
 		(* if - Cond *)
 		LD fbWriteCurrent.Error
@@ -879,26 +803,10 @@ END_VAR
 		(* elsif - Stmts *)
 
 (**  **)
-(** 	  fbWriteObject(Axis := Axis0, Execute := oExecuteObjectWriting, CurrentValue := extractedValue);  **)
+(** 	  fbWriteObject(Axis := Axis0, Execute := oExecuteObjectWriting, CurrentValue := extractedValue);                  **)
 		(* call - Stmt *)
 		CAL fbWriteObject (
 			Axis := Axis0,
-			Execute := oExecuteObjectWriting,
-			CurrentValue := extractedValue
-		)
-
-(** 	  fbWriteObject(Axis := Axis2, Execute := oExecuteObjectWriting, CurrentValue := extractedValue); **)
-		(* call - Stmt *)
-		CAL fbWriteObject (
-			Axis := Axis2,
-			Execute := oExecuteObjectWriting,
-			CurrentValue := extractedValue
-		)
-
-(** 	  fbWriteObject(Axis := Axis3, Execute := oExecuteObjectWriting, CurrentValue := extractedValue);                  **)
-		(* call - Stmt *)
-		CAL fbWriteObject (
-			Axis := Axis3,
 			Execute := oExecuteObjectWriting,
 			CurrentValue := extractedValue
 		)
@@ -1415,9 +1323,9 @@ END_VAR
 
 (** 		 **)
 (** 		 **)
-(** 	  IF (leftVeloc = 0) THEN **)
+(** 	  IF (rightVeloc = 0) THEN **)
 		(* if - Cond *)
-		LD leftVeloc
+		LD rightVeloc
 		EQ 0
 		JMPCN ODK_SKIP_00000000000000K_000000000000001
 
@@ -1433,10 +1341,10 @@ END_VAR
 
 			JMP ODK_END_IF_00000000000000K
 
-(** 	  ELSIF (leftSign = 1) THEN **)
+(** 	  ELSIF (rightSign = 1) THEN **)
 		(* elseif - Cond *) 
 		ODK_SKIP_00000000000000K_000000000000001:
-		LD leftSign
+		LD rightSign
 		EQ 1
 		JMPCN ODK_SKIP_00000000000000K_000000000000002
 
@@ -1995,6 +1903,8 @@ END_VAR
 
 (**  **)
 (**    **)
+(**  **)
+(**  **)
 (**  **)
 (**  **)
 (**  **)

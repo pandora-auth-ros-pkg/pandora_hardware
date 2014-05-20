@@ -129,14 +129,12 @@ ELSIF eStateMain = MAIN_Read_Velocity_loop THEN
 	
 ELSIF eStateMain = MAIN_Write_Velocity THEN
     fbWriteVelocity(Axis := Axis0, Execute := FALSE, Index := 16#206B, Subindex := 16#00, Value:= velocityActualValue);
-	fbWriteVelocity(Axis := Axis2, Execute := FALSE, Index := 16#206B, Subindex := 16#00, Value:= velocityActualValue);
-	fbWriteVelocity(Axis := Axis3, Execute := FALSE, Index := 16#206B, Subindex := 16#00, Value:= velocityActualValue);
+	
 	eStateMain := MAIN_Write_Velocity_loop;
 	
 ELSIF eStateMain = MAIN_Write_Velocity_loop THEN
 	fbWriteVelocity(Axis := Axis0, Execute := TRUE, Index := 16#206B, Subindex := 16#00, Value:= velocityActualValue);
-	fbWriteVelocity(Axis := Axis2, Execute := TRUE, Index := 16#206B, Subindex := 16#00, Value:= velocityActualValue);
-	fbWriteVelocity(Axis := Axis3, Execute := TRUE, Index := 16#206B, Subindex := 16#00, Value:= velocityActualValue);
+
 	IF fbWriteVelocity.Error THEN
 	    eStateMain := MAIN_CanError;
 	ELSIF fbWriteVelocity.Done THEN
@@ -161,14 +159,12 @@ ELSIF eStateMain = MAIN_Read_Current_loop THEN
 	
 ELSIF eStateMain = MAIN_Write_Current THEN
     fbWriteCurrent(Axis := Axis0, Execute := FALSE, Index := 16#2030, Subindex := 16#00, Value:= velocityActualValue);
-	fbWriteCurrent(Axis := Axis2, Execute := FALSE, Index := 16#2030, Subindex := 16#00, Value:= velocityActualValue);
-	fbWriteCurrent(Axis := Axis3, Execute := FALSE, Index := 16#2030, Subindex := 16#00, Value:= velocityActualValue);
+	
 	eStateMain := MAIN_Write_Current_loop;
 	
 ELSIF eStateMain = MAIN_Write_Current_loop THEN 
     fbWriteCurrent(Axis := Axis0, Execute := TRUE, Index := 16#2030, Subindex := 16#00, Value:= velocityActualValue);
-	fbWriteCurrent(Axis := Axis2, Execute := TRUE, Index := 16#2030, Subindex := 16#00, Value:= velocityActualValue);
-	fbWriteCurrent(Axis := Axis3, Execute := TRUE, Index := 16#2030, Subindex := 16#00, Value:= velocityActualValue);
+	
     IF (fbWriteCurrent.Error) THEN
 	    eStateMain := MAIN_Init;
 	ELSIF (fbWriteCurrent.Done) THEN
@@ -222,9 +218,7 @@ ELSIF eStateMain = MAIN_UpdateTimer THEN
 	  
 ELSIF eStateMain = MAIN_StateWrite THEN
 
-	  fbWriteObject(Axis := Axis0, Execute := oExecuteObjectWriting, CurrentValue := extractedValue); 
-	  fbWriteObject(Axis := Axis2, Execute := oExecuteObjectWriting, CurrentValue := extractedValue);
-	  fbWriteObject(Axis := Axis3, Execute := oExecuteObjectWriting, CurrentValue := extractedValue);                 
+	  fbWriteObject(Axis := Axis0, Execute := oExecuteObjectWriting, CurrentValue := extractedValue);                 
 	  oExecuteObjectWriting := TRUE;
 	 
 	  IF fbWriteObject.Done AND (NOT fbWriteObject.Error) THEN				                           
@@ -318,9 +312,9 @@ ELSIF eStateMain = MAIN_StateAxis_Move THEN
 	  END_IF;
 		
 		
-	  IF (leftVeloc = 0) THEN
+	  IF (rightVeloc = 0) THEN
 	  	fbAxisStop0(Axis := Axis0 , Execute := oExecuteAxisMove , Deceleration := 10000);
-	  ELSIF (leftSign = 1) THEN
+	  ELSIF (rightSign = 1) THEN
       	fbAxisMove0(Axis := Axis0, Execute := oExecuteAxisMove, Velocity := rightVeloc,              
                 Acceleration := 10000, Deceleration := 10000, 
 				Direction := MCnegative);
@@ -421,6 +415,8 @@ END_IF;
 END_IF;
 
   
+
+
 
 
 
