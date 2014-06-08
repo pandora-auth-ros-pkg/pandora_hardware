@@ -1,0 +1,7 @@
+authors: Panayiotou Konstantinos
+maintainers: Panayiotou Konstantinos <klpanagi@ee.auth.gr>
+repo_url: https://github.com/pandora-auth-ros-pkg/pandora_hardware
+bugtracker: https://github.com/pandora-auth-ros-pkg/pandora_hardware/issues
+description: Code Written for xMega uC, controlling base sensors measurements. 
+license: ''
+url: ''
