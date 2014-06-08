@@ -15,6 +15,7 @@ volatile uint16_t	ticks;
 volatile uint8_t	TCTimingFlags;
 volatile uint8_t	NextSensor;
 
+
 void pandora_fsm(void)
 {
 	while(1)
@@ -57,10 +58,13 @@ void pandora_fsm(void)
 			TCTimingFlags&=~Tick100ms; 
 			/* <PUT HERE CODE TO BE SERVICED EVERY 100ms> */
 			/* <timestamp here?!> */
-			_batteries.batteryVoltage_MOTOR = ADCB.CH0RES;					/* <Read 12 bit value and save as data> */
-			_batteries.batteryVoltage_PSU = ADCB.CH1RES;					/* <Read 12 bit value and save as data> */
-			get_encoder_values(&_encoder);
-			
+			_batteries.batteryVoltage_MOTOR = ADC_ResultCh_GetWord_Unsigned(&ADCA.CH0, 0) - ADC_OFFSET;		/* <Read 12 bit value and save as data> */
+			_batteries.batteryVoltage_PSU = ADC_ResultCh_GetWord_Unsigned(&ADCA.CH1, 0) - ADC_OFFSET ;			/* <Read 12 bit value and save as data> */
+
+			//get_encoder_values(&_encoder);
+			cli();
+			encoder_value = read_encoder();
+			sei();			
 		}
 		if(TCTimingFlags & Tick200ms)	/* <Every 200ms> */
 		{
@@ -70,17 +74,13 @@ void pandora_fsm(void)
 			{
 				PCTXPointer=0;
 				PCTXFlags|=PCTX_Busy;
-				usart_putc(PCTXBuffer[0]);
+				RS232.DATA = PCTXBuffer[0];
 			}
 		}
 	}
 }
 
-/*! < Brief function description
- *
- *	FSM core for I2C communications.
- *	Lasts 15usec MAX.
- */
+
 uint8_t I2CSensorFSMCore(uint8_t SensorNumber)
 {
 	uint8_t NextSensorID=SensorNumber;
@@ -101,10 +101,7 @@ uint8_t I2CSensorFSMCore(uint8_t SensorNumber)
 	return NextSensorID;
 }
 
-/*!< Brief function description
- *
- *	SRF05 Sonars Service FSM.
- */
+
 uint8_t SRF05tinyFSM(uint8_t SensorNumber)
 {
 	switch (SensorModule[SensorNumber].CurrentState){
@@ -129,7 +126,7 @@ uint8_t SRF05tinyFSM(uint8_t SensorNumber)
 		break;
 //----------------------------------------------------------------------------------------------------
 		case FirstCommunicationStateWait:
-		if((twiMaster.status == TWIM_STATUS_BUSY))
+		if( twiMaster.status == TWIM_STATUS_BUSY )
 		{
 			/* <If communication timed out> */
 			if (SensorModule[SensorNumber].WaitCount1== 0)
@@ -166,7 +163,7 @@ uint8_t SRF05tinyFSM(uint8_t SensorNumber)
 		break;
 //-------------------------------------------------------------------------------------------------------
 		case SecondCommunicationStateWait:
-		if((twiMaster.status == TWIM_STATUS_BUSY) /*&& (twiMaster.result == TWIM_RESULT_OK)*/)
+		if(twiMaster.status == TWIM_STATUS_BUSY /*&& (twiMaster.result == TWIM_RESULT_OK)*/)
 		{	
 			if (SensorModule[SensorNumber].WaitCount1== 0)								/* <If communication timed out> */
 				{SensorNumber=SetSensorInReviveState(SensorNumber);}					/* <Put this sensor in revive state and check the next sensor> */
@@ -204,11 +201,7 @@ uint8_t SRF05tinyFSM(uint8_t SensorNumber)
 	return SensorNumber;
 }
 
-/*!< Brief function description
- *
- *	Two Wire Interface (I2C) software watchdog.
- *	
- */
+
 void TWIWatchdog(void)
 {
 	TWIWatchdogTimer++;
@@ -216,7 +209,7 @@ void TWIWatchdog(void)
 	{
 		/* <PORTD.OUTTGL = 0x20;> */
 		cli();									/* <Clear Global Interrupts> */
-		while(1);{}								/* <Loop to force WDT reset the uController> */
+		while(1){}								/* <Loop to force WDT to reset the uController> */
 	}
 }
 
@@ -233,10 +226,7 @@ void WaitI2CStatus(uint8_t SensorNumber)
 	}
 }
 
-/*!< Brief function description
- *
- *	I2C bus results handler. Checks for bus errors and data transmission errors.
- */
+
 uint8_t TWIResultHandler(uint8_t SensorNumber)
 {
 	switch (twiMaster.result)
@@ -266,11 +256,7 @@ uint8_t TWIResultHandler(uint8_t SensorNumber)
 	return SensorNumber;
 }
 
-/*!< Brief function description
- *
- *	Handle waiting time for "punished" sensors on I2C bus
- *	Decrease WaitCount1/ComRepeats/TimeForNextCycle if !0 
- */
+
 void SensorWaitTimeHandler(void)		
 {
 	for ( int i = 0 ; i < I2CSENSNUM; i++)
@@ -296,12 +282,7 @@ void SensorWaitTimeHandler(void)
 	}
 }
 
-/*!< Brief function description
- *
- *	Sets I2C sensor in revive state and resets I2C bus.
- *	Increases Communication Errors counter for the specific sensor.
- *	Punish that sensor on a wait state.
- */
+
  
 uint8_t SetSensorInReviveState(uint8_t SensorNumber)
 {
@@ -315,11 +296,6 @@ uint8_t SetSensorInReviveState(uint8_t SensorNumber)
 	return SensorNumber;																	/* <Leave this sensor and check for the next one> */
 }
 
-/*!< Brief function description
- *
- *	Check if all sensors in "CurrentGroup" ended measuring or are in revive state. 
- *	If true, initialize next group to be serviced.
- */
 void GroupHandler(void)					
 {
 	uint8_t NextGroup = CurrentGroup+1;
@@ -347,11 +323,7 @@ void GroupHandler(void)
 	}
 }
 
-/*! <Brief function description
- *
- *	Create an array with the IDs of sensors that belong in CurrentGroup (this group will begin measurements) 
- *	and clear 'Used' flag of Sensors in this group.
- */
+
 void CreateArraySameGroupIDs(void)			
 {
 	uint8_t i=0;
@@ -366,10 +338,7 @@ void CreateArraySameGroupIDs(void)
 	}	
 }
 
-/*!< Brief function description
- *
- *	Select next available sensor to be serviced on I2C bus.
- */
+
 uint8_t FindFirstAvailableSensor(uint8_t SensorNumber)
 {
 	uint8_t i=SensorNumber;
@@ -378,7 +347,7 @@ uint8_t FindFirstAvailableSensor(uint8_t SensorNumber)
 		if(!(SensorModule[j%I2CSENSNUM].CurrentState==ReviveState)){
 			if(!(SensorModule[j%I2CSENSNUM].CurrentState==IdleState)){
 				if(!(SensorModule[j%I2CSENSNUM].CurrentState==IdleState1)){
-						if((SensorModule[j%I2CSENSNUM].Groupmember==0))
+						if( SensorModule[j%I2CSENSNUM].Groupmember ==0 )
 						{k=j%I2CSENSNUM;
 						break;}
 					else

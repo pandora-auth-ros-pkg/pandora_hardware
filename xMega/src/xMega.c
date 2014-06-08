@@ -56,7 +56,9 @@ ISR(TCC0_OVF_vect)
 	tcc0_ovf_interrupt_callback();
 }
 
-//-----------------------------------------------------------------------------------------------------------
+/*!	\fn static void tcc0_ovf_interrupt_callback(void)
+ *	\brief Timer (200us) Interrupt callback Service routine.
+ */
 static void tcc0_ovf_interrupt_callback(void)
 {
 	TCTimingFlags |=Tick200us;

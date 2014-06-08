@@ -22,22 +22,61 @@
 #include "twi_master_driver.h"
 #include "wdt_driver.h"
 #include "usart_driver.h"
-
+#include "adc_driver.h"
 #include "sensors.h"
 
-/*! CPU speed 32MHz, TWI BAUDRATE 100kHz and Baudrate Register Settings */
-#define CPU_SPEED       32000000UL				/*! <uController CPU speed definition> */
+/*!	\def CPU_SPEED
+ *	\brief uController cpu speed definition
+ */
+#define CPU_SPEED       32000000UL
+/*!	\def BAIDRATE 
+ *	\brief TWI Baudrate value (100kHz)
+ */
 #define BAUDRATE		75000UL					//BEST MEASURED 70000UL
 #define TWI_BAUDSETTING TWI_BAUD(CPU_SPEED, BAUDRATE)
-#define USARTD0BAUDRATE 115200					/*! <UART Baudrate definition> */
+/*!	\def USARTD0BAUDRATE
+ *	\brief USART baudrate definition
+ */
+#define USARTD0BAUDRATE 115200	
+#define RS232 USARTD0
 
-#define RS232 USARTD0							
+/*!    \def ADC_OFFSET
+	\brief Precalculated ADC offset to be value 153 + 7 =160
+*/ 		
+#define ADC_OFFSET 160					 
 
 static const char nybble_chars[] = "0123456789ABCDEF";
 
 extern TWI_Master_t twiMaster;   
+extern volatile int8_t adcOffset_motor;
+extern volatile int8_t adcOffset_psu;
 
+/*!	\fn void clock_init(void)
+ *	\brief xMega System clock configurations and startup.
+ *	Written in Assembly.
+ */
 void clock_init(void);
+
+/*!	\fn void init_uC_clock(void)
+ *	\brief xMega System clock configurations and startup.
+ *	Written using atmel clock drivers.
+ */
 void init_uC_clock(void);
+
+/*!	\fn void _startup_system_init(void)
+ *	\brief Initialize and configure uController Modules:
+ *	uClock.
+ *	Watchdog timer.
+ *	Timer 0 for Event capturing.
+ *	UART. (PC communication)
+ *	I2C Interface.
+ *	Two Analog to Digital Signal Inputs. (ADCB)
+ *	Encoder.
+ */
 void _startup_system_init(void);
+/*!	\fn void init_ADC(void)
+ *	\brief Initialize two ADC inputs ( Battery Voltage Level Measuments )
+ */
+void init_ADC(void);
+void initadc(void);
 #endif 

@@ -15,14 +15,31 @@
 
 #include "encoder.h"
 
-#define SRF05tiny_WRITE_LEN		1	/* <1st byte:command , 2nd byte:data// command1:data contains delay time to trigger sonar, command2:send me status (1 byte) and data (3 bytes, sonar time + IR value)> */
-#define SRF05tiny_READ_LEN		4	/* <1st byte STATUS, 2nd..3rd byte range, 4th byte IR ADC conv Value> */
-
-#define SRF05tinyWaitForBusTimeOut			15			/* <ms> */
-#define SRF05tinyComRepeatTimeOut			30			/* <ms> */
-#define SRF05tinyWaitReviveSensorCounts		500			/* <ms> */
-#define SRF05tinyCommunicationCycle			100			/* <ms> */
-#define SRF05tinyDelayAfterNack				5			/* <ms> */
+/*!	\def SRF05tiny_WRITE_LEN
+ *	\brief Sonar write length 1st byte:command , 2nd byte:data// command1:data contains delay time to trigger sonar, command2:send me status (1 byte) and data (3 bytes, sonar time + IR value)
+ */
+#define SRF05tiny_WRITE_LEN		1
+/*!	\def SRF05tiny_READ_LEN
+ *	\brief Sonar read length. 1st byte STATUS, 2nd..3rd byte range, 4th byte IR ADC convertion Value 
+ */
+#define SRF05tiny_READ_LEN		4	
+/*!	\def SRF05tinyWaitForBusTimeOut
+ *	\brief Value in milliseconds 
+ */
+#define SRF05tinyWaitForBusTimeOut			15			
+/*!	\def SRF05tinyComRepeatTimeOut
+ *	\brief Value in milliseconds 
+ */
+#define SRF05tinyComRepeatTimeOut			30			
+/*!	\def SRF05tinyWaitReviveSensorCounts
+ *	\brief Value in milliseconds 
+ */
+#define SRF05tinyWaitReviveSensorCounts		500			
+#define SRF05tinyCommunicationCycle			100			
+/*!	\def SRF05tinyDelayAfterNack
+ *	\brief Value in milliseconds 
+ */
+#define SRF05tinyDelayAfterNack				5			
 
 /*!	\union SensorStatusFlags
  */
@@ -79,38 +96,55 @@ typedef struct{
 }batteries_struct;
 
 /*!	\enum Sensor_Types
- *	\brief  Enumerated sensor types on xMega.
+ *	\brief  Enumerated sensor types on xMega.b
  *	Currently own SRF05 Sonar Sensors, Battery voltage level Measurements and Rotary Encoder.
  */
 enum Sensor_Types{
-	SRF05tinym,						/*! <Sonars on I2C bus> */
-	Battery,						/*! <NOT I2C SENSOR	(ADCB)> */
-	RotaryEncoder					/*! <SSI communication protocol> */
+	SRF05tinym,						
+	Battery,						
+	RotaryEncoder					
 };
 
 /*!	\enum  SensorStates
  *	\brief Enumerated States for I2C sensors
  */
 enum SensorStates{
-	ReviveState,					/*!< Revive State <0> */
-	FirstRunState,					/*!< First Run State <1> */
-	FirstCommunicationState,		/*!< First Communication State <2> */
-	FirstCommunicationStateWait,	/*!< First Communication Wait State <3> */
-	SecondCommunicationState,		/*!< Second Communication State <4> */
-	SecondCommunicationStateWait,	/*!< Second Communication Wait State <5> */
-	IdleState1,						/*!< Idle State 1 <6> */
-	IdleState2,						/*!< Idle State 2 <7> */
-	IdleState						/*!< IdleState <8> */
+	ReviveState,					/*! Revive State <0> */
+	FirstRunState,					/*! First Run State <1> */
+	FirstCommunicationState,		/*! First Communication State <2> */
+	FirstCommunicationStateWait,	/*! First Communication Wait State <3> */
+	SecondCommunicationState,		/*! Second Communication State <4> */
+	SecondCommunicationStateWait,	/*! Second Communication Wait State <5> */
+	IdleState1,						/*! Idle State 1 <6> */
+	IdleState2,						/*! Idle State 2 <7> */
+	IdleState						/*! IdleState <8> */
 };
 
-#define I2CSENSNUM 5		/*!< Number of sensors on i2c bus. Currently 5 Sonars */
-#define SENSORGROUPS 3		/*!< I2C sensors groups. Group0 is group-free. 3 means group0 + 3 more groups  */
-#define SENSNUM 7			/*!< (5*Sonars on I2C bus) (Batteries as 1 sensor) (1*encoder) */
+/*!	\def I2CSENSNUM 
+ *	\brief Number of sensors on i2c bus. Currently 4 Sonars 
+ */
+#define I2CSENSNUM 4	
+/*!	\def SENSORGROUPS
+ *	\brief I2C sensors groups. Group0 is group-free. 3 means group0 + 3 more groups  
+ */	
+#define SENSORGROUPS 2	
+/*!	\def SENSNUM 
+ *	\brief (4*Sonars on I2C bus) (Batteries as 1 sensor) (1*encoder) 
+ */
+#define SENSNUM 6			
 
+/*!	\var I2CAddressLUT  Look Up Table holding information about the sensors on I2C bus. 
+ *	Columns: 0 = SensorType. 1 = Address on. 2 = Group that sensor belongs.
+ */  
 extern const int8_t I2CAddressLUT[I2CSENSNUM][3];	
+/*! \var SensorModule An array of i2c_sensor_struct objects. Holding i2c sensors info. */
 extern i2c_sensor_struct SensorModule[I2CSENSNUM];
 extern batteries_struct _batteries;
+extern uint16_t BatteryPSU;
+extern uint16_t BatteryMotor;
+
 extern	encoder_struct _encoder;
+extern uint16_t encoder_value;
 
 uint16_t CreateSensorStructs(void);
 #endif
