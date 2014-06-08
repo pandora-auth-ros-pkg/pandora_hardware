@@ -50,10 +50,20 @@ static DigitalOut I2C0_LifeLED(LED1);
 static DigitalOut I2C1_LifeLED(LED2);
 //@}
 
+/** @name Enables / Disables the I2C analog switches
+ * Turns on or off the analog switches that control the I2C buses power supply
+ * @see MAX4674ESE+ */
+//@{
+static DigitalOut I2C0_switch(p30);
+static DigitalOut I2C1_switch(p29);
+//@}
+
 static Mutex WDT_mutex;	///<Mutex that protects Watchdog feeding sequence
 
 
 void HealthInit() {
+	I2C0_switch = 0;	//Active Low
+	I2C1_switch = 0;	//Active Low
 #if !DEVELOPMENT
     LPC_WDT->TC = (int)( (WDT_MS / 1000) * (500000 / 4) );
     LPC_WDT->MOD = (1 << WDRESET) | (1 << WDEN);	//enable watchdog reset
