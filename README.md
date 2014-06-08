@@ -3,5 +3,7 @@ pandora_hardware
 
 Contains code used by microcontrollers and other hardware.
 
-In http://users.auth.gr/orestisz you can find the doxygen documentation for the code
-running in ARM uController
+## Documentation
+| Package |                    API Documentaion                         |
+| :-----: | :---------------------------------------------------------: |
+| headM4  | [code API](http://docs.pandora.ee.auth.gr/api/headM4/html/) |

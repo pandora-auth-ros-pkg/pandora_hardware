@@ -14,31 +14,43 @@ END_TYPE
 (* PROJEKT TYPEN *)
 
 TYPE INITIALIZE_STATE :(
-	(*Initialize both axis*)
+	(*Initialize all axis*)
 	INITIALIZE_Init,		(* 0 *)
 	(*check the status of axis0*)
 	INITIALIZE_CheckAxis0,	(* 1 *)
 	(*check the status of axis1*)
 	INITIALIZE_CheckAxis1,	(* 2 *)
+	(*check the status of axis2*)
+	INITIALIZE_CheckAxis2,  (* 3 *)
+	(*check the status of axis3*)
+	INITIALIZE_CheckAxis3,  (* 4 *)
 	(*power of both axis*)
-	INITIALIZE_PowerOff,	(* 3 *)
+	INITIALIZE_PowerOff,	(* 5 *)
 	(*reset axis0*)
-	INITIALIZE_Reset0,		(* 4 *)
+	INITIALIZE_Reset0,		(* 6 *)
 	(*loop until axis0 is reset*)
-	INITIALIZE_Reset0_loop,	(* 5 *)
+	INITIALIZE_Reset0_loop,	(* 7 *)
 	(*reset axis1*)
-	INITIALIZE_Reset1,		(* 6 *)
+	INITIALIZE_Reset1,		(* 8 *)
 	(*wait until axis1 is reset*)
-	INITIALIZE_Reset1_loop,	(* 7 *)
-	(*power on both axis*)
-	INITIALIZE_PowerOn,		(* 8 *)
+	INITIALIZE_Reset1_loop,	(* 9 *)
+	(*reset axis2*)
+	INITIALIZE_Reset2,      (* 10 *)
+	(*loop until axis2 is reset*)
+	INITIALIZE_Reset2_loop, (* 11 *)
+	(*reset axis3*)
+	INITIALIZE_Reset3,      (* 12 *)
+	(*loop until axis3 is reset*)
+	INITIALIZE_Reset3_loop, (* 13 *)
+	(*power on all axis*)
+	INITIALIZE_PowerOn,		(* 14 *)
 	(*stop both axis*)
-	INITIALIZE_Stop,		(* 9 *)
-	(*loop until both axis have stoped*)
-	INITIALIZE_Stop_loop,	(* 10 *)
-	INITIALIZE_StateHalt0,	(* 11 *)
-	INITIALIZE_CanError,
-	INITIALIZE_CanError_loop
+	INITIALIZE_Stop,		(* 15 *)
+	(*loop until all axis have stoped*)
+	INITIALIZE_Stop_loop,	(* 16 *)
+	INITIALIZE_StateHalt0,	(* 17 *)
+	INITIALIZE_CanError,    (* 18 *)
+	INITIALIZE_CanError_loop(* 19 *)
 ) := INITIALIZE_Init;
 END_TYPE
 
@@ -114,7 +126,7 @@ FUNCTION_BLOCK MC_ReadStatus
 
 (* PROJEKT PROTOTYPEN *)
 
-$INCLUDE "K:\DOCUMENTS AND SETTINGS\EPOS\DESKTOP\HOPE\$GEN$\FB_CANRECOVER.PTT"
+$INCLUDE "K:\DOCUMENTS AND SETTINGS\EPOS\DESKTOP\ANNA\ANNAST\$GEN$\FB_CANRECOVER.PTT"
 
 
 (* EXTERNE POEs *)

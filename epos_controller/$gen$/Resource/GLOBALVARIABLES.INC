@@ -14,7 +14,7 @@ END_TYPE
 (* PROJEKT TYPEN *)
 
 TYPE MAIN_STATE :(
-	(*initialize both controllers to power on - stand still*)
+	(*initialize all controllers to power on - stand still*)
 	(*uses function block FB_INITIALIZE*)
 	MAIN_Init,					(* 0 *)
 	MAIN_Init_loop,				(* 1 *)
@@ -52,16 +52,20 @@ TYPE MAIN_STATE :(
 	(*Resets the control word in order to accept a new command*)
 	MAIN_StateWrite,			(* 15 *)
 	
-	(*halts both motors*)
+	(*halts all motors*)
 	MAIN_StateHalt0,			(* 16 *)
 	MAIN_StateHalt1,			(* 17 *)
 	
 	(*attempts an error recovery if there is CAN error*)
 	(*uses function block FB_CanRecover*)
 	MAIN_CanError,				(* 18 *)
-	MAIN_CanError_loop			(* 19 *)
+	MAIN_CanError_loop,			(* 19 *)
 	
-) := MAIN_Init;
+	(*Intercepts non-CAN errors coming from other FBs to MAIN_Init*)
+	(*uses FB_ErrorWarning to write error codes to EPOS Object Dictionary*)
+	MAIN_Error,					(* 20 *)
+	MAIN_Error_loop				(* 21 *)
+	) := MAIN_Init;
 END_TYPE
 
 
