@@ -105,9 +105,8 @@ void CheckSensorBuffersForNewData(void)
 	/* <Copy Encoder info + data in PCTXBuffer> */
 	PCTXCurrentPointer = copyEncoderInfo_PCTXBuffer(PCTXCurrentPointer);
 	
-	PCTXBufferCrc=0;
-	for(int i=0; i<PCTXBufferLen-5; i++)
-		PCTXBufferCrc+=(int)PCTXBuffer[i];
+	PCTXBufferCrc = calculate_CRC(PCTXBufferLen);
+	
 	PCTXBuffer[PCTXCurrentPointer++]=nybble_chars[(PCTXBufferCrc&0xf000)>>12];
 	PCTXBuffer[PCTXCurrentPointer++]=nybble_chars[(PCTXBufferCrc&0x0f00)>>8];
 	PCTXBuffer[PCTXCurrentPointer++]=nybble_chars[(PCTXBufferCrc&0x00f0)>>4];
@@ -115,14 +114,15 @@ void CheckSensorBuffersForNewData(void)
 	PCTXBuffer[PCTXCurrentPointer]=EOT;											/* <End of transmission Character> */
 }
 
-/*! 
- *	Brief Function Description.
- *
- *	Copy Batteries info + data in PCTXBuffer.
- *	Header = BatterySensorID (3 bytes) + BatterySensorType (3 bytes).
- *	Value = BatteryMotor (3bytes) + BatteryPSU (3 bytes).
- *	LineFeed = LF character (0x0A).
-*/ 
+uint16_t calculate_CRC(uint16_t length)
+{
+	uint16_t crc = 0;
+	for(int i=0; i<length-5; i++)	
+		{crc += (int)PCTXBuffer[i];}
+			
+	return crc;
+}
+
 uint16_t copyBatteriesInfo_PCTXBuffer(uint16_t PCTXCurrentPointer)
 {
 	uint16_t pctxCurrentPointer_ = PCTXCurrentPointer;
@@ -136,25 +136,17 @@ uint16_t copyBatteriesInfo_PCTXBuffer(uint16_t PCTXCurrentPointer)
 	PCTXBuffer[pctxCurrentPointer_++] = nybble_chars[((Battery)&0x0f)];
 	PCTXBuffer[pctxCurrentPointer_++] = ' ';
 	/* <battery has no status. Data comes next!!> */
-	PCTXBuffer[pctxCurrentPointer_++] = nybble_chars[(_batteries.batteryVoltage_PSU&0x0f00)>>8];
-	PCTXBuffer[pctxCurrentPointer_++] = nybble_chars[(_batteries.batteryVoltage_PSU&0x00f0)>>4];
-	PCTXBuffer[pctxCurrentPointer_++] = nybble_chars[(_batteries.batteryVoltage_PSU&0x000f)];
-	PCTXBuffer[pctxCurrentPointer_++] = nybble_chars[(_batteries.batteryVoltage_MOTOR&0x0f00)>>8];
-	PCTXBuffer[pctxCurrentPointer_++] = nybble_chars[(_batteries.batteryVoltage_MOTOR&0x00f0)>>4];
-	PCTXBuffer[pctxCurrentPointer_++] = nybble_chars[(_batteries.batteryVoltage_MOTOR&0x000f)];
+	PCTXBuffer[pctxCurrentPointer_++] = nybble_chars[(_batteries.batteryVoltage_PSU & 0x0f00)>>8];
+	PCTXBuffer[pctxCurrentPointer_++] = nybble_chars[(_batteries.batteryVoltage_PSU & 0x00f0)>>4];
+	PCTXBuffer[pctxCurrentPointer_++] = nybble_chars[(_batteries.batteryVoltage_PSU & 0x000f)];
+	PCTXBuffer[pctxCurrentPointer_++] = nybble_chars[(_batteries.batteryVoltage_MOTOR & 0x0f00)>>8];
+	PCTXBuffer[pctxCurrentPointer_++] = nybble_chars[(_batteries.batteryVoltage_MOTOR & 0x00f0)>>4];
+	PCTXBuffer[pctxCurrentPointer_++] = nybble_chars[(_batteries.batteryVoltage_MOTOR & 0x000f)];
 	pctxCurrentPointer_ = PutSensorSeparatorInPCTXBuffer(pctxCurrentPointer_);						/* <LF 1 Byte> */
 	
 	return (pctxCurrentPointer_);
 }
 
-/*! 
- *	Brief Function Description.
- *
- *	Copy Encoder info + data in PCTXBuffer.	<10 Bytes>
- *	Header = EncoderSensorID (3 bytes) + EncoderSensorType (3 bytes).
- *	Value = Encoder (3bytes) (3*Nybble)
- *	LineFeed = LF character (0x0A).
-*/ 
 uint16_t copyEncoderInfo_PCTXBuffer(uint16_t PCTXCurrentPointer)
 {
 	uint16_t pctxCurrentPointer_ = PCTXCurrentPointer;
@@ -168,20 +160,19 @@ uint16_t copyEncoderInfo_PCTXBuffer(uint16_t PCTXCurrentPointer)
 	PCTXBuffer[pctxCurrentPointer_++] = nybble_chars[((RotaryEncoder)&0x0f)];
 	PCTXBuffer[pctxCurrentPointer_++] = ' ';
 	/* <Encoder data> */
-	PCTXBuffer[pctxCurrentPointer_++] = nybble_chars[(_encoder.encoder_value_degrees&0x0f00)>>8];
-	PCTXBuffer[pctxCurrentPointer_++] = nybble_chars[(_encoder.encoder_value_degrees&0x00f0)>>4];
-	PCTXBuffer[pctxCurrentPointer_++] = nybble_chars[(_encoder.encoder_value_degrees&0x000f)];
+	PCTXBuffer[pctxCurrentPointer_++] = nybble_chars[(encoder_value&0xf000)>>12];
+	PCTXBuffer[pctxCurrentPointer_++] = nybble_chars[(encoder_value&0x0f00)>>8];
+	PCTXBuffer[pctxCurrentPointer_++] = nybble_chars[(encoder_value&0x00f0)>>4];
+	PCTXBuffer[pctxCurrentPointer_++] = nybble_chars[(encoder_value&0x000f)];
 	/* <LF 1 Byte> */
 	pctxCurrentPointer_ = PutSensorSeparatorInPCTXBuffer(pctxCurrentPointer_);						
 	
 	return (pctxCurrentPointer_);
 }
+
+
 	
-/*!
- *	Brief Function Description.
- *
- *	Insert, between sensors, seperator character (LF = 0x0A)
-*/
+
 uint16_t PutSensorSeparatorInPCTXBuffer(uint16_t PCTXCurrentPointer)
 {
 	uint16_t RealPCTXBufferPointer = PCTXCurrentPointer;
@@ -189,12 +180,7 @@ uint16_t PutSensorSeparatorInPCTXBuffer(uint16_t PCTXCurrentPointer)
 	return RealPCTXBufferPointer;
 }
 
-/*!
- *	Brief Function Description.
- *
- *	Copy I2C sensors Header in PCTX Buffer
- *	Header length (bytes) = 15
-*/
+
 uint16_t CopySensorHeaderToPCTXBuffer(uint8_t SensorNumber, uint16_t PCTXCurrentPointer)
 {
 	uint16_t RealPCTXBufferPointer = PCTXCurrentPointer;
@@ -216,12 +202,7 @@ uint16_t CopySensorHeaderToPCTXBuffer(uint8_t SensorNumber, uint16_t PCTXCurrent
 	return RealPCTXBufferPointer;
 }
 
-/*!
- *	Brief Function Description.
- *
- *	Copy I2C sensors Data in PCTX Buffer
- *	Length: 8 bytes per sensor
-*/
+
 uint16_t CopyDataToPCTXBuffer(uint8_t SensorNumber, uint16_t PCTXCurrentPointer)
 {
 	int16_t RealPCTXBufferPointer = PCTXCurrentPointer;

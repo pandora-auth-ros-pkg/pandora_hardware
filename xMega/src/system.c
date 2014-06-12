@@ -10,6 +10,8 @@
 #include "system.h"
 
 TWI_Master_t twiMaster;  
+volatile int8_t adcOffset_motor;
+volatile int8_t adcOffset_psu;
 
 void clock_init(void)
 {
@@ -71,17 +73,7 @@ void init_uC_clock(void){
 	/* Now System Clock is Ready = 32MHz */
 }
 
-/*!
-		Brief Description
-	Initialize and startup uController Modules:
-	Initialize uClock.
-	Initialize Watchdog timer.
-	Initialize Timer 0 for Event capturing.
-	Initialize UART. (PC communication)
-	Initialize I2C Interface.
-	Initialize two Analog to Digital Signal Inputs. (ADCB)
-	Initialize Encoder.
- */
+
 void _startup_system_init(void)
 {
 	init_uC_clock();											/* <Initialize Fsys clock to use external XTAL and PLL for Fsys=32MHz> */
@@ -98,24 +90,83 @@ void _startup_system_init(void)
 	/*================================ Initialize TWI master =========================================*/
 	TWI_MasterInit(&twiMaster,
 	&TWIC,TWI_MASTER_INTLVL_LO_gc,
-	TWI_BAUDSETTING);
+	TWI_BAUDSETTING); 
 	/*================================================================================================*/
 	PMIC.CTRL |= PMIC_LOLVLEN_bm;								/* <Enable LO interrupt level> */
-	
-	/*================================ Enable ADCB CH0 & CH1 =========================================*/
-	PORTB.OUT=0x00;
-	PORTB.DIR = 0x00;											/* <Configure PORTB as input> */
-	ADCB.CTRLA |= 0x1;											/* <Enable ADCB> */
-	ADCB.CTRLB = ADC_RESOLUTION_12BIT_gc; 						/* <Set 12 bit conversion> */
-	ADCB.CTRLB |= ADC_FREERUN_bm;								/* <Enable Freerunning mode> */
-	ADCB.REFCTRL = ADC_REFSEL_AREFB_gc;							/* <External reference from AREF pin on PORT B> */
-	ADCB.PRESCALER = ADC_PRESCALER_DIV512_gc; 					/* <Peripheral clk/512 (32MHz/512=62.5kHz)> */
-	ADCB.CH0.CTRL = ADC_CH_INPUTMODE_SINGLEENDED_gc; 			/* <Single Ended> */
-	ADCB.CH1.CTRL = ADC_CH_INPUTMODE_SINGLEENDED_gc; 			/* <Single Ended> */
-	ADCB.CH0.MUXCTRL = ADC_CH_MUXPOS_PIN1_gc; 					/* <ADC_CHANNEL0 Converts Analog Input PORTB:1 (Motor Battery)> */
-	ADCB.CH1.MUXCTRL = ADC_CH_MUXPOS_PIN3_gc; 					/* <ADC_CHANNEL1 Converts Analog Input PORTB:3 (PSU Battery)> */
-	ADCB.EVCTRL = ADC_SWEEP_01_gc;								/* <SWEEP mode 01 selected> */
-	/*================================================================================================*/
-	
+	init_ADC();
 	init_encoder(&_encoder);
+	
+}
+
+
+void initadc(void)
+{
+	/*================================ Enable ADCB CH0 & CH1 =========================================*/
+	
+	PORTA.DIR = 0x00;											/* <Configure PORTB as input> */
+	ADCA.CTRLA |= 0x1;											/* <Enable ADCB> */
+	ADCA.CTRLB = ADC_RESOLUTION_12BIT_gc; 						/* <Set 12 bit conversion> */
+	ADCA.CTRLB |= ADC_FREERUN_bm;								/* <Enable Freerunning mode> */
+	ADCA.REFCTRL = ADC_REFSEL_AREFA_gc;							/* <External reference from AREF pin on PORT B> */
+	ADCA.PRESCALER = ADC_PRESCALER_DIV512_gc; 					/* <Peripheral clk/512 (32MHz/512=62.5kHz)> */
+	ADCA.CH0.CTRL = ADC_CH_INPUTMODE_SINGLEENDED_gc; 			/* <Single Ended> */
+	ADCA.CH1.CTRL = ADC_CH_INPUTMODE_SINGLEENDED_gc; 			/* <Single Ended> */
+	ADCA.CH0.MUXCTRL = ADC_CH_MUXPOS_PIN1_gc; 					/* <ADC_CHANNEL0 Converts Analog Input PORTB:1 (Motor Battery)> */
+	ADCA.CH1.MUXCTRL = ADC_CH_MUXPOS_PIN3_gc; 					/* <ADC_CHANNEL1 Converts Analog Input PORTB:3 (PSU Battery)> */
+	ADCA.EVCTRL = ADC_SWEEP_01_gc;								/* <SWEEP mode 01 selected> */
+	/*================================================================================================*/
+}
+
+void init_ADC(void)
+{
+	PORTA.DIR = 0;
+	/*  <Move stored calibration values stored in PRGMEM to ADC A.> */
+	ADC_CalibrationValues_Load(&ADCA);
+	/* Set up ADC A to have signed conversion mode and 12 bit resolution. */
+	ADC_ConvMode_and_Resolution_Config(&ADCA, ADC_ConvMode_Unsigned, ADC_RESOLUTION_12BIT_gc);
+	/* Set sample rate. Peripheral clk/512 (32MHz/512=62.5kHz) */
+	ADC_Prescaler_Config(&ADCA, ADC_PRESCALER_DIV512_gc);
+	/* Set reference voltage on ADC A to be AREF.*/
+	ADC_Reference_Config(&ADCA, ADC_REFSEL_AREFA_gc);
+	/* Setup channel 0, 1 with different inputs. */
+	ADC_Ch_InputMode_and_Gain_Config(&ADCA.CH0,
+									 ADC_CH_INPUTMODE_SINGLEENDED_gc,
+									 ADC_DRIVER_CH_GAIN_NONE);
+
+	ADC_Ch_InputMode_and_Gain_Config(&ADCA.CH1,
+									 ADC_CH_INPUTMODE_SINGLEENDED_gc,
+									 ADC_DRIVER_CH_GAIN_NONE);
+							
+	/*  <Get offset value for ADC A Channel 0.> */
+	//ADC_Ch_InputMux_Config(&ADCA.CH0, ADC_CH_MUXPOS_PIN1_gc, ADC_CH_MUXNEG_PIN1_gc);
+	//ADC_Enable(&ADCA);
+	/* Wait until common mode voltage is stable. Default clk is 2MHz and
+	 * therefore below the maximum frequency to use this function. */
+	//ADC_Wait_32MHz(&ADCA);
+	//adcOffset_motor = ADC_Offset_Get_Signed(&ADCA, &ADCA.CH0, false);
+	//ADC_Disable(&ADCA);
+			 
+	/*  <Get offset value for ADC A Channel 0>. */
+	//ADC_Ch_InputMux_Config(&ADCA.CH0, ADC_CH_MUXPOS_PIN7_gc, ADC_CH_MUXNEG_PIN7_gc);
+	//ADC_Enable(&ADCA);
+	/* < Wait until common mode voltage is stable. Default clk is 2MHz and
+	 * therefore below the maximum frequency to use this function.> */
+	//ADC_Wait_32MHz(&ADCA);
+ 	//adcOffset_psu = ADC_Offset_Get_Signed(&ADCA, &ADCA.CH0, false);
+	//ADC_Disable(&ADCA);
+
+	/* Set input to the channels in ADC A to be PIN1, 3. */
+	ADC_Ch_InputMux_Config(&ADCA.CH0, ADC_CH_MUXPOS_PIN1_gc, 0);
+	ADC_Ch_InputMux_Config(&ADCA.CH1, ADC_CH_MUXPOS_PIN3_gc, 0);
+	/* Setup sweep of all 2 virtual channels.*/
+	ADC_SweepChannels_Config(&ADCA, ADC_SWEEP_01_gc);
+	/* Enable ADC A .*/
+	ADC_Enable(&ADCA);
+
+	/* Wait until common mode voltage is stable. Default clk is 2MHz and
+	 * therefore below the maximum frequency to use this function. */
+	ADC_Wait_32MHz(&ADCA);
+
+	/* Enable free running mode. */
+	ADC_FreeRunning_Enable(&ADCA);
 }

@@ -18,6 +18,4 @@
 /* <#define _PCTX_DEBUG_ON> */
 /* <#define _GROUP_HANDLING_DEBUG_ON> */
 
-void _startup_system_init(void);
-
 #endif /* XMEGA_H_ */
