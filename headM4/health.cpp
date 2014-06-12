@@ -94,21 +94,21 @@ void GridEYEHealthTask(void const *args) {
 
 		WDT_feed();
 
-		if (!GridEYECenter_healthy || !GridEYELeft_healthy) {
+		if (!GridEYECenter_healthy || !GridEYERight_healthy) {
 			//TODO Do something here, though unlikely to come here
 		}
-		if (!GridEYECenter_healthy && !GridEYELeft_healthy) {
+		if (!GridEYECenter_healthy && !GridEYERight_healthy) {
 			I2C0_FailCount++;
 			if (I2C0_FailCount == 1) {
-				USBGridEYEvaluesZero(GEYE_LEFT);
+				USBGridEYEvaluesZero(GEYE_RIGHT);
 				USBGridEYEvaluesZero(GEYE_CENTER);
 			}
 			repairI2C(I2C0_FailCount, I2C_0);
 		}
-		if (!GridEYERight_healthy) {
+		if (!GridEYELeft_healthy) {
 			I2C1_FailCount++;
 			if (I2C1_FailCount == 1) {
-				USBGridEYEvaluesZero(GEYE_RIGHT);
+				USBGridEYEvaluesZero(GEYE_LEFT);
 			}
 			repairI2C(I2C1_FailCount, I2C_1);
 		}
@@ -140,14 +140,14 @@ void HealthyGridEYEvaluesSet(uint8_t values[], uint8_t grideye_num) {
 			USBGridEYEvaluesSet(values, grideye_num);
 			I2C0_LifeLED = !I2C0_LifeLED;
 			break;
-		case GEYE_LEFT:
-			GridEYELeft_healthy = 1;
+		case GEYE_RIGHT:
+			GridEYERight_healthy = 1;
 			I2C0_FailCount = 0;
 			USBGridEYEvaluesSet(values, grideye_num);
 			I2C0_LifeLED = !I2C0_LifeLED;
 			break;
-		case GEYE_RIGHT:
-			GridEYERight_healthy = 1;
+		case GEYE_LEFT:
+			GridEYELeft_healthy = 1;
 			I2C1_FailCount = 0;
 			USBGridEYEvaluesSet(values, grideye_num);
 			I2C1_LifeLED = !I2C1_LifeLED;

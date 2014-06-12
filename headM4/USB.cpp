@@ -54,12 +54,12 @@ void USBTask(const void *args) {
 				//To send a ZLP the second argument in writeBlock() must be 0. First argument can be anything.
 				usb->writeBlock(&command, 0);
 				break;
-			case GEYE_LEFT_REQUEST:
-				usb->writeBlock(USBGridEYEvaluesGet(GEYE_LEFT), PIXELS_COUNT);
-				usb->writeBlock(&command, 0);
-				break;
 			case GEYE_RIGHT_REQUEST:
 				usb->writeBlock(USBGridEYEvaluesGet(GEYE_RIGHT), PIXELS_COUNT);
+				usb->writeBlock(&command, 0);
+				break;
+			case GEYE_LEFT_REQUEST:
+				usb->writeBlock(USBGridEYEvaluesGet(GEYE_LEFT), PIXELS_COUNT);
 				usb->writeBlock(&command, 0);
 				break;
 			case CO2_REQUEST:
@@ -77,11 +77,11 @@ void USBGridEYEvaluesSet(uint8_t values[], uint8_t grideye_num) {
 		case GEYE_CENTER:
 			memcpy((void *)uGridEYECenterValues, (const void *)values, PIXELS_COUNT * sizeof(uint8_t));
 			break;
-		case GEYE_LEFT:
-			memcpy((void *)uGridEYELeftValues, (const void *)values, PIXELS_COUNT * sizeof(uint8_t));
-			break;
 		case GEYE_RIGHT:
 			memcpy((void *)uGridEYERightValues, (const void *)values, PIXELS_COUNT * sizeof(uint8_t));
+			break;
+		case GEYE_LEFT:
+			memcpy((void *)uGridEYELeftValues, (const void *)values, PIXELS_COUNT * sizeof(uint8_t));
 			break;
 	}
 }
@@ -91,11 +91,11 @@ void USBGridEYEvaluesZero(uint8_t grideye_num) {
 		case GEYE_CENTER:
 			memset(uGridEYECenterValues, 0, PIXELS_COUNT * sizeof(uint8_t));
 			break;
-		case GEYE_LEFT:
-			memset(uGridEYELeftValues, 0, PIXELS_COUNT * sizeof(uint8_t));
-			break;
 		case GEYE_RIGHT:
 			memset(uGridEYERightValues, 0, PIXELS_COUNT * sizeof(uint8_t));
+			break;
+		case GEYE_LEFT:
+			memset(uGridEYELeftValues, 0, PIXELS_COUNT * sizeof(uint8_t));
 			break;
 	}
 }
@@ -105,11 +105,11 @@ uint8_t * USBGridEYEvaluesGet(uint8_t grideye_num) {
 		case GEYE_CENTER:
 			return uGridEYECenterValues;
 			break;
-		case GEYE_LEFT:
-			return uGridEYELeftValues;
-			break;
 		case GEYE_RIGHT:
 			return uGridEYERightValues;
+			break;
+		case GEYE_LEFT:
+			return uGridEYELeftValues;
 			break;
 	}
 	return uGridEYECenterValues;	//Shouldn't come here

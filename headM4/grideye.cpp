@@ -38,14 +38,14 @@ void GridEYEInit(I2C *i2c0_obj, I2C *i2c1_obj) {
     temp_sens2.i2c_obj = i2c0_obj;
     temp_sens2.i2c_periph_num = 0;
     temp_sens2.i2c_addr = GRIDEYE_I2C_ADDR_VDD;
-    temp_sens2.grideye_num = GEYE_LEFT;
-    tGridEYELeft = new Thread(GridEYETask, (void *)&temp_sens2);
+    temp_sens2.grideye_num = GEYE_RIGHT;
+    tGridEYERight = new Thread(GridEYETask, (void *)&temp_sens2);
 
     temp_sens3.i2c_obj = i2c1_obj;
     temp_sens3.i2c_periph_num = 1;
     temp_sens3.i2c_addr = GRIDEYE_I2C_ADDR_GND;
-    temp_sens3.grideye_num = GEYE_RIGHT;
-    tGridEYERight = new Thread(GridEYETask, (void *)&temp_sens3);
+    temp_sens3.grideye_num = GEYE_LEFT;
+    tGridEYELeft = new Thread(GridEYETask, (void *)&temp_sens3);
 
     tGridEYEHealth = new Thread(GridEYEHealthTask);
 
@@ -205,10 +205,10 @@ void GridEYESchedulerTask(void const *args) {
 		tGridEYECenter->signal_set(GRIDEYE_I2C_SIGNAL);
 
 		Thread::wait(25);
-		tGridEYERight->signal_set(GRIDEYE_I2C_SIGNAL);
+		tGridEYELeft->signal_set(GRIDEYE_I2C_SIGNAL);
 
 		Thread::wait(25);
-		tGridEYELeft->signal_set(GRIDEYE_I2C_SIGNAL);
+		tGridEYERight>signal_set(GRIDEYE_I2C_SIGNAL);
 
 		Thread::wait(40);
 		tGridEYEHealth->signal_set(HEALTH_SIGNAL);
