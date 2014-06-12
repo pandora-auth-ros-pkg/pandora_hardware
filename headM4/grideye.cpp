@@ -128,13 +128,13 @@ void GridEYETask(void const *args) {
 			//Determine LED Color for Pixel
 			for (int pixel = 0; pixel < PIXELS_COUNT; ++pixel) {
 				celsius = temper_values[pixel];
-				if (celsius < 26) {
+				if (celsius < 30) {
 					ledArray[pixel] = GREEN;
-				} else if (celsius >= 26 && celsius < 28) {
+				} else if (celsius >= 30 && celsius < 32) {
 					ledArray[pixel] = YELLOW;
-				} else if (celsius >= 28 && celsius < 30) {
+				} else if (celsius >= 32 && celsius < 34) {
 					ledArray[pixel] = ORANGE;
-				} else if (celsius >= 30) {
+				} else if (celsius >= 34) {
 					ledArray[pixel] = RED;
 				}
 			}
@@ -190,21 +190,26 @@ void GridEYEvaluesSet(float values[], uint8_t grideye_num) {
 
 	for (int i = 0; i < row_num; ++i) {
 		for (int j = 0; j < column_num; ++j) {
-			if (values[row_num*i+j] > 0 && values[row_num*i+j] < 80) {
-				temper_rounded = (uint8_t) (values[row_num*i + j] + 0.5);
-				switch (grideye_num) {
-				case GEYE_CENTER:
-					GridEYEvalues[row_num * (column_num - i -1) + (row_num - j -1)] = temper_rounded;
-					break;
-				case GEYE_RIGHT:
-					GridEYEvalues[row_num * (row_num - i -1) + (column_num - j -1)] = temper_rounded;
-					break;
-				case GEYE_LEFT:
-					GridEYEvalues[row_num * (row_num - i -1) + (column_num - j -1)] = temper_rounded;
-					break;
-				}
 
-//				GridEYEvalues[i] = (uint8_t)(values[i] + 0.5);	//rounding to nearest Celsius degree
+			if (values[row_num*i+j] > 0 && values[row_num*i+j] < 80) {
+
+				temper_rounded = (uint8_t) (values[row_num*i + j] + 0.5);		//rounding to nearest Celsius degree
+
+				switch (grideye_num) {
+					case GEYE_CENTER:
+						//rotate -90 degrees
+						GridEYEvalues[row_num * (column_num - i -1) + (row_num - j -1)] = temper_rounded;
+						break;
+					case GEYE_RIGHT:
+						//rotate 180 degrees
+						GridEYEvalues[row_num * (row_num - i -1) + (column_num - j -1)] = temper_rounded;
+						break;
+					case GEYE_LEFT:
+						//rotate 180 degrees
+						GridEYEvalues[row_num * (row_num - i -1) + (column_num - j -1)] = temper_rounded;
+						break;
+				}
+//				GridEYEvalues[row_num * i + (j)] = temper_rounded;
 			} else {
 				OutOfBounds = 1;
 			}

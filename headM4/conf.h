@@ -25,6 +25,6 @@
 #define DEBUG_PRINT(x)  if (DEBUG_OUT) printf x
 
 /** @brief Enables RGB LED Matrix for GridEYE temperature data output */
-#define ENABLE_RGB_LEDMATRIX 0
+#define ENABLE_RGB_LEDMATRIX 1
 
 #endif /* CONF_H_ */
