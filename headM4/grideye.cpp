@@ -183,37 +183,11 @@ void GridEYEvaluesSet(float values[], uint8_t grideye_num) {
 	uint8_t GridEYEvalues[PIXELS_COUNT];
 	uint8_t OutOfBounds = 0;
 
-	uint8_t row_num = 8;
-	uint8_t column_num = 8;
-
-	uint8_t temper_rounded;
-
-	for (int i = 0; i < row_num; ++i) {
-		for (int j = 0; j < column_num; ++j) {
-
-			if (values[row_num*i+j] > 0 && values[row_num*i+j] < 80) {
-
-				temper_rounded = (uint8_t) (values[row_num*i + j] + 0.5);		//rounding to nearest Celsius degree
-
-				switch (grideye_num) {
-					case GEYE_CENTER:
-						//rotate -90 degrees
-						GridEYEvalues[row_num * (column_num - i -1) + (row_num - j -1)] = temper_rounded;
-						break;
-					case GEYE_RIGHT:
-						//rotate 180 degrees
-						GridEYEvalues[row_num * (row_num - i -1) + (column_num - j -1)] = temper_rounded;
-						break;
-					case GEYE_LEFT:
-						//rotate 180 degrees
-						GridEYEvalues[row_num * (row_num - i -1) + (column_num - j -1)] = temper_rounded;
-						break;
-				}
-//				GridEYEvalues[row_num * i + (j)] = temper_rounded;
-			} else {
-				OutOfBounds = 1;
-			}
-
+	for (int i = 0; i < PIXELS_COUNT; ++i) {
+		if (values[i] > 0 && values[i] < 80) {
+			GridEYEvalues[i] = (uint8_t) (values[i] + 0.5);	//rounding to nearest Celsius degree
+		} else {
+			OutOfBounds = 1;
 		}
 	}
 
