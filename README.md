@@ -7,3 +7,4 @@ Contains code used by microcontrollers and other hardware.
 | Package |                    API Documentaion                         |
 | :-----: | :---------------------------------------------------------: |
 | headM4  | [code API](http://docs.pandora.ee.auth.gr/api/headM4/html/) |
+| xMega   | [code API](http://docs.pandora.ee.auth.gr/api/xMega/html/)  |
