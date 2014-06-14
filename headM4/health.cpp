@@ -187,6 +187,22 @@ void repairI2C(uint8_t count, int i2c_base) {
 	} else if (count == 7) {
 		i2c_periph->CONSET = 1 << I2C_START;
 		i2c_periph->CONSET = 1 << I2C_STOP;
+	} else if (count == 10) {
+		if (i2c_base == I2C_0) {
+			I2C0_switch = !I2C0_switch;	//turn off I2C bus
+			Thread::wait(10);	//Probably only a few uSeconds are enough to turn off but I didn't test
+			I2C0_switch = !I2C0_switch;	//turn on I2C bus
+		} else if (i2c_base == I2C_1) {
+			I2C1_switch = !I2C1_switch;	//turn off I2C bus
+			Thread::wait(10);	//Probably only a few uSeconds are enough to turn off but I didn't test
+			I2C1_switch = !I2C1_switch;	//turn on I2C bus
+		}
+
+		Thread::wait(60); //Time to enable communication after setup is 50ms according to datasheet
+
+		//Resets uC I2C state
+		i2c_periph->CONSET = 1 << I2C_START;
+		i2c_periph->CONSET = 1 << I2C_STOP;
 	}
 
 	//Determines the rate at which the repair measures are repeated (we can't know how long the cause of the problem lasts)
