@@ -22,9 +22,10 @@
 #include "twi_master_driver.h"
 #include "wdt_driver.h"
 #include "usart_driver.h"
-#include "adc_driver.h"
 #include "sensors.h"
 
+#define BOARD_LED_PORT PORTQ
+#define BOARD_LED_PIN 2
 /*!	\def CPU_SPEED
  *	\brief uController cpu speed definition
  */
@@ -48,8 +49,6 @@
 static const char nybble_chars[] = "0123456789ABCDEF";
 
 extern TWI_Master_t twiMaster;   
-extern volatile int8_t adcOffset_motor;
-extern volatile int8_t adcOffset_psu;
 
 /*!	\fn void clock_init(void)
  *	\brief xMega System clock configurations and startup.
@@ -74,9 +73,4 @@ void init_uC_clock(void);
  *	Encoder.
  */
 void _startup_system_init(void);
-/*!	\fn void init_ADC(void)
- *	\brief Initialize two ADC inputs ( Battery Voltage Level Measuments )
- */
-void init_ADC(void);
-void initadc(void);
 #endif 

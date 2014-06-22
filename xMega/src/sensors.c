@@ -17,8 +17,8 @@ uint16_t encoder_value;
 
 
 const int8_t I2CAddressLUT[I2CSENSNUM][3] = {
-	{SRF05tinym, 0x80, 1},		/*! \brief <Left Sonar> */
-	{SRF05tinym, 0x88, 2},		/*! \brief <Right Sonar> */
+	//{SRF05tinym, 0x80, 1},		/*! \brief <Left Sonar> */
+	//{SRF05tinym, 0x88, 2},		/*! \brief <Right Sonar> */
 	//{SRF05tinym, 0x84, 2},		/*! \brief <Right Sonar> */
 	{SRF05tinym, 0x82, 2},		/*! \brief <Rear Left Sonar> */
 	{SRF05tinym, 0x86, 1},		/*! \brief <RIght Rear Sonat> */

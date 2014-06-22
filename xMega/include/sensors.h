@@ -14,7 +14,7 @@
 #include <stdlib.h>
 
 #include "encoder.h"
-
+#include "battery.h"
 /*!	\def SRF05tiny_WRITE_LEN
  *	\brief Sonar write length 1st byte:command , 2nd byte:data// command1:data contains delay time to trigger sonar, command2:send me status (1 byte) and data (3 bytes, sonar time + IR value)
  */
@@ -86,15 +86,6 @@ typedef struct{
 	
 }i2c_sensor_struct;
 
-/*!  \struct batteries_struct
- *	\brief Batteries voltage level measurements structure.
- *	Vars for voltage levels measurements of Electronics-PSU battery and Motor-Servo battery.
- */
-typedef struct{
-	uint16_t batteryVoltage_PSU;
-	uint16_t batteryVoltage_MOTOR;
-}batteries_struct;
-
 /*!	\enum Sensor_Types
  *	\brief  Enumerated sensor types on xMega.b
  *	Currently own SRF05 Sonar Sensors, Battery voltage level Measurements and Rotary Encoder.
@@ -123,7 +114,7 @@ enum SensorStates{
 /*!	\def I2CSENSNUM 
  *	\brief Number of sensors on i2c bus. Currently 4 Sonars 
  */
-#define I2CSENSNUM 4	
+#define I2CSENSNUM 2
 /*!	\def SENSORGROUPS
  *	\brief I2C sensors groups. Group0 is group-free. 3 means group0 + 3 more groups  
  */	
@@ -140,9 +131,6 @@ extern const int8_t I2CAddressLUT[I2CSENSNUM][3];
 /*! \var SensorModule An array of i2c_sensor_struct objects. Holding i2c sensors info. */
 extern i2c_sensor_struct SensorModule[I2CSENSNUM];
 extern batteries_struct _batteries;
-extern uint16_t BatteryPSU;
-extern uint16_t BatteryMotor;
-
 extern	encoder_struct _encoder;
 extern uint16_t encoder_value;
 

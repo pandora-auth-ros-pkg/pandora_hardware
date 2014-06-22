@@ -28,30 +28,15 @@ uint16_t read_encoder(void){
 	uint16_t read_value = 0;
 	
 	ENCODER_PORT.OUT &= ~(1<<CS_PIN);
-	_delay_us(1);
-	
-	ENCODER_PORT.OUT &= ~(1<<SCL_PIN);;	/* <First falling edge according to SSI protocol> */
-	_delay_us(1);
+	_delay_us(2);
 	
 	for(int i=0;i<(NUMBER_OF_BITS-1);i++){
-		ENCODER_PORT.OUT |= (1<<SCL_PIN);		/* <Rising edge> */
+		ENCODER_PORT.OUT &= ~(1<<SCL_PIN);;	/* <First falling edge according to SSI protocol> */
 		_delay_us(1);
-		ENCODER_PORT.OUT &= ~(1<<SCL_PIN);
-		if(ENCODER_PORT.IN & (1<<DO_PIN))	
-		{
-			//bit is set, set LSB of resultPIND 3 16
-			read_value = read_value | 0x01;
-			read_value = (read_value<<1);
-		}
-		_delay_us(1);
-	}
-	
-	ENCODER_PORT.OUT |= (1<<SCL_PIN);		
-	_delay_us(1);
-	if(ENCODER_PORT.IN & (1<<DO_PIN))
-	{
-		//bit is set, set LSB of resultPIND 3 16
-		read_value = read_value | 0x01;
+		ENCODER_PORT.OUT |= (1<<SCL_PIN);
+		_delay_us(1);	
+		read_value = (read_value<<1) | (ENCODER_PORT.IN & (1<<DO_PIN)) ;
+		
 	}
 	ENCODER_PORT.OUT |= (1<<CS_PIN);
 	return read_value;

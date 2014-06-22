@@ -32,13 +32,17 @@
 #define DO_PIN 2
 #define CS_PIN 3
 
+#define ENCODER_OFFSET	448	/*<157.5 degrees>*/
+#define ENCODER_OFFSET_DEGREES 157.5
 /*!
  * \struct encoder_struct
  * \brief Structure Holding Rotary encoder Info and measurements
  */
 typedef struct{
-	uint16_t value_degrees;
-	uint16_t value;
+	float rotation_value_degrees;
+	uint16_t rotation_value_read;
+	uint16_t rotation_value;
+	
 }encoder_struct;
 
 /*!	\fn void init_encoder(encoder_struct *encoder_)
@@ -62,7 +66,7 @@ extern void get_encoder_values(encoder_struct *encoder_);
  *	\brief Converts encoder value to degrees. Returns the value in degrees.
  *	\param encoder_value Encoder value.
  */
-extern uint16_t encoder_convert_degrees(uint16_t encoder_value);
+extern float encoder_convert_degrees(uint16_t value);
 
 /*!	\fn uint16_t gray_to_binary(uint16_t num)
  *	\brief Converts a number from Gray code to binary code value.
@@ -73,6 +77,7 @@ extern uint16_t gray_to_binary(uint16_t num);
 /*!	\fn uint16_t get_encoder_degrees(void)
  *	\brief Triggers Encoder, read value and return measurement in degrees.
  */
-extern uint16_t get_encoder_degrees(void);
+extern float get_encoder_degrees(void);
 
+extern uint16_t proc_encoder_value(float rotDegrees);
 #endif /* ENCODER_H_ */
