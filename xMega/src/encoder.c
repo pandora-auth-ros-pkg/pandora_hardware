@@ -30,7 +30,7 @@ uint16_t read_encoder(void){
 	ENCODER_PORT.OUT &= ~(1<<CS_PIN);
 	_delay_us(2);
 	
-	for(int i=0;i<(NUMBER_OF_BITS-1);i++){
+	for(int i=0;i<(NUMBER_OF_BITS);i++){
 		ENCODER_PORT.OUT &= ~(1<<SCL_PIN);;	/* <First falling edge according to SSI protocol> */
 		_delay_us(1);
 		ENCODER_PORT.OUT |= (1<<SCL_PIN);
@@ -43,10 +43,10 @@ uint16_t read_encoder(void){
 }
 
 
-uint16_t encoder_convert_degrees(uint16_t encoder_value){
-	uint16_t encoder_degrees;
-	encoder_degrees = encoder_value * 360 /1024;
-	return (encoder_degrees);
+uint16_t encoder_convert_degrees(uint16_t value){
+	uint16_t degrees;
+	degrees = value * 360 /1024;
+	return (degrees);
 }
 
 
@@ -61,35 +61,29 @@ uint16_t gray_to_binary(uint16_t num)
 }
 
 
-void get_encoder_values(encoder_struct *encoder_)
+void get_encoder_values(encoder_struct *_encoder)
 {
-	uint16_t encoder_value_degrees;
-	uint16_t encoder_value;
-	cli();																	/* <Clear Global Interrupts for SCL generation> */
-	encoder_value = read_encoder();
-	//encoder_value_encoded = read_encoder();
-	sei();																	/* <Enable Global Interrupts> */
-	//encoder_value_decoded = gray_to_binary(encoder_value_encoded);
-	//encoder_value_degrees = encoder_convert_degrees(encoder_value_decoded);
-	encoder_value_degrees = encoder_convert_degrees(encoder_value);
-	
-	encoder_ -> value = encoder_value;
-	encoder_ -> value_degrees = encoder_value_degrees;
+	uint16_t degrees;
+	uint16_t value;
+	cli();/* <Disable CPU Interrupts to avoid interrupt while triggering encoder> */ 
+	value = read_encoder();
+	sei();
+	degrees = encoder_convert_degrees(value);
+	_encoder -> value = value;
+	_encoder -> value_degrees = degrees;
 	
 }
 
 
 uint16_t get_encoder_degrees(void)
 {
-	uint16_t encoder_value_degrees;
-	uint16_t encoder_value_encoded;
-	uint16_t encoder_value_decoded;
+	uint16_t degrees;
+	uint16_t value;
+
+	cli();/* <Disable CPU Interrupts to avoid interrupt while triggering encoder> */ 
+	value = read_encoder();
+	sei();
+	degrees = encoder_convert_degrees(value);
 	
-	cli();																	/* <Clear Global Interrupts for SCL generation> */
-	encoder_value_encoded = read_encoder();
-	sei();																	/* <Enable Global Interrupts> */
-	encoder_value_decoded = gray_to_binary(encoder_value_encoded);
-	encoder_value_degrees = encoder_convert_degrees(encoder_value_decoded);
-	
-	return (encoder_value_degrees);
+	return (degrees);
 }
