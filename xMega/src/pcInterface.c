@@ -50,6 +50,7 @@ void data_transmitService(void)
 				USARTD0.STATUS |=USART_RXCIF_bm;
 				if (TempReceive == UACK)
 				{
+					BOARD_LED_PORT.OUTCLR = (1<<BOARD_LED_PIN);
 					/* <Last packet transmission was successful. Close the service> */
 					PCTXFlags &= ~(PCTX_Busy|PCTX_WaitAckNaK);		
 				}
@@ -160,10 +161,10 @@ uint16_t copyEncoderInfo_PCTXBuffer(uint16_t PCTXCurrentPointer)
 	PCTXBuffer[pctxCurrentPointer_++] = nybble_chars[((RotaryEncoder)&0x0f)];
 	PCTXBuffer[pctxCurrentPointer_++] = ' ';
 	/* <Encoder data> */
-	PCTXBuffer[pctxCurrentPointer_++] = nybble_chars[(encoder_value&0xf000)>>12];
-	PCTXBuffer[pctxCurrentPointer_++] = nybble_chars[(encoder_value&0x0f00)>>8];
-	PCTXBuffer[pctxCurrentPointer_++] = nybble_chars[(encoder_value&0x00f0)>>4];
-	PCTXBuffer[pctxCurrentPointer_++] = nybble_chars[(encoder_value&0x000f)];
+	PCTXBuffer[pctxCurrentPointer_++] = nybble_chars[(_encoder.rotation_value_read&0xf000)>>12];
+	PCTXBuffer[pctxCurrentPointer_++] = nybble_chars[(_encoder.rotation_value_read&0x0f00)>>8];
+	PCTXBuffer[pctxCurrentPointer_++] = nybble_chars[(_encoder.rotation_value_read&0x00f0)>>4];
+	PCTXBuffer[pctxCurrentPointer_++] = nybble_chars[(_encoder.rotation_value_read&0x000f)];
 	/* <LF 1 Byte> */
 	pctxCurrentPointer_ = PutSensorSeparatorInPCTXBuffer(pctxCurrentPointer_);						
 	

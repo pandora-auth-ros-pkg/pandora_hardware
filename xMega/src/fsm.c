@@ -63,7 +63,9 @@ void pandora_fsm(void)
 
 			//get_encoder_values(&_encoder);
 			cli();
-			encoder_value = read_encoder();
+			//encoder_value = ( ((read_encoder() - ENCODER_OFFSET) >= 0 ) && ((read_encoder() - ENCODER_OFFSET) <= 1024) ) ? (read_encoder() - ENCODER_OFFSET) : 2048 ;
+			//encoder_value = read_encoder();
+			get_encoder_values(&_encoder);
 			sei();			
 		}
 		if(TCTimingFlags & Tick200ms)	/* <Every 200ms> */
@@ -72,9 +74,12 @@ void pandora_fsm(void)
 			/* <PUT HERE CODE TO BE SERVICED EVERY 200ms> */
 			if(!(PCTXFlags&PCTX_Busy))
 			{
+				
+				BOARD_LED_PORT.OUTSET = (1<<BOARD_LED_PIN);
 				PCTXPointer=0;
 				PCTXFlags|=PCTX_Busy;
 				RS232.DATA = PCTXBuffer[0];
+				
 			}
 		}
 	}

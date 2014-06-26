@@ -94,4 +94,6 @@ void _startup_system_init(void)
 	init_ADC();
 	init_encoder(&_encoder);
 	
+	BOARD_LED_PORT.DIRSET = (1<<BOARD_LED_PIN);
+	
 }
