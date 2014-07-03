@@ -22,7 +22,7 @@
 #ifndef RTOS_H
 #define RTOS_H
 
-#include "Thread.h"
+#include "LibMods/Thread.h"
 #include "Mutex.h"
 #include "RtosTimer.h"
 #include "Semaphore.h"

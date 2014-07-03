@@ -117,4 +117,7 @@ void GridEYEvaluesSet(float values[], uint8_t grideye_num);
 void GridEYESchedulerTask(void const *args);
 
 
+void GridEYESignalClear(uint8_t grideye_num);
+
+
 #endif /* GRIDEYE_HPP_ */

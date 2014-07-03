@@ -216,3 +216,21 @@ void GridEYESchedulerTask(void const *args) {
 		Thread::wait(10);
 	}
 }
+
+
+void GridEYESignalClear(uint8_t grideye_num) {
+	switch (grideye_num) {
+		case GEYE_CENTER:
+			tGridEYECenter->signal_clear(GRIDEYE_I2C_SIGNAL);
+			break;
+		case GEYE_RIGHT:
+			tGridEYERight->signal_clear(GRIDEYE_I2C_SIGNAL);
+			break;
+		case GEYE_LEFT:
+			tGridEYELeft->signal_clear(GRIDEYE_I2C_SIGNAL);
+			break;
+		default:
+			return;
+	}
+}
+

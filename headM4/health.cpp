@@ -104,6 +104,8 @@ void GridEYEHealthTask(void const *args) {
 				USBGridEYEvaluesZero(GEYE_CENTER);
 			}
 			repairI2C(I2C0_FailCount, I2C_0);
+			GridEYESignalClear(GEYE_RIGHT);
+			GridEYESignalClear(GEYE_CENTER);
 		}
 		if (!GridEYELeft_healthy) {
 			I2C1_FailCount++;
@@ -111,6 +113,7 @@ void GridEYEHealthTask(void const *args) {
 				USBGridEYEvaluesZero(GEYE_LEFT);
 			}
 			repairI2C(I2C1_FailCount, I2C_1);
+			GridEYESignalClear(GEYE_LEFT);
 		}
 	}
 }
