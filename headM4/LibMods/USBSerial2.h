@@ -24,6 +24,9 @@
  * bigger than 64 byte.@n
  * The circular buffer fills up transparently with a callback, so we don't have
  * to worry about missing packets. (Check EP2_OUT_callback() implementation in USBDevice/USBSerial/USBSerial.cpp)
+ *
+ * @note To use this modified library include "LibMods/USBSerial2.h" and create a USBSerial object (not USBSerial2 object),
+ * like the following example.
  */
 
 #ifndef USBSERIAL_H
@@ -40,7 +43,7 @@
 *
 * @code
 * #include "mbed.h"
-* #include "USBSerial2.h"
+* #include "LibMods/USBSerial2.h"
 *
 * //Virtual serial port over USB
 * USBSerial serial;

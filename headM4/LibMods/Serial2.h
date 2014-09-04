@@ -43,6 +43,7 @@ namespace mbed {
  * // Print "Hello World" to the PC
  *
  * #include "mbed.h"
+ * #include "LibMods/Serial2.h"
  *
  * Serial2 pc(USBTX, USBRX);
  *

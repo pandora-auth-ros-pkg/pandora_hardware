@@ -21,7 +21,7 @@ static Queue<uint8_t, 19> CO2queue;
 
 
 void CO2Init(PinName tx, PinName rx) {
-	//Check comment about sdram in main() before using new
+	//Check comment about sdram in Doxygen main page before using new
 
 	co2uart = new Serial2(tx, rx);
 	co2uart->baud(38400);	//Baud 38400, 8N1

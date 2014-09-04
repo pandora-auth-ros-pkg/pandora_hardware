@@ -22,7 +22,8 @@
  * to support a repeated start i2c_read after an i2c_write call.
  * @n @n
  * Instructions if you want to use repeated start:
- * @li Delete original i2c_api.c and use i2c_api2.c in LibMods folder instead.
+ * @li Delete original i2c_api.c so that there are no same name conflicts with i2c_api2.c in LibMods folder.
+ * (i2c_api2.c doesn't have to be moved from LibMods folder)
  * @li If you set "repeated" argument to true in I2C::write() the following I2C::read() must also
  * have "repeated" argument set to true.
  * @li An I2C transaction is not allowed to start with I2C::read() with "repeated" argument set to true.

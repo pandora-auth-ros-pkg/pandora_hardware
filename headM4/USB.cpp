@@ -14,7 +14,10 @@ static uint8_t uGridEYERightValues[PIXELS_COUNT];	///<usb GridEYECenter values b
 
 static USBSerial *usb;	///<Pointer to the USBSerial class object that implements the USB communication
 
-/**RTOS queue that stores incoming command packets. USBTask() waits for this queue to get filled*/
+/**
+ * @brief RTOS queue that stores incoming command packets.
+ * USBTask() waits for incoming elements to this queue.
+ */
 static Queue<uint8_t, 20> UsbRecvQueue;
 
 void USBInit() {
@@ -32,7 +35,6 @@ void command_recv_isr() {
 	}
 }
 
-//USBTask could be made as interrupt callback
 void USBTask(const void *args) {
 	union {
 		float CO2value;

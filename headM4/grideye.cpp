@@ -18,7 +18,7 @@ static Thread *tGridEYEHealth;	///<Thread pointer for GridEYEHealthTask()
 
 
 void GridEYEInit(I2C *i2c0_obj, I2C *i2c1_obj) {
-	//Check comment about sdram in main() before using new
+	//Check comment about sdram in Doxygen main page before using new
 
 	i2c0_obj->frequency(400000);
 	i2c1_obj->frequency(400000);

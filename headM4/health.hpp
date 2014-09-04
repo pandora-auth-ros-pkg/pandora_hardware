@@ -32,9 +32,9 @@
 #define WDRESET 1	///<Watchdog reset enable bit
 
 
-/** @brief Initializes stuff relating with kealth monitoring
+/** @brief Initializes stuff relating with health monitoring
  *
- * Currently only initiates the Watchdog Timer
+ * Currently initiates the Watchdog Timer and the analog switches in the I2C power lines.
  */
 void HealthInit();
 

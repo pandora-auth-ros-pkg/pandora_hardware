@@ -198,7 +198,7 @@ void repairI2C(uint8_t count, int i2c_base) {
 			I2C1_switch = !I2C1_switch;	//turn on I2C bus
 		}
 
-		Thread::wait(60); //Time to enable communication after setup is 50ms according to datasheet
+		Thread::wait(60); //Time to enable communication after setup is 50ms according to GridEYE datasheet
 
 		//Resets uC I2C state
 		i2c_periph->CONSET = 1 << I2C_START;
