@@ -103,17 +103,20 @@ void GridEYEHealthTask(void const *args) {
 				USBGridEYEvaluesZero(GEYE_RIGHT);
 				USBGridEYEvaluesZero(GEYE_CENTER);
 			}
-			repairI2C(I2C0_FailCount, I2C_0);
+			//For signal flags to be cleared signal_wait() must be called. We clear signal flags before attempting repair,
+			//-> so that in case of successful repair GridEYETask() doesn't continue its loop before it takes the OK from
+			//-> GridEYESchedulerTask()
 			GridEYESignalClear(GEYE_RIGHT);
 			GridEYESignalClear(GEYE_CENTER);
+			repairI2C(I2C0_FailCount, I2C_0);
 		}
 		if (!GridEYELeft_healthy) {
 			I2C1_FailCount++;
 			if (I2C1_FailCount == 1) {
 				USBGridEYEvaluesZero(GEYE_LEFT);
 			}
-			repairI2C(I2C1_FailCount, I2C_1);
 			GridEYESignalClear(GEYE_LEFT);
+			repairI2C(I2C1_FailCount, I2C_1);
 		}
 	}
 }

@@ -60,7 +60,7 @@ int32_t Thread::signal_set(int32_t signals) {
     return osSignalSet(_tid, signals);
 }
 
-int32_t Thread::signal_clear(int32_t signals) {
+int32_t Thread::signal_clear(int32_t signals) { //"CHANGED MBED LIBRARY HERE"
     return osSignalClear(_tid, signals);
 }
 

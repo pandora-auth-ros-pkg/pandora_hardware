@@ -64,7 +64,7 @@ public:
     */
     int32_t signal_set(int32_t signals);
     
-    int32_t signal_clear(int32_t signals);
+    int32_t signal_clear(int32_t signals);  //"CHANGED MBED LIBRARY HERE"
 
     /** State of the Thread */
     enum State {
