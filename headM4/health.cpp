@@ -206,8 +206,14 @@ void repairI2C(uint8_t count, int i2c_base) {
 	}
 
 	//Determines the rate at which the repair measures are repeated (we can't know how long the cause of the problem lasts)
-	if (I2C0_FailCount > 40) {
-		I2C0_FailCount = 1;
+	if (i2c_base == I2C_0) {
+		if (I2C0_FailCount > 40) {
+			I2C0_FailCount = 1;
+		}
+	} else if (i2c_base == I2C_1) {
+		if (I2C1_FailCount > 40) {
+			I2C1_FailCount = 1;
+		}
 	}
 }
 
