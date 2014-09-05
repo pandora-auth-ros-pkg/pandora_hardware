@@ -31,6 +31,8 @@
 #define WDEN 0	///<Watchdog enable bit
 #define WDRESET 1	///<Watchdog reset enable bit
 
+#define DISABLE_COUNTER 100
+
 
 /** @brief Initializes stuff relating with health monitoring
  *
@@ -68,6 +70,7 @@ void clearHealthyCO2() ;
  */
 void clearHealthyGridEYE();
 
+
 /** @brief Called when a sensor is healthy to send received data to USB
  *
  * This function is called only when we had a healthy response from a sensor. It's used directly in place of
@@ -89,6 +92,12 @@ void HealthyCO2valueSet(float value);
  * @param grideye_num grideye_sensor_t::grideye_num
  */
 void HealthyGridEYEvaluesSet(uint8_t values[], uint8_t grideye_num);
+
+
+uint8_t GridEYEenabled(uint8_t grideye_num);
+
+
+uint8_t CO2enabled();
 
 
 /** @brief Attempts to recover CO2 sensor

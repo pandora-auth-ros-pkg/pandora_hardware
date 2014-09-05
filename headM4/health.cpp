@@ -42,6 +42,15 @@ static uint8_t I2C0_FailCount = 0;
 static uint8_t I2C1_FailCount = 0;
 //@}
 
+/** @name fill
+ * somewhat redundant for ports with only one sensor */
+//@{
+static uint8_t CO2_DisableCounter;
+static uint8_t GridEYECenter_DisableCounter;
+static uint8_t GridEYELeft_DisableCounter;
+static uint8_t GridEYERight_DisableCounter;
+//@}
+
 /** @name Status Leds
  * If a sensor or assigned peripheral works the led is blinking  */
 //@{
@@ -78,7 +87,8 @@ void CO2HealthTask(void const *args) {
 
 		WDT_feed();
 
-		if (!CO2_healthy) {
+		if (!CO2_healthy && CO2_DisableCounter) {
+			CO2_DisableCounter--;
 			CO2_FailCount++;
 			if (CO2_FailCount == 1) {
 				USBCO2valueSet(0);
@@ -94,8 +104,11 @@ void GridEYEHealthTask(void const *args) {
 
 		WDT_feed();
 
-		if (!GridEYECenter_healthy || !GridEYERight_healthy) {
-			//TODO Do something here, though unlikely to come here
+		if (!GridEYECenter_healthy && GridEYECenter_DisableCounter) {
+			GridEYECenter_DisableCounter--;
+		}
+		if (!GridEYERight_healthy && GridEYERight_DisableCounter) {
+			GridEYERight_DisableCounter--;
 		}
 		if (!GridEYECenter_healthy && !GridEYERight_healthy) {
 			I2C0_FailCount++;
@@ -105,7 +118,8 @@ void GridEYEHealthTask(void const *args) {
 			}
 			repairI2C(I2C0_FailCount, I2C_0);
 		}
-		if (!GridEYELeft_healthy) {
+		if (!GridEYELeft_healthy && GridEYELeft_DisableCounter) {
+			GridEYELeft_DisableCounter--;
 			I2C1_FailCount++;
 			if (I2C1_FailCount == 1) {
 				USBGridEYEvaluesZero(GEYE_LEFT);
@@ -128,6 +142,7 @@ void clearHealthyGridEYE() {
 void HealthyCO2valueSet(float value) {
 	CO2_healthy = 1;
 	CO2_FailCount = 0;
+	CO2_DisableCounter = DISABLE_COUNTER;
 	USBCO2valueSet(value);
 	CO2_LifeLED = !CO2_LifeLED;
 }
@@ -137,24 +152,45 @@ void HealthyGridEYEvaluesSet(uint8_t values[], uint8_t grideye_num) {
 		case GEYE_CENTER:
 			GridEYECenter_healthy = 1;
 			I2C0_FailCount = 0;
+			GridEYECenter_DisableCounter = DISABLE_COUNTER;
 			USBGridEYEvaluesSet(values, grideye_num);
 			I2C0_LifeLED = !I2C0_LifeLED;
 			break;
 		case GEYE_RIGHT:
 			GridEYERight_healthy = 1;
 			I2C0_FailCount = 0;
+			GridEYERight_DisableCounter = DISABLE_COUNTER;
 			USBGridEYEvaluesSet(values, grideye_num);
 			I2C0_LifeLED = !I2C0_LifeLED;
 			break;
 		case GEYE_LEFT:
 			GridEYELeft_healthy = 1;
 			I2C1_FailCount = 0;
+			GridEYELeft_DisableCounter = DISABLE_COUNTER;
 			USBGridEYEvaluesSet(values, grideye_num);
 			I2C1_LifeLED = !I2C1_LifeLED;
 			break;
 		default:
 			return;
 	}
+}
+
+uint8_t GridEYEenabled(uint8_t grideye_num) {
+	switch (grideye_num) {
+		case GEYE_CENTER:
+			return GridEYECenter_DisableCounter;
+		case GEYE_RIGHT:
+			return GridEYERight_DisableCounter;
+		case GEYE_LEFT:
+			return GridEYELeft_DisableCounter;
+		default:
+			return 1;
+	}
+	return 1;
+}
+
+uint8_t CO2enabled() {
+	return CO2_DisableCounter;
 }
 
 void repairCO2(uint8_t count) {

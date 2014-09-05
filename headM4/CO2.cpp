@@ -187,7 +187,8 @@ void CO2SchedulerTask(void const *args) {
 		Thread::wait(500);
 
 		Thread::wait(100);	//Timeout time.
-		tCO2Health->signal_set(HEALTH_SIGNAL);
+
+		if (CO2enabled()) tCO2Health->signal_set(HEALTH_SIGNAL);
 
 		Thread::wait(10);
     }

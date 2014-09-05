@@ -99,6 +99,12 @@ void GridEYETask(void const *args) {
 			thermistor_value = 0.0625 * (0x7FF & therm_echo_uint16);
 		}
 
+		//If temper_echo remains unchanged after an i2c_obj->read(), indicates sensor fault.
+		//-> So if temper_echo_uint16[0] stays 0 after i2c_obj->read() the sensor is probably faulty.
+		//-> Because a temperature value of 0 is OutOfBounds HealthyGridEYEvaluesSet() will not be triggered and
+		//-> the sensor will be correctly registered as not healthy.
+		temper_echo_uint16[0] = 0;
+
 		cmd[0] = GRIDEYE_I2C_TEMP_ADDR;
 		i2c_lock(i2c_periph_num);
 		i2c_obj->write(i2c_addr, cmd, 1, true);
@@ -202,13 +208,13 @@ void GridEYESchedulerTask(void const *args) {
     while (true) {
 		clearHealthyGridEYE();
 
-		tGridEYECenter->signal_set(GRIDEYE_I2C_SIGNAL);
+		if (GridEYEenabled(GEYE_CENTER)) tGridEYECenter->signal_set(GRIDEYE_I2C_SIGNAL);
 
 		Thread::wait(25);
-		tGridEYELeft->signal_set(GRIDEYE_I2C_SIGNAL);
+		if (GridEYEenabled(GEYE_LEFT)) tGridEYELeft->signal_set(GRIDEYE_I2C_SIGNAL);
 
 		Thread::wait(25);
-		tGridEYERight->signal_set(GRIDEYE_I2C_SIGNAL);
+		if (GridEYEenabled(GEYE_RIGHT)) tGridEYERight->signal_set(GRIDEYE_I2C_SIGNAL);
 
 		Thread::wait(40);
 		tGridEYEHealth->signal_set(HEALTH_SIGNAL);
