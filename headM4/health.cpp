@@ -245,6 +245,9 @@ void repairI2C(uint8_t count, int i2c_base) {
 	if (I2C0_FailCount > 40) {
 		I2C0_FailCount = 1;
 	}
+	if (I2C1_FailCount > 40) {
+		I2C1_FailCount = 1;
+	}
 }
 
 void WDT_feed() {

@@ -31,10 +31,10 @@
 #define WDEN 0	///<Watchdog enable bit
 #define WDRESET 1	///<Watchdog reset enable bit
 
-#define DISABLE_COUNTER 100
+#define DISABLE_COUNTER 100	///<max 255
 
 
-/** @brief Initializes stuff relating with health monitoring
+/** @brief Initializes stuff related with health monitoring
  *
  * Currently initiates the Watchdog Timer and the analog switches in the I2C power lines.
  */
