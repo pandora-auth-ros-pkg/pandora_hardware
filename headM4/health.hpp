@@ -31,7 +31,7 @@
 #define WDEN 0	///<Watchdog enable bit
 #define WDRESET 1	///<Watchdog reset enable bit
 
-#define DISABLE_COUNTER 100	///<max 255
+#define DISABLE_COUNTDOWN 100	///<max 255
 
 
 /** @brief Initializes stuff related with health monitoring

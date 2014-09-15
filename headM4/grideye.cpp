@@ -100,9 +100,10 @@ void GridEYETask(void const *args) {
 		}
 
 		//If temper_echo remains unchanged after an i2c_obj->read(), indicates sensor fault.
-		//-> So if temper_echo_uint16[0] stays 0 after i2c_obj->read() the sensor is probably faulty.
+		//-> So, if temper_echo_uint16[0] stays 0 after i2c_obj->read() the sensor is probably faulty.
 		//-> Because a temperature value of 0 is OutOfBounds HealthyGridEYEvaluesSet() will not be triggered and
 		//-> the sensor will be correctly registered as not healthy.
+		//Only the first element of temper_echo_uint16 is zeroed to save processing time.
 		temper_echo_uint16[0] = 0;
 
 		cmd[0] = GRIDEYE_I2C_TEMP_ADDR;

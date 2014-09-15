@@ -45,10 +45,10 @@ static uint8_t I2C1_FailCount = 0;
 /** @name fill
  * somewhat redundant for ports with only one sensor */
 //@{
-static uint8_t CO2_DisableCounter;
-static uint8_t GridEYECenter_DisableCounter;
-static uint8_t GridEYELeft_DisableCounter;
-static uint8_t GridEYERight_DisableCounter;
+static uint8_t CO2_DisableCounter = DISABLE_COUNTDOWN;
+static uint8_t GridEYECenter_DisableCounter = DISABLE_COUNTDOWN;
+static uint8_t GridEYELeft_DisableCounter = DISABLE_COUNTDOWN;
+static uint8_t GridEYERight_DisableCounter = DISABLE_COUNTDOWN;
 //@}
 
 /** @name Status Leds
@@ -142,7 +142,7 @@ void clearHealthyGridEYE() {
 void HealthyCO2valueSet(float value) {
 	CO2_healthy = 1;
 	CO2_FailCount = 0;
-	CO2_DisableCounter = DISABLE_COUNTER;
+	CO2_DisableCounter = DISABLE_COUNTDOWN;
 	USBCO2valueSet(value);
 	CO2_LifeLED = !CO2_LifeLED;
 }
@@ -152,21 +152,21 @@ void HealthyGridEYEvaluesSet(uint8_t values[], uint8_t grideye_num) {
 		case GEYE_CENTER:
 			GridEYECenter_healthy = 1;
 			I2C0_FailCount = 0;
-			GridEYECenter_DisableCounter = DISABLE_COUNTER;
+			GridEYECenter_DisableCounter = DISABLE_COUNTDOWN;
 			USBGridEYEvaluesSet(values, grideye_num);
 			I2C0_LifeLED = !I2C0_LifeLED;
 			break;
 		case GEYE_RIGHT:
 			GridEYERight_healthy = 1;
 			I2C0_FailCount = 0;
-			GridEYERight_DisableCounter = DISABLE_COUNTER;
+			GridEYERight_DisableCounter = DISABLE_COUNTDOWN;
 			USBGridEYEvaluesSet(values, grideye_num);
 			I2C0_LifeLED = !I2C0_LifeLED;
 			break;
 		case GEYE_LEFT:
 			GridEYELeft_healthy = 1;
 			I2C1_FailCount = 0;
-			GridEYELeft_DisableCounter = DISABLE_COUNTER;
+			GridEYELeft_DisableCounter = DISABLE_COUNTDOWN;
 			USBGridEYEvaluesSet(values, grideye_num);
 			I2C1_LifeLED = !I2C1_LifeLED;
 			break;
