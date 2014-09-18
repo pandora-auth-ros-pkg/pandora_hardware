@@ -8,7 +8,7 @@
 
 #include "mbed.h"
 #include "rtos.h"
-#include "LibMods/i2c_nonblocking.h"
+#include "i2c_nonblocking.h"
 #include "health.hpp"
 #include "conf.h"
 

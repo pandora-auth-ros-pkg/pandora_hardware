@@ -7,7 +7,7 @@
 
 #include "mbed.h"
 #include "rtos.h"
-#include "LibMods/USBSerial2.h"
+#include "USBSerial.h"
 #include "grideye.hpp"
 
 

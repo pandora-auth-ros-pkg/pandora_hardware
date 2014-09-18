@@ -9,7 +9,7 @@
 #include "rtos.h"
 #include "health.hpp"
 
-#include "LibMods/Serial2.h"
+#include "SerialNB.h"
 
 
 /** @name CO2 Sensor Protocol Instructions */

@@ -37,7 +37,7 @@
 #include "pinmap.h"
 #include "error.h"
 
-#include "LibMods/i2c_nonblocking.h"	//"CHANGED MBED LIBRARY HERE"
+#include "i2c_nonblocking.h"	//"CHANGED MBED LIBRARY HERE"
 
 static const PinMap PinMap_I2C_SDA[] = {
     {P0_0 , I2C_1, 3},
@@ -94,7 +94,7 @@ static inline void i2c_conset(i2c_t *obj, int start, int stop, int interrupt, in
 }
 
 /*// Clear the Serial Interrupt (SI)
-static inline void i2c_clear_SI(i2c_t *obj) {
+static inline void i2c_clear_SI(i2c_t *obj) {	//"CHANGED MBED LIBRARY HERE"
     i2c_conclr(obj, 0, 0, 1, 0);
 }*/
 
@@ -103,7 +103,7 @@ static inline int i2c_status(i2c_t *obj) {
 }
 
 /*// Wait until the Serial Interrupt (SI) is set
-static int i2c_wait_SI(i2c_t *obj) {
+static int i2c_wait_SI(i2c_t *obj) {	//"CHANGED MBED LIBRARY HERE"
     int timeout = 0;
     while (!(I2C_CONSET(obj) & (1 << 3))) {
         timeout++;
