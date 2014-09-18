@@ -28,7 +28,7 @@
 #include "serial_api.h"
 #include "Serial.h"
 
-#define NONBLOCKING 0	///<Makes EVERY serial I/O function with this port Non-Blocking
+#define NONBLOCKING 0   ///<Makes EVERY serial I/O function with this port Non-Blocking
 
 namespace mbed {
 

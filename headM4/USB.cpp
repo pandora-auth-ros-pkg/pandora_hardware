@@ -7,9 +7,9 @@
 /** @name Buffers that store the values to be send to PC */
 //@{
 static float uCO2value;	///<usb CO2 value buffer
-static uint8_t uGridEYECenterValues[PIXELS_COUNT];	///<usb GridEYECenter values buffer
-static uint8_t uGridEYELeftValues[PIXELS_COUNT];	///<usb GridEYECenter values buffer
-static uint8_t uGridEYERightValues[PIXELS_COUNT];	///<usb GridEYECenter values buffer
+static uint8_t uGridEYECenterValues[PIXELS_COUNT];  ///<usb GridEYECenter values buffer
+static uint8_t uGridEYELeftValues[PIXELS_COUNT];    ///<usb GridEYECenter values buffer
+static uint8_t uGridEYERightValues[PIXELS_COUNT];   ///<usb GridEYECenter values buffer
 //@}
 
 static USBSerial *usb;	///<Pointer to the USBSerial class object that implements the USB communication
@@ -114,7 +114,7 @@ uint8_t * USBGridEYEvaluesGet(uint8_t grideye_num) {
         return uGridEYELeftValues;
         break;
     }
-    return uGridEYECenterValues;	//Shouldn't come here
+    return uGridEYECenterValues;    //Shouldn't come here
 }
 
 void USBCO2valueSet(float value) {

@@ -4,14 +4,14 @@
  */
 #include "grideye.hpp"
 
-static Mutex i2c0_mutex;	///<The mutex that locks access to I2C0 peripheral
-static Mutex i2c1_mutex;	///<The mutex that locks access to I2C1 peripheral
+static Mutex i2c0_mutex;    ///<The mutex that locks access to I2C0 peripheral
+static Mutex i2c1_mutex;    ///<The mutex that locks access to I2C1 peripheral
 
 /** @name GridEYETask() threads */
 //@{
-static Thread *tGridEYECenter;	///<Thread pointer for center GridEYE sensor's GridEYETask()
-static Thread *tGridEYELeft;	///<Thread pointer for left GridEYE sensor's GridEYETask()
-static Thread *tGridEYERight;	///<Thread pointer for right GridEYE sensor's GridEYETask()
+static Thread *tGridEYECenter;  ///<Thread pointer for center GridEYE sensor's GridEYETask()
+static Thread *tGridEYELeft;    ///<Thread pointer for left GridEYE sensor's GridEYETask()
+static Thread *tGridEYERight;   ///<Thread pointer for right GridEYE sensor's GridEYETask()
 //@}
 
 static Thread *tGridEYEHealth;	///<Thread pointer for GridEYEHealthTask()
@@ -22,9 +22,9 @@ void GridEYEInit(I2C *i2c0_obj, I2C *i2c1_obj) {
     i2c0_obj->frequency(400000);
     i2c1_obj->frequency(400000);
 
-    grideye_sensor_t temp_sens1;	//Because we pass starting arguments to threads with a pointer we must be sure that
-    grideye_sensor_t temp_sens2;	//-> their memory contents don't change long enough for the threads to copy the data
-    grideye_sensor_t temp_sens3;	//-> to local variables. So we create a temporary structure for each thread.
+    grideye_sensor_t temp_sens1;    //Because we pass starting arguments to threads with a pointer we must be sure that
+    grideye_sensor_t temp_sens2;    //-> their memory contents don't change long enough for the threads to copy the data
+    grideye_sensor_t temp_sens3;    //-> to local variables. So we create a temporary structure for each thread.
 
     temp_sens1.i2c_obj = i2c0_obj;
     temp_sens1.i2c_periph_num = 0;
@@ -46,7 +46,7 @@ void GridEYEInit(I2C *i2c0_obj, I2C *i2c1_obj) {
 
     tGridEYEHealth = new Thread(GridEYEHealthTask);
 
-    Thread::wait(5);	//We must wait some time before the function ends or temp_sens? will be destroyed
+    Thread::wait(5);    //We must wait some time before the function ends or temp_sens? will be destroyed
                         //-> before the threads assign them to local variables. (I tested with 1ms and it was OK)
 }
 
@@ -144,8 +144,8 @@ void GridEYETask(void const *args) {
             //Transfer LED Data
             SPI_ss = 0;
             wait_us(500);
-            RGB_LEDMatrix.write(0x26);//Resets RGBMatrixBackpack index. (see sparkfun's github). It shouldn't be needed
-                                      //-> but it doesn't work without it...
+            RGB_LEDMatrix.write(0x26);  //Resets RGBMatrixBackpack index. (see sparkfun's github). It shouldn't be needed
+                                        //-> but it doesn't work without it...
             for (int pixel = 0; pixel < PIXELS_COUNT; ++pixel) {
                 RGB_LEDMatrix.write(ledArray[pixel]);
             }

@@ -6,9 +6,9 @@
 
 static SerialNB *co2uart; ///<Pointer to the Serial2 class object that implements the CO2 sensor
 
-static Thread *tCO2;	///<Thread pointer for CO2ReceiverTask()
+static Thread *tCO2;    ///<Thread pointer for CO2ReceiverTask()
 
-static Thread *tCO2Health;	///<<Thread pointer for CO2HealthTask()
+static Thread *tCO2Health;  ///<<Thread pointer for CO2HealthTask()
 
 /**
  * @brief CO2 sensor buffer.
@@ -22,7 +22,7 @@ void CO2Init(PinName tx, PinName rx) {
     //Check comment about sdram in Doxygen main page before using new
 
     co2uart = new SerialNB(tx, rx);
-    co2uart->baud(38400);	//Baud 38400, 8N1
+    co2uart->baud(38400);   //Baud 38400, 8N1
     co2uart->attach(&RX_isr, Serial::RxIrq);
 
     tCO2 = new Thread(CO2ReceiverTask);
@@ -34,12 +34,12 @@ void CO2Trigger() {
     Checksum_lo };
 
     for (int i = 0; i < 7; ++i) {
-        co2uart->putcNB(co2TransmitBuffer[i]);	//Message must be maximum 16 bytes (FIFO size)
+        co2uart->putcNB(co2TransmitBuffer[i]);  //Message must be maximum 16 bytes (FIFO size)
     }
 }
 
 void RX_isr() {
-    uint8_t CO2recv = co2uart->getcNB();	//Reading UnRBR clears the interrupt. If we don't clear it
+    uint8_t CO2recv = co2uart->getcNB();    //Reading UnRBR clears the interrupt. If we don't clear it
     //->the ISR would retrigger infinitely.
     CO2queue.put((uint8_t *) CO2recv);
 }
@@ -48,19 +48,19 @@ void CO2ReceiverTask(void const *args) {
     uint8_t state = 0;
     uint8_t DATaPacket = 0;
     uint8_t NAKPacket = 0;
-    uint8_t DataLength;	//Data field length minus version and status flag bytes
+    uint8_t DataLength; //Data field length minus version and status flag bytes
     uint8_t vi = 0, si = 0, gi = 0;
-    uint8_t gj = 0;	//Index in uint8ieee[4]
-    uint8_t StatusError = 0;	//When Status flag !=0 indicates Status Error
-    uint8_t uint8ieee[4];	//Contains the IEEE-754 as integers (CPU is little Endian)
+    uint8_t gj = 0; //Index in uint8ieee[4]
+    uint8_t StatusError = 0;    //When Status flag !=0 indicates Status Error
+    uint8_t uint8ieee[4];   //Contains the IEEE-754 as integers (CPU is little Endian)
     float GasReading;
     uint8_t ByteStuffing = 0;
     uint8_t ChecksumReceived[2];
     uint16_t ChecksumCalculated;
     uint8_t CO2SensorError = 0;
     while (1) {
-        osEvent evt = CO2queue.get();	//If queue empty, stops here and lets other threads run
-        int recv_char = evt.value.v;	//Received character from CO2UART
+        osEvent evt = CO2queue.get();   //If queue empty, stops here and lets other threads run
+        int recv_char = evt.value.v;    //Received character from CO2UART
         if (state > 0 && state <= 7)
             ChecksumCalculated += recv_char;
         switch (state) {
@@ -69,13 +69,13 @@ void CO2ReceiverTask(void const *args) {
                 DATaPacket = 0;
                 NAKPacket = 0;
                 StatusError = 0;
-                ChecksumCalculated = recv_char;	//We don't initialize Checksum in the last state
+                ChecksumCalculated = recv_char; //We don't initialize Checksum in the last state
                                                 //->in case we didn't go there because of noise.
                 CO2SensorError = 0;
                 state++;
             }
             break;
-        case 1:	//If noise corrupts a byte in the FSM sequence, we loop between state
+        case 1: //If noise corrupts a byte in the FSM sequence, we loop between state
                 //->0 and 1, until we have a valid sequence of DLE&DAT or DLE&NAK
             if (recv_char == DAT) {
                 DATaPacket = 1;
@@ -92,7 +92,7 @@ void CO2ReceiverTask(void const *args) {
             else if (DATaPacket) {
                 DataLength = recv_char - 4;
                 if (DataLength < 4)
-                    state = 0;	//We check for the upper limit in state 5.
+                    state = 0;  //We check for the upper limit in state 5.
                 else
                     state++;
             } else
@@ -125,7 +125,7 @@ void CO2ReceiverTask(void const *args) {
                     ByteStuffing = 0;
                     gj++;
                     if (gj >= 4)
-                        state = 0;	//Don't violate array limits if DataLength corrupt
+                        state = 0;  //Don't violate array limits if DataLength corrupt
                 } else
                     ByteStuffing = 1;
                 gi++;
@@ -150,11 +150,11 @@ void CO2ReceiverTask(void const *args) {
             else
                 state = 0;
             break;
-        case 8:	//ChecksumReceived high
+        case 8: //ChecksumReceived high
             ChecksumReceived[1] = recv_char;
             state++;
             break;
-        case 9:	//ChecksumReceived low
+        case 9: //ChecksumReceived low
             ChecksumReceived[0] = recv_char;
             if (ChecksumCalculated != *(uint16_t *) ChecksumReceived || StatusError)
                 CO2SensorError = 1;
@@ -186,7 +186,7 @@ void CO2SchedulerTask(void const *args) {
         //This means it will take a random time up to 500ms for the sensor to answer.
         Thread::wait(500);
 
-        Thread::wait(100);	//Timeout time.
+        Thread::wait(100);  //Timeout time.
 
         if (CO2enabled())
             tCO2Health->signal_set(HEALTH_SIGNAL);

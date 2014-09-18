@@ -12,7 +12,7 @@ void mbed_die() {
 
 #if DEVELOPMENT
 
-    __disable_irq();	// dont allow interrupts to disturb the flash pattern
+    __disable_irq();    // Don't allow interrupts to disturb the flash pattern
 
     gpio_t led_1;
     gpio_init_out(&led_1, LED1);

@@ -11,13 +11,13 @@
 #include "PeripheralNames.h"
 #include "conf.h"
 
-#define HEALTH_SIGNAL 0x1	///<The signal a sensor's Scheduler Task sends after the timeout period
+#define HEALTH_SIGNAL 0x1   ///<The signal a sensor's Scheduler Task sends after the timeout period
 
 /** @name I2C Control Register bits */
 //@{
-#define I2C_SI 3	///<I2C Serial Interrupt flag
-#define I2C_STOP 4	///<I2C STOP flag
-#define I2C_START 5	///<I2C START flag
+#define I2C_SI 3    ///<I2C Serial Interrupt flag
+#define I2C_STOP 4  ///<I2C STOP flag
+#define I2C_START 5 ///<I2C START flag
 
 /** @brief Watchdog Timer timeout
  *
@@ -27,10 +27,10 @@
  * Maximum watchdog time is (1/500000) * 2^24 * 4 ~= 134000 ms
  */
 #define WDT_MS 1500
-#define WDEN 0	///<Watchdog enable bit
-#define WDRESET 1	///<Watchdog reset enable bit
+#define WDEN 0      ///<Watchdog enable bit
+#define WDRESET 1   ///<Watchdog reset enable bit
 
-#define DISABLE_COUNTDOWN 100	///<max 255
+#define DISABLE_COUNTDOWN 100   ///<max 255
 
 /** @brief Initializes stuff related with health monitoring
  *

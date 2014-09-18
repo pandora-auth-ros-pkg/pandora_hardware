@@ -33,9 +33,9 @@
 #include "error.h"
 #include "objects.h"
 
-#define SI 3	///<I2C Serial Interrupt flag
+#define SI 3    ///<I2C Serial Interrupt flag
 
-typedef struct i2c_s i2c_t;	///<Contains a member, i2c, which points to i2c peripheral memory address
+typedef struct i2c_s i2c_t; ///<Contains a member, i2c, which points to i2c peripheral memory address
 
 /** @brief I2C0 Interrupt Handler
  *

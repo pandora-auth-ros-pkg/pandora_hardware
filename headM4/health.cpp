@@ -67,16 +67,16 @@ static DigitalOut I2C0_switch(p30);
 static DigitalOut I2C1_switch(p29);
 //@}
 
-static Mutex WDT_mutex;	///<Mutex that protects Watchdog feeding sequence
+static Mutex WDT_mutex; ///<Mutex that protects Watchdog feeding sequence
 
 void HealthInit() {
-    I2C0_switch = 0;	//Active Low
-    I2C1_switch = 0;	//Active Low
+    I2C0_switch = 0;    //Active Low
+    I2C1_switch = 0;    //Active Low
 #if !DEVELOPMENT
             LPC_WDT->TC = (int)( (WDT_MS / 1000) * (500000 / 4) );
-            LPC_WDT->MOD = (1 << WDRESET) | (1 << WDEN);	//enable watchdog reset
-            WDT_feed();//A valid feed sequence must be completed after setting WDEN before the Watchdog
-                       //-> is capable of generating a reset
+            LPC_WDT->MOD = (1 << WDRESET) | (1 << WDEN);    //enable watchdog reset
+            WDT_feed(); //A valid feed sequence must be completed after setting WDEN before the Watchdog
+                        //-> is capable of generating a reset
 #endif
 }
 
@@ -230,13 +230,13 @@ void repairI2C(uint8_t count, int i2c_base) {
         i2c_periph->CONSET = 1 << I2C_STOP;
     } else if (count == 10) {
         if (i2c_base == I2C_0) {
-            I2C0_switch = !I2C0_switch;	//turn off I2C bus
-            Thread::wait(10);	//Probably only a few uSeconds are enough to turn off but I didn't test
-            I2C0_switch = !I2C0_switch;	//turn on I2C bus
+            I2C0_switch = !I2C0_switch; //turn off I2C bus
+            Thread::wait(10);   //Probably only a few uSeconds are enough to turn off but I didn't test
+            I2C0_switch = !I2C0_switch; //turn on I2C bus
         } else if (i2c_base == I2C_1) {
-            I2C1_switch = !I2C1_switch;	//turn off I2C bus
-            Thread::wait(10);	//Probably only a few uSeconds are enough to turn off but I didn't test
-            I2C1_switch = !I2C1_switch;	//turn on I2C bus
+            I2C1_switch = !I2C1_switch; //turn off I2C bus
+            Thread::wait(10);   //Probably only a few uSeconds are enough to turn off but I didn't test
+            I2C1_switch = !I2C1_switch; //turn on I2C bus
         }
 
         Thread::wait(60); //Time to enable communication after setup is 50ms according to GridEYE datasheet

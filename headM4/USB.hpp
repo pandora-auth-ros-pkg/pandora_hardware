@@ -12,10 +12,10 @@
 
 /** @name Possible incoming commands */
 //@{
-#define GEYE_CENTER_REQUEST 1	///<Requests temperature values from center GridEYE
-#define GEYE_LEFT_REQUEST 2		///<Requests temperature values from left GridEYE
-#define GEYE_RIGHT_REQUEST 3	///<Requests temperature values from right GridEYE
-#define CO2_REQUEST 4			///<Requests CO2 volume value
+#define GEYE_CENTER_REQUEST 1   ///<Requests temperature values from center GridEYE
+#define GEYE_LEFT_REQUEST 2     ///<Requests temperature values from left GridEYE
+#define GEYE_RIGHT_REQUEST 3    ///<Requests temperature values from right GridEYE
+#define CO2_REQUEST 4           ///<Requests CO2 volume value
 //@}
 
 /** @brief Initializes USB communication
