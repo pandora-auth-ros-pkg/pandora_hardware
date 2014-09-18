@@ -5,7 +5,7 @@
 #include "CO2.hpp"
 
 
-static Serial2 *co2uart;	///<Pointer to the Serial2 class object that implements the CO2 sensor
+static SerialNB *co2uart;	///<Pointer to the Serial2 class object that implements the CO2 sensor
 
 static Thread *tCO2;	///<Thread pointer for CO2ReceiverTask()
 
@@ -23,7 +23,7 @@ static Queue<uint8_t, 19> CO2queue;
 void CO2Init(PinName tx, PinName rx) {
 	//Check comment about sdram in Doxygen main page before using new
 
-	co2uart = new Serial2(tx, rx);
+	co2uart = new SerialNB(tx, rx);
 	co2uart->baud(38400);	//Baud 38400, 8N1
 	co2uart->attach(&RX_isr, Serial::RxIrq);
 

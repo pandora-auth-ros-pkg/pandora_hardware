@@ -1,4 +1,4 @@
-/** @file Serial2.h
+/** @file SerialNB.h
  * @author Orestis Zachariadis
  * @brief Expands http://mbed.org/handbook/Serial with non-blocking functionality
  *
@@ -18,8 +18,8 @@
  * Required time to transmit n bytes is (1/Baud)*(1+8+1)*n
  */
 
-#ifndef MBED_SERIAL2_H
-#define MBED_SERIAL2_H
+#ifndef MBED_SERIALNB_H
+#define MBED_SERIALNB_H
 
 #include "platform.h"
 
@@ -28,31 +28,31 @@
 #include "serial_api.h"
 #include "Serial.h"
 
-#define NONBLOCKING 0	///<Makes every serial I/O function with this port Non-Blocking
+#define NONBLOCKING 0	///<Makes EVERY serial I/O function with this port Non-Blocking
 
 namespace mbed {
 
 /**
- * @brief A serial port (UART) for communication with other serial devices
+ * @brief A Non-Blocking serial port (UART) for communication with other serial devices
  *
  * Can be used for Full Duplex communication, or Simplex by specifying
- * one pin as NC (Not Connected)
+ * one pin as NC (Not Connected). Inherits mbed::Serial to implement Non-Blocking functionality.
  *
  * Example:
  * @code
  * // Print "Hello World" to the PC
  *
  * #include "mbed.h"
- * #include "LibMods/Serial2.h"
+ * #include "LibMods/SerialNB.h"
  *
- * Serial2 pc(USBTX, USBRX);
+ * SerialNB pc(USBTX, USBRX);
  *
  * int main() {
  *     pc.printf("Hello World\n");
  * }
  * @endcode
  */
-class Serial2 : public Serial {
+class SerialNB : public Serial {
 
 public:
     /** Create a Serial port, connected to the specified transmit and receive pins
@@ -64,7 +64,7 @@ public:
      *  @note
      *    Either tx or rx may be specified as NC if unused
      */
-	Serial2(PinName tx, PinName rx, const char *name=NULL) :  Serial(tx, rx, name=NULL) {}
+	SerialNB(PinName tx, PinName rx, const char *name=NULL) :  Serial(tx, rx, name=NULL) {}
 
 	/** A non-blocking version of _putc().
 	 *
