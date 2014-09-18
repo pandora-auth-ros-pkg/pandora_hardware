@@ -225,7 +225,7 @@ void repairI2C(uint8_t count, int i2c_base) {
 			i2c_periph->CONSET = 1 << I2C_START;
 		}
 	} else if (count == 5) {
-		i2c_periph->CONSET = 1 << SI;
+		i2c_periph->CONSET = 1 << I2C_SI;
 	} else if (count == 7) {
 		i2c_periph->CONSET = 1 << I2C_START;
 		i2c_periph->CONSET = 1 << I2C_STOP;

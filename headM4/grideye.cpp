@@ -22,8 +22,6 @@ void GridEYEInit(I2C *i2c0_obj, I2C *i2c1_obj) {
 
 	i2c0_obj->frequency(400000);
 	i2c1_obj->frequency(400000);
-    I2C0_queue_create();
-    I2C1_queue_create();
 
 	grideye_sensor_t temp_sens1;	//Because we pass starting arguments to threads with a pointer we must be sure that
 	grideye_sensor_t temp_sens2;	//-> their memory contents don't change long enough for the threads to copy the data

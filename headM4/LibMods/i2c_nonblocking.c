@@ -7,12 +7,14 @@
 /**@brief Creates I2C0_queue Message Queue Definition.
  * @see http://www.keil.com/pack/doc/cmsis_rtx/modules.html*/
 static osMessageQDef(I2C0_queue, 1, uint32_t);
+
 /**@brief An one element queue that gets a value when an interrupt to the corresponding I2c peripheral occurs */
 static osMessageQId  I2C0_queue;
 
 /**@brief Creates I2C1_queue Message Queue Definition.
  * @see http://www.keil.com/pack/doc/cmsis_rtx/modules.html*/
 static osMessageQDef(I2C1_queue, 1, uint32_t);
+
 /**@brief An one element queue that gets a value when an interrupt to the corresponding I2c peripheral occurs */
 static osMessageQId  I2C1_queue;
 

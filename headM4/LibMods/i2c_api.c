@@ -152,6 +152,13 @@ void i2c_init(i2c_t *obj, PinName sda, PinName scl) {
         pin_mode(scl, OpenDrain);
     }
 
+    //"CHANGED MBED LIBRARY HERE"
+    if (obj->i2c == (LPC_I2C_TypeDef *)I2C_0) {
+        I2C0_queue_create();
+    } else if (obj->i2c == (LPC_I2C_TypeDef *)I2C_1) {
+        I2C1_queue_create();
+    }
+
 }
 
 inline int i2c_start(i2c_t *obj) {

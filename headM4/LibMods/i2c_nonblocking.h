@@ -69,14 +69,14 @@ extern "C" {
 
 /** @brief Create and Initialize I2C0 interrupt Message Queue
  *
- * Also enables corresponding I2C interrupt.
+ * Also enables corresponding I2C interrupt. It is called from i2c_init() in i2c_api.c.
  */
 void I2C0_queue_create();
 
 
 /** @brief Create and Initialize I2C1 interrupt Message Queue
  *
- * Also enables corresponding I2C interrupt.
+ * Also enables corresponding I2C interrupt. It is called from i2c_init() in i2c_api.c.
  */
 void I2C1_queue_create();
 
