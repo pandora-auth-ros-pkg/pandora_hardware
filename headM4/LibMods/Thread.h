@@ -19,6 +19,14 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
+/** @file
+ * @brief Slightly modified MBED USBSerial.h. See details.
+ *
+ * Added declaration for signal clear functionality.
+ *
+ * @note Changes in the original code are marked with "CHANGED MBED LIBRARY HERE" in comments.
+ * @note To use this file, rename the original with the same name to something not compilable.
+ */
 #ifndef THREAD_H
 #define THREAD_H
 
@@ -64,6 +72,10 @@ public:
     */
     int32_t signal_set(int32_t signals);
     
+    /** Clear the specified Signal Flags of an active thread.
+      @param   signals  specifies the signal flags of the thread that should be cleared.
+      @return  previous signal flags of the specified thread or 0x80000000 in case of incorrect parameters.
+    */
     int32_t signal_clear(int32_t signals);  //"CHANGED MBED LIBRARY HERE"
 
     /** State of the Thread */

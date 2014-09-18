@@ -18,15 +18,15 @@
 /** @file
  * @brief Slightly modified MBED USBSerial.h. See details.
  *
- * I copied USBSerial.h to USBSerial2.h. Only changed the constructor so we can
+ * I copied USBSerial.h. Only changed the constructor so we can
  * input the circular buffer size (buf). It would be a good idea for the buffer
  * size to be a multiple of the incoming packet size. Haven't tested for packets
  * bigger than 64 byte.@n
  * The circular buffer fills up transparently with a callback, so we don't have
  * to worry about missing packets. (Check EP2_OUT_callback() implementation in USBDevice/USBSerial/USBSerial.cpp)
  *
- * @note To use this modified library include "LibMods/USBSerial2.h" and create a USBSerial object (not USBSerial2 object),
- * like the following example.
+ * @note Changes in the original code are marked with "CHANGED MBED LIBRARY HERE" in comments.
+ * @note To use this file, rename the original with the same name to something not compilable.
  */
 
 #ifndef USBSERIAL_H
@@ -43,7 +43,7 @@
 *
 * @code
 * #include "mbed.h"
-* #include "LibMods/USBSerial2.h"
+* #include "USBSerial.h"
 *
 * //Virtual serial port over USB
 * USBSerial serial;

@@ -18,18 +18,17 @@
  * @brief MBED i2c_api.c with modifications and fixes.
  *
  * @note
- * Due to MBED Library bug, %i2c_write() and %i2c_read() in i2c_api.c were changed in order
+ * Due to an MBED Library bug, %i2c_write() and %i2c_read() in i2c_api.c were changed in order
  * to support a repeated start i2c_read after an i2c_write call.
  * @n @n
  * Instructions if you want to use repeated start:
- * @li Delete original i2c_api.c so that there are no same name conflicts with i2c_api2.c in LibMods folder.
- * (i2c_api2.c doesn't have to be moved from LibMods folder)
  * @li If you set "repeated" argument to true in I2C::write() the following I2C::read() must also
  * have "repeated" argument set to true.
  * @li An I2C transaction is not allowed to start with I2C::read() with "repeated" argument set to true.
  *
  * @attention As of now only the sequence write -> repeated start -> read is implemented.
- * @note Changes in original i2c_api.c are marked with "CHANGED MBED LIBRARY HERE" in comments.
+ * @note Changes in the original code are marked with "CHANGED MBED LIBRARY HERE" in comments.
+ * @note To use this file, rename the original with the same name to something not compilable.
  */
 
 #include "i2c_api.h"

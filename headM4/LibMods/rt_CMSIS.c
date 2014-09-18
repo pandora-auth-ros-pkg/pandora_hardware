@@ -36,8 +36,9 @@
  * @brief MBED %rt_CMSIS.c fixed. See details.
  *
  * Fixed issue outlined here: https://github.com/mbedmicro/mbed/issues/285.
- * @n @n
- * I marked changes with "CHANGED MBED LIBRARY HERE" for easy searching.
+ * @n
+ * @note Changes in the original code are marked with "CHANGED MBED LIBRARY HERE" in comments.
+ * @note To use this file, rename the original with the same name to something not compilable.
  */
 
 #define __CMSIS_GENERIC

@@ -3,7 +3,7 @@
  * @brief Expands http://mbed.org/handbook/Serial with non-blocking functionality
  *
  * @note
- * Both putc and printf() use serial_putc() in serial_api.c.
+ * Both putc() and printf() use serial_putc() in serial_api.c.
  * @n
  * @n
  * Transmit FIFO size is 16. If we transmit new data and FIFO is full the new data gets lost.
@@ -43,12 +43,12 @@ namespace mbed {
  * // Print "Hello World" to the PC
  *
  * #include "mbed.h"
- * #include "LibMods/SerialNB.h"
+ * #include "SerialNB.h"
  *
  * SerialNB pc(USBTX, USBRX);
  *
  * int main() {
- *     pc.printf("Hello World\n");
+ *     pc.putcNB("Hello World\n");
  * }
  * @endcode
  */
