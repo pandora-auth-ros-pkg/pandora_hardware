@@ -26,11 +26,11 @@
  * Minimum watchdog time is (1/500000) * 256 * 4 ~= 2 ms.
  * Maximum watchdog time is (1/500000) * 2^24 * 4 ~= 134000 ms
  */
-#define WDT_MS 1500
+#define WDT_MS 1500 ///<Watchdog timer period in ms.
 #define WDEN 0      ///<Watchdog enable bit
 #define WDRESET 1   ///<Watchdog reset enable bit
 
-#define DISABLE_COUNTDOWN 100   ///<max 255
+#define DISABLE_COUNTDOWN 100   ///When this reaches zero, <max 255
 
 /** @brief Initializes stuff related with health monitoring
  *

@@ -89,6 +89,14 @@ void i2c_lock(uint8_t i2c_periph_num);
  */
 void i2c_unlock(uint8_t i2c_periph_num);
 
+/** @brief Clears the signal from the indicated GridEYE sensor
+ *
+ * Clears the signal that is set from GridEYESchedulerTask().
+ *
+ * @param grideye_num grideye_sensor_t::grideye_num
+ */
+void GridEYESignalClear(uint8_t grideye_num);
+
 /** @brief Sets the buffer of each GridEYE sensor so that it will be available for transfer
  *
  * Checks if temperature readings is inside their manufacturer's specified limits, rounds each temperature value
@@ -106,7 +114,5 @@ void GridEYEvaluesSet(float values[], uint8_t grideye_num);
  * was any response.
  */
 void GridEYESchedulerTask(void const *args);
-
-void GridEYESignalClear(uint8_t grideye_num);
 
 #endif /* GRIDEYE_HPP_ */

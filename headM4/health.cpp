@@ -75,8 +75,8 @@ void HealthInit() {
 #if !DEVELOPMENT
             LPC_WDT->TC = (int)( (WDT_MS / 1000) * (500000 / 4) );
             LPC_WDT->MOD = (1 << WDRESET) | (1 << WDEN);    //enable watchdog reset
-            WDT_feed(); //A valid feed sequence must be completed after setting WDEN before the Watchdog
-                        //-> is capable of generating a reset
+            WDT_feed();//A valid feed sequence must be completed after setting WDEN before the Watchdog
+                       //-> is capable of generating a reset
 #endif
 }
 
@@ -115,9 +115,12 @@ void GridEYEHealthTask(void const *args) {
                 USBGridEYEvaluesZero(GEYE_RIGHT);
                 USBGridEYEvaluesZero(GEYE_CENTER);
             }
-            //For signal flags to be cleared signal_wait() must be called. We clear signal flags before attempting repair,
-            //-> so that in case of successful repair GridEYETask() doesn't continue its loop before it takes the OK from
-            //-> GridEYESchedulerTask()
+            //Normally, when signal_wait() is called the signal flags get cleared automatically. But if the sensor is stuck
+            //-> inside the loop, signal flags are set again by GridEYESchedulerTask(). That means when a repair manage to
+            //-> unstuck the sensor, the request for new data from the sensor will start immediately, without waiting on
+            //-> signal_wait() for signal_set() from SchedulerTask().
+            //We clear signal flags before attempting repair, so that in case of successful repair GridEYETask() doesn't
+            //-> continue its loop before it takes the OK from GridEYESchedulerTask().
             GridEYESignalClear(GEYE_RIGHT);
             GridEYESignalClear(GEYE_CENTER);
             repairI2C(I2C0_FailCount, I2C_0);
