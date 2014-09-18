@@ -18,6 +18,7 @@
 #define I2C_SI 3    ///<I2C Serial Interrupt flag
 #define I2C_STOP 4  ///<I2C STOP flag
 #define I2C_START 5 ///<I2C START flag
+//@}
 
 /** @brief Watchdog Timer timeout
  *
@@ -30,7 +31,8 @@
 #define WDEN 0      ///<Watchdog enable bit
 #define WDRESET 1   ///<Watchdog reset enable bit
 
-#define DISABLE_COUNTDOWN 100   ///When this reaches zero, <max 255
+/** @brief Sets the maximum number of times a sensor can fail to respond before it is disabled, max 255 */
+#define DISABLE_COUNTDOWN 100
 
 /** @brief Initializes stuff related with health monitoring
  *
@@ -60,9 +62,29 @@ void clearHealthyCO2();
 /** @brief Clears GridEYE healthy status
  *
  * Sets the healthy status of a sensor to zero. We must do this before triggering the sensor.
- * If the sensor fails to respond, healthy status will remain to zero so GridEYEHealthTask() can check its status
+ * If the sensor fails to respond, healthy status will remain to zero so GridEYEHealthTask() can check its status.
  */
 void clearHealthyGridEYE();
+
+/** @brief Checks if a GridEYE sensor is enabled.
+ *
+ * Returns the corresponding GridEYE*_DisableCountdown, which is a positive number greater than zero if the sensor is
+ * enabled, and zero if it is disabled.
+ *
+ * @param grideye_num grideye_sensor_t::grideye_num
+ *
+ * @returns true if selected sensor is enabled, false otherwise
+ */
+uint8_t GridEYEenabled(uint8_t grideye_num);
+
+/** @brief Checks if CO2 sensor is enabled.
+ *
+ * Returns CO2_DisableCountdown, which is a positive number greater than zero if the sensor is enabled,
+ * and zero if it is disabled.
+ *
+ * @returns true if selected sensor is enabled, false otherwise
+ */
+uint8_t CO2enabled();
 
 /** @brief Called when a sensor is healthy to send received data to USB
  *
@@ -85,19 +107,15 @@ void HealthyCO2valueSet(float value);
  */
 void HealthyGridEYEvaluesSet(uint8_t values[], uint8_t grideye_num);
 
-uint8_t GridEYEenabled(uint8_t grideye_num);
-
-uint8_t CO2enabled();
-
 /** @brief Attempts to recover CO2 sensor
  *
- * @param count The sensor FailCount value
+ * @param count The sensor FailIndex value
  */
 void repairCO2(uint8_t count);
 
 /** @brief Attempts to recover I2C bus
  *
- * @param count The sensor FailCount value
+ * @param count The sensor FailIndex value
  * @param i2c_base Pointer to appropriate I2C peripheral memory address
  */
 void repairI2C(uint8_t count, int i2c_base);
