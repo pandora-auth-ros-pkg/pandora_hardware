@@ -5,12 +5,10 @@
 #ifndef GRIDEYE_HPP_
 #define GRIDEYE_HPP_
 
-
 #include "mbed.h"
 #include "rtos.h"
 #include "health.hpp"
 #include "conf.h"
-
 
 #if ENABLE_RGB_LEDMATRIX
 
@@ -51,12 +49,11 @@
 /** @struct grideye_sensor_t
  * @brief Required info to handle each GridEYE sensor */
 typedef struct {
-	I2C *i2c_obj;	///<I2C object pointer (one pointer per I2C peripheral)
-	uint8_t i2c_periph_num;	///<0 for I2C0 peripheral, 1 for I2C1 etc
-	uint8_t i2c_addr;	///<I2C address of selected peripheral
-	uint8_t grideye_num;	///<Holds the GridEYE sensors id
-}grideye_sensor_t;
-
+    I2C *i2c_obj;	///<I2C object pointer (one pointer per I2C peripheral)
+    uint8_t i2c_periph_num;	///<0 for I2C0 peripheral, 1 for I2C1 etc
+    uint8_t i2c_addr;	///<I2C address of selected peripheral
+    uint8_t grideye_num;	///<Holds the GridEYE sensors id
+} grideye_sensor_t;
 
 /** @brief GridEYE sensors initialization
  *
@@ -67,7 +64,6 @@ typedef struct {
  */
 void GridEYEInit(I2C *i2c0_obj, I2C *i2c1_obj);
 
-
 /** @brief Gets temperature data from GridEYE sensors
  *
  * Gets temperature and thermistor data from GridEYE sensors. Also sends temperature data to
@@ -77,7 +73,6 @@ void GridEYEInit(I2C *i2c0_obj, I2C *i2c1_obj);
  */
 void GridEYETask(void const *args);
 
-
 /** @brief Locks access to I2C bus
  *
  * Uses mutexes to allow only one sensor of each I2C peripheral request and receive data at the same time
@@ -86,7 +81,6 @@ void GridEYETask(void const *args);
  */
 void i2c_lock(uint8_t i2c_periph_num);
 
-
 /** @brief Unlocks access to I2C bus
  *
  * Uses mutexes to allow only one sensor of each I2C peripheral request and receive data at the same time
@@ -94,7 +88,6 @@ void i2c_lock(uint8_t i2c_periph_num);
  * @param i2c_periph_num grideye_sensor_t::i2c_periph_num of the current sensor
  */
 void i2c_unlock(uint8_t i2c_periph_num);
-
 
 /** @brief Sets the buffer of each GridEYE sensor so that it will be available for transfer
  *
@@ -107,7 +100,6 @@ void i2c_unlock(uint8_t i2c_periph_num);
  */
 void GridEYEvaluesSet(float values[], uint8_t grideye_num);
 
-
 /** @brief Schedules when we acquire data from the GridEYE sensors
  *
  * Manages GridEYE sensors triggering period and signals GridEYEHealthTask() after a timeout period to check if there
@@ -115,8 +107,6 @@ void GridEYEvaluesSet(float values[], uint8_t grideye_num);
  */
 void GridEYESchedulerTask(void const *args);
 
-
 void GridEYESignalClear(uint8_t grideye_num);
-
 
 #endif /* GRIDEYE_HPP_ */

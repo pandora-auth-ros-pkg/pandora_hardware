@@ -11,7 +11,6 @@
 
 #include "SerialNB.h"
 
-
 /** @name CO2 Sensor Protocol Instructions */
 //@{
 #define RD   0x13        ///<Read
@@ -27,7 +26,7 @@
 /** @brief CO2 sensor initialization
  *
  * Initialize CO2 sensor communication and required threads */
-void CO2Init(PinName tx, PinName rx) ;
+void CO2Init(PinName tx, PinName rx);
 
 /**
  * @brief Live Data Simple request to CO2 sensor
@@ -65,6 +64,5 @@ void CO2valueSet(float value);
  * was any response.
  */
 void CO2SchedulerTask(void const *args);
-
 
 #endif /* CO2_HPP_ */

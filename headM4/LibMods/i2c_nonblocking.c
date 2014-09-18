@@ -54,6 +54,6 @@ int i2c_wait_SI(i2c_t *obj) {
 		osMessageGet(I2C0_queue, osWaitForever);	//TODO: well, maybe forever is too long
 	} else if (obj->i2c == (LPC_I2C_TypeDef *)I2C_1) {
 		osMessageGet(I2C1_queue, osWaitForever);	//TODO: well, maybe forever is too long
-	}
+    }
     return 0;
 }

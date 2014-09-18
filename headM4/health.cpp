@@ -69,195 +69,194 @@ static DigitalOut I2C1_switch(p29);
 
 static Mutex WDT_mutex;	///<Mutex that protects Watchdog feeding sequence
 
-
 void HealthInit() {
-	I2C0_switch = 0;	//Active Low
-	I2C1_switch = 0;	//Active Low
+    I2C0_switch = 0;	//Active Low
+    I2C1_switch = 0;	//Active Low
 #if !DEVELOPMENT
-    LPC_WDT->TC = (int)( (WDT_MS / 1000) * (500000 / 4) );
-    LPC_WDT->MOD = (1 << WDRESET) | (1 << WDEN);	//enable watchdog reset
-    WDT_feed();	//A valid feed sequence must be completed after setting WDEN before the Watchdog
-    			//-> is capable of generating a reset
+            LPC_WDT->TC = (int)( (WDT_MS / 1000) * (500000 / 4) );
+            LPC_WDT->MOD = (1 << WDRESET) | (1 << WDEN);	//enable watchdog reset
+            WDT_feed();//A valid feed sequence must be completed after setting WDEN before the Watchdog
+                       //-> is capable of generating a reset
 #endif
 }
 
 void CO2HealthTask(void const *args) {
-	while (true) {
-		Thread::signal_wait(HEALTH_SIGNAL);
+    while (true) {
+        Thread::signal_wait(HEALTH_SIGNAL);
 
-		WDT_feed();
+        WDT_feed();
 
-		if (!CO2_healthy && CO2_DisableCounter) {
-			CO2_DisableCounter--;
-			CO2_FailCount++;
-			if (CO2_FailCount == 1) {
-				USBCO2valueSet(0);
-			}
-			repairCO2(CO2_FailCount);
-		}
-	}
+        if (!CO2_healthy && CO2_DisableCounter) {
+            CO2_DisableCounter--;
+            CO2_FailCount++;
+            if (CO2_FailCount == 1) {
+                USBCO2valueSet(0);
+            }
+            repairCO2(CO2_FailCount);
+        }
+    }
 }
 
 void GridEYEHealthTask(void const *args) {
-	while (true) {
-		Thread::signal_wait(HEALTH_SIGNAL);
+    while (true) {
+        Thread::signal_wait(HEALTH_SIGNAL);
 
-		WDT_feed();
+        WDT_feed();
 
-		if (!GridEYECenter_healthy && GridEYECenter_DisableCounter) {
-			GridEYECenter_DisableCounter--;
-		}
-		if (!GridEYERight_healthy && GridEYERight_DisableCounter) {
-			GridEYERight_DisableCounter--;
-		}
-		if (!GridEYECenter_healthy && !GridEYERight_healthy) {
-			I2C0_FailCount++;
-			if (I2C0_FailCount == 1) {
-				USBGridEYEvaluesZero(GEYE_RIGHT);
-				USBGridEYEvaluesZero(GEYE_CENTER);
-			}
-			//For signal flags to be cleared signal_wait() must be called. We clear signal flags before attempting repair,
-			//-> so that in case of successful repair GridEYETask() doesn't continue its loop before it takes the OK from
-			//-> GridEYESchedulerTask()
-			GridEYESignalClear(GEYE_RIGHT);
-			GridEYESignalClear(GEYE_CENTER);
-			repairI2C(I2C0_FailCount, I2C_0);
-		}
-		if (!GridEYELeft_healthy && GridEYELeft_DisableCounter) {
-			GridEYELeft_DisableCounter--;
-			I2C1_FailCount++;
-			if (I2C1_FailCount == 1) {
-				USBGridEYEvaluesZero(GEYE_LEFT);
-			}
-			GridEYESignalClear(GEYE_LEFT);
-			repairI2C(I2C1_FailCount, I2C_1);
-		}
-	}
+        if (!GridEYECenter_healthy && GridEYECenter_DisableCounter) {
+            GridEYECenter_DisableCounter--;
+        }
+        if (!GridEYERight_healthy && GridEYERight_DisableCounter) {
+            GridEYERight_DisableCounter--;
+        }
+        if (!GridEYECenter_healthy && !GridEYERight_healthy) {
+            I2C0_FailCount++;
+            if (I2C0_FailCount == 1) {
+                USBGridEYEvaluesZero(GEYE_RIGHT);
+                USBGridEYEvaluesZero(GEYE_CENTER);
+            }
+            //For signal flags to be cleared signal_wait() must be called. We clear signal flags before attempting repair,
+            //-> so that in case of successful repair GridEYETask() doesn't continue its loop before it takes the OK from
+            //-> GridEYESchedulerTask()
+            GridEYESignalClear(GEYE_RIGHT);
+            GridEYESignalClear(GEYE_CENTER);
+            repairI2C(I2C0_FailCount, I2C_0);
+        }
+        if (!GridEYELeft_healthy && GridEYELeft_DisableCounter) {
+            GridEYELeft_DisableCounter--;
+            I2C1_FailCount++;
+            if (I2C1_FailCount == 1) {
+                USBGridEYEvaluesZero(GEYE_LEFT);
+            }
+            GridEYESignalClear(GEYE_LEFT);
+            repairI2C(I2C1_FailCount, I2C_1);
+        }
+    }
 }
 
 void clearHealthyCO2() {
-	CO2_healthy = 0;
+    CO2_healthy = 0;
 }
 
 void clearHealthyGridEYE() {
-	GridEYECenter_healthy = 0;
-	GridEYELeft_healthy = 0;
-	GridEYERight_healthy = 0;
+    GridEYECenter_healthy = 0;
+    GridEYELeft_healthy = 0;
+    GridEYERight_healthy = 0;
 }
 
 void HealthyCO2valueSet(float value) {
-	CO2_healthy = 1;
-	CO2_FailCount = 0;
-	CO2_DisableCounter = DISABLE_COUNTDOWN;
-	USBCO2valueSet(value);
-	CO2_LifeLED = !CO2_LifeLED;
+    CO2_healthy = 1;
+    CO2_FailCount = 0;
+    CO2_DisableCounter = DISABLE_COUNTDOWN;
+    USBCO2valueSet(value);
+    CO2_LifeLED = !CO2_LifeLED;
 }
 
 void HealthyGridEYEvaluesSet(uint8_t values[], uint8_t grideye_num) {
-	switch (grideye_num) {
-		case GEYE_CENTER:
-			GridEYECenter_healthy = 1;
-			I2C0_FailCount = 0;
-			GridEYECenter_DisableCounter = DISABLE_COUNTDOWN;
-			USBGridEYEvaluesSet(values, grideye_num);
-			I2C0_LifeLED = !I2C0_LifeLED;
-			break;
-		case GEYE_RIGHT:
-			GridEYERight_healthy = 1;
-			I2C0_FailCount = 0;
-			GridEYERight_DisableCounter = DISABLE_COUNTDOWN;
-			USBGridEYEvaluesSet(values, grideye_num);
-			I2C0_LifeLED = !I2C0_LifeLED;
-			break;
-		case GEYE_LEFT:
-			GridEYELeft_healthy = 1;
-			I2C1_FailCount = 0;
-			GridEYELeft_DisableCounter = DISABLE_COUNTDOWN;
-			USBGridEYEvaluesSet(values, grideye_num);
-			I2C1_LifeLED = !I2C1_LifeLED;
-			break;
-		default:
-			return;
-	}
+    switch (grideye_num) {
+    case GEYE_CENTER:
+        GridEYECenter_healthy = 1;
+        I2C0_FailCount = 0;
+        GridEYECenter_DisableCounter = DISABLE_COUNTDOWN;
+        USBGridEYEvaluesSet(values, grideye_num);
+        I2C0_LifeLED = !I2C0_LifeLED;
+        break;
+    case GEYE_RIGHT:
+        GridEYERight_healthy = 1;
+        I2C0_FailCount = 0;
+        GridEYERight_DisableCounter = DISABLE_COUNTDOWN;
+        USBGridEYEvaluesSet(values, grideye_num);
+        I2C0_LifeLED = !I2C0_LifeLED;
+        break;
+    case GEYE_LEFT:
+        GridEYELeft_healthy = 1;
+        I2C1_FailCount = 0;
+        GridEYELeft_DisableCounter = DISABLE_COUNTDOWN;
+        USBGridEYEvaluesSet(values, grideye_num);
+        I2C1_LifeLED = !I2C1_LifeLED;
+        break;
+    default:
+        return;
+    }
 }
 
 uint8_t GridEYEenabled(uint8_t grideye_num) {
-	switch (grideye_num) {
-		case GEYE_CENTER:
-			return GridEYECenter_DisableCounter;
-		case GEYE_RIGHT:
-			return GridEYERight_DisableCounter;
-		case GEYE_LEFT:
-			return GridEYELeft_DisableCounter;
-		default:
-			return 1;
-	}
-	return 1;
+    switch (grideye_num) {
+    case GEYE_CENTER:
+        return GridEYECenter_DisableCounter;
+    case GEYE_RIGHT:
+        return GridEYERight_DisableCounter;
+    case GEYE_LEFT:
+        return GridEYELeft_DisableCounter;
+    default:
+        return 1;
+    }
+    return 1;
 }
 
 uint8_t CO2enabled() {
-	return CO2_DisableCounter;
+    return CO2_DisableCounter;
 }
 
 void repairCO2(uint8_t count) {
-	if (count == 3) {
-		CO2Trigger();
-	}
+    if (count == 3) {
+        CO2Trigger();
+    }
 
-	//Determines the rate at which the repair measures are repeated (we can't know how long the cause of the problem lasts)
-	if (CO2_FailCount > 5) {
-		CO2_FailCount = 1;
-	}
+    //Determines the rate at which the repair measures are repeated (we can't know how long the cause of the problem lasts)
+    if (CO2_FailCount > 5) {
+        CO2_FailCount = 1;
+    }
 }
 
 void repairI2C(uint8_t count, int i2c_base) {
-	LPC_I2C_TypeDef *i2c_periph = (LPC_I2C_TypeDef *)i2c_base;
+    LPC_I2C_TypeDef *i2c_periph = (LPC_I2C_TypeDef *) i2c_base;
 
-	if ( (count >= 3) && (i2c_periph->STAT == 0) ) {
-		i2c_periph->CONSET = 1 << I2C_STOP;
-		i2c_periph->CONCLR = 1 << I2C_SI;
-		return;
-	}
-	if (count == 3) {
-		if (i2c_periph->CONSET & 1 << I2C_START) {
-			i2c_periph->CONSET = 1 << I2C_STOP;
-		} else {
-			i2c_periph->CONSET = 1 << I2C_START;
-		}
-	} else if (count == 5) {
-		i2c_periph->CONSET = 1 << I2C_SI;
-	} else if (count == 7) {
-		i2c_periph->CONSET = 1 << I2C_START;
-		i2c_periph->CONSET = 1 << I2C_STOP;
-	} else if (count == 10) {
-		if (i2c_base == I2C_0) {
-			I2C0_switch = !I2C0_switch;	//turn off I2C bus
-			Thread::wait(10);	//Probably only a few uSeconds are enough to turn off but I didn't test
-			I2C0_switch = !I2C0_switch;	//turn on I2C bus
-		} else if (i2c_base == I2C_1) {
-			I2C1_switch = !I2C1_switch;	//turn off I2C bus
-			Thread::wait(10);	//Probably only a few uSeconds are enough to turn off but I didn't test
-			I2C1_switch = !I2C1_switch;	//turn on I2C bus
-		}
+    if ((count >= 3) && (i2c_periph->STAT == 0)) {
+        i2c_periph->CONSET = 1 << I2C_STOP;
+        i2c_periph->CONCLR = 1 << I2C_SI;
+        return;
+    }
+    if (count == 3) {
+        if (i2c_periph->CONSET & 1 << I2C_START) {
+            i2c_periph->CONSET = 1 << I2C_STOP;
+        } else {
+            i2c_periph->CONSET = 1 << I2C_START;
+        }
+    } else if (count == 5) {
+        i2c_periph->CONSET = 1 << I2C_SI;
+    } else if (count == 7) {
+        i2c_periph->CONSET = 1 << I2C_START;
+        i2c_periph->CONSET = 1 << I2C_STOP;
+    } else if (count == 10) {
+        if (i2c_base == I2C_0) {
+            I2C0_switch = !I2C0_switch;	//turn off I2C bus
+            Thread::wait(10);	//Probably only a few uSeconds are enough to turn off but I didn't test
+            I2C0_switch = !I2C0_switch;	//turn on I2C bus
+        } else if (i2c_base == I2C_1) {
+            I2C1_switch = !I2C1_switch;	//turn off I2C bus
+            Thread::wait(10);	//Probably only a few uSeconds are enough to turn off but I didn't test
+            I2C1_switch = !I2C1_switch;	//turn on I2C bus
+        }
 
-		Thread::wait(60); //Time to enable communication after setup is 50ms according to GridEYE datasheet
+        Thread::wait(60); //Time to enable communication after setup is 50ms according to GridEYE datasheet
 
-		//Resets uC I2C state
-		i2c_periph->CONSET = 1 << I2C_START;
-		i2c_periph->CONSET = 1 << I2C_STOP;
-	}
+        //Resets uC I2C state
+        i2c_periph->CONSET = 1 << I2C_START;
+        i2c_periph->CONSET = 1 << I2C_STOP;
+    }
 
-	//Determines the rate at which the repair measures are repeated (we can't know how long the cause of the problem lasts)
-	if (I2C0_FailCount > 40) {
-		I2C0_FailCount = 1;
-	}
-	if (I2C1_FailCount > 40) {
-		I2C1_FailCount = 1;
-	}
+    //Determines the rate at which the repair measures are repeated (we can't know how long the cause of the problem lasts)
+    if (I2C0_FailCount > 40) {
+        I2C0_FailCount = 1;
+    }
+    if (I2C1_FailCount > 40) {
+        I2C1_FailCount = 1;
+    }
 }
 
 void WDT_feed() {
-	WDT_mutex.lock();
+    WDT_mutex.lock();
     LPC_WDT->FEED = 0xAA;
     LPC_WDT->FEED = 0x55;
     WDT_mutex.unlock();

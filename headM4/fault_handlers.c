@@ -12,12 +12,16 @@ void mbed_die() {
 
 #if DEVELOPMENT
 
-	__disable_irq();	// dont allow interrupts to disturb the flash pattern
+    __disable_irq();	// dont allow interrupts to disturb the flash pattern
 
-    gpio_t led_1; gpio_init_out(&led_1, LED1);
-    gpio_t led_2; gpio_init_out(&led_2, LED2);
-    gpio_t led_3; gpio_init_out(&led_3, LED3);
-    gpio_t led_4; gpio_init_out(&led_4, LED4);
+    gpio_t led_1;
+    gpio_init_out(&led_1, LED1);
+    gpio_t led_2;
+    gpio_init_out(&led_2, LED2);
+    gpio_t led_3;
+    gpio_init_out(&led_3, LED3);
+    gpio_t led_4;
+    gpio_init_out(&led_4, LED4);
 
     while (1) {
         gpio_write(&led_1, 1);
@@ -41,40 +45,34 @@ void mbed_die() {
 
 }
 
-
 /** @name Processor Fault Handlers
  *  Cortex microprocessor exceptions that occur due to some fault.
  *  @see Cortex™-M4 Devices : Generic User Guide
  */
 ///@{
-
 /** A HardFault is an exception that occurs because of an error during
-* exception processing, or because an exception cannot be managed by any
-* other exception mechanism. */
-void HardFault_Handler(void)
-{
-	mbed_die();
+ * exception processing, or because an exception cannot be managed by any
+ * other exception mechanism. */
+void HardFault_Handler(void) {
+    mbed_die();
 }
 
 /** A MemManage fault is an exception that occurs because of a memory
-* protection related fault. */
-void MemManage_Handler(void)
-{
-	mbed_die();
+ * protection related fault. */
+void MemManage_Handler(void) {
+    mbed_die();
 }
 
 /** A BusFault is an exception that occurs because of a memory related fault
-* for an instruction or data memory transaction. */
-void BusFault_Handler(void)
-{
-	mbed_die();
+ * for an instruction or data memory transaction. */
+void BusFault_Handler(void) {
+    mbed_die();
 }
 
 /** A UsageFault is an exception that occurs because of a fault related to
-* instruction execution. */
-void UsageFault_Handler(void)
-{
-	mbed_die();
+ * instruction execution. */
+void UsageFault_Handler(void) {
+    mbed_die();
 }
 
 ///@}

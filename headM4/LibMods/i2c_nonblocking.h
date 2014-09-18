@@ -37,7 +37,6 @@
 
 typedef struct i2c_s i2c_t;	///<Contains a member, i2c, which points to i2c peripheral memory address
 
-
 /** @brief I2C0 Interrupt Handler
  *
  * Disables interrupts
@@ -49,7 +48,6 @@ typedef struct i2c_s i2c_t;	///<Contains a member, i2c, which points to i2c peri
  * RTOS signals because they can notify only specific threads.
  */
 void I2C0_IRQHandler();
-
 
 /** @brief I2C1 Interrupt Handler
  *
@@ -73,7 +71,6 @@ extern "C" {
  */
 void I2C0_queue_create();
 
-
 /** @brief Create and Initialize I2C1 interrupt Message Queue
  *
  * Also enables corresponding I2C interrupt. It is called from i2c_init() in i2c_api.c.
@@ -92,8 +89,7 @@ void I2C1_queue_create();
  * Interrupt flag must be cleared BEFORE clearing the pending interrupt, or the pending interrupt would be set again.
  * @param obj pointer to i2c_t struct of the corresponding I2c peripheral
  */
-inline void i2c_clear_SI(i2c_t *obj) ;
-
+inline void i2c_clear_SI(i2c_t *obj);
 
 /** @brief Wait for Serial Interrupt (SI)
  *
@@ -102,6 +98,6 @@ inline void i2c_clear_SI(i2c_t *obj) ;
  * @param obj pointer to i2c_t struct of the corresponding I2c peripheral
  * @return 0 if successful
  */
-int i2c_wait_SI(i2c_t *obj) ;
+int i2c_wait_SI(i2c_t *obj);
 
 #endif /* I2C_NONBLOCKING_H_ */

@@ -52,7 +52,7 @@ namespace mbed {
  * }
  * @endcode
  */
-class SerialNB : public Serial {
+class SerialNB: public Serial {
 
 public:
     /** Create a Serial port, connected to the specified transmit and receive pins
@@ -64,48 +64,50 @@ public:
      *  @note
      *    Either tx or rx may be specified as NC if unused
      */
-	SerialNB(PinName tx, PinName rx, const char *name=NULL) :  Serial(tx, rx, name=NULL) {}
+    SerialNB(PinName tx, PinName rx, const char *name = NULL) :
+            Serial(tx, rx, name = NULL) {
+    }
 
-	/** A non-blocking version of _putc().
-	 *
-	 * @param c An integer char.
-	 * @return c On successful completion, returns back the same character
-	 * @note Based on serial_putc() in serial_api.c . To use replace Serial
-	 * object declarations with Serial2
-	 * @warning Care should be taken that there is empty space in the 16 byte outbound
-	 * FIFO before putting new characters
-	 */
-	int putcNB(int c){
-		serial_t obj = this->_serial;
-		obj.uart->THR = c;
-		return c;
-	}
+    /** A non-blocking version of _putc().
+     *
+     * @param c An integer char.
+     * @return c On successful completion, returns back the same character
+     * @note Based on serial_putc() in serial_api.c . To use replace Serial
+     * object declarations with Serial2
+     * @warning Care should be taken that there is empty space in the 16 byte outbound
+     * FIFO before putting new characters
+     */
+    int putcNB(int c) {
+        serial_t obj = this->_serial;
+        obj.uart->THR = c;
+        return c;
+    }
 
-	/** A non-blocking version of _getc().
-	 *
-	 * @return Returns the character from the serial port.
-	 * @note Based on serial_getc() in serial_api.c . To use replace Serial
-	 * object declarations with Serial2
-	 * @warning Care should be taken that there is an available character in the 16 byte inbound
-	 * FIFO before calling this function
-	 */
-	int getcNB() {
-		serial_t obj = this->_serial;
-	    return obj.uart->RBR;
-	}
+    /** A non-blocking version of _getc().
+     *
+     * @return Returns the character from the serial port.
+     * @note Based on serial_getc() in serial_api.c . To use replace Serial
+     * object declarations with Serial2
+     * @warning Care should be taken that there is an available character in the 16 byte inbound
+     * FIFO before calling this function
+     */
+    int getcNB() {
+        serial_t obj = this->_serial;
+        return obj.uart->RBR;
+    }
 
 protected:
 #if NONBLOCKING
-    virtual int _getc(){
-		serial_t obj = this->_serial;
-	    return obj.uart->RBR;
-	}
+    virtual int _getc() {
+        serial_t obj = this->_serial;
+        return obj.uart->RBR;
+    }
 
-    virtual int _putc(int c){
-		serial_t obj = this->_serial;
-		obj.uart->THR = c;
-		return c;
-	}
+    virtual int _putc(int c) {
+        serial_t obj = this->_serial;
+        obj.uart->THR = c;
+        return c;
+    }
 #endif
 
 };

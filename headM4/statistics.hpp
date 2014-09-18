@@ -13,9 +13,8 @@
  * This task is supposed to run with the lowest priority so it will be running when no other task
  * is busy. @n
  * Counts consecutive timer ticks in a period of 1 second.
- * @note Timer resolution is in us so don;t expect great accuracy.
+ * @note Timer resolution is in us so don't expect great accuracy.
  */
 void CpuLoadTask(void const *args);
-
 
 #endif /* STATISTICS_HPP_ */

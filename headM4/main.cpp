@@ -13,18 +13,17 @@
 //#include "gpdma.h"
 //#include "dsp.h"
 
-
 /** @brief Program entry point
  *
  * Initializes and starts tasks.
  */
-int main (void) {
-	DEBUG_PRINT(("Start\r\n"));
+int main(void) {
+    DEBUG_PRINT(("Start\r\n"));
 
-	CO2Init(p17, p18);	//p17=TX, p18=RX
+    CO2Init(p17, p18);	//p17=TX, p18=RX
 
-    I2C i2c0(p32,p31);	//sda, scl
-    I2C i2c1(p9,p10);
+    I2C i2c0(p32, p31);	//sda, scl
+    I2C i2c1(p9, p10);
     GridEYEInit(&i2c0, &i2c1);
 
     USBInit();

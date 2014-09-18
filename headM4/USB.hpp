@@ -10,7 +10,6 @@
 #include "USBSerial.h"
 #include "grideye.hpp"
 
-
 /** @name Possible incoming commands */
 //@{
 #define GEYE_CENTER_REQUEST 1	///<Requests temperature values from center GridEYE
@@ -19,7 +18,6 @@
 #define CO2_REQUEST 4			///<Requests CO2 volume value
 //@}
 
-
 /** @brief Initializes USB communication
  *
  * @note It would be a good idea that USBSerial is initialized with a number multiple of the incoming
@@ -27,19 +25,16 @@
  */
 void USBInit();
 
-
 /** @brief ISR that is called when a USB packet is received.
  *
  *  Copies incoming packets from USBSerial CircBuffer to the RTOS queue that controls USB communication
  */
 void command_recv_isr();
 
-
 /** @brief Interprets incoming USB commands and responds accordingly
  *
  */
 void USBTask(const void *args);
-
 
 /** @brief Refreshes GridEYE USB buffers with new values
  *
@@ -49,7 +44,6 @@ void USBTask(const void *args);
  * @param grideye_num grideye_sensor_t::grideye_num
  */
 void USBGridEYEvaluesSet(uint8_t values[], uint8_t grideye_num);
-
 
 /** @brief Zeroes GridEYE USB buffers
  *
@@ -61,7 +55,6 @@ void USBGridEYEvaluesSet(uint8_t values[], uint8_t grideye_num);
  */
 void USBGridEYEvaluesZero(uint8_t grideye_num);
 
-
 /** @brief Read GridEYE USB buffers
  *
  * Used by USBTask to read the GridEYE USB buffer indicated by grideye_num.
@@ -69,13 +62,11 @@ void USBGridEYEvaluesZero(uint8_t grideye_num);
  */
 uint8_t * USBGridEYEvaluesGet(uint8_t grideye_num);
 
-
 /** @brief Refreshes CO2 USB buffer with new values
  *
  * @param value New value to write to CO2 USB buffer
  */
 void USBCO2valueSet(float value);
-
 
 /** @brief Read CO2 USB buffer
  *
