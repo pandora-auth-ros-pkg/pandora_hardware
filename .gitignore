@@ -59,7 +59,6 @@ core*
 
 # xMega stack specific #
 #####################
-Debug/
 doxygen/
 doxyfile
 doxySettings.xml
