@@ -1,12 +1,46 @@
-﻿
-/*!
+﻿/*!
  *	\file usart_driver.c
  *	\brief USART driver Source file
  *
  *	Created: 5/6/2014 1:01:48  pm
  *	Author: Panayiotou Konstantinos
- *	Email: glagloui@gmail.com
+ *	Email: klpanagi@gmail.com
  */ 
+
+/***********************************************************************
+ * Software License Agreement (BSD License)
+ *
+ *  Copyright (c) 2014, P.A.N.D.O.R.A. Team.
+ *  All rights reserved.
+ *
+ *  Redistribution and use in source and binary forms, with or without
+ *  modification, are permitted provided that the following conditions
+ *  are met:
+ *
+ *   * Redistributions of source code must retain the above copyright
+ *     notice, this list of conditions and the following disclaimer.
+ *   * Redistributions in binary form must reproduce the above
+ *     copyright notice, this list of conditions and the following
+ *     disclaimer in the documentation and/or other materials provided
+ *     with the distribution.
+ *   * Neither the name of the P.A.N.D.O.R.A. Team nor the names of its
+ *     contributors may be used to endorse or promote products derived
+ *     from this software without specific prior written permission.
+ *
+ *  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+ *  "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+ *  LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS
+ *  FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE
+ *  COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
+ *  INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
+ *  BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ *  LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+ *  CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+ *  LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
+ *  ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+ *  POSSIBILITY OF SUCH DAMAGE.
+ *
+ * *********************************************************************/
 
 
 #include "usart_driver.h"
@@ -23,34 +57,18 @@ void init_uart(void)
 	RS232.BAUDCTRLB = 0xD0;	/* <4 9600//f0=-1 28800//D0=(-03) 115200//E0=(-2) 57600> */
 }
 
-/*!	\fn void usart_putc(char c)
-  *	\brief Brief Function Description
- *
- * This function gets as input a character and sends it over USART
- */
 void usart_putc(char c)
 {
 	while (!(RS232.STATUS & USART_DREIF_bm));
 	RS232.DATA = c;
 }
 
-/*!< Brief Function Description
- *
- *  Returns a char from USART RX Buffer.
- *	BLocking Function waiting for data to arrive in USART Module 
- */
 char usart_getc(void)
 {
 	while (!(RS232.STATUS & USART_RXCIF_bm));
 	return RS232.DATA;
 }
 
-/*!< Brief Function Description
- *
- *	Send a series of characters over USART.
- * Input: Character array to send.
- * Uses usart_putc() to send the data.
- */
 void usart_sendstring(char *s)
 {
 	while (*s) {
