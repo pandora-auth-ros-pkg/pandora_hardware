@@ -98,7 +98,7 @@ extern uint16_t read_encoder(void);
 /*!	\fn void get_encoder_values(encoder_struct *encoder_)
  *	\brief Read encoder value and stores encoded, decoded, and degree values 
  *	\param *encoder_ Encoder Struct holding rotary measurements.
-*/
+ */
 extern void get_encoder_values(encoder_struct *encoder_);
 
 /*!	\fn uint16_t encoder_convert_degrees(uint16_t encoder_value)
