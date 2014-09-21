@@ -74,10 +74,10 @@ void HealthInit() {
     I2C0_switch = 0;    //Active Low
     I2C1_switch = 0;    //Active Low
 #if !DEVELOPMENT
-            LPC_WDT->TC = (int)( (WDT_MS / 1000) * (500000 / 4) );
-            LPC_WDT->MOD = (1 << WDRESET) | (1 << WDEN);    //enable watchdog reset
-            WDT_feed();//A valid feed sequence must be completed after setting WDEN before the Watchdog
-                       //-> is capable of generating a reset
+    LPC_WDT->TC = (int) ((WDT_MS / 1000) * (500000 / 4));
+    LPC_WDT->MOD = (1 << WDRESET) | (1 << WDEN);    //enable watchdog reset
+    WDT_feed();    //A valid feed sequence must be completed after setting WDEN before the Watchdog
+                   //-> is capable of generating a reset
 #endif
 }
 

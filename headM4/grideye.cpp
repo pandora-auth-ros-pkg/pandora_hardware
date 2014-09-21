@@ -75,8 +75,8 @@ void GridEYETask(void const *args) {
 #if ENABLE_RGB_LEDMATRIX
 
     DigitalOut SPI_ss(p8);	///Slave Select
-    SPI_ss = 1;//Make sure the RG matrix is deactivated, maybe this should be first line executed
-    SPI RGB_LEDMatrix(p5, p6, p7);/// mosi, miso, sclk
+    SPI_ss = 1;	//Make sure the RG matrix is deactivated, maybe this should be first line executed
+    SPI RGB_LEDMatrix(p5, p6, p7);	/// mosi, miso, sclk
 
 #endif
 
@@ -121,10 +121,10 @@ void GridEYETask(void const *args) {
 #if ENABLE_RGB_LEDMATRIX
 
         if (grideye_num == GEYE_CENTER) {
-            char ledArray [64];
+            char ledArray[64];
             int celsius;
 
-            RGB_LEDMatrix.format(8,0);
+            RGB_LEDMatrix.format(8, 0);
             RGB_LEDMatrix.frequency(125000);
 
             //Determine LED Color for Pixel
