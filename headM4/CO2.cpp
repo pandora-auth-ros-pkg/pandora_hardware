@@ -90,7 +90,7 @@ void CO2ReceiverTask(void const *args) {
             if (NAKPacket)
                 state = 0;
             else if (DATaPacket) {
-                DataLength = recv_char - 4;
+                DataLength = recv_char - 4; //Remove version and status bytes from count
                 if (DataLength < 4)
                     state = 0;  //We check for the upper limit in state 5.
                 else
@@ -98,7 +98,7 @@ void CO2ReceiverTask(void const *args) {
             } else
                 state = 0;
             break;
-        case 3:
+        case 3: //Just do nothing for 2 rounds to bypass the 2 version bytes
             if (vi < 2 - 1)
                 vi++;
             else {
@@ -176,7 +176,8 @@ void CO2SchedulerTask(void const *args) {
     while (true) {
         clearHealthyCO2();
 
-        CO2Trigger();
+        if (CO2enabled())
+            CO2Trigger();
 
         //The readings in the sensor are calculated every 500ms which is the rate of the infrared source within the
         //-> sensor. During the cycles when the signals are being tracked, the sensor will not respond to the
@@ -188,8 +189,7 @@ void CO2SchedulerTask(void const *args) {
 
         Thread::wait(100);  //Timeout time.
 
-        if (CO2enabled())
-            tCO2Health->signal_set(HEALTH_SIGNAL);
+        tCO2Health->signal_set(HEALTH_SIGNAL);
 
         Thread::wait(10);
     }

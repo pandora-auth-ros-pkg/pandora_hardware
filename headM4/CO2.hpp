@@ -34,6 +34,8 @@ void CO2Init(PinName tx, PinName rx);
  * @note We use the fact that uC UART FIFO is 16 bytes long and we are sending this 7 byte
  * message periodically after a long period of time (from UART's point of view) to
  * achieve maximum performance without using DMA or interrupts.
+ *
+ * @see Premier Sensor Communications protocol
  */
 void CO2Trigger();
 
@@ -45,7 +47,10 @@ void RX_isr();
 
 /** @brief CO2 incoming characters handling
  *
- *	Takes each consecutive incoming character and passes them through a FSM to create the data packet.
+ *	Takes each consecutive incoming character and passes them through an FSM to create the data packet. The response of
+ *	the sensor is in "Read live data simple" format.
+ *
+ *	@see Premier Sensor Communications protocol
  */
 void CO2ReceiverTask(void const *args);
 
