@@ -14,7 +14,7 @@ static Thread *tGridEYELeft;    ///<Thread pointer for left GridEYE sensor's Gri
 static Thread *tGridEYERight;   ///<Thread pointer for right GridEYE sensor's GridEYETask()
 //@}
 
-static Thread *tGridEYEHealth;	///<Thread pointer for GridEYEHealthTask()
+static Thread *tGridEYEHealth;  ///<Thread pointer for GridEYEHealthTask()
 
 void GridEYEInit(I2C *i2c0_obj, I2C *i2c1_obj) {
     //Check comment about sdram in Doxygen main page before using new
@@ -61,22 +61,22 @@ void GridEYETask(void const *args) {
     char cmd[2];
 
     union {
-        char thermistor_echo[2];                    //1 LSB = 0.0625 C , result 12-bit as signed absolute value
-        uint16_t therm_echo_uint16;	//little endian
+        char thermistor_echo[2];    //1 LSB = 0.0625 C , result 12-bit as signed absolute value
+        uint16_t therm_echo_uint16; //little endian
     };
     float thermistor_value;
 
     union {
-        char temper_echo[2 * PIXELS_COUNT];	//1 LSB = 0.25 C , result 12-bit as 2's complement
-        uint16_t temper_echo_uint16[PIXELS_COUNT];	//little endian
+        char temper_echo[2 * PIXELS_COUNT]; //1 LSB = 0.25 C , result 12-bit as 2's complement
+        uint16_t temper_echo_uint16[PIXELS_COUNT];  //little endian
     };
     float temper_values[PIXELS_COUNT];
 
 #if ENABLE_RGB_LEDMATRIX
 
-    DigitalOut SPI_ss(p8);	///Slave Select
-    SPI_ss = 1;	//Make sure the RG matrix is deactivated, maybe this should be first line executed
-    SPI RGB_LEDMatrix(p5, p6, p7);	/// mosi, miso, sclk
+    DigitalOut SPI_ss(p8);  ///Slave Select
+    SPI_ss = 1;  //Make sure the RG matrix is deactivated, maybe this should be first line executed
+    SPI RGB_LEDMatrix(p5, p6, p7);  /// mosi, miso, sclk
 
 #endif
 
@@ -85,7 +85,7 @@ void GridEYETask(void const *args) {
 
         cmd[0] = GRIDEYE_I2C_THERM_ADDR;
         i2c_lock(i2c_periph_num);
-        i2c_obj->write(i2c_addr, cmd, 1, true);	//Repeated start is true in i2c_obj->write, so it must be true in
+        i2c_obj->write(i2c_addr, cmd, 1, true); //Repeated start is true in i2c_obj->write, so it must be true in
         i2c_obj->read(i2c_addr, thermistor_echo, 2, true); //-> the following read, too.
         i2c_unlock(i2c_periph_num);
 
@@ -111,7 +111,7 @@ void GridEYETask(void const *args) {
         for (int i = 0; i < PIXELS_COUNT; ++i) {
             if (temper_echo_uint16[i] & 0x800) {  //if negative
                 temper_values[i] = 0.25 * (int16_t) (0xF000 | temper_echo_uint16[i]);
-            } else {	//else if positive
+            } else {    //else if positive
                 temper_values[i] = 0.25 * (0x7FF & temper_echo_uint16[i]);
             }
         }
@@ -201,7 +201,7 @@ void GridEYEvaluesSet(float values[], uint8_t grideye_num) {
 
     for (int i = 0; i < PIXELS_COUNT; ++i) {
         if (values[i] > 0 && values[i] < 80) {
-            GridEYEvalues[i] = (uint8_t) (values[i] + 0.5);	//rounding to nearest Celsius degree
+            GridEYEvalues[i] = (uint8_t) (values[i] + 0.5); //rounding to nearest Celsius degree
         } else {
             OutOfBounds = 1;
         }
