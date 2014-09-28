@@ -74,6 +74,7 @@ void USBTask(const void *args) {
     }
 }
 
+//A mutex may be required to protect set and get , but didn't have any problems without
 void USBGridEYEvaluesSet(uint8_t values[], uint8_t grideye_num) {
     switch (grideye_num) {
     case GEYE_CENTER:
@@ -102,6 +103,7 @@ void USBGridEYEvaluesZero(uint8_t grideye_num) {
     }
 }
 
+//A mutex may be required to protect set and get , but didn't have any problems without
 uint8_t * USBGridEYEvaluesGet(uint8_t grideye_num) {
     switch (grideye_num) {
     case GEYE_CENTER:

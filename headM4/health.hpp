@@ -111,14 +111,14 @@ void HealthyGridEYEvaluesSet(uint8_t values[], uint8_t grideye_num);
  *
  * @param count The sensor FailIndex value
  */
-void repairCO2(uint8_t count);
+void repairCO2(uint8_t index);
 
 /** @brief Attempts to recover I2C bus
  *
  * @param count The sensor FailIndex value
  * @param i2c_base Pointer to appropriate I2C peripheral memory address
  */
-void repairI2C(uint8_t count, int i2c_base);
+void repairI2C(uint8_t index, int i2c_base);
 
 /** @brief Feeds the Watchdog
  *

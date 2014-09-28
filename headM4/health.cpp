@@ -53,7 +53,8 @@ static uint8_t GridEYERight_DisableCountdown = DISABLE_COUNTDOWN;
 //@}
 
 /** @name Status Leds
- * If a sensor or assigned peripheral works the led is blinking  */
+ * If a sensor or assigned peripheral works, the led is blinking. In an I2C where more than one device may be connected,
+ * the leds blink faster for every sensor we add */
 //@{
 static DigitalOut CO2_LifeLED(LED3);
 static DigitalOut I2C0_LifeLED(LED1);
@@ -203,8 +204,8 @@ uint8_t CO2enabled() {
     return CO2_DisableCountdown;
 }
 
-void repairCO2(uint8_t count) {
-    if (count == 3) {
+void repairCO2(uint8_t index) {
+    if (index == 3) {
         CO2Trigger();
     }
 
@@ -214,26 +215,26 @@ void repairCO2(uint8_t count) {
     }
 }
 
-void repairI2C(uint8_t count, int i2c_base) {
+void repairI2C(uint8_t index, int i2c_base) {
     LPC_I2C_TypeDef *i2c_periph = (LPC_I2C_TypeDef *) i2c_base;
 
-    if ((count >= 3) && (i2c_periph->STAT == 0)) {
+    if ((index >= 3) && (i2c_periph->STAT == 0)) {
         i2c_periph->CONSET = 1 << I2C_STOP;
         i2c_periph->CONCLR = 1 << I2C_SI;
         return;
     }
-    if (count == 3) {
+    if (index == 3) {
         if (i2c_periph->CONSET & 1 << I2C_START) {
             i2c_periph->CONSET = 1 << I2C_STOP;
         } else {
             i2c_periph->CONSET = 1 << I2C_START;
         }
-    } else if (count == 5) {
+    } else if (index == 5) {
         i2c_periph->CONSET = 1 << I2C_SI;
-    } else if (count == 7) {
+    } else if (index == 7) {
         i2c_periph->CONSET = 1 << I2C_START;
         i2c_periph->CONSET = 1 << I2C_STOP;
-    } else if (count == 10) {
+    } else if (index == 10) {
         if (i2c_base == I2C_0) {
             I2C0_switch = !I2C0_switch; //turn off I2C bus
             Thread::wait(10);   //Probably only a few uSeconds are enough to turn off but I didn't test
