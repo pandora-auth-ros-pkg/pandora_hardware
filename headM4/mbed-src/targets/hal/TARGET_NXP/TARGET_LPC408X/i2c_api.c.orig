@@ -18,8 +18,6 @@
 #include "pinmap.h"
 #include "error.h"
 
-#include "LibMods/i2c_nonblocking.h"
-
 static const PinMap PinMap_I2C_SDA[] = {
     {P0_0 , I2C_1, 3},
     {P0_10, I2C_2, 2},

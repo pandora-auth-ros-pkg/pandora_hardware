@@ -25,6 +25,7 @@
  * Added declaration for signal clear functionality.
  *
  * @note Changes in the original code are marked with "CHANGED MBED LIBRARY HERE" in comments.
+ * @par
  * @note To use this file, rename the original with the same name to something not compilable.
  */
 #ifndef THREAD_H

@@ -38,6 +38,7 @@
  * Fixed issue outlined here: https://github.com/mbedmicro/mbed/issues/285.
  * @n
  * @note Changes in the original code are marked with "CHANGED MBED LIBRARY HERE" in comments.
+ * @par
  * @note To use this file, rename the original with the same name to something not compilable.
  */
 

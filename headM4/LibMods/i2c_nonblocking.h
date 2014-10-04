@@ -6,20 +6,12 @@
  * @b Instructions:
  * @li Include this file in i2c_api.c and disable %i2c_clear_SI() and %i2c_wait_SI() in i2c_api.c.
  * @li Call I2C?_queue_create() ()
- * @li Make a thread that will use the functions of the MBED I2C api (http://mbed.org/handbook/I2C)
- * to communicate with a sensor. Api is @b exactly the same. This way this thread will be put
+ * @li Make a @b thread that will use the functions of the MBED I2C api (http://mbed.org/handbook/I2C)
+ * to communicate with a sensor (api is @b exactly the same). Because as a thread it will be put
  * into WAITING state while waiting for SI interrupt and leave the processor free for other tasks.
  *
- * @note
- * Due to MBED Library bug, %i2c_write() and %i2c_read() in i2c_api.c were changed in order
- * to support a repeated start i2c_read after an i2c_write call.
- * @n @n
- * Instructions if you want to use repeated start:
- * @li If you set "repeated" argument to true in I2C::write() the following I2C::read() must also
- * have "repeated" argument set to true.
- * @li An I2C transaction is not allowed to start with I2C::read() with "repeated" argument set to true.
- *
- * @attention As of now only the sequence write -> repeated start -> read is implemented.
+ * @n
+ * Also check i2c_api.c file preamble comments.
  */
 
 #ifndef I2C_NONBLOCKING_H_

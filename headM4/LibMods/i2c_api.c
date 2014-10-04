@@ -17,6 +17,10 @@
 /** @file
  * @brief MBED i2c_api.c with modifications and fixes.
  *
+ * Primarily changed to enable i2c non-blocking functionality, but later some fixes were implemented too.
+ *
+ * Also check i2c_nonblocking.h file preamble comments.
+ *
  * @note
  * Due to an MBED Library bug, %i2c_write() and %i2c_read() in i2c_api.c were changed in order
  * to support a repeated start i2c_read after an i2c_write call.
@@ -26,8 +30,10 @@
  * have "repeated" argument set to true.
  * @li An I2C transaction is not allowed to start with I2C::read() with "repeated" argument set to true.
  *
- * @attention As of now only the sequence write -> repeated start -> read is implemented.
+ * @attention As of now only the sequence write -> repeated start -> read is implemented. (Of course if
+ * you are not using repeated start functionality, you can use whatever sequence you want)
  * @note Changes in the original code are marked with "CHANGED MBED LIBRARY HERE" in comments.
+ * @par
  * @note To use this file, rename the original with the same name to something not compilable.
  */
 

@@ -26,6 +26,7 @@
  * to worry about missing packets. (Check EP2_OUT_callback() implementation in USBDevice/USBSerial/USBSerial.cpp)
  *
  * @note Changes in the original code are marked with "CHANGED MBED LIBRARY HERE" in comments.
+ * @par
  * @note To use this file, rename the original with the same name to something not compilable.
  */
 
