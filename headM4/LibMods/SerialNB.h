@@ -72,8 +72,7 @@ public:
      *
      * @param c An integer char.
      * @return c On successful completion, returns back the same character
-     * @note Based on serial_putc() in serial_api.c . To use replace Serial
-     * object declarations with Serial2
+     * @note Based on serial_putc() in serial_api.c .
      * @warning Care should be taken that there is empty space in the 16 byte outbound
      * FIFO before putting new characters
      */
@@ -86,8 +85,7 @@ public:
     /** A non-blocking version of _getc().
      *
      * @return Returns the character from the serial port.
-     * @note Based on serial_getc() in serial_api.c . To use replace Serial
-     * object declarations with Serial2
+     * @note Based on serial_getc() in serial_api.c .
      * @warning Care should be taken that there is an available character in the 16 byte inbound
      * FIFO before calling this function
      */
