@@ -1,5 +1,5 @@
 /** @file
- * @author Orestis Zachariadis
+ * @author Taras Nikos
  * @brief Initializes and starts tasks.
  */
 #include "mbed.h"
@@ -45,6 +45,7 @@ int main(void) {
 
         // Deselect the device
         cs = 1;
+    }
 
 //    CO2Init(p17, p18);  //p17=TX, p18=RX
 
