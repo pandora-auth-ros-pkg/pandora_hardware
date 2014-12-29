@@ -17,6 +17,11 @@
 
 SPI spi(p5, p6, p7); // mosi, miso, sclk or NC, DO, SCL
 DigitalOut cs(p8);   //CS
+Serial pc(USBTX,USBRX); // tx, rx
+//DigitalIn DO(p6);
+//DigitalOut SCL(p7);
+//DigitalOut CS(p8);
+
 
 
 /** @brief Program entry point
@@ -25,26 +30,51 @@ DigitalOut cs(p8);   //CS
  */
 int main(void) {
     DEBUG_PRINT(("Start\r\n"));
-    while(1){
-    wait_ms(100);
 
+    // Setup the spi for 10 bit data, high steady state clock,
+    // second edge capture, with a 1MHz clock rate
+    spi.format(12,3);
+    spi.frequency(500000);
     // Chip must be deselected
-        cs = 1;
+    //CS = 1;
+    //SCL = 1;
 
-        // Setup the spi for 10 bit data, high steady state clock,
-        // second edge capture, with a 1MHz clock rate
-        spi.format(10,3);
-        spi.frequency(10000);
+    uint16_t value = 0;
 
-        // Select the device by seting chip select low
+    while(1){
+
+    pc.printf("Just entered loop again\r\n");
+    wait(1);
+
+//    uint16_t read_value = 0;
+//
+//        CS = 0;
+//        wait_us(2);
+//
+//        for(int i=0;i<11;i++){
+//            SCL = 0; /* <First falling edge according to SSI protocol> */
+//            wait_us(1);
+//            SCL = 1;
+//            wait_us(1);
+//            read_value = (read_value<<1) | DO;
+//
+//        }
+//        CS = 1;
+//        pc.printf("I received: %d\r\n", read_value);
+//        read_value = 0;
+
+
+         //Select the device by setting chip select low
         cs = 0;
 
-        // Send a dummy byte to receive the contents of the WHOAMI register
-        uint16_t value = spi.write(0b0000000000);
-        printf("I received: %d\r\n", value);
+         //Send a dummy byte to receive the contents of the shift register
+        value = spi.write(0b0);
 
         // Deselect the device
         cs = 1;
+        value = value & 0b001111111111;
+        pc.printf("I received: %d\r\n", value);
+        value = 0;
     }
 
 //    CO2Init(p17, p18);  //p17=TX, p18=RX
