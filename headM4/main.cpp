@@ -14,88 +14,70 @@
 //#include "dsp.h"
 
 
-
-SPI spi(p5, p6, p7); // mosi, miso, sclk or NC, DO, SCL
-DigitalOut cs(p8);   //CS
-Serial pc(USBTX,USBRX); // tx, rx
-//DigitalIn DO(p6);
-//DigitalOut SCL(p7);
-//DigitalOut CS(p8);
+// Data[0] STATUS
+// Data[1] IR
+// Data[2] HI DISTANCE (0 or 1)
+// Data[3] LO DISTANCE
+// Sensor sends distance in centimeters
 
 
+const int sonar_addr = 0x80;
+#define N 4  //number of i2c reading bits
 
-/** @brief Program entry point
- *
- * Initializes and starts tasks.
- */
-int main(void) {
-    DEBUG_PRINT(("Start\r\n"));
+I2C i2c(p9, p10);  // SDA in pin9, SCL in pin10
 
-    // Setup the spi for 10 bit data, high steady state clock,
-    // second edge capture, with a 1MHz clock rate
-    spi.format(12,3);
-    spi.frequency(500000);
-    // Chip must be deselected
-    //CS = 1;
-    //SCL = 1;
+Serial pc(USBTX, USBRX);
 
-    uint16_t value = 0;
+void read_sonar(char* data)
+{
+  /*
+   * Request a reading from the sonar using I2C protocol.
+   * data[0] -> status
+   * data[1]:data[2] -> distance reading of sonar
+   * data[3] -> IR reading
+   * */
 
-    while(1){
+  char cmd_request = 0x80; // command to send to the sonar to request a distance reading
+  char cmd_read = 0x40;    // command to send to the sonar to receive the reading
+  int d;
 
-    pc.printf("Just entered loop again\r\n");
-    wait(1);
+  d = i2c.write(sonar_addr, &cmd_request, 1);   // request a distance reading from the sonar
+  //printf("1=%d\n\r",d);
+  wait_ms(100);                              // wait 50ms for the sonar to calculate the distance
+  d = i2c.write(sonar_addr, &cmd_read, 1);      // request to receive the reading from the sonar
+  //printf("2=%d\n\r",d);
+  wait_ms(50);
+  d=i2c.read(sonar_addr, data, N);            // receive the reading and store it in the "data" array
+  //printf("3=%d\n\r",d);
 
-//    uint16_t read_value = 0;
-//
-//        CS = 0;
-//        wait_us(2);
-//
-//        for(int i=0;i<11;i++){
-//            SCL = 0; /* <First falling edge according to SSI protocol> */
-//            wait_us(1);
-//            SCL = 1;
-//            wait_us(1);
-//            read_value = (read_value<<1) | DO;
-//
-//        }
-//        CS = 1;
-//        pc.printf("I received: %d\r\n", read_value);
-//        read_value = 0;
+}
 
-
-         //Select the device by setting chip select low
-        cs = 0;
-
-         //Send a dummy byte to receive the contents of the shift register
-        value = spi.write(0b0);
-
-        // Deselect the device
-        cs = 1;
-        value = value & 0b001111111111;
-        pc.printf("I received: %d\r\n", value);
-        value = 0;
+void printData(char* data)
+{
+    int j;
+    for (j=0;j<N;j++){
+        pc.printf("\r\nData[%d]: %u",j,data[j]);
     }
+}
 
-//    CO2Init(p17, p18);  //p17=TX, p18=RX
+int main(void)
+{
 
-//    I2C i2c0(p32, p31); //sda, scl
-//    I2C i2c1(p9, p10);
-//    GridEYEInit(&i2c0, &i2c1);
+  unsigned short dist_reading=0;
 
-//    USBInit();
+  char* data;
 
-//    HealthInit();
+  data = (char*)malloc(N * sizeof(char)); //allocate memory for "data" array
 
-//#if DEVELOPMENT
-//    Thread tStatistics(CpuLoadTask, NULL, osPriorityIdle);
-//#endif
+  while (true){
 
-//    Thread tUSB(USBTask);
+    read_sonar(data);
+    printData(data);
 
-//    Thread tCO2Caller(CO2SchedulerTask);
+    dist_reading = (data[2]<<8) + data[3];
 
-//    Thread tGridEYECaller(GridEYESchedulerTask);
+    pc.printf("\r\nDistance reading: %u",dist_reading);
+    wait(1); // wait 1sec
+  }
 
-//    Thread::wait(osWaitForever);
 }
