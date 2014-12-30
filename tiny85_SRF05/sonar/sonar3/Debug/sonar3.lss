@@ -1,0 +1,907 @@
+
+sonar3.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         000004d6  00000000  00000000  00000094  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .data         00000000  00800060  000004d6  0000056a  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  2 .bss          0000002d  00800060  00800060  0000056a  2**0
+                  ALLOC
+  3 .stab         000006b4  00000000  00000000  0000056c  2**2
+                  CONTENTS, READONLY, DEBUGGING
+  4 .stabstr      00000085  00000000  00000000  00000c20  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  5 .debug_aranges 000000a0  00000000  00000000  00000ca8  2**3
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_info   000007f2  00000000  00000000  00000d48  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_abbrev 000002ab  00000000  00000000  0000153a  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_line   0000041a  00000000  00000000  000017e5  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_frame  00000200  00000000  00000000  00001c00  2**2
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_str    00000307  00000000  00000000  00001e00  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 11 .debug_loc    000003c8  00000000  00000000  00002107  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	0e c0       	rjmp	.+28     	; 0x1e <__ctors_end>
+   2:	26 c0       	rjmp	.+76     	; 0x50 <__bad_interrupt>
+   4:	a6 c0       	rjmp	.+332    	; 0x152 <__vector_2>
+   6:	24 c0       	rjmp	.+72     	; 0x50 <__bad_interrupt>
+   8:	24 c0       	rjmp	.+72     	; 0x52 <__vector_4>
+   a:	22 c0       	rjmp	.+68     	; 0x50 <__bad_interrupt>
+   c:	21 c0       	rjmp	.+66     	; 0x50 <__bad_interrupt>
+   e:	20 c0       	rjmp	.+64     	; 0x50 <__bad_interrupt>
+  10:	19 c1       	rjmp	.+562    	; 0x244 <__vector_8>
+  12:	1e c0       	rjmp	.+60     	; 0x50 <__bad_interrupt>
+  14:	1d c0       	rjmp	.+58     	; 0x50 <__bad_interrupt>
+  16:	1c c0       	rjmp	.+56     	; 0x50 <__bad_interrupt>
+  18:	1b c0       	rjmp	.+54     	; 0x50 <__bad_interrupt>
+  1a:	55 c0       	rjmp	.+170    	; 0xc6 <__vector_13>
+  1c:	77 c0       	rjmp	.+238    	; 0x10c <__vector_14>
+
+0000001e <__ctors_end>:
+  1e:	11 24       	eor	r1, r1
+  20:	1f be       	out	0x3f, r1	; 63
+  22:	cf ed       	ldi	r28, 0xDF	; 223
+  24:	cd bf       	out	0x3d, r28	; 61
+
+00000026 <__do_copy_data>:
+  26:	10 e0       	ldi	r17, 0x00	; 0
+  28:	a0 e6       	ldi	r26, 0x60	; 96
+  2a:	b0 e0       	ldi	r27, 0x00	; 0
+  2c:	e6 ed       	ldi	r30, 0xD6	; 214
+  2e:	f4 e0       	ldi	r31, 0x04	; 4
+  30:	02 c0       	rjmp	.+4      	; 0x36 <__CCP__+0x2>
+  32:	05 90       	lpm	r0, Z+
+  34:	0d 92       	st	X+, r0
+  36:	a0 36       	cpi	r26, 0x60	; 96
+  38:	b1 07       	cpc	r27, r17
+  3a:	d9 f7       	brne	.-10     	; 0x32 <__do_copy_data+0xc>
+
+0000003c <__do_clear_bss>:
+  3c:	10 e0       	ldi	r17, 0x00	; 0
+  3e:	a0 e6       	ldi	r26, 0x60	; 96
+  40:	b0 e0       	ldi	r27, 0x00	; 0
+  42:	01 c0       	rjmp	.+2      	; 0x46 <.do_clear_bss_start>
+
+00000044 <.do_clear_bss_loop>:
+  44:	1d 92       	st	X+, r1
+
+00000046 <.do_clear_bss_start>:
+  46:	ad 38       	cpi	r26, 0x8D	; 141
+  48:	b1 07       	cpc	r27, r17
+  4a:	e1 f7       	brne	.-8      	; 0x44 <.do_clear_bss_loop>
+  4c:	39 d1       	rcall	.+626    	; 0x2c0 <main>
+  4e:	41 c2       	rjmp	.+1154   	; 0x4d2 <_exit>
+
+00000050 <__bad_interrupt>:
+  50:	d7 cf       	rjmp	.-82     	; 0x0 <__vectors>
+
+00000052 <__vector_4>:
+	
+volatile RangeStruct SonarRange; 
+
+
+
+ISR(TIM1_OVF_vect){
+  52:	1f 92       	push	r1
+  54:	0f 92       	push	r0
+  56:	0f b6       	in	r0, 0x3f	; 63
+  58:	0f 92       	push	r0
+  5a:	11 24       	eor	r1, r1
+  5c:	8f 93       	push	r24
+	if ((SonarFlags&SonarBusy)&&(SonarFlags&SonarEchoHi)&&!(SonarFlags&SonarEchoLo))
+  5e:	80 91 86 00 	lds	r24, 0x0086
+  62:	83 ff       	sbrs	r24, 3
+  64:	1c c0       	rjmp	.+56     	; 0x9e <__vector_4+0x4c>
+  66:	80 91 86 00 	lds	r24, 0x0086
+  6a:	84 ff       	sbrs	r24, 4
+  6c:	18 c0       	rjmp	.+48     	; 0x9e <__vector_4+0x4c>
+  6e:	80 91 86 00 	lds	r24, 0x0086
+  72:	85 fd       	sbrc	r24, 5
+  74:	14 c0       	rjmp	.+40     	; 0x9e <__vector_4+0x4c>
+	{
+		SonarRange.RangeHi++;
+  76:	80 91 8c 00 	lds	r24, 0x008C
+  7a:	8f 5f       	subi	r24, 0xFF	; 255
+  7c:	80 93 8c 00 	sts	0x008C, r24
+		if (SonarRange.RangeHi>20)
+  80:	80 91 8c 00 	lds	r24, 0x008C
+  84:	85 31       	cpi	r24, 0x15	; 21
+  86:	c8 f0       	brcs	.+50     	; 0xba <__vector_4+0x68>
+		{
+			SonarFlags&=~(SonarBusy|SonarEchoHi|SonarEchoLo|SonarNewData);
+  88:	80 91 86 00 	lds	r24, 0x0086
+  8c:	86 7c       	andi	r24, 0xC6	; 198
+  8e:	80 93 86 00 	sts	0x0086, r24
+			SonarFlags|=SonarOvrFl;
+  92:	80 91 86 00 	lds	r24, 0x0086
+  96:	82 60       	ori	r24, 0x02	; 2
+  98:	80 93 86 00 	sts	0x0086, r24
+  9c:	0e c0       	rjmp	.+28     	; 0xba <__vector_4+0x68>
+		}
+	}
+	else
+	{
+		if(SonarFlags&SonarBusy)
+  9e:	80 91 86 00 	lds	r24, 0x0086
+  a2:	83 ff       	sbrs	r24, 3
+  a4:	0a c0       	rjmp	.+20     	; 0xba <__vector_4+0x68>
+		{
+			SonarFlags&=~(SonarBusy|SonarEchoHi|SonarEchoLo|SonarNewData);
+  a6:	80 91 86 00 	lds	r24, 0x0086
+  aa:	86 7c       	andi	r24, 0xC6	; 198
+  ac:	80 93 86 00 	sts	0x0086, r24
+			SonarFlags|=SonarErr;
+  b0:	80 91 86 00 	lds	r24, 0x0086
+  b4:	84 60       	ori	r24, 0x04	; 4
+  b6:	80 93 86 00 	sts	0x0086, r24
+		}		
+	}
+}
+  ba:	8f 91       	pop	r24
+  bc:	0f 90       	pop	r0
+  be:	0f be       	out	0x3f, r0	; 63
+  c0:	0f 90       	pop	r0
+  c2:	1f 90       	pop	r1
+  c4:	18 95       	reti
+
+000000c6 <__vector_13>:
+
+ISR(USI_START_VECTOR){
+  c6:	1f 92       	push	r1
+  c8:	0f 92       	push	r0
+  ca:	0f b6       	in	r0, 0x3f	; 63
+  cc:	0f 92       	push	r0
+  ce:	11 24       	eor	r1, r1
+  d0:	2f 93       	push	r18
+  d2:	3f 93       	push	r19
+  d4:	4f 93       	push	r20
+  d6:	5f 93       	push	r21
+  d8:	6f 93       	push	r22
+  da:	7f 93       	push	r23
+  dc:	8f 93       	push	r24
+  de:	9f 93       	push	r25
+  e0:	af 93       	push	r26
+  e2:	bf 93       	push	r27
+  e4:	ef 93       	push	r30
+  e6:	ff 93       	push	r31
+	USI_Start_Condition_ISR();
+  e8:	6b d1       	rcall	.+726    	; 0x3c0 <USI_Start_Condition_ISR>
+}
+  ea:	ff 91       	pop	r31
+  ec:	ef 91       	pop	r30
+  ee:	bf 91       	pop	r27
+  f0:	af 91       	pop	r26
+  f2:	9f 91       	pop	r25
+  f4:	8f 91       	pop	r24
+  f6:	7f 91       	pop	r23
+  f8:	6f 91       	pop	r22
+  fa:	5f 91       	pop	r21
+  fc:	4f 91       	pop	r20
+  fe:	3f 91       	pop	r19
+ 100:	2f 91       	pop	r18
+ 102:	0f 90       	pop	r0
+ 104:	0f be       	out	0x3f, r0	; 63
+ 106:	0f 90       	pop	r0
+ 108:	1f 90       	pop	r1
+ 10a:	18 95       	reti
+
+0000010c <__vector_14>:
+
+ISR(USI_OVERFLOW_VECTOR){
+ 10c:	1f 92       	push	r1
+ 10e:	0f 92       	push	r0
+ 110:	0f b6       	in	r0, 0x3f	; 63
+ 112:	0f 92       	push	r0
+ 114:	11 24       	eor	r1, r1
+ 116:	2f 93       	push	r18
+ 118:	3f 93       	push	r19
+ 11a:	4f 93       	push	r20
+ 11c:	5f 93       	push	r21
+ 11e:	6f 93       	push	r22
+ 120:	7f 93       	push	r23
+ 122:	8f 93       	push	r24
+ 124:	9f 93       	push	r25
+ 126:	af 93       	push	r26
+ 128:	bf 93       	push	r27
+ 12a:	ef 93       	push	r30
+ 12c:	ff 93       	push	r31
+	USI_Counter_Overflow_ISR();
+ 12e:	52 d1       	rcall	.+676    	; 0x3d4 <USI_Counter_Overflow_ISR>
+}
+ 130:	ff 91       	pop	r31
+ 132:	ef 91       	pop	r30
+ 134:	bf 91       	pop	r27
+ 136:	af 91       	pop	r26
+ 138:	9f 91       	pop	r25
+ 13a:	8f 91       	pop	r24
+ 13c:	7f 91       	pop	r23
+ 13e:	6f 91       	pop	r22
+ 140:	5f 91       	pop	r21
+ 142:	4f 91       	pop	r20
+ 144:	3f 91       	pop	r19
+ 146:	2f 91       	pop	r18
+ 148:	0f 90       	pop	r0
+ 14a:	0f be       	out	0x3f, r0	; 63
+ 14c:	0f 90       	pop	r0
+ 14e:	1f 90       	pop	r1
+ 150:	18 95       	reti
+
+00000152 <__vector_2>:
+
+ISR(PCINT0_vect){
+ 152:	1f 92       	push	r1
+ 154:	0f 92       	push	r0
+ 156:	0f b6       	in	r0, 0x3f	; 63
+ 158:	0f 92       	push	r0
+ 15a:	11 24       	eor	r1, r1
+ 15c:	2f 93       	push	r18
+ 15e:	3f 93       	push	r19
+ 160:	8f 93       	push	r24
+ 162:	9f 93       	push	r25
+	if (PINB & EchoPin)			//if PB1=1 then echo_start
+ 164:	b1 9b       	sbis	0x16, 1	; 22
+ 166:	1e c0       	rjmp	.+60     	; 0x1a4 <__vector_2+0x52>
+	{
+		if((SonarFlags&SonarBusy)&&!(SonarFlags&SonarEchoHi)&&!(SonarFlags&SonarEchoLo))
+ 168:	80 91 86 00 	lds	r24, 0x0086
+ 16c:	83 ff       	sbrs	r24, 3
+ 16e:	14 c0       	rjmp	.+40     	; 0x198 <__vector_2+0x46>
+ 170:	80 91 86 00 	lds	r24, 0x0086
+ 174:	84 fd       	sbrc	r24, 4
+ 176:	10 c0       	rjmp	.+32     	; 0x198 <__vector_2+0x46>
+ 178:	80 91 86 00 	lds	r24, 0x0086
+ 17c:	85 fd       	sbrc	r24, 5
+ 17e:	0c c0       	rjmp	.+24     	; 0x198 <__vector_2+0x46>
+		{
+			SonarFlags|=SonarEchoHi;	
+ 180:	80 91 86 00 	lds	r24, 0x0086
+ 184:	80 61       	ori	r24, 0x10	; 16
+ 186:	80 93 86 00 	sts	0x0086, r24
+			TCNT1=0;
+ 18a:	1f bc       	out	0x2f, r1	; 47
+			TIFR |= (1<<TOV1);
+ 18c:	88 b7       	in	r24, 0x38	; 56
+ 18e:	84 60       	ori	r24, 0x04	; 4
+ 190:	88 bf       	out	0x38, r24	; 56
+			SonarRange.RangeHi=0;
+ 192:	10 92 8c 00 	sts	0x008C, r1
+ 196:	4d c0       	rjmp	.+154    	; 0x232 <__vector_2+0xe0>
+		}
+		else
+		{
+			SonarFlags&=~(SonarBusy|SonarEchoHi|SonarEchoLo|SonarNewData);
+ 198:	80 91 86 00 	lds	r24, 0x0086
+ 19c:	86 7c       	andi	r24, 0xC6	; 198
+ 19e:	80 93 86 00 	sts	0x0086, r24
+ 1a2:	47 c0       	rjmp	.+142    	; 0x232 <__vector_2+0xe0>
+		}
+	}		
+	else							//else echo_end
+	{
+		if((SonarFlags&SonarBusy)&&(SonarFlags&SonarEchoHi)&&!(SonarFlags&SonarEchoLo))
+ 1a4:	80 91 86 00 	lds	r24, 0x0086
+ 1a8:	83 ff       	sbrs	r24, 3
+ 1aa:	3e c0       	rjmp	.+124    	; 0x228 <__vector_2+0xd6>
+ 1ac:	80 91 86 00 	lds	r24, 0x0086
+ 1b0:	84 ff       	sbrs	r24, 4
+ 1b2:	3a c0       	rjmp	.+116    	; 0x228 <__vector_2+0xd6>
+ 1b4:	80 91 86 00 	lds	r24, 0x0086
+ 1b8:	85 fd       	sbrc	r24, 5
+ 1ba:	36 c0       	rjmp	.+108    	; 0x228 <__vector_2+0xd6>
+		{
+			SonarFlags|=SonarEchoLo;
+ 1bc:	80 91 86 00 	lds	r24, 0x0086
+ 1c0:	80 62       	ori	r24, 0x20	; 32
+ 1c2:	80 93 86 00 	sts	0x0086, r24
+			SonarRange.RangeLo = TCNT1;
+ 1c6:	8f b5       	in	r24, 0x2f	; 47
+ 1c8:	80 93 8b 00 	sts	0x008B, r24
+			SonarRange.Range=(SonarRange.Range*34)>>5;
+ 1cc:	80 91 8b 00 	lds	r24, 0x008B
+ 1d0:	90 91 8c 00 	lds	r25, 0x008C
+ 1d4:	9c 01       	movw	r18, r24
+ 1d6:	22 95       	swap	r18
+ 1d8:	32 95       	swap	r19
+ 1da:	30 7f       	andi	r19, 0xF0	; 240
+ 1dc:	32 27       	eor	r19, r18
+ 1de:	20 7f       	andi	r18, 0xF0	; 240
+ 1e0:	32 27       	eor	r19, r18
+ 1e2:	82 0f       	add	r24, r18
+ 1e4:	93 1f       	adc	r25, r19
+ 1e6:	88 0f       	add	r24, r24
+ 1e8:	99 1f       	adc	r25, r25
+ 1ea:	96 95       	lsr	r25
+ 1ec:	87 95       	ror	r24
+ 1ee:	92 95       	swap	r25
+ 1f0:	82 95       	swap	r24
+ 1f2:	8f 70       	andi	r24, 0x0F	; 15
+ 1f4:	89 27       	eor	r24, r25
+ 1f6:	9f 70       	andi	r25, 0x0F	; 15
+ 1f8:	89 27       	eor	r24, r25
+ 1fa:	90 93 8c 00 	sts	0x008C, r25
+ 1fe:	80 93 8b 00 	sts	0x008B, r24
+			Sonar_H = SonarRange.RangeHi;
+ 202:	80 91 8c 00 	lds	r24, 0x008C
+ 206:	80 93 88 00 	sts	0x0088, r24
+			Sonar_L = SonarRange.RangeLo;
+ 20a:	80 91 8b 00 	lds	r24, 0x008B
+ 20e:	80 93 87 00 	sts	0x0087, r24
+			SonarFlags|=SonarNewData;
+ 212:	80 91 86 00 	lds	r24, 0x0086
+ 216:	81 60       	ori	r24, 0x01	; 1
+ 218:	80 93 86 00 	sts	0x0086, r24
+			SonarFlags&=~(SonarBusy|SonarEchoHi|SonarEchoLo|SonarErr|SonarOvrFl);
+ 21c:	80 91 86 00 	lds	r24, 0x0086
+ 220:	81 7c       	andi	r24, 0xC1	; 193
+ 222:	80 93 86 00 	sts	0x0086, r24
+ 226:	05 c0       	rjmp	.+10     	; 0x232 <__vector_2+0xe0>
+		}
+		else
+		{
+			SonarFlags&=~(SonarBusy|SonarEchoHi|SonarEchoLo|SonarNewData); // ?|SonarErr? too
+ 228:	80 91 86 00 	lds	r24, 0x0086
+ 22c:	86 7c       	andi	r24, 0xC6	; 198
+ 22e:	80 93 86 00 	sts	0x0086, r24
+		}
+	}
+}
+ 232:	9f 91       	pop	r25
+ 234:	8f 91       	pop	r24
+ 236:	3f 91       	pop	r19
+ 238:	2f 91       	pop	r18
+ 23a:	0f 90       	pop	r0
+ 23c:	0f be       	out	0x3f, r0	; 63
+ 23e:	0f 90       	pop	r0
+ 240:	1f 90       	pop	r1
+ 242:	18 95       	reti
+
+00000244 <__vector_8>:
+
+ISR(ADC_vect){
+ 244:	1f 92       	push	r1
+ 246:	0f 92       	push	r0
+ 248:	0f b6       	in	r0, 0x3f	; 63
+ 24a:	0f 92       	push	r0
+ 24c:	11 24       	eor	r1, r1
+ 24e:	8f 93       	push	r24
+	IR_data=ADCH;
+ 250:	85 b1       	in	r24, 0x05	; 5
+ 252:	80 93 8a 00 	sts	0x008A, r24
+}
+ 256:	8f 91       	pop	r24
+ 258:	0f 90       	pop	r0
+ 25a:	0f be       	out	0x3f, r0	; 63
+ 25c:	0f 90       	pop	r0
+ 25e:	1f 90       	pop	r1
+ 260:	18 95       	reti
+
+00000262 <send_packet>:
+
+void send_packet (unsigned char S_Status, unsigned char Sonar_H, unsigned char Sonar_L, unsigned char IR_data)
+{
+ 262:	1f 93       	push	r17
+ 264:	cf 93       	push	r28
+ 266:	df 93       	push	r29
+ 268:	d6 2f       	mov	r29, r22
+ 26a:	c4 2f       	mov	r28, r20
+ 26c:	12 2f       	mov	r17, r18
+	USI_TWI_Transmit_Byte(S_Status);
+ 26e:	7d d0       	rcall	.+250    	; 0x36a <USI_TWI_Transmit_Byte>
+	USI_TWI_Transmit_Byte(IR_data);
+ 270:	81 2f       	mov	r24, r17
+ 272:	7b d0       	rcall	.+246    	; 0x36a <USI_TWI_Transmit_Byte>
+	USI_TWI_Transmit_Byte(Sonar_H);
+ 274:	8d 2f       	mov	r24, r29
+ 276:	79 d0       	rcall	.+242    	; 0x36a <USI_TWI_Transmit_Byte>
+	USI_TWI_Transmit_Byte(Sonar_L);
+ 278:	8c 2f       	mov	r24, r28
+ 27a:	77 d0       	rcall	.+238    	; 0x36a <USI_TWI_Transmit_Byte>
+	SonarFlags &=~SonarNewData;
+ 27c:	80 91 86 00 	lds	r24, 0x0086
+ 280:	8e 7f       	andi	r24, 0xFE	; 254
+ 282:	80 93 86 00 	sts	0x0086, r24
+}
+ 286:	df 91       	pop	r29
+ 288:	cf 91       	pop	r28
+ 28a:	1f 91       	pop	r17
+ 28c:	08 95       	ret
+
+0000028e <start_sonar>:
+
+void start_sonar( void )
+{
+	SonarRange.Range=0;
+ 28e:	10 92 8c 00 	sts	0x008C, r1
+ 292:	10 92 8b 00 	sts	0x008B, r1
+	SonarFlags|=SonarBusy;					//sonar_busy=1
+ 296:	80 91 86 00 	lds	r24, 0x0086
+ 29a:	88 60       	ori	r24, 0x08	; 8
+ 29c:	80 93 86 00 	sts	0x0086, r24
+	SonarFlags&=~(SonarEchoHi|SonarEchoLo|SonarOvrFl|SonarErr);
+ 2a0:	80 91 86 00 	lds	r24, 0x0086
+ 2a4:	89 7c       	andi	r24, 0xC9	; 201
+ 2a6:	80 93 86 00 	sts	0x0086, r24
+
+	PORTB |= TriggerPin;					//send trigger 
+ 2aa:	c3 9a       	sbi	0x18, 3	; 24
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+ 2ac:	82 e4       	ldi	r24, 0x42	; 66
+ 2ae:	8a 95       	dec	r24
+ 2b0:	f1 f7       	brne	.-4      	; 0x2ae <start_sonar+0x20>
+ 2b2:	00 c0       	rjmp	.+0      	; 0x2b4 <start_sonar+0x26>
+	_delay_us(25);
+	PORTB &= ~TriggerPin;					
+ 2b4:	c3 98       	cbi	0x18, 3	; 24
+
+	TCNT1=0;
+ 2b6:	1f bc       	out	0x2f, r1	; 47
+	TIFR |= (1<<TOV1);
+ 2b8:	88 b7       	in	r24, 0x38	; 56
+ 2ba:	84 60       	ori	r24, 0x04	; 4
+ 2bc:	88 bf       	out	0x38, r24	; 56
+}
+ 2be:	08 95       	ret
+
+000002c0 <main>:
+
+
+int main( void )
+{
+	SonarFlags=0;
+ 2c0:	10 92 86 00 	sts	0x0086, r1
+	Sonar_H=0;
+ 2c4:	10 92 88 00 	sts	0x0088, r1
+	Sonar_L=0;
+ 2c8:	10 92 87 00 	sts	0x0087, r1
+	IR_data=0;
+ 2cc:	10 92 8a 00 	sts	0x008A, r1
+	
+	// Own TWI slave address
+	unsigned char TWI_slaveAddress = 0x41;
+	
+	USI_TWI_Slave_Initialise( TWI_slaveAddress );
+ 2d0:	81 e4       	ldi	r24, 0x41	; 65
+ 2d2:	3c d0       	rcall	.+120    	; 0x34c <USI_TWI_Slave_Initialise>
+	TCCR1=0x0A;		//TCNT1 prescaler 256 __ start TCNT1
+ 2d4:	8a e0       	ldi	r24, 0x0A	; 10
+ 2d6:	80 bf       	out	0x30, r24	; 48
+	TIMSK|=(1<<TOIE1);
+ 2d8:	89 b7       	in	r24, 0x39	; 57
+ 2da:	84 60       	ori	r24, 0x04	; 4
+ 2dc:	89 bf       	out	0x39, r24	; 57
+	DDRB |=TriggerPin;			//PB3 as output for TRIG
+ 2de:	bb 9a       	sbi	0x17, 3	; 23
+	DDRB &= ~EchoPin;			//PB1 as input for ECHO
+ 2e0:	b9 98       	cbi	0x17, 1	; 23
+	//PORTB &= ~(1<<PB5);		//pull-up enable ????????
+	MCUCR = MCUCR&0xFC|1;
+ 2e2:	85 b7       	in	r24, 0x35	; 53
+ 2e4:	8c 7f       	andi	r24, 0xFC	; 252
+ 2e6:	81 60       	ori	r24, 0x01	; 1
+ 2e8:	85 bf       	out	0x35, r24	; 53
+	GIMSK|=(1<<PCIE);			//init pin change interrupts..
+ 2ea:	8b b7       	in	r24, 0x3b	; 59
+ 2ec:	80 62       	ori	r24, 0x20	; 32
+ 2ee:	8b bf       	out	0x3b, r24	; 59
+	PCMSK|=EchoPin;				//..at pin1
+ 2f0:	a9 9a       	sbi	0x15, 1	; 21
+	ADMUX = 0x22;				//VREF VCC, Left Adjust, INPUT CHANNEL ADC2:PB4
+ 2f2:	82 e2       	ldi	r24, 0x22	; 34
+ 2f4:	87 b9       	out	0x07, r24	; 7
+	ADCSRA = 0x9E;				//Enable ADC module, clear IRQ_Flag, Enable IRQ, Prescaler 64
+ 2f6:	8e e9       	ldi	r24, 0x9E	; 158
+ 2f8:	86 b9       	out	0x06, r24	; 6
+	DIDR0 = 0x10;				//Disable digital input for pin PB4
+ 2fa:	80 e1       	ldi	r24, 0x10	; 16
+ 2fc:	84 bb       	out	0x14, r24	; 20
+	
+	
+	__asm__ ("SEI");
+ 2fe:	78 94       	sei
+		
+	while(1)
+	{
+
+		if( USI_TWI_Data_In_Receive_Buffer())// && ---------------- )
+ 300:	56 d0       	rcall	.+172    	; 0x3ae <USI_TWI_Data_In_Receive_Buffer>
+ 302:	88 23       	and	r24, r24
+ 304:	e9 f3       	breq	.-6      	; 0x300 <main+0x40>
+		{
+			M_Status = USI_TWI_Receive_Byte();
+ 306:	41 d0       	rcall	.+130    	; 0x38a <USI_TWI_Receive_Byte>
+ 308:	80 93 89 00 	sts	0x0089, r24
+			
+			if (M_Status==M_trig)
+ 30c:	80 38       	cpi	r24, 0x80	; 128
+ 30e:	39 f4       	brne	.+14     	; 0x31e <main+0x5e>
+			{
+				while(ADCSRA&(1<<ADSC)){}		//Do NOT start trigger if A/D conversion in progress (NOICE CANCELING TECHNIQUE)
+ 310:	36 99       	sbic	0x06, 6	; 6
+ 312:	fe cf       	rjmp	.-4      	; 0x310 <main+0x50>
+				if (!(SonarFlags&SonarBusy))	//start new measurement if none running now
+ 314:	80 91 86 00 	lds	r24, 0x0086
+ 318:	83 ff       	sbrs	r24, 3
+					{start_sonar();}			//CLI??????
+ 31a:	b9 df       	rcall	.-142    	; 0x28e <start_sonar>
+				ADCSRA |= 1<<ADSC;				//Start ADC conversion for IR
+ 31c:	36 9a       	sbi	0x06, 6	; 6
+				//start_ir();
+			}
+			if (M_Status==M_read)
+ 31e:	80 91 89 00 	lds	r24, 0x0089
+ 322:	80 34       	cpi	r24, 0x40	; 64
+ 324:	69 f7       	brne	.-38     	; 0x300 <main+0x40>
+			{
+				send_packet(SonarFlags /*& 0x0f*/, Sonar_H, Sonar_L, IR_data);			//CLI?????
+ 326:	80 91 86 00 	lds	r24, 0x0086
+ 32a:	60 91 88 00 	lds	r22, 0x0088
+ 32e:	40 91 87 00 	lds	r20, 0x0087
+ 332:	20 91 8a 00 	lds	r18, 0x008A
+ 336:	95 df       	rcall	.-214    	; 0x262 <send_packet>
+ 338:	e3 cf       	rjmp	.-58     	; 0x300 <main+0x40>
+
+0000033a <Flush_TWI_Buffers>:
+
+/*! \brief Flushes the TWI buffers
+ */
+void Flush_TWI_Buffers(void)
+{
+    TWI_RxTail = 0;
+ 33a:	10 92 62 00 	sts	0x0062, r1
+    TWI_RxHead = 0;
+ 33e:	10 92 63 00 	sts	0x0063, r1
+    TWI_TxTail = 0;
+ 342:	10 92 60 00 	sts	0x0060, r1
+    TWI_TxHead = 0;
+ 346:	10 92 61 00 	sts	0x0061, r1
+}
+ 34a:	08 95       	ret
+
+0000034c <USI_TWI_Slave_Initialise>:
+
+/*! \brief
+ * Initialise USI for TWI Slave mode.
+ */
+void USI_TWI_Slave_Initialise( unsigned char TWI_ownAddress )
+{
+ 34c:	cf 93       	push	r28
+ 34e:	c8 2f       	mov	r28, r24
+  Flush_TWI_Buffers();
+ 350:	f4 df       	rcall	.-24     	; 0x33a <Flush_TWI_Buffers>
+
+  TWI_slaveAddress = TWI_ownAddress;
+ 352:	c0 93 65 00 	sts	0x0065, r28
+
+  PORT_USI |=  (1<<PORT_USI_SCL);                                 // Set SCL high
+ 356:	c2 9a       	sbi	0x18, 2	; 24
+  PORT_USI |=  (1<<PORT_USI_SDA);                                 // Set SDA high
+ 358:	c0 9a       	sbi	0x18, 0	; 24
+  DDR_USI  |=  (1<<PORT_USI_SCL);                                 // Set SCL as output
+ 35a:	ba 9a       	sbi	0x17, 2	; 23
+  DDR_USI  &= ~(1<<PORT_USI_SDA);                                 // Set SDA as input
+ 35c:	b8 98       	cbi	0x17, 0	; 23
+  USICR    =  (1<<USISIE)|(0<<USIOIE)|                            // Enable Start Condition Interrupt. Disable Overflow Interrupt.
+ 35e:	88 ea       	ldi	r24, 0xA8	; 168
+ 360:	8d b9       	out	0x0d, r24	; 13
+              (1<<USIWM1)|(0<<USIWM0)|                            // Set USI in Two-wire mode. No USI Counter overflow prior
+                                                                  // to first Start Condition (potentail failure)
+              (1<<USICS1)|(0<<USICS0)|(0<<USICLK)|                // Shift Register Clock Source = External, positive edge
+              (0<<USITC);
+  USISR    = 0xF0;                                                // Clear all flags and reset overflow counter
+ 362:	80 ef       	ldi	r24, 0xF0	; 240
+ 364:	8e b9       	out	0x0e, r24	; 14
+}
+ 366:	cf 91       	pop	r28
+ 368:	08 95       	ret
+
+0000036a <USI_TWI_Transmit_Byte>:
+*/
+void USI_TWI_Transmit_Byte( unsigned char data )
+{
+    unsigned char tmphead;
+
+    tmphead = ( TWI_TxHead + 1 ) & TWI_TX_BUFFER_MASK;         // Calculate buffer index.
+ 36a:	20 91 61 00 	lds	r18, 0x0061
+ 36e:	2f 5f       	subi	r18, 0xFF	; 255
+ 370:	2f 70       	andi	r18, 0x0F	; 15
+    while ( tmphead == TWI_TxTail );                           // Wait for free space in buffer.
+ 372:	90 91 60 00 	lds	r25, 0x0060
+ 376:	29 17       	cp	r18, r25
+ 378:	e1 f3       	breq	.-8      	; 0x372 <USI_TWI_Transmit_Byte+0x8>
+    TWI_TxBuf[tmphead] = data;                                 // Store data in buffer.
+ 37a:	e6 e6       	ldi	r30, 0x66	; 102
+ 37c:	f0 e0       	ldi	r31, 0x00	; 0
+ 37e:	e2 0f       	add	r30, r18
+ 380:	f1 1d       	adc	r31, r1
+ 382:	80 83       	st	Z, r24
+    TWI_TxHead = tmphead;                                      // Store new index.
+ 384:	20 93 61 00 	sts	0x0061, r18
+}
+ 388:	08 95       	ret
+
+0000038a <USI_TWI_Receive_Byte>:
+ */
+unsigned char USI_TWI_Receive_Byte( void )
+{
+    unsigned char tmptail;
+    unsigned char tmpRxTail;                                  // Temporary variable to store volatile
+    tmpRxTail = TWI_RxTail;                                   // Not necessary, but prevents warnings
+ 38a:	90 91 62 00 	lds	r25, 0x0062
+    while ( TWI_RxHead == tmpRxTail );
+ 38e:	80 91 63 00 	lds	r24, 0x0063
+ 392:	89 17       	cp	r24, r25
+ 394:	e1 f3       	breq	.-8      	; 0x38e <USI_TWI_Receive_Byte+0x4>
+    tmptail = ( TWI_RxTail + 1 ) & TWI_RX_BUFFER_MASK;        // Calculate buffer index
+ 396:	80 91 62 00 	lds	r24, 0x0062
+ 39a:	8f 5f       	subi	r24, 0xFF	; 255
+ 39c:	8f 70       	andi	r24, 0x0F	; 15
+    TWI_RxTail = tmptail;                                     // Store new index
+ 39e:	80 93 62 00 	sts	0x0062, r24
+    return TWI_RxBuf[tmptail];                                // Return data from the buffer.
+ 3a2:	e6 e7       	ldi	r30, 0x76	; 118
+ 3a4:	f0 e0       	ldi	r31, 0x00	; 0
+ 3a6:	e8 0f       	add	r30, r24
+ 3a8:	f1 1d       	adc	r31, r1
+}
+ 3aa:	80 81       	ld	r24, Z
+ 3ac:	08 95       	ret
+
+000003ae <USI_TWI_Data_In_Receive_Buffer>:
+/*! \brief Check if there is data in the receive buffer.
+ */
+unsigned char USI_TWI_Data_In_Receive_Buffer( void )
+{
+    unsigned char tmpRxTail;                            // Temporary variable to store volatile
+    tmpRxTail = TWI_RxTail;                             // Not necessary, but prevents warnings
+ 3ae:	90 91 62 00 	lds	r25, 0x0062
+    return ( TWI_RxHead != tmpRxTail );                 // Return 0 (FALSE) if the receive buffer is empty.
+ 3b2:	20 91 63 00 	lds	r18, 0x0063
+ 3b6:	81 e0       	ldi	r24, 0x01	; 1
+ 3b8:	29 17       	cp	r18, r25
+ 3ba:	09 f4       	brne	.+2      	; 0x3be <USI_TWI_Data_In_Receive_Buffer+0x10>
+ 3bc:	80 e0       	ldi	r24, 0x00	; 0
+}
+ 3be:	08 95       	ret
+
+000003c0 <USI_Start_Condition_ISR>:
+//__interrupt void USI_Start_Condition_ISR(void)
+
+void USI_Start_Condition_ISR(void)
+{
+    unsigned char tmpUSISR;                                         // Temporary variable to store volatile
+    tmpUSISR = USISR;                                               // Not necessary, but prevents warnings
+ 3c0:	8e b1       	in	r24, 0x0e	; 14
+// Set default starting conditions for new TWI package
+    USI_TWI_Overflow_State = USI_SLAVE_CHECK_ADDRESS;
+ 3c2:	10 92 64 00 	sts	0x0064, r1
+    DDR_USI  &= ~(1<<PORT_USI_SDA);                                 // Set SDA as input
+ 3c6:	b8 98       	cbi	0x17, 0	; 23
+    while ( (PIN_USI & (1<<PORT_USI_SCL)) & !(tmpUSISR & (1<<USIPF)) );   // Wait for SCL to go low to ensure the "Start Condition" has completed.
+ 3c8:	86 b3       	in	r24, 0x16	; 22
+                                                                       // If a Stop condition arises then leave the interrupt to prevent waiting forever.
+    USICR   =   (1<<USISIE)|(1<<USIOIE)|                            // Enable Overflow and Start Condition Interrupt. (Keep StartCondInt to detect RESTART)
+ 3ca:	88 ef       	ldi	r24, 0xF8	; 248
+ 3cc:	8d b9       	out	0x0d, r24	; 13
+                (1<<USIWM1)|(1<<USIWM0)|                            // Set USI in Two-wire mode.
+                (1<<USICS1)|(0<<USICS0)|(0<<USICLK)|                // Shift Register Clock Source = External, positive edge
+                (0<<USITC);
+    USISR  =    (1<<USI_START_COND_INT)|(1<<USIOIF)|(1<<USIPF)|(1<<USIDC)|      // Clear flags
+ 3ce:	80 ef       	ldi	r24, 0xF0	; 240
+ 3d0:	8e b9       	out	0x0e, r24	; 14
+                (0x0<<USICNT0);                                     // Set USI to sample 8 bits i.e. count 16 external pin toggles.
+}
+ 3d2:	08 95       	ret
+
+000003d4 <USI_Counter_Overflow_ISR>:
+{
+  unsigned char tmpTxTail;     // Temporary variables to store volatiles
+  unsigned char tmpUSIDR;
+
+
+  switch (USI_TWI_Overflow_State)
+ 3d4:	80 91 64 00 	lds	r24, 0x0064
+ 3d8:	82 30       	cpi	r24, 0x02	; 2
+ 3da:	09 f4       	brne	.+2      	; 0x3de <USI_Counter_Overflow_ISR+0xa>
+ 3dc:	55 c0       	rjmp	.+170    	; 0x488 <USI_Counter_Overflow_ISR+0xb4>
+ 3de:	83 30       	cpi	r24, 0x03	; 3
+ 3e0:	30 f4       	brcc	.+12     	; 0x3ee <USI_Counter_Overflow_ISR+0x1a>
+ 3e2:	88 23       	and	r24, r24
+ 3e4:	69 f0       	breq	.+26     	; 0x400 <USI_Counter_Overflow_ISR+0x2c>
+ 3e6:	81 30       	cpi	r24, 0x01	; 1
+ 3e8:	09 f0       	breq	.+2      	; 0x3ec <USI_Counter_Overflow_ISR+0x18>
+ 3ea:	72 c0       	rjmp	.+228    	; 0x4d0 <USI_Counter_Overflow_ISR+0xfc>
+ 3ec:	2d c0       	rjmp	.+90     	; 0x448 <USI_Counter_Overflow_ISR+0x74>
+ 3ee:	84 30       	cpi	r24, 0x04	; 4
+ 3f0:	09 f4       	brne	.+2      	; 0x3f4 <USI_Counter_Overflow_ISR+0x20>
+ 3f2:	52 c0       	rjmp	.+164    	; 0x498 <USI_Counter_Overflow_ISR+0xc4>
+ 3f4:	84 30       	cpi	r24, 0x04	; 4
+ 3f6:	00 f1       	brcs	.+64     	; 0x438 <USI_Counter_Overflow_ISR+0x64>
+ 3f8:	85 30       	cpi	r24, 0x05	; 5
+ 3fa:	09 f0       	breq	.+2      	; 0x3fe <USI_Counter_Overflow_ISR+0x2a>
+ 3fc:	69 c0       	rjmp	.+210    	; 0x4d0 <USI_Counter_Overflow_ISR+0xfc>
+ 3fe:	53 c0       	rjmp	.+166    	; 0x4a6 <USI_Counter_Overflow_ISR+0xd2>
+  {
+    // ---------- Address mode ----------
+    // Check address and send ACK (and next USI_SLAVE_SEND_DATA) if OK, else reset USI.
+    case USI_SLAVE_CHECK_ADDRESS:
+      if ((USIDR == 0) || (( USIDR>>1 ) == TWI_slaveAddress))
+ 400:	8f b1       	in	r24, 0x0f	; 15
+ 402:	88 23       	and	r24, r24
+ 404:	31 f0       	breq	.+12     	; 0x412 <USI_Counter_Overflow_ISR+0x3e>
+ 406:	9f b1       	in	r25, 0x0f	; 15
+ 408:	96 95       	lsr	r25
+ 40a:	80 91 65 00 	lds	r24, 0x0065
+ 40e:	98 17       	cp	r25, r24
+ 410:	71 f4       	brne	.+28     	; 0x42e <USI_Counter_Overflow_ISR+0x5a>
+      {
+        if ( USIDR & 0x01 )
+ 412:	78 9b       	sbis	0x0f, 0	; 15
+ 414:	04 c0       	rjmp	.+8      	; 0x41e <USI_Counter_Overflow_ISR+0x4a>
+          USI_TWI_Overflow_State = USI_SLAVE_SEND_DATA;
+ 416:	81 e0       	ldi	r24, 0x01	; 1
+ 418:	80 93 64 00 	sts	0x0064, r24
+ 41c:	03 c0       	rjmp	.+6      	; 0x424 <USI_Counter_Overflow_ISR+0x50>
+        else
+          USI_TWI_Overflow_State = USI_SLAVE_REQUEST_DATA;
+ 41e:	84 e0       	ldi	r24, 0x04	; 4
+ 420:	80 93 64 00 	sts	0x0064, r24
+          SET_USI_TO_SEND_ACK();
+ 424:	1f b8       	out	0x0f, r1	; 15
+ 426:	b8 9a       	sbi	0x17, 0	; 23
+ 428:	8e e7       	ldi	r24, 0x7E	; 126
+ 42a:	8e b9       	out	0x0e, r24	; 14
+ 42c:	08 95       	ret
+      }
+      else
+      {
+        SET_USI_TO_TWI_START_CONDITION_MODE();
+ 42e:	88 ea       	ldi	r24, 0xA8	; 168
+ 430:	8d b9       	out	0x0d, r24	; 13
+ 432:	80 e7       	ldi	r24, 0x70	; 112
+ 434:	8e b9       	out	0x0e, r24	; 14
+ 436:	08 95       	ret
+      break;
+
+    // ----- Master write data mode ------
+    // Check reply and goto USI_SLAVE_SEND_DATA if OK, else reset USI.
+    case USI_SLAVE_CHECK_REPLY_FROM_SEND_DATA:
+      if ( USIDR ) // If NACK, the master does not want more data.
+ 438:	8f b1       	in	r24, 0x0f	; 15
+ 43a:	88 23       	and	r24, r24
+ 43c:	29 f0       	breq	.+10     	; 0x448 <USI_Counter_Overflow_ISR+0x74>
+      {
+        SET_USI_TO_TWI_START_CONDITION_MODE();
+ 43e:	88 ea       	ldi	r24, 0xA8	; 168
+ 440:	8d b9       	out	0x0d, r24	; 13
+ 442:	80 e7       	ldi	r24, 0x70	; 112
+ 444:	8e b9       	out	0x0e, r24	; 14
+        return;
+ 446:	08 95       	ret
+
+    // Copy data from buffer to USIDR and set USI to shift byte. Next USI_SLAVE_REQUEST_REPLY_FROM_SEND_DATA
+    case USI_SLAVE_SEND_DATA:
+
+      // Get data from Buffer
+      tmpTxTail = TWI_TxTail;           // Not necessary, but prevents warnings
+ 448:	80 91 60 00 	lds	r24, 0x0060
+      if ( TWI_TxHead != tmpTxTail )
+ 44c:	90 91 61 00 	lds	r25, 0x0061
+ 450:	98 17       	cp	r25, r24
+ 452:	a9 f0       	breq	.+42     	; 0x47e <USI_Counter_Overflow_ISR+0xaa>
+      {
+        TWI_TxTail = ( TWI_TxTail + 1 ) & TWI_TX_BUFFER_MASK;
+ 454:	80 91 60 00 	lds	r24, 0x0060
+ 458:	8f 5f       	subi	r24, 0xFF	; 255
+ 45a:	8f 70       	andi	r24, 0x0F	; 15
+ 45c:	80 93 60 00 	sts	0x0060, r24
+        USIDR = TWI_TxBuf[TWI_TxTail];
+ 460:	80 91 60 00 	lds	r24, 0x0060
+ 464:	e6 e6       	ldi	r30, 0x66	; 102
+ 466:	f0 e0       	ldi	r31, 0x00	; 0
+ 468:	e8 0f       	add	r30, r24
+ 46a:	f1 1d       	adc	r31, r1
+ 46c:	80 81       	ld	r24, Z
+ 46e:	8f b9       	out	0x0f, r24	; 15
+      else // If the buffer is empty then:
+      {
+          SET_USI_TO_TWI_START_CONDITION_MODE();
+          return;
+      }
+      USI_TWI_Overflow_State = USI_SLAVE_REQUEST_REPLY_FROM_SEND_DATA;
+ 470:	82 e0       	ldi	r24, 0x02	; 2
+ 472:	80 93 64 00 	sts	0x0064, r24
+      SET_USI_TO_SEND_DATA();
+ 476:	b8 9a       	sbi	0x17, 0	; 23
+ 478:	80 e7       	ldi	r24, 0x70	; 112
+ 47a:	8e b9       	out	0x0e, r24	; 14
+      break;
+ 47c:	08 95       	ret
+        TWI_TxTail = ( TWI_TxTail + 1 ) & TWI_TX_BUFFER_MASK;
+        USIDR = TWI_TxBuf[TWI_TxTail];
+      }
+      else // If the buffer is empty then:
+      {
+          SET_USI_TO_TWI_START_CONDITION_MODE();
+ 47e:	88 ea       	ldi	r24, 0xA8	; 168
+ 480:	8d b9       	out	0x0d, r24	; 13
+ 482:	80 e7       	ldi	r24, 0x70	; 112
+ 484:	8e b9       	out	0x0e, r24	; 14
+          return;
+ 486:	08 95       	ret
+      SET_USI_TO_SEND_DATA();
+      break;
+
+    // Set USI to sample reply from master. Next USI_SLAVE_CHECK_REPLY_FROM_SEND_DATA
+    case USI_SLAVE_REQUEST_REPLY_FROM_SEND_DATA:
+      USI_TWI_Overflow_State = USI_SLAVE_CHECK_REPLY_FROM_SEND_DATA;
+ 488:	83 e0       	ldi	r24, 0x03	; 3
+ 48a:	80 93 64 00 	sts	0x0064, r24
+      SET_USI_TO_READ_ACK();
+ 48e:	b8 98       	cbi	0x17, 0	; 23
+ 490:	1f b8       	out	0x0f, r1	; 15
+ 492:	8e e7       	ldi	r24, 0x7E	; 126
+ 494:	8e b9       	out	0x0e, r24	; 14
+      break;
+ 496:	08 95       	ret
+
+    // ----- Master read data mode ------
+    // Set USI to sample data from master. Next USI_SLAVE_GET_DATA_AND_SEND_ACK.
+    case USI_SLAVE_REQUEST_DATA:
+      USI_TWI_Overflow_State = USI_SLAVE_GET_DATA_AND_SEND_ACK;
+ 498:	85 e0       	ldi	r24, 0x05	; 5
+ 49a:	80 93 64 00 	sts	0x0064, r24
+      SET_USI_TO_READ_DATA();
+ 49e:	b8 98       	cbi	0x17, 0	; 23
+ 4a0:	80 e7       	ldi	r24, 0x70	; 112
+ 4a2:	8e b9       	out	0x0e, r24	; 14
+      break;
+ 4a4:	08 95       	ret
+
+    // Copy data from USIDR and send ACK. Next USI_SLAVE_REQUEST_DATA
+    case USI_SLAVE_GET_DATA_AND_SEND_ACK:
+      // Put data into Buffer
+      tmpUSIDR = USIDR;             // Not necessary, but prevents warnings
+ 4a6:	8f b1       	in	r24, 0x0f	; 15
+      TWI_RxHead = ( TWI_RxHead + 1 ) & TWI_RX_BUFFER_MASK;
+ 4a8:	90 91 63 00 	lds	r25, 0x0063
+ 4ac:	9f 5f       	subi	r25, 0xFF	; 255
+ 4ae:	9f 70       	andi	r25, 0x0F	; 15
+ 4b0:	90 93 63 00 	sts	0x0063, r25
+      TWI_RxBuf[TWI_RxHead] = tmpUSIDR;
+ 4b4:	90 91 63 00 	lds	r25, 0x0063
+ 4b8:	e6 e7       	ldi	r30, 0x76	; 118
+ 4ba:	f0 e0       	ldi	r31, 0x00	; 0
+ 4bc:	e9 0f       	add	r30, r25
+ 4be:	f1 1d       	adc	r31, r1
+ 4c0:	80 83       	st	Z, r24
+
+      USI_TWI_Overflow_State = USI_SLAVE_REQUEST_DATA;
+ 4c2:	84 e0       	ldi	r24, 0x04	; 4
+ 4c4:	80 93 64 00 	sts	0x0064, r24
+      SET_USI_TO_SEND_ACK();
+ 4c8:	1f b8       	out	0x0f, r1	; 15
+ 4ca:	b8 9a       	sbi	0x17, 0	; 23
+ 4cc:	8e e7       	ldi	r24, 0x7E	; 126
+ 4ce:	8e b9       	out	0x0e, r24	; 14
+ 4d0:	08 95       	ret
+
+000004d2 <_exit>:
+ 4d2:	f8 94       	cli
+
+000004d4 <__stop_program>:
+ 4d4:	ff cf       	rjmp	.-2      	; 0x4d4 <__stop_program>
