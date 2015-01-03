@@ -2,56 +2,56 @@
  * @author Orestis Zachariadis
  * @brief Implements GridEYE sensor functionality
  */
-#include "grideye.hpp"
+#include <sonar.hpp>
 
 static Mutex i2c0_mutex;    ///<The mutex that locks access to I2C0 peripheral
 static Mutex i2c1_mutex;    ///<The mutex that locks access to I2C1 peripheral
 
-/** @name GridEYETask() threads */
+/** @name SonarTask() threads */
 //@{
-static Thread *tGridEYECenter;  ///<Thread pointer for center GridEYE sensor's GridEYETask()
-static Thread *tGridEYELeft;    ///<Thread pointer for left GridEYE sensor's GridEYETask()
-static Thread *tGridEYERight;   ///<Thread pointer for right GridEYE sensor's GridEYETask()
+static Thread *tGridEYECenter;  ///<Thread pointer for center GridEYE sensor's SonarTask()
+static Thread *tGridEYELeft;    ///<Thread pointer for left GridEYE sensor's SonarTask()
+static Thread *tGridEYERight;   ///<Thread pointer for right GridEYE sensor's SonarTask()
 //@}
 
-static Thread *tGridEYEHealth;  ///<Thread pointer for GridEYEHealthTask()
+static Thread *tGridEYEHealth;  ///<Thread pointer for SonarHealthTask()
 
-void GridEYEInit(I2C *i2c0_obj, I2C *i2c1_obj) {
+void SonarInit(I2C *i2c0_obj, I2C *i2c1_obj) {
     //Check comment about sdram in Doxygen main page before using new
 
     i2c0_obj->frequency(400000);
     i2c1_obj->frequency(400000);
 
-    grideye_sensor_t temp_sens1;    //Because we pass starting arguments to threads with a pointer we must be sure that
-    grideye_sensor_t temp_sens2;    //-> their memory contents don't change long enough for the threads to copy the data
-    grideye_sensor_t temp_sens3;    //-> to local variables. So we create a temporary structure for each thread.
+    sonar_sensor_t temp_sens1;    //Because we pass starting arguments to threads with a pointer we must be sure that
+    sonar_sensor_t temp_sens2;    //-> their memory contents don't change long enough for the threads to copy the data
+    sonar_sensor_t temp_sens3;    //-> to local variables. So we create a temporary structure for each thread.
 
     temp_sens1.i2c_obj = i2c0_obj;
     temp_sens1.i2c_periph_num = 0;
     temp_sens1.i2c_addr = GRIDEYE_I2C_ADDR_GND;
     temp_sens1.grideye_num = GEYE_CENTER;
-    tGridEYECenter = new Thread(GridEYETask, (void *) &temp_sens1);
+    tGridEYECenter = new Thread(SonarTask, (void *) &temp_sens1);
 
     temp_sens2.i2c_obj = i2c0_obj;
     temp_sens2.i2c_periph_num = 0;
     temp_sens2.i2c_addr = GRIDEYE_I2C_ADDR_VDD;
     temp_sens2.grideye_num = GEYE_RIGHT;
-    tGridEYERight = new Thread(GridEYETask, (void *) &temp_sens2);
+    tGridEYERight = new Thread(SonarTask, (void *) &temp_sens2);
 
     temp_sens3.i2c_obj = i2c1_obj;
     temp_sens3.i2c_periph_num = 1;
     temp_sens3.i2c_addr = GRIDEYE_I2C_ADDR_GND;
     temp_sens3.grideye_num = GEYE_LEFT;
-    tGridEYELeft = new Thread(GridEYETask, (void *) &temp_sens3);
+    tGridEYELeft = new Thread(SonarTask, (void *) &temp_sens3);
 
-    tGridEYEHealth = new Thread(GridEYEHealthTask);
+    tGridEYEHealth = new Thread(SonarHealthTask);
 
     Thread::wait(5);    //We must wait some time before the function ends or temp_sens? will be destroyed
                         //-> before the threads assign them to local variables. (I tested with 1ms and it was OK)
 }
 
-void GridEYETask(void const *args) {
-    const grideye_sensor_t * geye = (const grideye_sensor_t *) args;
+void SonarTask(void const *args) {
+    const sonar_sensor_t * geye = (const sonar_sensor_t *) args;
 
     I2C *i2c_obj = geye->i2c_obj;
     uint8_t i2c_periph_num = geye->i2c_periph_num;
@@ -81,7 +81,7 @@ void GridEYETask(void const *args) {
 #endif
 
     while (1) {
-        Thread::signal_wait(GRIDEYE_I2C_SIGNAL);
+        Thread::signal_wait(SONAR_I2C_SIGNAL);
 
         cmd[0] = GRIDEYE_I2C_THERM_ADDR;
         i2c_lock(i2c_periph_num);
@@ -97,7 +97,7 @@ void GridEYETask(void const *args) {
 
         //If temper_echo remains unchanged after an i2c_obj->read(), indicates sensor fault.
         //-> So, if temper_echo_uint16[0] stays 0 after i2c_obj->read() the sensor is probably faulty.
-        //-> Because a temperature value of 0 is OutOfBounds HealthyGridEYEvaluesSet() will not be triggered and
+        //-> Because a temperature value of 0 is OutOfBounds HealthySonarValuesSet() will not be triggered and
         //-> the sensor will be correctly registered as not healthy.
         //Only the first element of temper_echo_uint16 is zeroed to save processing time.
         temper_echo_uint16[0] = 0;
@@ -116,7 +116,7 @@ void GridEYETask(void const *args) {
             }
         }
 
-        GridEYEvaluesSet(temper_values, grideye_num);
+        SonarValuesSet(temper_values, grideye_num);
 
 #if ENABLE_RGB_LEDMATRIX
 
@@ -179,23 +179,23 @@ void i2c_unlock(uint8_t i2c_periph_num) {
     }
 }
 
-void GridEYESignalClear(uint8_t grideye_num) {
+void SonarSignalClear(uint8_t grideye_num) {
     switch (grideye_num) {
     case GEYE_CENTER:
-        tGridEYECenter->signal_clear(GRIDEYE_I2C_SIGNAL);
+        tGridEYECenter->signal_clear(SONAR_I2C_SIGNAL);
         break;
     case GEYE_RIGHT:
-        tGridEYERight->signal_clear(GRIDEYE_I2C_SIGNAL);
+        tGridEYERight->signal_clear(SONAR_I2C_SIGNAL);
         break;
     case GEYE_LEFT:
-        tGridEYELeft->signal_clear(GRIDEYE_I2C_SIGNAL);
+        tGridEYELeft->signal_clear(SONAR_I2C_SIGNAL);
         break;
     default:
         return;
     }
 }
 
-void GridEYEvaluesSet(float values[], uint8_t grideye_num) {
+void SonarValuesSet(float values[], uint8_t grideye_num) {
     uint8_t GridEYEvalues[PIXELS_COUNT];
     uint8_t OutOfBounds = 0;
 
@@ -208,25 +208,25 @@ void GridEYEvaluesSet(float values[], uint8_t grideye_num) {
     }
 
     if (!OutOfBounds) {
-        HealthyGridEYEvaluesSet(GridEYEvalues, grideye_num);
+        HealthySonarValuesSet(GridEYEvalues, grideye_num);
     }
 }
 
-void GridEYESchedulerTask(void const *args) {
+void SonarSchedulerTask(void const *args) {
     //I2C sensors in the same I2C bus have maximum distance ie 50ms in a 100ms loop
     while (true) {
-        clearHealthyGridEYE();
+        clearHealthySonar();
 
-        if (GridEYEenabled(GEYE_CENTER))
-            tGridEYECenter->signal_set(GRIDEYE_I2C_SIGNAL);
-
-        Thread::wait(25);
-        if (GridEYEenabled(GEYE_LEFT))
-            tGridEYELeft->signal_set(GRIDEYE_I2C_SIGNAL);
+        if (SonarEnabled(GEYE_CENTER))
+            tGridEYECenter->signal_set(SONAR_I2C_SIGNAL);
 
         Thread::wait(25);
-        if (GridEYEenabled(GEYE_RIGHT))
-            tGridEYERight->signal_set(GRIDEYE_I2C_SIGNAL);
+        if (SonarEnabled(GEYE_LEFT))
+            tGridEYELeft->signal_set(SONAR_I2C_SIGNAL);
+
+        Thread::wait(25);
+        if (SonarEnabled(GEYE_RIGHT))
+            tGridEYERight->signal_set(SONAR_I2C_SIGNAL);
 
         Thread::wait(40);
         tGridEYEHealth->signal_set(HEALTH_SIGNAL);

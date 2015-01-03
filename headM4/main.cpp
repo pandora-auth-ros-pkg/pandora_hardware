@@ -1,15 +1,16 @@
 /** @file
- * @author Orestis Zachariadis
+ * @author Nick Taras
  * @brief Initializes and starts tasks.
  */
+#include <sonar.hpp>
 #include "mbed.h"
 #include "rtos.h"
 #include "statistics.hpp"
-#include "grideye.hpp"
 #include "CO2.hpp"
 #include "USB.hpp"
 #include "health.hpp"
 #include "conf.h"
+#include "encoder.hpp"
 //#include "gpdma.h"
 //#include "dsp.h"
 
@@ -24,7 +25,7 @@ int main(void) {
 
     I2C i2c0(p32, p31); //sda, scl
     I2C i2c1(p9, p10);
-    GridEYEInit(&i2c0, &i2c1);
+    SonarInit(&i2c0, &i2c1);
 
     USBInit();
 
@@ -38,7 +39,9 @@ int main(void) {
 
     Thread tCO2Caller(CO2SchedulerTask);
 
-    Thread tGridEYECaller(GridEYESchedulerTask);
+    Thread tSonarCaller(SonarSchedulerTask);
+
+    Thread tEncoderCaller(EncoderSchedulerTask);
 
     Thread::wait(osWaitForever);
 }

@@ -5,10 +5,10 @@
 #ifndef USB_HPP_
 #define USB_HPP_
 
+#include <sonar.hpp>
 #include "mbed.h"
 #include "rtos.h"
 #include "USBSerial.h"
-#include "grideye.hpp"
 
 /** @name Possible incoming commands */
 //@{
@@ -43,7 +43,7 @@ void USBTask(const void *args);
  * @param values New values to write to GridEYE USB buffer
  * @param grideye_num grideye_sensor_t::grideye_num
  */
-void USBGridEYEvaluesSet(uint8_t values[], uint8_t grideye_num);
+void USBSonarValuesSet(uint8_t values[], uint8_t grideye_num);
 
 /** @brief Zeroes GridEYE USB buffers
  *
@@ -53,14 +53,14 @@ void USBGridEYEvaluesSet(uint8_t values[], uint8_t grideye_num);
  *
  * @param grideye_num grideye_sensor_t::grideye_num
  */
-void USBGridEYEvaluesZero(uint8_t grideye_num);
+void USBSonarValuesZero(uint8_t grideye_num);
 
 /** @brief Read GridEYE USB buffers
  *
  * Used by USBTask to read the GridEYE USB buffer indicated by grideye_num.
  * @param grideye_num grideye_sensor_t::grideye_num
  */
-uint8_t * USBGridEYEvaluesGet(uint8_t grideye_num);
+uint8_t * USBSonarValuesGet(uint8_t grideye_num);
 
 /** @brief Refreshes CO2 USB buffer with new values
  *

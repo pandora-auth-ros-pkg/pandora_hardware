@@ -48,7 +48,7 @@ void USBTask(const void *args) {
         switch (command) {
         case GEYE_CENTER_REQUEST:
             //writeBlock() waits for the host to connect
-            usb->writeBlock(USBGridEYEvaluesGet(GEYE_CENTER), PIXELS_COUNT);
+            usb->writeBlock(USBSonarValuesGet(GEYE_CENTER), PIXELS_COUNT);
             //Because the array we send is a multiple of max packet size (64 bytes) a zero-lenth-packet (ZLP) is
             //-> required after the data packet. If we don't send the ZLP the read() in the PC program would
             //-> wait forever. I tried sending 128 bytes, but this time it worked without the ZLP. So, if read()
@@ -57,11 +57,11 @@ void USBTask(const void *args) {
             usb->writeBlock(&command, 0);
             break;
         case GEYE_RIGHT_REQUEST:
-            usb->writeBlock(USBGridEYEvaluesGet(GEYE_RIGHT), PIXELS_COUNT);
+            usb->writeBlock(USBSonarValuesGet(GEYE_RIGHT), PIXELS_COUNT);
             usb->writeBlock(&command, 0);
             break;
         case GEYE_LEFT_REQUEST:
-            usb->writeBlock(USBGridEYEvaluesGet(GEYE_LEFT), PIXELS_COUNT);
+            usb->writeBlock(USBSonarValuesGet(GEYE_LEFT), PIXELS_COUNT);
             usb->writeBlock(&command, 0);
             break;
         case CO2_REQUEST:
@@ -75,7 +75,7 @@ void USBTask(const void *args) {
 }
 
 //A mutex may be required to protect set and get , but didn't have any problems without
-void USBGridEYEvaluesSet(uint8_t values[], uint8_t grideye_num) {
+void USBSonarValuesSet(uint8_t values[], uint8_t grideye_num) {
     switch (grideye_num) {
     case GEYE_CENTER:
         memcpy((void *) uGridEYECenterValues, (const void *) values, PIXELS_COUNT * sizeof(uint8_t));
@@ -89,7 +89,7 @@ void USBGridEYEvaluesSet(uint8_t values[], uint8_t grideye_num) {
     }
 }
 
-void USBGridEYEvaluesZero(uint8_t grideye_num) {
+void USBSonarValuesZero(uint8_t grideye_num) {
     switch (grideye_num) {
     case GEYE_CENTER:
         memset(uGridEYECenterValues, 0, PIXELS_COUNT * sizeof(uint8_t));
@@ -104,7 +104,7 @@ void USBGridEYEvaluesZero(uint8_t grideye_num) {
 }
 
 //A mutex may be required to protect set and get , but didn't have any problems without
-uint8_t * USBGridEYEvaluesGet(uint8_t grideye_num) {
+uint8_t * USBSonarValuesGet(uint8_t grideye_num) {
     switch (grideye_num) {
     case GEYE_CENTER:
         return uGridEYECenterValues;
