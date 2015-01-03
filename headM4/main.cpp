@@ -10,6 +10,7 @@
 #include "USB.hpp"
 #include "health.hpp"
 #include "conf.h"
+#include "encoder.hpp"
 //#include "gpdma.h"
 //#include "dsp.h"
 
@@ -38,7 +39,9 @@ int main(void) {
 
     Thread tCO2Caller(CO2SchedulerTask);
 
-    Thread tGridEYECaller(SonarSchedulerTask);
+    Thread tSonarCaller(SonarSchedulerTask);
+
+    Thread tEncoderCaller(EncoderSchedulerTask);
 
     Thread::wait(osWaitForever);
 }
