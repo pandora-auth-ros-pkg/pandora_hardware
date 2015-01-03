@@ -5,7 +5,7 @@
 #ifndef HEALTH_HPP_
 #define HEALTH_HPP_
 
-#include "grideye.hpp"
+#include <sonar.hpp>
 #include "CO2.hpp"
 #include "USB.hpp"
 #include "PeripheralNames.h"
@@ -50,7 +50,7 @@ void CO2HealthTask(void const *args);
  *
  * Checks if GridEYE sensors are healthy, counts how many times they failed and attempts recovery measures.
  */
-void GridEYEHealthTask(void const *args);
+void SonarHealthTask(void const *args);
 
 /** @brief Clears CO2 healthy status
  *
@@ -62,9 +62,9 @@ void clearHealthyCO2();
 /** @brief Clears GridEYE healthy status
  *
  * Sets the healthy status of a sensor to zero. We must do this before triggering the sensor.
- * If the sensor fails to respond, healthy status will remain to zero so GridEYEHealthTask() can check its status.
+ * If the sensor fails to respond, healthy status will remain to zero so SonarHealthTask() can check its status.
  */
-void clearHealthyGridEYE();
+void clearHealthySonar();
 
 /** @brief Checks if a GridEYE sensor is enabled.
  *
@@ -75,7 +75,7 @@ void clearHealthyGridEYE();
  *
  * @returns true if selected sensor is enabled, false otherwise
  */
-uint8_t GridEYEenabled(uint8_t grideye_num);
+uint8_t SonarEnabled(uint8_t grideye_num);
 
 /** @brief Checks if CO2 sensor is enabled.
  *
@@ -105,7 +105,7 @@ void HealthyCO2valueSet(float value);
  * @param values The just receivec data from the sensor
  * @param grideye_num grideye_sensor_t::grideye_num
  */
-void HealthyGridEYEvaluesSet(uint8_t values[], uint8_t grideye_num);
+void HealthySonarValuesSet(uint8_t values[], uint8_t grideye_num);
 
 /** @brief Attempts to recover CO2 sensor
  *
