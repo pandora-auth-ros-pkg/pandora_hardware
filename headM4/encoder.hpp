@@ -2,7 +2,7 @@
  * encoder.hpp
  *
  *  Created on: Jan 3, 2015
- *      Author: nick
+ *      Author: Nikos Taras
  */
 
 #ifndef ENCODER_HPP_

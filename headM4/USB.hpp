@@ -1,5 +1,5 @@
 /** @file
- * @author Orestis Zachariadis
+ * @author Nikos Taras
  * @brief Includes, defines and function prototypes used for USB functionality.
  */
 #ifndef USB_HPP_
@@ -12,9 +12,9 @@
 
 /** @name Possible incoming commands */
 //@{
-#define GEYE_CENTER_REQUEST 1   ///<Requests temperature values from center GridEYE
-#define GEYE_LEFT_REQUEST 2     ///<Requests temperature values from left GridEYE
-#define GEYE_RIGHT_REQUEST 3    ///<Requests temperature values from right GridEYE
+#define ENCODER_REQUEST 1   ///<Requests temperature values from encoder
+#define SONAR_LEFT_REQUEST 2     ///<Requests temperature values from left Sonar
+#define SONAR_RIGHT_REQUEST 3    ///<Requests temperature values from right Sonar
 #define CO2_REQUEST 4           ///<Requests CO2 volume value
 //@}
 
@@ -43,7 +43,7 @@ void USBTask(const void *args);
  * @param values New values to write to GridEYE USB buffer
  * @param grideye_num grideye_sensor_t::grideye_num
  */
-void USBSonarValuesSet(uint8_t values[], uint8_t grideye_num);
+void USBSonarValuesSet(uint8_t values[], uint8_t sonar_num);
 
 /** @brief Zeroes GridEYE USB buffers
  *
@@ -53,14 +53,14 @@ void USBSonarValuesSet(uint8_t values[], uint8_t grideye_num);
  *
  * @param grideye_num grideye_sensor_t::grideye_num
  */
-void USBSonarValuesZero(uint8_t grideye_num);
+void USBSonarValuesZero(uint8_t sonar_num);
 
 /** @brief Read GridEYE USB buffers
  *
  * Used by USBTask to read the GridEYE USB buffer indicated by grideye_num.
  * @param grideye_num grideye_sensor_t::grideye_num
  */
-uint8_t * USBSonarValuesGet(uint8_t grideye_num);
+uint8_t * USBSonarValuesGet(uint8_t sonar_num);
 
 /** @brief Refreshes CO2 USB buffer with new values
  *

@@ -1,5 +1,5 @@
 /** @file
- * @author Nick Taras
+ * @author Nikos Taras
  * @brief Initializes and starts tasks.
  */
 #include <sonar.hpp>

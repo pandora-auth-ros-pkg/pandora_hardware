@@ -38,8 +38,8 @@
 /** @name Individual GridEYE sensors id for use in various functions */
 //@{
 #define GEYE_CENTER 1   ///<Center GridEYE identifier
-#define GEYE_LEFT 2     ///<Left GridEYE identifier
-#define GEYE_RIGHT 3    ///<Right GridEYE identifier
+#define SONAR_LEFT 2     ///<Left GridEYE identifier
+#define SONAR_RIGHT 3    ///<Right GridEYE identifier
 //@}
 
 #define SONAR_I2C_SIGNAL 0x1  ///<Signal to SonarTask()

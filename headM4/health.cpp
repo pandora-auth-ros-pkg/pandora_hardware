@@ -114,7 +114,7 @@ void SonarHealthTask(void const *args) {
         if (!GridEYECenter_healthy && !GridEYERight_healthy) {
             I2C0_FailIndex++;
             if (I2C0_FailIndex == 1) {
-                USBSonarValuesZero(GEYE_RIGHT);
+                USBSonarValuesZero(SONAR_RIGHT);
                 USBSonarValuesZero(GEYE_CENTER);
             }
 
@@ -124,7 +124,7 @@ void SonarHealthTask(void const *args) {
             //-> immediately, without waiting on signal_wait() for signal_set() from SchedulerTask().
             //We clear signal flags before attempting repair, so that in case of successful repair GridEYETask() doesn't
             //-> continue its loop before it takes the OK from GridEYESchedulerTask().
-            SonarSignalClear(GEYE_RIGHT);
+            SonarSignalClear(SONAR_RIGHT);
             SonarSignalClear(GEYE_CENTER);
             repairI2C(I2C0_FailIndex, I2C_0);
         }
@@ -132,9 +132,9 @@ void SonarHealthTask(void const *args) {
             GridEYELeft_DisableCountdown--;
             I2C1_FailIndex++;
             if (I2C1_FailIndex == 1) {
-                USBSonarValuesZero(GEYE_LEFT);
+                USBSonarValuesZero(SONAR_LEFT);
             }
-            SonarSignalClear(GEYE_LEFT);
+            SonarSignalClear(SONAR_LEFT);
             repairI2C(I2C1_FailIndex, I2C_1);
         }
     }
@@ -167,14 +167,14 @@ void HealthySonarValuesSet(uint8_t values[], uint8_t grideye_num) {
         USBSonarValuesSet(values, grideye_num);
         I2C0_LifeLED = !I2C0_LifeLED;
         break;
-    case GEYE_RIGHT:
+    case SONAR_RIGHT:
         GridEYERight_healthy = 1;
         I2C0_FailIndex = 0;
         GridEYERight_DisableCountdown = DISABLE_COUNTDOWN;
         USBSonarValuesSet(values, grideye_num);
         I2C0_LifeLED = !I2C0_LifeLED;
         break;
-    case GEYE_LEFT:
+    case SONAR_LEFT:
         GridEYELeft_healthy = 1;
         I2C1_FailIndex = 0;
         GridEYELeft_DisableCountdown = DISABLE_COUNTDOWN;
@@ -190,9 +190,9 @@ uint8_t SonarEnabled(uint8_t grideye_num) {
     switch (grideye_num) {
     case GEYE_CENTER:
         return GridEYECenter_DisableCountdown;
-    case GEYE_RIGHT:
+    case SONAR_RIGHT:
         return GridEYERight_DisableCountdown;
-    case GEYE_LEFT:
+    case SONAR_LEFT:
         return GridEYELeft_DisableCountdown;
     default:
         return 1;
