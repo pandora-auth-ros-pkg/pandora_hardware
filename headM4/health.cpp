@@ -114,8 +114,8 @@ void SonarHealthTask(void const *args) {
         if (!GridEYECenter_healthy && !GridEYERight_healthy) {
             I2C0_FailIndex++;
             if (I2C0_FailIndex == 1) {
-                USBSonarValuesZero(SONAR_RIGHT);
-                USBSonarValuesZero(GEYE_CENTER);
+                //USBSonarValuesZero(SONAR_RIGHT);
+                //USBSonarValuesZero(GEYE_CENTER);
             }
 
             //Normally, when signal_wait() is called the signal flags get cleared automatically. But if the sensor is stuck
@@ -132,7 +132,7 @@ void SonarHealthTask(void const *args) {
             GridEYELeft_DisableCountdown--;
             I2C1_FailIndex++;
             if (I2C1_FailIndex == 1) {
-                USBSonarValuesZero(SONAR_LEFT);
+                //USBSonarValuesZero(SONAR_LEFT);
             }
             SonarSignalClear(SONAR_LEFT);
             repairI2C(I2C1_FailIndex, I2C_1);
@@ -164,21 +164,21 @@ void HealthySonarValuesSet(uint8_t values[], uint8_t grideye_num) {
         GridEYECenter_healthy = 1;
         I2C0_FailIndex = 0;
         GridEYECenter_DisableCountdown = DISABLE_COUNTDOWN;
-        USBSonarValuesSet(values, grideye_num);
+        //USBSonarValuesSet(values, grideye_num);
         I2C0_LifeLED = !I2C0_LifeLED;
         break;
     case SONAR_RIGHT:
         GridEYERight_healthy = 1;
         I2C0_FailIndex = 0;
         GridEYERight_DisableCountdown = DISABLE_COUNTDOWN;
-        USBSonarValuesSet(values, grideye_num);
+        //USBSonarValuesSet(values, grideye_num);
         I2C0_LifeLED = !I2C0_LifeLED;
         break;
     case SONAR_LEFT:
         GridEYELeft_healthy = 1;
         I2C1_FailIndex = 0;
         GridEYELeft_DisableCountdown = DISABLE_COUNTDOWN;
-        USBSonarValuesSet(values, grideye_num);
+        //USBSonarValuesSet(values, grideye_num);
         I2C1_LifeLED = !I2C1_LifeLED;
         break;
     default:

@@ -92,7 +92,7 @@ uint8_t CO2enabled();
  * USBCO2valueSet() if we want to pass the data through the health layer before sending over USB.
  * Sets sensor healthy status to true, blinks the LifeLED and sends the data to USB buffers.
  *
- * @param value The just receivec data from the sensor
+ * @param value The just received data from the sensor
  */
 void HealthyCO2valueSet(float value);
 
@@ -102,7 +102,7 @@ void HealthyCO2valueSet(float value);
  * USBGridEYEvaluesSet() if we want to pass the data through the health layer before sending over USB.
  * Sets sensor healthy status to true, blinks the LifeLED and sends the data to USB buffers.
  *
- * @param values The just receivec data from the sensor
+ * @param values The just received data from the sensor
  * @param grideye_num grideye_sensor_t::grideye_num
  */
 void HealthySonarValuesSet(uint8_t values[], uint8_t grideye_num);

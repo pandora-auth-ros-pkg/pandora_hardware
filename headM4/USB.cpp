@@ -38,6 +38,7 @@ void command_recv_isr() {
 //TODO CREATE UNIONS (if needed) LIKE THE UNION BELOW FOR THE OTHER SENSORS
 //TODO CHANGE RETURN TYPE OF ALL GETTERS
 //TODO MODIFY THE CASES IN THE SWITCH BELOW
+//TODO UPDATE FUNCTION NAMES IN HEADER FILE(S)
 
 void USBTask(const void *args) {
     union {
@@ -52,7 +53,7 @@ void USBTask(const void *args) {
         switch (command) {
         case ENCODER_REQUEST:
             //writeBlock() waits for the host to connect
-            usb->writeBlock(USBSonarValuesGet(GEYE_CENTER), PIXELS_COUNT);
+            //usb->writeBlock(USBSonarValuesGet(GEYE_CENTER), PIXELS_COUNT);
             //Because the array we send is a multiple of max packet size (64 bytes) a zero-lenth-packet (ZLP) is
             //-> required after the data packet. If we don't send the ZLP the read() in the PC program would
             //-> wait forever. I tried sending 128 bytes, but this time it worked without the ZLP. So, if read()
@@ -61,11 +62,11 @@ void USBTask(const void *args) {
             usb->writeBlock(&command, 0);
             break;
         case SONAR_RIGHT_REQUEST:
-            usb->writeBlock(USBSonarValuesGet(SONAR_RIGHT), PIXELS_COUNT);
+            //usb->writeBlock(USBSonarValuesGet(SONAR_RIGHT), PIXELS_COUNT);
             usb->writeBlock(&command, 0);
             break;
         case SONAR_LEFT_REQUEST:
-            usb->writeBlock(USBSonarValuesGet(SONAR_LEFT), 4);
+            //usb->writeBlock(USBSonarValuesGet(SONAR_LEFT), 4);
             usb->writeBlock(&command, 0);
             break;
         case CO2_REQUEST:

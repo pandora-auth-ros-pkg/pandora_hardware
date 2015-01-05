@@ -27,6 +27,8 @@ int main(void) {
     I2C i2c1(p9, p10);
     SonarInit(&i2c0, &i2c1);
 
+    EncoderInit(p5,p6,p7,p8); //NC, DO, SCL, CS
+
     USBInit();
 
     HealthInit();
