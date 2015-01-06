@@ -108,7 +108,7 @@ void SonarSignalClear(uint8_t grideye_num);
  * @param values The values that was just read from the GridEYE sensors
  * @param sonar_num sonar_sensor_t::sonar_num
  */
-void SonarValuesSet(float values[], uint8_t grideye_num);
+void SonarValueSet(uint16_t value, uint8_t sonar_num);
 
 /** @brief Schedules when we acquire data from the GridEYE sensors
  *

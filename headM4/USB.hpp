@@ -43,7 +43,7 @@ void USBTask(const void *args);
  * @param values New values to write to GridEYE USB buffer
  * @param grideye_num grideye_sensor_t::grideye_num
  */
-void USBSonarValuesSet(uint8_t values[], uint8_t sonar_num);
+void USBSonarValuesSet(uint16_t values, uint8_t sonar_num);
 
 /** @brief Zeroes GridEYE USB buffers
  *

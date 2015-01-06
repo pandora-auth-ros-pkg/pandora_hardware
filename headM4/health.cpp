@@ -167,20 +167,20 @@ void HealthyEncoderValueSet(float value) {
     //CO2_LifeLED = !CO2_LifeLED;
 }
 
-void HealthySonarValuesSet(uint8_t values[], uint8_t grideye_num) {
-    switch (grideye_num) {
+void HealthySonarValuesSet(uint16_t values, uint8_t sonar_num) {
+    switch (sonar_num) {
     case SONAR_RIGHT:
         SonarRight_healthy = 1;
         I2C0_FailIndex = 0;
         SonarRight_DisableCountdown = DISABLE_COUNTDOWN;
-        //USBSonarValuesSet(values, grideye_num);
+        USBSonarValuesSet(values, sonar_num);
         I2C0_LifeLED = !I2C0_LifeLED;
         break;
     case SONAR_LEFT:
         SonarLeft_healthy = 1;
         I2C1_FailIndex = 0;
         SonarLeft_DisableCountdown = DISABLE_COUNTDOWN;
-        //USBSonarValuesSet(values, grideye_num);
+        USBSonarValuesSet(values, sonar_num);
         I2C1_LifeLED = !I2C1_LifeLED;
         break;
     default:

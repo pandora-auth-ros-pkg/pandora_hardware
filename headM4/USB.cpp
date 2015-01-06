@@ -7,9 +7,9 @@
 /** @name Buffers that store the values to be send to PC */
 //@{
 static float uCO2value;	///<usb CO2 value buffer
-static uint8_t uEncoderValue;  ///<usb GridEYECenter values buffer
-static uint8_t uSonarLeftValue;    ///<usb GridEYECenter values buffer
-static uint8_t uSonarRightValue;   ///<usb GridEYECenter values buffer
+static uint16_t uEncoderValue;  ///<usb GridEYECenter values buffer
+static uint16_t uSonarLeftValue;    ///<usb GridEYECenter values buffer
+static uint16_t uSonarRightValue;   ///<usb GridEYECenter values buffer
 //@}
 
 static USBSerial *usb;	///<Pointer to the USBSerial class object that implements the USB communication
@@ -80,19 +80,16 @@ void USBTask(const void *args) {
 }
 
 //A mutex may be required to protect set and get , but didn't have any problems without
-//void USBSonarValuesSet(uint8_t values[], uint8_t sonar_num) {
-//    switch (grideye_num) {
-//    case GEYE_CENTER:
-//        memcpy((void *) uEncoderValue, (const void *) values, PIXELS_COUNT * sizeof(uint8_t));
-//        break;
-//    case SONAR_RIGHT:
-//        memcpy((void *) uSonarRightValue, (const void *) values, PIXELS_COUNT * sizeof(uint8_t));
-//        break;
-//    case SONAR_LEFT:
-//        memcpy((void *) uSonarLeftValue, (const void *) values, PIXELS_COUNT * sizeof(uint8_t));
-//        break;
-//    }
-//}
+void USBSonarValuesSet(uint16_t values, uint8_t sonar_num) {
+    switch (sonar_num) {
+    case SONAR_RIGHT:
+        uSonarRightValue = values;
+        break;
+    case SONAR_LEFT:
+        uSonarLeftValue = values;
+        break;
+    }
+}
 
 //void USBSonarValuesZero(uint8_t sonar_num) {
 //    switch (grideye_num) {
@@ -141,17 +138,13 @@ float USBencoderValueGet() {
 }
 
 //getters and setters for Sonar Left
-void USBSonarLeftValueSet(float value) {
-    uSonarLeftValue = value;
-}
+
 
 float USBSonarLeftValueGet() {
     return uSonarLeftValue;
 }
 //getters and setters for Sonar Right
-void USBSonarRightValueSet(float value) {
-    uSonarRightValue = value;
-}
+
 
 float USBSonarRightValueGet() {
     return uSonarRightValue;

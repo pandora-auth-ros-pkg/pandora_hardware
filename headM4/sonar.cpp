@@ -128,21 +128,14 @@ void SonarSignalClear(uint8_t grideye_num) {
     }
 }
 
-void SonarValuesSet(float values[], uint8_t grideye_num) {
-    uint8_t GridEYEvalues[PIXELS_COUNT];
-    uint8_t OutOfBounds = 0;
-
-    for (int i = 0; i < PIXELS_COUNT; ++i) {
-        if (values[i] > 0 && values[i] < 80) {
-            GridEYEvalues[i] = (uint8_t) (values[i] + 0.5); //rounding to nearest Celsius degree
-        } else {
-            OutOfBounds = 1;
-        }
+void SonarValueSet(uint16_t value, uint8_t sonar_num) {
+    if (value>0 && value<512){
+        HealthySonarValuesSet(value, sonar_num);
+    }
+    else{
+        HealthySonarValuesSet(0, sonar_num);
     }
 
-    if (!OutOfBounds) {
-        HealthySonarValuesSet(GridEYEvalues, grideye_num);
-    }
 }
 
 void SonarSchedulerTask(void const *args) {

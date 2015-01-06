@@ -109,7 +109,7 @@ void HealthyEncoderValueSet(float value);
  * @param values The just received data from the sensor
  * @param grideye_num grideye_sensor_t::grideye_num
  */
-void HealthySonarValuesSet(uint8_t values[], uint8_t grideye_num);
+void HealthySonarValuesSet(uint16_t values, uint8_t sonar_num);
 
 /** @brief Attempts to recover CO2 sensor
  *
