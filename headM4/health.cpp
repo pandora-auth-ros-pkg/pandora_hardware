@@ -29,9 +29,9 @@
  * 1 if healty, 0 else */
 //@{
 static uint8_t CO2_healthy;
-static uint8_t GridEYECenter_healthy;
-static uint8_t GridEYELeft_healthy;
-static uint8_t GridEYERight_healthy;
+static uint8_t Encoder_healthy;
+static uint8_t SonarLeft_healthy;
+static uint8_t SonarRight_healthy;
 //@}
 
 /** @name Repair loop index
@@ -47,9 +47,9 @@ static uint8_t I2C1_FailIndex = 0;
  * If a sensor fails to respond in time countdown times, it is disabled */
 //@{
 static uint8_t CO2_DisableCountdown = DISABLE_COUNTDOWN;
-static uint8_t GridEYECenter_DisableCountdown = DISABLE_COUNTDOWN;
-static uint8_t GridEYELeft_DisableCountdown = DISABLE_COUNTDOWN;
-static uint8_t GridEYERight_DisableCountdown = DISABLE_COUNTDOWN;
+static uint8_t Encoder_DisableCountdown = DISABLE_COUNTDOWN;
+static uint8_t SonarLeft_DisableCountdown = DISABLE_COUNTDOWN;
+static uint8_t SonarRight_DisableCountdown = DISABLE_COUNTDOWN;
 //@}
 
 /** @name Status Leds
@@ -105,13 +105,10 @@ void SonarHealthTask(void const *args) {
 
         WDT_feed();
 
-        if (!GridEYECenter_healthy && GridEYECenter_DisableCountdown) {
-            GridEYECenter_DisableCountdown--;
+        if (!SonarRight_healthy && SonarRight_DisableCountdown) {
+            SonarRight_DisableCountdown--;
         }
-        if (!GridEYERight_healthy && GridEYERight_DisableCountdown) {
-            GridEYERight_DisableCountdown--;
-        }
-        if (!GridEYECenter_healthy && !GridEYERight_healthy) {
+        if (!SonarRight_healthy) {
             I2C0_FailIndex++;
             if (I2C0_FailIndex == 1) {
                 //USBSonarValuesZero(SONAR_RIGHT);
@@ -125,11 +122,11 @@ void SonarHealthTask(void const *args) {
             //We clear signal flags before attempting repair, so that in case of successful repair GridEYETask() doesn't
             //-> continue its loop before it takes the OK from GridEYESchedulerTask().
             SonarSignalClear(SONAR_RIGHT);
-            SonarSignalClear(GEYE_CENTER);
+           //SonarSignalClear(GEYE_CENTER);
             repairI2C(I2C0_FailIndex, I2C_0);
         }
-        if (!GridEYELeft_healthy && GridEYELeft_DisableCountdown) {
-            GridEYELeft_DisableCountdown--;
+        if (!SonarLeft_healthy && SonarLeft_DisableCountdown) {
+            SonarLeft_DisableCountdown--;
             I2C1_FailIndex++;
             if (I2C1_FailIndex == 1) {
                 //USBSonarValuesZero(SONAR_LEFT);
@@ -144,10 +141,13 @@ void clearHealthyCO2() {
     CO2_healthy = 0;
 }
 
+void clearHealthyEncoder(){
+    Encoder_healthy = 0;
+}
+
 void clearHealthySonar() {
-    GridEYECenter_healthy = 0;
-    GridEYELeft_healthy = 0;
-    GridEYERight_healthy = 0;
+    SonarLeft_healthy = 0;
+    SonarRight_healthy = 0;
 }
 
 void HealthyCO2valueSet(float value) {
@@ -158,26 +158,28 @@ void HealthyCO2valueSet(float value) {
     CO2_LifeLED = !CO2_LifeLED;
 }
 
+void HealthyEncoderValueSet(float value) {
+    //TODO Set upper and bottom limit for encoder measurements.
+    Encoder_healthy = 1;
+    //CO2_FailIndex = 0;
+    Encoder_DisableCountdown = DISABLE_COUNTDOWN;
+    USBencoderValueSet(value);
+    //CO2_LifeLED = !CO2_LifeLED;
+}
+
 void HealthySonarValuesSet(uint8_t values[], uint8_t grideye_num) {
     switch (grideye_num) {
-    case GEYE_CENTER:
-        GridEYECenter_healthy = 1;
-        I2C0_FailIndex = 0;
-        GridEYECenter_DisableCountdown = DISABLE_COUNTDOWN;
-        //USBSonarValuesSet(values, grideye_num);
-        I2C0_LifeLED = !I2C0_LifeLED;
-        break;
     case SONAR_RIGHT:
-        GridEYERight_healthy = 1;
+        SonarRight_healthy = 1;
         I2C0_FailIndex = 0;
-        GridEYERight_DisableCountdown = DISABLE_COUNTDOWN;
+        SonarRight_DisableCountdown = DISABLE_COUNTDOWN;
         //USBSonarValuesSet(values, grideye_num);
         I2C0_LifeLED = !I2C0_LifeLED;
         break;
     case SONAR_LEFT:
-        GridEYELeft_healthy = 1;
+        SonarLeft_healthy = 1;
         I2C1_FailIndex = 0;
-        GridEYELeft_DisableCountdown = DISABLE_COUNTDOWN;
+        SonarLeft_DisableCountdown = DISABLE_COUNTDOWN;
         //USBSonarValuesSet(values, grideye_num);
         I2C1_LifeLED = !I2C1_LifeLED;
         break;
@@ -188,12 +190,10 @@ void HealthySonarValuesSet(uint8_t values[], uint8_t grideye_num) {
 
 uint8_t SonarEnabled(uint8_t grideye_num) {
     switch (grideye_num) {
-    case GEYE_CENTER:
-        return GridEYECenter_DisableCountdown;
     case SONAR_RIGHT:
-        return GridEYERight_DisableCountdown;
+        return SonarRight_DisableCountdown;
     case SONAR_LEFT:
-        return GridEYELeft_DisableCountdown;
+        return SonarLeft_DisableCountdown;
     default:
         return 1;
     }

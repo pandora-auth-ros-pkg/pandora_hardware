@@ -74,4 +74,6 @@ void USBCO2valueSet(float value);
  */
 float USBCO2valueGet();
 
+void USBencoderValueSet(float value);
+
 #endif /* USB_HPP_ */

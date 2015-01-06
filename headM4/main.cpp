@@ -22,10 +22,10 @@ int main(void) {
     DEBUG_PRINT(("Start\r\n"));
 
     CO2Init(p17, p18);  //p17=TX, p18=RX
-
+//TODO disable the second i2c bus
     I2C i2c0(p32, p31); //sda, scl
-    I2C i2c1(p9, p10);
-    SonarInit(&i2c0, &i2c1);
+    //I2C i2c1(p9, p10);
+    SonarInit(&i2c0);
 
     EncoderInit(p5,p6,p7,p8); //NC, DO, SCL, CS
 

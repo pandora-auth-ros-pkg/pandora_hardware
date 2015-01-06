@@ -9,151 +9,87 @@ static Mutex i2c1_mutex;    ///<The mutex that locks access to I2C1 peripheral
 
 /** @name SonarTask() threads */
 //@{
-static Thread *tGridEYECenter;  ///<Thread pointer for center GridEYE sensor's SonarTask()
-static Thread *tGridEYELeft;    ///<Thread pointer for left GridEYE sensor's SonarTask()
-static Thread *tGridEYERight;   ///<Thread pointer for right GridEYE sensor's SonarTask()
+//static Thread *tGridEYECenter;  ///<Thread pointer for center GridEYE sensor's SonarTask()
+static Thread *tSonarLeft;    ///<Thread pointer for left GridEYE sensor's SonarTask()
+static Thread *tSonarRight;   ///<Thread pointer for right GridEYE sensor's SonarTask()
 //@}
 
-static Thread *tGridEYEHealth;  ///<Thread pointer for SonarHealthTask()
+static Thread *tSonarHealth;  ///<Thread pointer for SonarHealthTask()
 
-void SonarInit(I2C *i2c0_obj, I2C *i2c1_obj) {
+void SonarInit(I2C *i2c0_obj) {
     //Check comment about sdram in Doxygen main page before using new
 
-    i2c0_obj->frequency(400000);
-    i2c1_obj->frequency(400000);
+    i2c0_obj->frequency(100000); //I modified the frequency from 400kHz to 100kHz
 
     sonar_sensor_t temp_sens1;    //Because we pass starting arguments to threads with a pointer we must be sure that
     sonar_sensor_t temp_sens2;    //-> their memory contents don't change long enough for the threads to copy the data
-    sonar_sensor_t temp_sens3;    //-> to local variables. So we create a temporary structure for each thread.
-
+                                  //-> to local variables. So we create a temporary structure for each thread.
+    //TODO Change Addresses
     temp_sens1.i2c_obj = i2c0_obj;
-    temp_sens1.i2c_periph_num = 0;
-    temp_sens1.i2c_addr = GRIDEYE_I2C_ADDR_GND;
-    temp_sens1.grideye_num = GEYE_CENTER;
-    tGridEYECenter = new Thread(SonarTask, (void *) &temp_sens1);
+    temp_sens1.i2c_periph_num = 0; //Because we are using i2c0
+    temp_sens1.i2c_addr = SONAR_LEFT_I2C_ADDR;
+    temp_sens1.sonar_num = SONAR_LEFT;
+    tSonarLeft = new Thread(SonarTask, (void *) &temp_sens1);
 
     temp_sens2.i2c_obj = i2c0_obj;
     temp_sens2.i2c_periph_num = 0;
-    temp_sens2.i2c_addr = GRIDEYE_I2C_ADDR_VDD;
-    temp_sens2.grideye_num = SONAR_RIGHT;
-    tGridEYERight = new Thread(SonarTask, (void *) &temp_sens2);
+    temp_sens2.i2c_addr = SONAR_RIGHT_I2C_ADDR;
+    temp_sens2.sonar_num = SONAR_RIGHT;
+    tSonarRight = new Thread(SonarTask, (void *) &temp_sens2);
 
-    temp_sens3.i2c_obj = i2c1_obj;
-    temp_sens3.i2c_periph_num = 1;
-    temp_sens3.i2c_addr = GRIDEYE_I2C_ADDR_GND;
-    temp_sens3.grideye_num = SONAR_LEFT;
-    tGridEYELeft = new Thread(SonarTask, (void *) &temp_sens3);
 
-    tGridEYEHealth = new Thread(SonarHealthTask);
+
+    tSonarHealth = new Thread(SonarHealthTask);
 
     Thread::wait(5);    //We must wait some time before the function ends or temp_sens? will be destroyed
                         //-> before the threads assign them to local variables. (I tested with 1ms and it was OK)
 }
 
-void SonarTask(void const *args) {
-    const sonar_sensor_t * geye = (const sonar_sensor_t *) args;
 
-    I2C *i2c_obj = geye->i2c_obj;
-    uint8_t i2c_periph_num = geye->i2c_periph_num;
-    uint8_t i2c_addr = geye->i2c_addr;
-    uint8_t grideye_num = geye->grideye_num;
+
+void SonarTask(void const *args) {
+    const sonar_sensor_t * sonar = (const sonar_sensor_t *) args;
+
+    I2C *i2c_obj = sonar->i2c_obj;
+    uint8_t i2c_periph_num = sonar->i2c_periph_num;
+    uint8_t i2c_addr = sonar->i2c_addr;
+    uint8_t sonar_number = sonar->sonar_num;
 
     char cmd[2];
 
-    union {
-        char thermistor_echo[2];    //1 LSB = 0.0625 C , result 12-bit as signed absolute value
-        uint16_t therm_echo_uint16; //little endian
-    };
-    float thermistor_value;
-
-    union {
-        char temper_echo[2 * PIXELS_COUNT]; //1 LSB = 0.25 C , result 12-bit as 2's complement
-        uint16_t temper_echo_uint16[PIXELS_COUNT];  //little endian
-    };
-    float temper_values[PIXELS_COUNT];
-
-#if ENABLE_RGB_LEDMATRIX
-
-    DigitalOut SPI_ss(p8);  ///Slave Select
-    SPI_ss = 1;  //Make sure the RG matrix is deactivated, maybe this should be first line executed
-    SPI RGB_LEDMatrix(p5, p6, p7);  /// mosi, miso, sclk
-
-#endif
+    char* data;
+    data = (char*)malloc(4 * sizeof(char)); //allocate memory for "data" array
 
     while (1) {
         Thread::signal_wait(SONAR_I2C_SIGNAL);
 
-        cmd[0] = GRIDEYE_I2C_THERM_ADDR;
+        //i2c_lock(i2c_periph_num);
+        //i2c_obj->write(i2c_addr, cmd, 1, true); //Repeated start is true in i2c_obj->write, so it must be true in
+        //i2c_obj->read(i2c_addr, thermistor_echo, 2, true); //-> the following read, too.
+        //i2c_unlock(i2c_periph_num);
+
+        char cmd_request = 0x80; // command to send to the sonar to request a distance reading
+        char cmd_read = 0x40;    // command to send to the sonar to receive the reading
+
+
         i2c_lock(i2c_periph_num);
-        i2c_obj->write(i2c_addr, cmd, 1, true); //Repeated start is true in i2c_obj->write, so it must be true in
-        i2c_obj->read(i2c_addr, thermistor_echo, 2, true); //-> the following read, too.
+        i2c_obj->write(i2c_addr, &cmd_request, 1);   // request a distance reading from the sonar
         i2c_unlock(i2c_periph_num);
 
-        if (therm_echo_uint16 & 0x800) {  //if negative
-            thermistor_value = -0.0625 * (0x7FF & therm_echo_uint16);
-        } else {	//else if positive
-            thermistor_value = 0.0625 * (0x7FF & therm_echo_uint16);
-        }
+        //Only 100ms tested...
+        wait_ms(50); // wait 50ms for the sonar to calculate the distance
 
-        //If temper_echo remains unchanged after an i2c_obj->read(), indicates sensor fault.
-        //-> So, if temper_echo_uint16[0] stays 0 after i2c_obj->read() the sensor is probably faulty.
-        //-> Because a temperature value of 0 is OutOfBounds HealthySonarValuesSet() will not be triggered and
-        //-> the sensor will be correctly registered as not healthy.
-        //Only the first element of temper_echo_uint16 is zeroed to save processing time.
-        temper_echo_uint16[0] = 0;
-
-        cmd[0] = GRIDEYE_I2C_TEMP_ADDR;
         i2c_lock(i2c_periph_num);
-        i2c_obj->write(i2c_addr, cmd, 1, true);
-        i2c_obj->read(i2c_addr, temper_echo, 2 * PIXELS_COUNT, true);
+        i2c_obj->write(i2c_addr, &cmd_read, 1);      // request to receive the reading from the sonar
         i2c_unlock(i2c_periph_num);
 
-        for (int i = 0; i < PIXELS_COUNT; ++i) {
-            if (temper_echo_uint16[i] & 0x800) {  //if negative
-                temper_values[i] = 0.25 * (int16_t) (0xF000 | temper_echo_uint16[i]);
-            } else {    //else if positive
-                temper_values[i] = 0.25 * (0x7FF & temper_echo_uint16[i]);
-            }
-        }
+        wait_ms(50);
 
-        SonarValuesSet(temper_values, grideye_num);
+        i2c_lock(i2c_periph_num);
+        i2c_obj->read(i2c_addr, data, 4);            // receive the reading and store it in the "data" array
+        i2c_unlock(i2c_periph_num);
 
-#if ENABLE_RGB_LEDMATRIX
-
-        if (grideye_num == GEYE_CENTER) {
-            char ledArray[64];
-            int celsius;
-
-            RGB_LEDMatrix.format(8, 0);
-            RGB_LEDMatrix.frequency(125000);
-
-            //Determine LED Color for Pixel
-            for (int pixel = 0; pixel < PIXELS_COUNT; ++pixel) {
-                celsius = temper_values[pixel];
-                if (celsius < 30) {
-                    ledArray[pixel] = GREEN;
-                } else if (celsius >= 30 && celsius < 32) {
-                    ledArray[pixel] = YELLOW;
-                } else if (celsius >= 32 && celsius < 34) {
-                    ledArray[pixel] = ORANGE;
-                } else if (celsius >= 34) {
-                    ledArray[pixel] = RED;
-                }
-            }
-
-            //Transfer LED Data
-            SPI_ss = 0;
-            wait_us(500);
-            RGB_LEDMatrix.write(0x26);  //Resets RGBMatrixBackpack index. (see sparkfun's github). It shouldn't be needed
-                                        //-> but it doesn't work without it...
-            for (int pixel = 0; pixel < PIXELS_COUNT; ++pixel) {
-                RGB_LEDMatrix.write(ledArray[pixel]);
-            }
-            wait_us(500);
-            SPI_ss = 1;
-        }
-
-#endif
+        //TODO SonarValuesSet()
     }
 }
 
@@ -181,14 +117,11 @@ void i2c_unlock(uint8_t i2c_periph_num) {
 
 void SonarSignalClear(uint8_t grideye_num) {
     switch (grideye_num) {
-    case GEYE_CENTER:
-        tGridEYECenter->signal_clear(SONAR_I2C_SIGNAL);
-        break;
     case SONAR_RIGHT:
-        tGridEYERight->signal_clear(SONAR_I2C_SIGNAL);
+        tSonarRight->signal_clear(SONAR_I2C_SIGNAL);
         break;
     case SONAR_LEFT:
-        tGridEYELeft->signal_clear(SONAR_I2C_SIGNAL);
+        tSonarLeft->signal_clear(SONAR_I2C_SIGNAL);
         break;
     default:
         return;
@@ -217,19 +150,15 @@ void SonarSchedulerTask(void const *args) {
     while (true) {
         clearHealthySonar();
 
-        if (SonarEnabled(GEYE_CENTER))
-            tGridEYECenter->signal_set(SONAR_I2C_SIGNAL);
-
-        Thread::wait(25);
         if (SonarEnabled(SONAR_LEFT))
-            tGridEYELeft->signal_set(SONAR_I2C_SIGNAL);
+            tSonarLeft->signal_set(SONAR_I2C_SIGNAL);
 
         Thread::wait(25);
         if (SonarEnabled(SONAR_RIGHT))
-            tGridEYERight->signal_set(SONAR_I2C_SIGNAL);
+            tSonarRight->signal_set(SONAR_I2C_SIGNAL);
 
         Thread::wait(40);
-        tGridEYEHealth->signal_set(HEALTH_SIGNAL);
+        tSonarHealth->signal_set(HEALTH_SIGNAL);
 
         Thread::wait(10);
     }

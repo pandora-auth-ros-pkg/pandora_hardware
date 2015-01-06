@@ -24,22 +24,22 @@
 
 /** @name GridEYE internal registers starting address */
 //@{
-#define GRIDEYE_I2C_THERM_ADDR 0x0E ///<GridEYE thermistor Register Starting Address
-#define GRIDEYE_I2C_TEMP_ADDR 0x80  ///<GridEYE temperature Registers Starting Address
+//#define GRIDEYE_I2C_THERM_ADDR 0x0E ///<GridEYE thermistor Register Starting Address
+//#define GRIDEYE_I2C_TEMP_ADDR 0x80  ///<GridEYE temperature Registers Starting Address
 //@}
 
 /** @name GridEYE I2C addresses
  * @note mbed accepts the oversimplified wrong address type */
 //@{
-#define GRIDEYE_I2C_ADDR_GND 0b1101000 << 1     ///<Address when AD_SELECT is grounded
-#define GRIDEYE_I2C_ADDR_VDD 0b1101001 << 1     ///<Address when AD_SELECT is tied to VDD
+#define SONAR_LEFT_I2C_ADDR 0x82     ///<Address when AD_SELECT is grounded
+#define SONAR_RIGHT_I2C_ADDR 0x86    ///<Address when AD_SELECT is tied to VDD
 //@}
 
 /** @name Individual GridEYE sensors id for use in various functions */
 //@{
-#define GEYE_CENTER 1   ///<Center GridEYE identifier
-#define SONAR_LEFT 2     ///<Left GridEYE identifier
-#define SONAR_RIGHT 3    ///<Right GridEYE identifier
+//#define GEYE_CENTER 1   ///<Center GridEYE identifier
+#define SONAR_LEFT 1     ///<Left GridEYE identifier
+#define SONAR_RIGHT 2    ///<Right GridEYE identifier
 //@}
 
 #define SONAR_I2C_SIGNAL 0x1  ///<Signal to SonarTask()
@@ -52,7 +52,7 @@ typedef struct {
     I2C *i2c_obj;   ///<I2C object pointer (one pointer per I2C peripheral)
     uint8_t i2c_periph_num; ///<0 for I2C0 peripheral, 1 for I2C1 etc
     uint8_t i2c_addr;   ///<I2C address of selected peripheral
-    uint8_t grideye_num;    ///<Holds the GridEYE sensors id
+    uint8_t sonar_num;    ///<Holds the GridEYE sensors id
 } sonar_sensor_t;
 
 /** @brief GridEYE sensors initialization
@@ -62,7 +62,9 @@ typedef struct {
  * @param i2c0_obj I2C pointer of I2C0 peripheral
  * @param i2c1_obj I2C pointer of I2C1 peripheral
  */
-void SonarInit(I2C *i2c0_obj, I2C *i2c1_obj);
+void SonarInit(I2C *i2c0_obj);
+
+
 
 /** @brief Gets temperature data from GridEYE sensors
  *
@@ -93,7 +95,7 @@ void i2c_unlock(uint8_t i2c_periph_num);
  *
  * Clears the signal that is set from SonarSchedulerTask().
  *
- * @param grideye_num sonar_sensor_t::grideye_num
+ * @param sonar_num sonar_sensor_t::sonar_num
  */
 void SonarSignalClear(uint8_t grideye_num);
 
@@ -104,7 +106,7 @@ void SonarSignalClear(uint8_t grideye_num);
  * through the health monitoring layer.
  *
  * @param values The values that was just read from the GridEYE sensors
- * @param grideye_num sonar_sensor_t::grideye_num
+ * @param sonar_num sonar_sensor_t::sonar_num
  */
 void SonarValuesSet(float values[], uint8_t grideye_num);
 

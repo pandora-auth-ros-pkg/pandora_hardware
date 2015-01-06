@@ -58,7 +58,7 @@ void receiveEncoderData() {
 }
 
 void EncoderValueSet(uint16_t reading){
-     //HealthyEncoderValueSet() = reading;
+     HealthyEncoderValueSet(reading);
 }
 
 void EncoderSchedulerTask(void const *args) {

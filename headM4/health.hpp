@@ -59,6 +59,8 @@ void SonarHealthTask(void const *args);
  */
 void clearHealthyCO2();
 
+void clearHealthyEncoder();
+
 /** @brief Clears GridEYE healthy status
  *
  * Sets the healthy status of a sensor to zero. We must do this before triggering the sensor.
@@ -95,6 +97,8 @@ uint8_t CO2enabled();
  * @param value The just received data from the sensor
  */
 void HealthyCO2valueSet(float value);
+
+void HealthyEncoderValueSet(float value);
 
 /** @brief Called when a sensor is healthy to send received data to USB
  *
