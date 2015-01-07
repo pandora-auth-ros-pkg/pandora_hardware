@@ -98,7 +98,11 @@ uint8_t CO2enabled();
  */
 void HealthyCO2valueSet(float value);
 
-void HealthyEncoderValueSet(float value);
+void HealthyEncoderValueSet(uint16_t value);
+
+void HealthyBatteryMotorValueSet(uint16_t value);
+
+void HealthyBatterySupplyValueSet(uint16_t value);
 
 /** @brief Called when a sensor is healthy to send received data to USB
  *

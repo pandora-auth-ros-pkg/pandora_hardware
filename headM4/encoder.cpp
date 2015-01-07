@@ -16,6 +16,8 @@ static PinName DO;  //Data out, MISO spi
 static PinName SCL; //SPI Clock
 static DigitalOut *CS; // Chip Select, this pin is Defined Here!
 
+#define ENCODER_OFFSET 445
+
 
 void EncoderInit(PinName pin1, PinName pin2, PinName pin3, PinName pin4){
     NN = pin1;
@@ -59,19 +61,15 @@ void receiveEncoderData() {
 
 void EncoderValueSet(uint16_t reading){
      //TODO Find upper and bottom limits for Encoder measurement
+     //TODO Convert Encoder reading to degrees
      HealthyEncoderValueSet(reading);
 }
 
 void EncoderSchedulerTask(void const *args) {
     while (true) {
-       // clearHealthyEncoder();
 
-
-        Thread::wait(10);
+        Thread::wait(100);
         receiveEncoderData();
-        //Thread::wait(100);  //Timeout time.
-
-        //tEncoderHealth->signal_set(HEALTH_SIGNAL);
 
     }
 }

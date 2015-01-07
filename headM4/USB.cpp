@@ -10,6 +10,9 @@ static float uCO2value;	///<usb CO2 value buffer
 static uint16_t uEncoderValue;  ///<usb GridEYECenter values buffer
 static uint16_t uSonarLeftValue;    ///<usb GridEYECenter values buffer
 static uint16_t uSonarRightValue;   ///<usb GridEYECenter values buffer
+static uint16_t uBatteryMotorValue;
+static uint16_t uBatterySupplyValue;
+
 //@}
 
 static USBSerial *usb;	///<Pointer to the USBSerial class object that implements the USB communication
@@ -41,10 +44,20 @@ void command_recv_isr() {
 //TODO UPDATE FUNCTION NAMES IN HEADER FILE(S)
 
 void USBTask(const void *args) {
+
+    //used for converting float to uint8_t
     union {
         float CO2value;
         uint8_t CO2value_uint8;
     };
+
+    //used for converting uint16_t to uint8_t
+    union {
+        uint16_t value16bit;
+        uint8_t value8bit;
+    };
+
+
     uint8_t command;
 
     while (true) {
@@ -52,27 +65,43 @@ void USBTask(const void *args) {
 
         switch (command) {
         case ENCODER_REQUEST:
+
+            value16bit = USBencoderValueGet();
             //writeBlock() waits for the host to connect
-            //usb->writeBlock(USBSonarValuesGet(GEYE_CENTER), PIXELS_COUNT);
+            usb->writeBlock(&value8bit, 2);
             //Because the array we send is a multiple of max packet size (64 bytes) a zero-lenth-packet (ZLP) is
             //-> required after the data packet. If we don't send the ZLP the read() in the PC program would
             //-> wait forever. I tried sending 128 bytes, but this time it worked without the ZLP. So, if read()
             //-> blocks while waiting for a packet multiple of max packet size try ZLP.
             //To send a ZLP the second argument in writeBlock() must be 0. First argument can be anything.
-            usb->writeBlock(&command, 0);
+            //usb->writeBlock(&command, 0);
             break;
         case SONAR_RIGHT_REQUEST:
+
+            value16bit = USBSonarRightValueGet();
             //usb->writeBlock(USBSonarValuesGet(SONAR_RIGHT), PIXELS_COUNT);
-            usb->writeBlock(&command, 0);
+            usb->writeBlock(&value8bit, 2);
             break;
         case SONAR_LEFT_REQUEST:
+
+            value16bit = USBSonarLeftValueGet();
             //usb->writeBlock(USBSonarValuesGet(SONAR_LEFT), 4);
-            usb->writeBlock(&command, 0);
+            usb->writeBlock(&value8bit, 2);
             break;
         case CO2_REQUEST:
             CO2value = USBCO2valueGet();
             usb->writeBlock(&CO2value_uint8, 4);
             break;
+        case BATTERY_MOTOR_REQUEST:
+
+            value16bit = USBbatteryMotorValueGet();
+            usb->writeBlock(&value8bit, 2);
+            break;
+        case BATTERY_SUPPLY_REQUEST:
+
+            value16bit = USBbatterySupplyValueGet();
+            usb->writeBlock(&value8bit, 2);
+                    break;
         default:
             break;
         }
@@ -91,33 +120,6 @@ void USBSonarValuesSet(uint16_t values, uint8_t sonar_num) {
     }
 }
 
-//void USBSonarValuesZero(uint8_t sonar_num) {
-//    switch (grideye_num) {
-//    case GEYE_CENTER:
-//        memset(uEncoderValue, 0, PIXELS_COUNT * sizeof(uint8_t));
-//        break;
-//    case SONAR_RIGHT:
-//        memset(uSonarRightValue, 0, PIXELS_COUNT * sizeof(uint8_t));
-//        break;
-//    case SONAR_LEFT:
-//        memset(uSonarLeftValue, 0, PIXELS_COUNT * sizeof(uint8_t));
-//        break;
-//    }
-//}
-
-//A mutex may be required to protect set and get , but didn't have any problems without
-//uint8_t  USBSonarValuesGet(uint8_t sonar_num) {
-//    switch (grideye_num) {
-//    case SONAR_RIGHT:
-//        return uSonarRightValue;
-//        break;
-//    case SONAR_LEFT:
-//        return uSonarLeftValue;
-//        break;
-//    }
-//    return uSonarRightValue;    //Shouldn't come here
-//}
-
 
 //getters and setters for CO2
 void USBCO2valueSet(float value) {
@@ -129,23 +131,41 @@ float USBCO2valueGet() {
 }
 
 //getters and setters for encoder
-void USBencoderValueSet(float value) {
+void USBencoderValueSet(uint16_t value) {
     uEncoderValue = value;
 }
 
-float USBencoderValueGet() {
+uint16_t USBencoderValueGet() {
     return uEncoderValue;
 }
 
-//getters and setters for Sonar Left
+//getters and setters for battery
+void USBbatteryMotorValueSet(uint16_t value) {
+    uBatteryMotorValue = value;
+}
+
+uint16_t USBbatteryMotorValueGet() {
+    return uBatteryMotorValue;
+}
+
+void USBbatterySupplyValueSet(uint16_t value) {
+    uBatterySupplyValue = value;
+}
+
+uint16_t USBbatterySupplyValueGet() {
+    return uBatterySupplyValue;
+}
 
 
-float USBSonarLeftValueGet() {
+//getters  for Sonar Left
+
+
+uint16_t USBSonarLeftValueGet() {
     return uSonarLeftValue;
 }
-//getters and setters for Sonar Right
+//getters for Sonar Right
 
 
-float USBSonarRightValueGet() {
+uint16_t USBSonarRightValueGet() {
     return uSonarRightValue;
 }

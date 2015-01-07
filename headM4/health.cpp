@@ -158,13 +158,21 @@ void HealthyCO2valueSet(float value) {
     CO2_LifeLED = !CO2_LifeLED;
 }
 
-void HealthyEncoderValueSet(float value) {
+void HealthyEncoderValueSet(uint16_t value) {
     //TODO Set upper and bottom limit for encoder measurements.
     Encoder_healthy = 1;
     //CO2_FailIndex = 0;
     Encoder_DisableCountdown = DISABLE_COUNTDOWN;
     USBencoderValueSet(value);
     //CO2_LifeLED = !CO2_LifeLED;
+}
+
+void HealthyBatteryMotorValueSet(uint16_t value){
+    USBbatteryMotorValueSet(value);
+}
+
+void HealthyBatterySupplyValueSet(uint16_t value){
+    USBbatterySupplyValueSet(value);
 }
 
 void HealthySonarValuesSet(uint16_t values, uint8_t sonar_num) {

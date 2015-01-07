@@ -11,6 +11,7 @@
 #include "health.hpp"
 #include "conf.h"
 #include "encoder.hpp"
+#include "battery.hpp"
 //#include "gpdma.h"
 //#include "dsp.h"
 
@@ -22,9 +23,11 @@ int main(void) {
     DEBUG_PRINT(("Start\r\n"));
 
     CO2Init(p17, p18);  //p17=TX, p18=RX
-//TODO disable the second i2c bus
+
     I2C i2c0(p32, p31); //sda, scl
-    //I2C i2c1(p9, p10);
+
+    BatteryInit(p15,p16); //Motor Battery In, Supply Battery in (measurements)
+
     SonarInit(&i2c0);
 
     EncoderInit(p5,p6,p7,p8); //NN, DO, SCL, CS
@@ -38,6 +41,8 @@ int main(void) {
 #endif
 
     Thread tUSB(USBTask);
+
+    Thread tBatteryCaller(BatterySchedulerTask);
 
     Thread tCO2Caller(CO2SchedulerTask);
 
