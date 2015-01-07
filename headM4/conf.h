@@ -13,7 +13,7 @@
 
 /** @brief Enables debug output to USB Virtual Serial Port
  * @see http://mbed.org/handbook/SerialPC*/
-#define DEBUG_OUT 1
+#define DEBUG_OUT 0
 
 /** @brief Expression to print debug messages to USB Virtual Serial Port
  * @note DEBUG_OUT should be enabled

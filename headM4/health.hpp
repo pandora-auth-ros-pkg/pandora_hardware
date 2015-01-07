@@ -77,7 +77,7 @@ void clearHealthySonar();
  *
  * @returns true if selected sensor is enabled, false otherwise
  */
-uint8_t SonarEnabled(uint8_t grideye_num);
+uint8_t SonarEnabled(uint8_t sonar_num);
 
 /** @brief Checks if CO2 sensor is enabled.
  *

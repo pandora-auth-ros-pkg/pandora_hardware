@@ -40,7 +40,6 @@ void SonarInit(I2C *i2c0_obj) {
 
 
     tSonarHealth = new Thread(SonarHealthTask);
-
     Thread::wait(5);    //We must wait some time before the function ends or temp_sens? will be destroyed
                         //-> before the threads assign them to local variables. (I tested with 1ms and it was OK)
 }
@@ -55,12 +54,14 @@ void SonarTask(void const *args) {
     uint8_t i2c_addr = sonar->i2c_addr;
     uint8_t sonar_number = sonar->sonar_num;
 
-    char cmd[2];
 
     char* data;
-    data = (char*)malloc(4 * sizeof(char)); //allocate memory for "data" array
+    data = new char[4];  //allocate memory for "data" array
+
+    uint16_t dist_reading = 0; //distance reading
 
     while (1) {
+        //TODO Test Without this signal_wait
         Thread::signal_wait(SONAR_I2C_SIGNAL);
 
         //i2c_lock(i2c_periph_num);
@@ -90,6 +91,8 @@ void SonarTask(void const *args) {
         i2c_unlock(i2c_periph_num);
 
         //TODO SonarValuesSet()
+        dist_reading = (data[2]<<8) + data[3];
+        SonarValueSet(dist_reading, sonar_number);
     }
 }
 
@@ -142,15 +145,13 @@ void SonarSchedulerTask(void const *args) {
     //I2C sensors in the same I2C bus have maximum distance ie 50ms in a 100ms loop
     while (true) {
         clearHealthySonar();
-
         if (SonarEnabled(SONAR_LEFT))
             tSonarLeft->signal_set(SONAR_I2C_SIGNAL);
-
         Thread::wait(25);
         if (SonarEnabled(SONAR_RIGHT))
             tSonarRight->signal_set(SONAR_I2C_SIGNAL);
 
-        Thread::wait(40);
+        Thread::wait(1);
         tSonarHealth->signal_set(HEALTH_SIGNAL);
 
         Thread::wait(10);

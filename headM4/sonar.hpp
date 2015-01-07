@@ -10,17 +10,7 @@
 #include "health.hpp"
 #include "conf.h"
 
-#if ENABLE_RGB_LEDMATRIX
 
-/** @name RGB LED Matrix Colors */
-//@{
-#define GREEN 0x1C
-#define YELLOW 0xFC
-#define ORANGE 0xEC
-#define RED 0xE0
-//@}
-
-#endif
 
 /** @name GridEYE internal registers starting address */
 //@{
@@ -31,7 +21,7 @@
 /** @name GridEYE I2C addresses
  * @note mbed accepts the oversimplified wrong address type */
 //@{
-#define SONAR_LEFT_I2C_ADDR 0x82     ///<Address when AD_SELECT is grounded
+#define SONAR_LEFT_I2C_ADDR 0x80     ///<Address when AD_SELECT is grounded
 #define SONAR_RIGHT_I2C_ADDR 0x86    ///<Address when AD_SELECT is tied to VDD
 //@}
 

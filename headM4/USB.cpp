@@ -13,6 +13,8 @@ static uint16_t uSonarRightValue;   ///<usb GridEYECenter values buffer
 static uint16_t uBatteryMotorValue;
 static uint16_t uBatterySupplyValue;
 
+
+
 //@}
 
 static USBSerial *usb;	///<Pointer to the USBSerial class object that implements the USB communication
@@ -25,7 +27,6 @@ static Queue<uint8_t, 20> UsbRecvQueue;
 
 void USBInit() {
     usb = new USBSerial(20);	//blocks if USB not plugged in
-
     usb->attach(command_recv_isr);
 }
 
@@ -37,9 +38,7 @@ void command_recv_isr() {
         UsbRecvQueue.put((uint8_t *) USBrecv);
     }
 }
-//TODO CHANGE SIZE OF WRITEBLOCKS SENT (is it really 4?)
-//TODO CREATE UNIONS (if needed) LIKE THE UNION BELOW FOR THE OTHER SENSORS
-//TODO CHANGE RETURN TYPE OF ALL GETTERS
+
 //TODO MODIFY THE CASES IN THE SWITCH BELOW
 //TODO UPDATE FUNCTION NAMES IN HEADER FILE(S)
 
@@ -59,7 +58,7 @@ void USBTask(const void *args) {
 
 
     uint8_t command;
-
+    DEBUG_PRINT(("USBTASK\r\n"));
     while (true) {
         command = UsbRecvQueue.get().value.v;
 
@@ -74,33 +73,38 @@ void USBTask(const void *args) {
             //-> wait forever. I tried sending 128 bytes, but this time it worked without the ZLP. So, if read()
             //-> blocks while waiting for a packet multiple of max packet size try ZLP.
             //To send a ZLP the second argument in writeBlock() must be 0. First argument can be anything.
-            //usb->writeBlock(&command, 0);
+            usb->writeBlock(&command, 0);
             break;
         case SONAR_RIGHT_REQUEST:
 
             value16bit = USBSonarRightValueGet();
             //usb->writeBlock(USBSonarValuesGet(SONAR_RIGHT), PIXELS_COUNT);
             usb->writeBlock(&value8bit, 2);
+            usb->writeBlock(&command, 0);
             break;
         case SONAR_LEFT_REQUEST:
 
             value16bit = USBSonarLeftValueGet();
             //usb->writeBlock(USBSonarValuesGet(SONAR_LEFT), 4);
             usb->writeBlock(&value8bit, 2);
+            usb->writeBlock(&command, 0);
             break;
         case CO2_REQUEST:
             CO2value = USBCO2valueGet();
             usb->writeBlock(&CO2value_uint8, 4);
+            usb->writeBlock(&command, 0);
             break;
         case BATTERY_MOTOR_REQUEST:
 
             value16bit = USBbatteryMotorValueGet();
             usb->writeBlock(&value8bit, 2);
+            usb->writeBlock(&command, 0);
             break;
         case BATTERY_SUPPLY_REQUEST:
 
             value16bit = USBbatterySupplyValueGet();
             usb->writeBlock(&value8bit, 2);
+            usb->writeBlock(&command, 0);
                     break;
         default:
             break;

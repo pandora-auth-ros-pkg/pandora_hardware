@@ -196,8 +196,8 @@ void HealthySonarValuesSet(uint16_t values, uint8_t sonar_num) {
     }
 }
 
-uint8_t SonarEnabled(uint8_t grideye_num) {
-    switch (grideye_num) {
+uint8_t SonarEnabled(uint8_t sonar_num) {
+    switch (sonar_num) {
     case SONAR_RIGHT:
         return SonarRight_DisableCountdown;
     case SONAR_LEFT:
