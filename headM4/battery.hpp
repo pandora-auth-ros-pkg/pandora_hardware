@@ -16,6 +16,10 @@ void BatteryInit(PinName pin1, PinName pin2);
 
 void receiveBatteryData();
 
+void addSamples(uint16_t motorReading, uint16_t supplyReading);
+
+void adcFilter();
+
 void BatteryMotorValueSet(uint16_t reading);
 
 void BatterySupplyValueSet(uint16_t reading);
