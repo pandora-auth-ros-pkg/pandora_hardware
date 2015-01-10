@@ -1,0 +1,453 @@
+FUNCTION_BLOCK FB_CanRecover
+VAR_EXTERNAL
+	Axis0 				                    : Axis_REF;                    
+	Axis1 				                    : Axis_REF;
+	Axis2                                   : Axis_REF;
+	Axis3                                   : Axis_REF;					   	
+END_VAR
+
+VAR_INPUT
+	Execute : BOOL;
+END_VAR
+
+VAR_OUTPUT
+    Done                      : BOOL;
+    Error                     : BOOL;
+	ErrorID                   : DINT;
+END_VAR
+
+VAR
+	lastErrorId : DINT :=0;
+	internalErrorCounter : UDINT := 0;
+	canState	: CAN_RECOVER_STATE; 
+	
+	fbPower0 : MC_Power;
+	fbPower1 : MC_Power; 
+	fbPower2 : MC_Power;
+	fbPower3 : MC_Power; 
+	
+	fbTimer : TON;
+	
+	fbReset0 : MC_Reset;
+	fbReset1 : MC_Reset;
+	fbReset2 : MC_Reset;
+	fbReset3 : MC_Reset;
+
+END_VAR
+
+(*Automatically declared*)
+VAR_EXTERNAL
+END_VAR
+(** IF Execute = FALSE THEN **)
+	(* if - Cond *)
+	LD Execute
+	EQ FALSE
+	JMPCN ODK_SKIP_000000000000001_000000000000001
+
+		(* then - Stmts *)
+
+(**  **)
+(** 	Done:=FALSE; **)
+		(* assign - Stmt *)
+		LD FALSE
+		ST Done
+
+(** 	lastErrorId:=0; **)
+		(* assign - Stmt *)
+		LD 0
+		ST lastErrorId
+
+(** 	internalErrorCounter:=0; **)
+		(* assign - Stmt *)
+		LD 0
+		ST internalErrorCounter
+
+(** 	canState:=CAN_CanError; **)
+		(* assign - Stmt *)
+		LD CAN_CanError
+		ST canState
+
+		JMP ODK_END_IF_000000000000001
+
+(** 	 **)
+(** ELSE **)
+	(* else *) 
+	ODK_SKIP_000000000000001_000000000000001:
+
+		(* else - Stmts *)
+
+(**  **)
+(** 	IF canState = CAN_CanError THEN **)
+		(* if - Cond *)
+		LD canState
+		EQ CAN_CanError
+		JMPCN ODK_SKIP_000000000000002_000000000000001
+
+			(* then - Stmts *)
+
+(**  **)
+(** 		IF internalErrorCounter > 5 THEN **)
+			(* if - Cond *)
+			LD internalErrorCounter
+			GT 5
+			JMPCN ODK_SKIP_000000000000003_000000000000001
+
+				(* then - Stmts *)
+
+(** 		 **)
+(** 			Error := TRUE; **)
+				(* assign - Stmt *)
+				LD TRUE
+				ST Error
+
+(** 			ErrorId := LastErrorId; **)
+				(* assign - Stmt *)
+				LD lastErrorId
+				ST ErrorId
+
+				JMP ODK_END_IF_000000000000003
+
+(** 		ELSE **)
+			(* else *) 
+			ODK_SKIP_000000000000003_000000000000001:
+
+				(* else - Stmts *)
+
+(** 		 **)
+(**  **)
+(** 			canState := CAN_PowerOffGracefully; **)
+				(* assign - Stmt *)
+				LD CAN_PowerOffGracefully
+				ST canState
+
+(** 		END_IF; **)
+			(* if - End *) 
+			ODK_END_IF_000000000000003:
+
+			JMP ODK_END_IF_000000000000002
+
+(**  **)
+(** 	ELSIF canState = CAN_PowerOffGracefully THEN **)
+		(* elseif - Cond *) 
+		ODK_SKIP_000000000000002_000000000000001:
+		LD canState
+		EQ CAN_PowerOffGracefully
+		JMPCN ODK_SKIP_000000000000002_000000000000002
+
+			(* elsif - Stmts *)
+
+(** 		{*attempt to stop all controllers*} **)
+(**  **)
+(**  **)
+(** 		{*Disable power on all controllers*} **)
+(** 		fbPower0(Axis := Axis0 , Enable := FALSE); **)
+			(* call - Stmt *)
+			CAL fbPower0 (
+				Axis := Axis0,
+				Enable := FALSE
+			)
+
+(** 		fbPower1(Axis := Axis1 , Enable := FALSE); **)
+			(* call - Stmt *)
+			CAL fbPower1 (
+				Axis := Axis1,
+				Enable := FALSE
+			)
+
+(** 		fbPower2(Axis := Axis2 , Enable := FALSE); **)
+			(* call - Stmt *)
+			CAL fbPower2 (
+				Axis := Axis2,
+				Enable := FALSE
+			)
+
+(** 		fbPower3(Axis := Axis3 , Enable := FALSE); **)
+			(* call - Stmt *)
+			CAL fbPower3 (
+				Axis := Axis3,
+				Enable := FALSE
+			)
+
+(**  **)
+(** 		{*Switch state when all controllers are disabled*} **)
+(** 		{*or have an error*} **)
+(** 		IF ( ( NOT fbPower0.Status ) OR fbPower0.Error ) AND **)
+(** 	       ( ( NOT fbPower1.Status ) OR fbPower1.Error ) AND **)
+(** 		   ( ( NOT fbPower2.Status ) OR fbPower2.Error ) AND **)
+(** 	       ( ( NOT fbPower3.Status ) OR fbPower3.Error ) THEN **)
+			(* if - Cond *)
+			LD fbPower0.Status
+			NOT
+			OR fbPower0.Error
+			AND ( fbPower1.Status
+				NOT
+				OR fbPower1.Error
+			)
+			AND ( fbPower2.Status
+				NOT
+				OR fbPower2.Error
+			)
+			AND ( fbPower3.Status
+				NOT
+				OR fbPower3.Error
+			)
+			JMPCN ODK_SKIP_000000000000004_000000000000001
+
+				(* then - Stmts *)
+
+(** 			{*all controllers are disabled or in an error state, switch to the next state*} **)
+(** 			canState := CAN_Sleep; **)
+				(* assign - Stmt *)
+				LD CAN_Sleep
+				ST canState
+
+				JMP ODK_END_IF_000000000000004
+
+(** 		END_IF; **)
+			(* if - End *) 
+			ODK_SKIP_000000000000004_000000000000001:
+			ODK_END_IF_000000000000004:
+
+			JMP ODK_END_IF_000000000000002
+
+(**  **)
+(** 	ELSIF canState = CAN_Sleep THEN **)
+		(* elseif - Cond *) 
+		ODK_SKIP_000000000000002_000000000000002:
+		LD canState
+		EQ CAN_Sleep
+		JMPCN ODK_SKIP_000000000000002_000000000000003
+
+			(* elsif - Stmts *)
+
+(**  **)
+(** 		fbTimer(In := false , Pt := t#1s); **)
+			(* call - Stmt *)
+			CAL fbTimer (
+				In := FALSE,
+				Pt := t#1s
+			)
+
+(** 		canState := CAN_SleepWait; **)
+			(* assign - Stmt *)
+			LD CAN_SleepWait
+			ST canState
+
+			JMP ODK_END_IF_000000000000002
+
+(** 	 **)
+(** 	ELSIF canState = CAN_SleepWait THEN **)
+		(* elseif - Cond *) 
+		ODK_SKIP_000000000000002_000000000000003:
+		LD canState
+		EQ CAN_SleepWait
+		JMPCN ODK_SKIP_000000000000002_000000000000004
+
+			(* elsif - Stmts *)
+
+(**  **)
+(** 		fbTimer(In := true , Pt := t#1s); **)
+			(* call - Stmt *)
+			CAL fbTimer (
+				In := TRUE,
+				Pt := t#1s
+			)
+
+(**  **)
+(** 		IF fbTimer.Q THEN **)
+			(* if - Cond *)
+			LD fbTimer.Q
+			JMPCN ODK_SKIP_000000000000005_000000000000001
+
+				(* then - Stmts *)
+
+(** 			canState := CAN_CanReset; **)
+				(* assign - Stmt *)
+				LD CAN_CanReset
+				ST canState
+
+				JMP ODK_END_IF_000000000000005
+
+(** 		END_IF; **)
+			(* if - End *) 
+			ODK_SKIP_000000000000005_000000000000001:
+			ODK_END_IF_000000000000005:
+
+			JMP ODK_END_IF_000000000000002
+
+(**  **)
+(** 	ELSIF canState = CAN_CanReset THEN **)
+		(* elseif - Cond *) 
+		ODK_SKIP_000000000000002_000000000000004:
+		LD canState
+		EQ CAN_CanReset
+		JMPCN ODK_SKIP_000000000000002_000000000000005
+
+			(* elsif - Stmts *)
+
+(**  **)
+(** 		fbReset0(Axis := Axis0 , Execute := FALSE); **)
+			(* call - Stmt *)
+			CAL fbReset0 (
+				Axis := Axis0,
+				Execute := FALSE
+			)
+
+(** 		fbReset1(Axis := Axis1 , Execute := FALSE); **)
+			(* call - Stmt *)
+			CAL fbReset1 (
+				Axis := Axis1,
+				Execute := FALSE
+			)
+
+(** 		fbReset2(Axis := Axis2 , Execute := FALSE); **)
+			(* call - Stmt *)
+			CAL fbReset2 (
+				Axis := Axis2,
+				Execute := FALSE
+			)
+
+(** 		fbReset3(Axis := Axis3 , Execute := FALSE); **)
+			(* call - Stmt *)
+			CAL fbReset3 (
+				Axis := Axis3,
+				Execute := FALSE
+			)
+
+(** 		canState := CAN_CanReset_loop; **)
+			(* assign - Stmt *)
+			LD CAN_CanReset_loop
+			ST canState
+
+			JMP ODK_END_IF_000000000000002
+
+(**  **)
+(** 	ELSIF canState = CAN_CanReset_loop THEN **)
+		(* elseif - Cond *) 
+		ODK_SKIP_000000000000002_000000000000005:
+		LD canState
+		EQ CAN_CanReset_loop
+		JMPCN ODK_SKIP_000000000000002_000000000000006
+
+			(* elsif - Stmts *)
+
+(**  **)
+(** 		fbReset0(Axis := Axis0 , Execute := TRUE); **)
+			(* call - Stmt *)
+			CAL fbReset0 (
+				Axis := Axis0,
+				Execute := TRUE
+			)
+
+(** 		fbReset1(Axis := Axis1 , Execute := TRUE); **)
+			(* call - Stmt *)
+			CAL fbReset1 (
+				Axis := Axis1,
+				Execute := TRUE
+			)
+
+(** 		fbReset2(Axis := Axis2 , Execute := TRUE); **)
+			(* call - Stmt *)
+			CAL fbReset2 (
+				Axis := Axis2,
+				Execute := TRUE
+			)
+
+(** 		fbReset3(Axis := Axis3 , Execute := TRUE); **)
+			(* call - Stmt *)
+			CAL fbReset3 (
+				Axis := Axis3,
+				Execute := TRUE
+			)
+
+(** 	 **)
+(** 		IF fbReset0.Error OR fbReset1.Error THEN **)
+			(* if - Cond *)
+			LD fbReset0.Error
+			OR fbReset1.Error
+			JMPCN ODK_SKIP_000000000000006_000000000000001
+
+				(* then - Stmts *)
+
+(** 			 **)
+(** 			IF fbReset0.Error THEN **)
+				(* if - Cond *)
+				LD fbReset0.Error
+				JMPCN ODK_SKIP_000000000000007_000000000000001
+
+					(* then - Stmts *)
+
+(** 				lastErrorId := fbReset0.ErrorId; **)
+					(* assign - Stmt *)
+					LD fbReset0.ErrorId
+					ST lastErrorId
+
+					JMP ODK_END_IF_000000000000007
+
+(** 			ELSE **)
+				(* else *) 
+				ODK_SKIP_000000000000007_000000000000001:
+
+					(* else - Stmts *)
+
+(** 				lastErrorId := fbReset1.ErrorId; **)
+					(* assign - Stmt *)
+					LD fbReset1.ErrorId
+					ST lastErrorId
+
+(** 			END_IF; **)
+				(* if - End *) 
+				ODK_END_IF_000000000000007:
+
+(** 			 **)
+(** 			internalErrorCounter := internalErrorCounter +1; **)
+				(* assign - Stmt *)
+				LD internalErrorCounter
+				ADD 1
+				ST internalErrorCounter
+
+(** 			canState :=CAN_CanError; **)
+				(* assign - Stmt *)
+				LD CAN_CanError
+				ST canState
+
+				JMP ODK_END_IF_000000000000006
+
+(** 	 **)
+(** 		ELSIF fbReset0.DONE AND fbReset1.DONE THEN **)
+			(* elseif - Cond *) 
+			ODK_SKIP_000000000000006_000000000000001:
+			LD fbReset0.Done
+			AND fbReset1.Done
+			JMPCN ODK_SKIP_000000000000006_000000000000002
+
+				(* elsif - Stmts *)
+
+(** 			Done := TRUE; **)
+				(* assign - Stmt *)
+				LD TRUE
+				ST Done
+
+				JMP ODK_END_IF_000000000000006
+
+(** 			{*canState := CAN_Init;*} **)
+(** 		END_IF; **)
+			(* if - End *) 
+			ODK_SKIP_000000000000006_000000000000002:
+			ODK_END_IF_000000000000006:
+
+			JMP ODK_END_IF_000000000000002
+
+(** 	END_IF; **)
+		(* if - End *) 
+		ODK_SKIP_000000000000002_000000000000006:
+		ODK_END_IF_000000000000002:
+
+(** 	 **)
+(** END_IF; **)
+	(* if - End *) 
+	ODK_END_IF_000000000000001:
+
+(**  **)
+
+END_FUNCTION_BLOCK

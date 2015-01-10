@@ -1,0 +1,119 @@
+FUNCTION_BLOCK FB_MAIN_StateWrite
+(********************************************************************************************************
+**  maxon motor ag
+**  All rights reserved
+*********************************************************************************************************
+**  Project		:  ObjectDictionary Access
+**  File	    :  FB MAIN State Object Writing
+**  Description :  Implementation of State 'Object Writing' in Main State Machine
+**  Creation    :  15.02.2008, BRE
+**  Modification:  15.02.2008, BRE, Initial Version
+*********************************************************************************************************)
+
+VAR_EXTERNAL
+
+END_VAR
+
+VAR_INPUT
+    Execute                   : BOOL;
+	CurrentValue			  : UDINT;
+END_VAR                         
+                                
+VAR_IN_OUT                        
+    Axis                      : Axis_REF;
+END_VAR                          
+                                
+VAR_OUTPUT                      
+    Done                      : BOOL;
+    Error                     : BOOL;
+	ErrorID                   : DINT;
+END_VAR                         
+                                 
+VAR                              
+    fbSetObjectFresh		  : MU_SetObject;
+	
+	setValue				  : UDINT;
+END_VAR
+(** setValue := CurrentValue MOD 16#80000000; **)
+	(* assign - Stmt *)
+	LD CurrentValue
+	MOD 16#80000000
+	ST setValue
+
+(**  **)
+(** {* Write object "Fresh" *}  **)
+(** fbSetObjectFresh(Axis := Axis, Execute := Execute, Index := 16#200C,  **)
+	(* call - Stmt *)
+	CAL fbSetObjectFresh (
+		Axis := Axis,
+		Execute := Execute,
+		Index := 16#200C,
+(**                           Subindex := 16#01, Value := setValue); **)
+		Subindex := 16#01,
+		Value := setValue
+	)
+
+(** 						   **)
+(** {* Output Variables *} **)
+(** IF fbSetObjectFresh.Error THEN **)
+	(* if - Cond *)
+	LD fbSetObjectFresh.Error
+	JMPCN ODK_SKIP_000000000000001_000000000000001
+
+		(* then - Stmts *)
+
+(**        Done := FALSE; **)
+		(* assign - Stmt *)
+		LD FALSE
+		ST Done
+
+(** 	   Error := TRUE; **)
+		(* assign - Stmt *)
+		LD TRUE
+		ST Error
+
+(** 	   ErrorID := fbSetObjectFresh.ErrorID;	  **)
+		(* assign - Stmt *)
+		LD fbSetObjectFresh.ErrorID
+		ST ErrorID
+
+		JMP ODK_END_IF_000000000000001
+
+(** ELSE  **)
+	(* else *) 
+	ODK_SKIP_000000000000001_000000000000001:
+
+		(* else - Stmts *)
+
+(**        Done := fbSetObjectFresh.Done;	  **)
+		(* assign - Stmt *)
+		LD fbSetObjectFresh.Done
+		ST Done
+
+(** 	   Error := FALSE; **)
+		(* assign - Stmt *)
+		LD FALSE
+		ST Error
+
+(** 	   ErrorID := 0; **)
+		(* assign - Stmt *)
+		LD 0
+		ST ErrorID
+
+(** END_IF; **)
+	(* if - End *) 
+	ODK_END_IF_000000000000001:
+
+(**  **)
+(**  **)
+(**  **)
+(**  **)
+(**  **)
+(**  **)
+(**  **)
+(**  **)
+(**  **)
+(**  **)
+(**  **)
+
+END_FUNCTION_BLOCK
