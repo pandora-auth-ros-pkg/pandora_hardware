@@ -5,7 +5,7 @@
 #include <sonar.hpp>
 
 static Mutex i2c0_mutex;    ///<The mutex that locks access to I2C0 peripheral
-static Mutex i2c1_mutex;    ///<The mutex that locks access to I2C1 peripheral
+
 
 /** @name SonarTask() threads */
 //@{
@@ -73,22 +73,22 @@ void SonarTask(void const *args) {
         char cmd_read = 0x40;    // command to send to the sonar to receive the reading
 
 
-        i2c_lock(i2c_periph_num);
+        i2c0_lock();
         i2c_obj->write(i2c_addr, &cmd_request, 1);   // request a distance reading from the sonar
-        i2c_unlock(i2c_periph_num);
+        i2c0_unlock();
 
         //Only 100ms tested...
         wait_ms(50); // wait 50ms for the sonar to calculate the distance
 
-        i2c_lock(i2c_periph_num);
+        i2c0_lock();
         i2c_obj->write(i2c_addr, &cmd_read, 1);      // request to receive the reading from the sonar
-        i2c_unlock(i2c_periph_num);
+        i2c0_unlock();
 
         wait_ms(50);
 
-        i2c_lock(i2c_periph_num);
+        i2c0_lock();
         i2c_obj->read(i2c_addr, data, 4);            // receive the reading and store it in the "data" array
-        i2c_unlock(i2c_periph_num);
+        i2c0_unlock();
 
         //TODO SonarValuesSet()
         dist_reading = (data[2]<<8) + data[3];
@@ -96,26 +96,14 @@ void SonarTask(void const *args) {
     }
 }
 
-void i2c_lock(uint8_t i2c_periph_num) {
-    switch (i2c_periph_num) {
-    case 0:
-        i2c0_mutex.lock();
-        break;
-    case 1:
-        i2c1_mutex.lock();
-        break;
-    }
+void i2c0_lock() {
+    i2c0_mutex.lock();
 }
 
-void i2c_unlock(uint8_t i2c_periph_num) {
-    switch (i2c_periph_num) {
-    case 0:
-        i2c0_mutex.unlock();
-        break;
-    case 1:
-        i2c1_mutex.unlock();
-        break;
-    }
+void i2c0_unlock() {
+
+    i2c0_mutex.unlock();
+
 }
 
 void SonarSignalClear(uint8_t grideye_num) {

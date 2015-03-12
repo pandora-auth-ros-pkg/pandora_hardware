@@ -32,6 +32,7 @@ static uint8_t CO2_healthy;
 static uint8_t Encoder_healthy;
 static uint8_t SonarLeft_healthy;
 static uint8_t SonarRight_healthy;
+static uint8_t GridEYECenter_healthy;
 //@}
 
 /** @name Repair loop index
@@ -50,6 +51,7 @@ static uint8_t CO2_DisableCountdown = DISABLE_COUNTDOWN;
 static uint8_t Encoder_DisableCountdown = DISABLE_COUNTDOWN;
 static uint8_t SonarLeft_DisableCountdown = DISABLE_COUNTDOWN;
 static uint8_t SonarRight_DisableCountdown = DISABLE_COUNTDOWN;
+static uint8_t GridEYECenter_DisableCountdown = DISABLE_COUNTDOWN;
 //@}
 
 /** @name Status Leds
@@ -99,6 +101,36 @@ void CO2HealthTask(void const *args) {
     }
 }
 
+void GridEYEHealthTask(void const *args) {
+    while (true) {
+        Thread::signal_wait(HEALTH_SIGNAL);
+
+        WDT_feed();
+
+        if (!GridEYECenter_healthy && GridEYECenter_DisableCountdown) {
+            GridEYECenter_DisableCountdown--;
+        }
+
+            //Normally, when signal_wait() is called the signal flags get cleared automatically. But if the sensor is stuck
+            //-> inside the main loop in GridEYETask(), signal flags are set again by GridEYESchedulerTask(). That means
+            //-> when a repair manages to unstuck the sensor, the request for new data from the sensor will start
+            //-> immediately, without waiting on signal_wait() for signal_set() from SchedulerTask().
+            //We clear signal flags before attempting repair, so that in case of successful repair GridEYETask() doesn't
+            //-> continue its loop before it takes the OK from GridEYESchedulerTask().
+
+        if (!GridEYECenter_healthy && GridEYECenter_DisableCountdown) {
+            GridEYECenter_DisableCountdown--;
+            I2C1_FailIndex++;
+            if (I2C1_FailIndex == 1) {
+                USBGridEYEvaluesZero(GEYE_CENTER);
+            }
+            GridEYESignalClear(GEYE_CENTER);
+            repairI2C(I2C1_FailIndex, I2C_1);
+        }
+    }
+}
+
+
 void SonarHealthTask(void const *args) {
     while (true) {
         Thread::signal_wait(HEALTH_SIGNAL);
@@ -141,6 +173,10 @@ void clearHealthyCO2() {
     CO2_healthy = 0;
 }
 
+void clearHealthyGridEYE() {
+    GridEYECenter_healthy = 0;
+}
+
 void clearHealthyEncoder(){
     Encoder_healthy = 0;
 }
@@ -149,6 +185,21 @@ void clearHealthySonar() {
     SonarLeft_healthy = 0;
     SonarRight_healthy = 0;
 }
+
+void HealthyGridEYEvaluesSet(uint8_t values[], uint8_t grideye_num) {
+    switch (grideye_num) {
+    case GEYE_CENTER:
+        GridEYECenter_healthy = 1;
+        I2C1_FailIndex = 0;
+        GridEYECenter_DisableCountdown = DISABLE_COUNTDOWN;
+        USBGridEYEvaluesSet(values, grideye_num);
+        I2C1_LifeLED = !I2C1_LifeLED;
+        break;
+    default:
+        return;
+    }
+}
+
 
 void HealthyCO2valueSet(float value) {
     CO2_healthy = 1;
@@ -186,10 +237,10 @@ void HealthySonarValuesSet(uint16_t values, uint8_t sonar_num) {
         break;
     case SONAR_LEFT:
         SonarLeft_healthy = 1;
-        I2C1_FailIndex = 0;
+        I2C0_FailIndex = 0;
         SonarLeft_DisableCountdown = DISABLE_COUNTDOWN;
         USBSonarValuesSet(values, sonar_num);
-        I2C1_LifeLED = !I2C1_LifeLED;
+        I2C0_LifeLED = !I2C0_LifeLED;
         break;
     default:
         return;
@@ -202,6 +253,16 @@ uint8_t SonarEnabled(uint8_t sonar_num) {
         return SonarRight_DisableCountdown;
     case SONAR_LEFT:
         return SonarLeft_DisableCountdown;
+    default:
+        return 1;
+    }
+    return 1;
+}
+
+uint8_t GridEYEenabled(uint8_t grideye_num) {
+    switch (grideye_num) {
+    case GEYE_CENTER:
+        return GridEYECenter_DisableCountdown;
     default:
         return 1;
     }

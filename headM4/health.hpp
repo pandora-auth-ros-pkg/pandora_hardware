@@ -52,6 +52,8 @@ void CO2HealthTask(void const *args);
  */
 void SonarHealthTask(void const *args);
 
+void GridEYEHealthTask(void const *args);
+
 /** @brief Clears CO2 healthy status
  *
  * Sets the healthy status of a sensor to zero. We must do this before triggering the sensor.
@@ -77,6 +79,10 @@ void clearHealthySonar();
  *
  * @returns true if selected sensor is enabled, false otherwise
  */
+
+void clearHealthyGridEYE();
+
+
 uint8_t SonarEnabled(uint8_t sonar_num);
 
 /** @brief Checks if CO2 sensor is enabled.
@@ -104,6 +110,8 @@ void HealthyBatteryMotorValueSet(uint16_t value);
 
 void HealthyBatterySupplyValueSet(uint16_t value);
 
+void HealthyGridEYEvaluesSet(uint8_t values[], uint8_t grideye_num);
+
 /** @brief Called when a sensor is healthy to send received data to USB
  *
  * This function is called only when we had a healthy response from a sensor. It's used directly in place of
@@ -119,6 +127,8 @@ void HealthySonarValuesSet(uint16_t values, uint8_t sonar_num);
  *
  * @param count The sensor FailIndex value
  */
+
+uint8_t GridEYEenabled(uint8_t grideye_num);
 void repairCO2(uint8_t index);
 
 /** @brief Attempts to recover I2C bus

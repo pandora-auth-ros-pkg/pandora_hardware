@@ -12,6 +12,7 @@
 #include "conf.h"
 #include "encoder.hpp"
 #include "battery.hpp"
+#include "grideye.hpp"
 //#include "gpdma.h"
 //#include "dsp.h"
 
@@ -25,6 +26,9 @@ int main(void) {
     CO2Init(p17, p18);  //p17=TX, p18=RX
 
     I2C i2c0(p32, p31); //sda, scl
+    I2C i2c1(p9, p10);
+
+    GridEYEInit(&i2c1);
 
     BatteryInit(p15,p16); //Motor Battery In, Supply Battery in (measurements)
 
@@ -49,6 +53,8 @@ int main(void) {
     Thread tSonarCaller(SonarSchedulerTask);
 
     Thread tEncoderCaller(EncoderSchedulerTask);
+
+    Thread tGridEYECaller(GridEYESchedulerTask);
 
     Thread::wait(osWaitForever);
 }

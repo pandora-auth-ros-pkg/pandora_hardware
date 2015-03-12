@@ -12,6 +12,7 @@ static uint16_t uSonarLeftValue;    ///<usb GridEYECenter values buffer
 static uint16_t uSonarRightValue;   ///<usb GridEYECenter values buffer
 static uint16_t uBatteryMotorValue;
 static uint16_t uBatterySupplyValue;
+static uint8_t uGridEYECenterValues[PIXELS_COUNT];  ///<usb GridEYECenter values buffer
 
 
 
@@ -63,6 +64,12 @@ void USBTask(const void *args) {
         command = UsbRecvQueue.get().value.v;
 
         switch (command) {
+
+        case GEYE_CENTER_REQUEST:
+                    //writeBlock() waits for the host to connect
+                    usb->writeBlock(USBGridEYEvaluesGet(GEYE_CENTER), PIXELS_COUNT);
+                    usb->writeBlock(&command, 0);
+                    break;
         case ENCODER_REQUEST:
 
             value16bit = USBencoderValueGet();
@@ -110,6 +117,33 @@ void USBTask(const void *args) {
             break;
         }
     }
+}
+
+//A mutex may be required to protect set and get , but didn't have any problems without
+void USBGridEYEvaluesSet(uint8_t values[], uint8_t grideye_num) {
+    switch (grideye_num) {
+    case GEYE_CENTER:
+        memcpy((void *) uGridEYECenterValues, (const void *) values, PIXELS_COUNT * sizeof(uint8_t));
+        break;
+    }
+}
+
+void USBGridEYEvaluesZero(uint8_t grideye_num) {
+    switch (grideye_num) {
+    case GEYE_CENTER:
+        memset(uGridEYECenterValues, 0, PIXELS_COUNT * sizeof(uint8_t));
+        break;
+    }
+}
+
+//A mutex may be required to protect set and get , but didn't have any problems without
+uint8_t * USBGridEYEvaluesGet(uint8_t grideye_num) {
+    switch (grideye_num) {
+    case GEYE_CENTER:
+        return uGridEYECenterValues;
+        break;
+    }
+    return uGridEYECenterValues;    //Shouldn't come here
 }
 
 //A mutex may be required to protect set and get , but didn't have any problems without
