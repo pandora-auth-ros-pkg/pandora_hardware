@@ -15,87 +15,69 @@
 
 
 
-SPI spi(p5, p6, p7); // mosi, miso, sclk or NC, DO, SCL
-DigitalOut cs(p8);   //CS
-Serial pc(USBTX,USBRX); // tx, rx
-//DigitalIn DO(p6);
-//DigitalOut SCL(p7);
-//DigitalOut CS(p8);
 
 
 
-/** @brief Program entry point
- *
- * Initializes and starts tasks.
- */
+I2C i2c1_obj(p9, p10);
+
+
 int main(void) {
-    DEBUG_PRINT(("Start\r\n"));
+    printf("Start\r\n");
 
-    // Setup the spi for 10 bit data, high steady state clock,
-    // second edge capture, with a 1MHz clock rate
-    spi.format(12,3);
-    spi.frequency(500000);
-    // Chip must be deselected
-    //CS = 1;
-    //SCL = 1;
+    i2c1_obj.frequency(400000);
+    const int addr = 0b1101000 << 1 ;
 
-    uint16_t value = 0;
+    char cmd[2];
+
+        union {
+            char thermistor_echo[2];    //1 LSB = 0.0625 C , result 12-bit as signed absolute value
+            uint16_t therm_echo_uint16; //little endian
+        };
+        float thermistor_value;
+
+        union {
+            char temper_echo[2 * PIXELS_COUNT]; //1 LSB = 0.25 C , result 12-bit as 2's complement
+            uint16_t temper_echo_uint16[PIXELS_COUNT];  //little endian
+        };
+        float temper_values[PIXELS_COUNT];
+
+        cmd[0] = GRIDEYE_I2C_THERM_ADDR;
+        i2c1_obj.write(addr, cmd, 1, true); //Repeated start is true in i2c_obj->write, so it must be true in
+        i2c1_obj.read(addr, thermistor_echo, 2, true); //-> the following read, too.
+
+
+        if (therm_echo_uint16 & 0x800) {  //if negative
+            thermistor_value = -0.0625 * (0x7FF & therm_echo_uint16);
+        } else {    //else if positive
+                thermistor_value = 0.0625 * (0x7FF & therm_echo_uint16);
+        }
+
+                //If temper_echo remains unchanged after an i2c_obj->read(), indicates sensor fault.
+                //-> So, if temper_echo_uint16[0] stays 0 after i2c_obj->read() the sensor is probably faulty.
+                //-> Because a temperature value of 0 is OutOfBounds HealthyGridEYEvaluesSet() will not be triggered and
+                //-> the sensor will be correctly registered as not healthy.
+                //Only the first element of temper_echo_uint16 is zeroed to save processing time.
+       temper_echo_uint16[0] = 0;
+
+       cmd[0] = GRIDEYE_I2C_TEMP_ADDR;
+       i2c1_obj.write(addr, cmd, 1, true);
+       i2c1_obj.read(addr, temper_echo, 2 * PIXELS_COUNT, true);
+
+
+                for (int i = 0; i < PIXELS_COUNT; ++i) {
+                    if (temper_echo_uint16[i] & 0x800) {  //if negative
+                        temper_values[i] = 0.25 * (int16_t) (0xF000 | temper_echo_uint16[i]);
+                    } else {    //else if positive
+                        temper_values[i] = 0.25 * (0x7FF & temper_echo_uint16[i]);
+                    }
+                }
+
+        printf("Thermistor value = \r\n",thermistor_value);
+        for(int i=0;i<PIXELS_COUNT;i++){
+            printf("Temp value[%d] = \r\n",i,temper_values[i]);
+        }
 
     while(1){
 
-    pc.printf("Just entered loop again\r\n");
-    wait(1);
-
-//    uint16_t read_value = 0;
-//
-//        CS = 0;
-//        wait_us(2);
-//
-//        for(int i=0;i<11;i++){
-//            SCL = 0; /* <First falling edge according to SSI protocol> */
-//            wait_us(1);
-//            SCL = 1;
-//            wait_us(1);
-//            read_value = (read_value<<1) | DO;
-//
-//        }
-//        CS = 1;
-//        pc.printf("I received: %d\r\n", read_value);
-//        read_value = 0;
-
-
-         //Select the device by setting chip select low
-        cs = 0;
-
-         //Send a dummy byte to receive the contents of the shift register
-        value = spi.write(0b0);
-
-        // Deselect the device
-        cs = 1;
-        value = value & 0b001111111111;
-        pc.printf("I received: %d\r\n", value);
-        value = 0;
     }
-
-//    CO2Init(p17, p18);  //p17=TX, p18=RX
-
-//    I2C i2c0(p32, p31); //sda, scl
-//    I2C i2c1(p9, p10);
-//    GridEYEInit(&i2c0, &i2c1);
-
-//    USBInit();
-
-//    HealthInit();
-
-//#if DEVELOPMENT
-//    Thread tStatistics(CpuLoadTask, NULL, osPriorityIdle);
-//#endif
-
-//    Thread tUSB(USBTask);
-
-//    Thread tCO2Caller(CO2SchedulerTask);
-
-//    Thread tGridEYECaller(GridEYESchedulerTask);
-
-//    Thread::wait(osWaitForever);
 }
