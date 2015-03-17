@@ -17,17 +17,19 @@
 #define PIXELS_COUNT 64
 #define GRIDEYE_I2C_THERM_ADDR 0x0E ///<GridEYE thermistor Register Starting Address
 #define GRIDEYE_I2C_TEMP_ADDR 0x80
-
+#define GRIDEYE_I2C_ADDR_GND 0b1101000 << 1
 
 I2C i2c1_obj(p9, p10);
 
 
 int main(void) {
+    i2c1_obj.frequency(100000);
+    Thread::wait(200);
+    //printf("Start2\r\n");
+    //Thread::wait(100);
 
-    printf("Start\r\n");
 
-    i2c1_obj.frequency(400000);
-    const int addr = 0b1101000 <<1;
+    uint8_t addr = GRIDEYE_I2C_ADDR_GND;
 
     char cmd[2];
 
@@ -41,6 +43,7 @@ int main(void) {
             char temper_echo[2 * PIXELS_COUNT]; //1 LSB = 0.25 C , result 12-bit as 2's complement
             uint16_t temper_echo_uint16[PIXELS_COUNT];  //little endian
         };
+
         float temper_values[PIXELS_COUNT];
 
         int ret;
@@ -67,13 +70,18 @@ int main(void) {
 
 
        cmd[0] = GRIDEYE_I2C_TEMP_ADDR;
-       printf("Before write2\r\n");
-       ret = i2c1_obj.write(addr, cmd, 1);
-       printf("After write2 = %d\r\n",ret);
-       ret = i2c1_obj.read(addr, temper_echo, 2 * PIXELS_COUNT);
-       printf("After read2 = %d\r\n",ret);
+
+
+       //printf("Before write2\r\n");
+       ret = i2c1_obj.write(addr, cmd, 1,true);
+       //printf("After write2 = %d\r\n",ret);
+
+       ret = i2c1_obj.read(addr, temper_echo, 2 * PIXELS_COUNT,true);
+       //printf("After read2 = %d\r\n",ret);
+
+
        for(int i=0;i<PIXELS_COUNT;i++){
-           printf("Temper_echo [%d] = %u\r\n",i,temper_echo_uint16[i]);
+           printf("Temper_echo [%d] = %x\r\n",i,*(int*)&temper_echo_uint16[i]);
        }
 
                 for (int i = 0; i < PIXELS_COUNT; ++i) {
@@ -84,10 +92,11 @@ int main(void) {
                     }
                 }
 
-        printf("Thermistor value = %f\r\n",thermistor_value);
         for(int i=0;i<PIXELS_COUNT;i++){
             printf("Temp value[%d] = %f\r\n",i,temper_values[i]);
         }
+
+        Thread::wait(1000);
 
 
 }
