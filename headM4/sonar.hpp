@@ -32,7 +32,7 @@
 #define SONAR_RIGHT 2    ///<Right GridEYE identifier
 //@}
 
-#define SONAR_I2C_SIGNAL 0x1  ///<Signal to SonarTask()
+#define SONAR_I2C_SIGNAL 0x2  ///<Signal to SonarTask()
 
 #define PIXELS_COUNT 64 ///<GridEYE number of pixels
 

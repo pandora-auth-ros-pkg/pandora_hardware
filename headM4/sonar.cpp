@@ -132,16 +132,16 @@ void SonarValueSet(uint16_t value, uint8_t sonar_num) {
 void SonarSchedulerTask(void const *args) {
     //I2C sensors in the same I2C bus have maximum distance ie 50ms in a 100ms loop
     while (true) {
-        clearHealthySonar();
-        if (SonarEnabled(SONAR_LEFT))
+       // clearHealthySonar();
+       // if (SonarEnabled(SONAR_LEFT))
             tSonarLeft->signal_set(SONAR_I2C_SIGNAL);
         Thread::wait(25);
-        if (SonarEnabled(SONAR_RIGHT))
+       // if (SonarEnabled(SONAR_RIGHT))
             tSonarRight->signal_set(SONAR_I2C_SIGNAL);
 
         Thread::wait(1);
-        tSonarHealth->signal_set(HEALTH_SIGNAL);
+       // tSonarHealth->signal_set(HEALTH_SIGNAL);
 
-        Thread::wait(10);
+        Thread::wait(100); //changed from 10
     }
 }

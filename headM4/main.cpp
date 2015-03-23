@@ -50,7 +50,7 @@ int main(void) {
 
     Thread tCO2Caller(CO2SchedulerTask);
 
-    Thread tSonarCaller(SonarSchedulerTask);
+    //Thread tSonarCaller(SonarSchedulerTask);
 
     Thread tEncoderCaller(EncoderSchedulerTask);
 

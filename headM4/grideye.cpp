@@ -34,9 +34,9 @@ void GridEYEInit(I2C *i2c1_obj) {
 
     tGridEYEHealth = new Thread(GridEYEHealthTask);
 
-    Thread::wait(5);    //We must wait some time before the function ends or temp_sens? will be destroyed
+    Thread::wait(20);    //We must wait some time before the function ends or temp_sens? will be destroyed
                         //-> before the threads assign them to local variables. (I tested with 1ms and it was OK)
-}
+}                       //changed from 5
 
 void GridEYETask(void const *args) {
     const grideye_sensor_t * geye = (const grideye_sensor_t *) args;
@@ -184,6 +184,7 @@ void GridEYEvaluesSet(float values[], uint8_t grideye_num) {
 
 void GridEYESchedulerTask(void const *args) {
     //I2C sensors in the same I2C bus have maximum distance ie 50ms in a 100ms loop
+    Thread::wait(300);
     while (true) {
         //clearHealthyGridEYE();
 
@@ -191,9 +192,10 @@ void GridEYESchedulerTask(void const *args) {
             tGridEYECenter->signal_set(GRIDEYE_I2C_SIGNAL);
 
 
-        //Thread::wait(40);
+        Thread::wait(40);
         //tGridEYEHealth->signal_set(HEALTH_SIGNAL);
 
-        Thread::wait(1000); //changed from 10
+        Thread::wait(10);
+        Thread::wait(50);
     }
 }
