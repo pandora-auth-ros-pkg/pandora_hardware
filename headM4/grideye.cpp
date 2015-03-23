@@ -19,6 +19,7 @@ void GridEYEInit(I2C *i2c1_obj) {
     //Check comment about sdram in Doxygen main page before using new
 
     i2c1_obj->frequency(400000);
+    Thread::wait(200); //Needed???
 
     grideye_sensor_t temp_sens1;    //Because we pass starting arguments to threads with a pointer we must be sure that
 
@@ -61,9 +62,9 @@ void GridEYETask(void const *args) {
 
 #if ENABLE_RGB_LEDMATRIX
 
-    DigitalOut SPI_ss(p14);  ///Slave Select
+    DigitalOut SPI_ss(p8);  ///Slave Select
     SPI_ss = 1;  //Make sure the RG matrix is deactivated, maybe this should be first line executed
-    SPI RGB_LEDMatrix(p11, p12, p13);  /// mosi, miso, sclk
+    SPI RGB_LEDMatrix(p5,p6,p7);  /// mosi, miso, sclk
 
 #endif
 
@@ -102,6 +103,8 @@ void GridEYETask(void const *args) {
                 temper_values[i] = 0.25 * (0x7FF & temper_echo_uint16[i]);
             }
         }
+        for(int i=0;i<PIXELS_COUNT;i++)
+        DEBUG_PRINT(("TEMPERATURE[%d]: %f\r\n",i,temper_values[i]));
 
         GridEYEvaluesSet(temper_values, grideye_num);
 
@@ -182,15 +185,15 @@ void GridEYEvaluesSet(float values[], uint8_t grideye_num) {
 void GridEYESchedulerTask(void const *args) {
     //I2C sensors in the same I2C bus have maximum distance ie 50ms in a 100ms loop
     while (true) {
-        clearHealthyGridEYE();
+        //clearHealthyGridEYE();
 
-        if (GridEYEenabled(GEYE_CENTER))
+        //if (GridEYEenabled(GEYE_CENTER))
             tGridEYECenter->signal_set(GRIDEYE_I2C_SIGNAL);
 
 
-        Thread::wait(40);
-        tGridEYEHealth->signal_set(HEALTH_SIGNAL);
+        //Thread::wait(40);
+        //tGridEYEHealth->signal_set(HEALTH_SIGNAL);
 
-        Thread::wait(10);
+        Thread::wait(1000); //changed from 10
     }
 }

@@ -21,7 +21,7 @@
  * Initializes and starts tasks.
  */
 int main(void) {
-    DEBUG_PRINT(("Start\r\n"));
+   // DEBUG_PRINT(("Start\r\n"));
 
     CO2Init(p17, p18);  //p17=TX, p18=RX
 
@@ -34,7 +34,7 @@ int main(void) {
 
     SonarInit(&i2c0);
 
-    EncoderInit(p5,p6,p7,p8); //NN, DO, SCL, CS
+    EncoderInit(p11, p12, p13,p14); //NN, DO, SCL, CS
 
     USBInit();
 
