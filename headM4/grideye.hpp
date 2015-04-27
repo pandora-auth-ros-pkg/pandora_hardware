@@ -62,7 +62,7 @@ typedef struct {
  * @param i2c0_obj I2C pointer of I2C0 peripheral
  * @param i2c1_obj I2C pointer of I2C1 peripheral
  */
-void GridEYEInit(I2C *i2c0_obj, I2C *i2c1_obj);
+void GridEYEInit(I2C *i2c1_obj);
 
 /** @brief Gets temperature data from GridEYE sensors
  *
@@ -79,7 +79,7 @@ void GridEYETask(void const *args);
  *
  * @param i2c_periph_num grideye_sensor_t::i2c_periph_num of the current sensor
  */
-void i2c_lock(uint8_t i2c_periph_num);
+//void i2c_lock(uint8_t i2c_periph_num);
 
 /** @brief Unlocks access to I2C bus
  *
@@ -87,7 +87,7 @@ void i2c_lock(uint8_t i2c_periph_num);
  *
  * @param i2c_periph_num grideye_sensor_t::i2c_periph_num of the current sensor
  */
-void i2c_unlock(uint8_t i2c_periph_num);
+//void i2c_unlock(uint8_t i2c_periph_num);
 
 /** @brief Clears the signal from the indicated GridEYE sensor
  *

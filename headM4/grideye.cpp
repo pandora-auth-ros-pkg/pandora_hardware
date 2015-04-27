@@ -9,34 +9,34 @@ static Mutex i2c1_mutex;    ///<The mutex that locks access to I2C1 peripheral
 
 /** @name GridEYETask() threads */
 //@{
-static Thread *tGridEYECenter;  ///<Thread pointer for center GridEYE sensor's GridEYETask()
+//static Thread *tGridEYECenter;  ///<Thread pointer for center GridEYE sensor's GridEYETask()
 static Thread *tGridEYELeft;    ///<Thread pointer for left GridEYE sensor's GridEYETask()
-static Thread *tGridEYERight;   ///<Thread pointer for right GridEYE sensor's GridEYETask()
+//static Thread *tGridEYERight;   ///<Thread pointer for right GridEYE sensor's GridEYETask()
 //@}
 
 static Thread *tGridEYEHealth;  ///<Thread pointer for GridEYEHealthTask()
 
-void GridEYEInit(I2C *i2c0_obj, I2C *i2c1_obj) {
+void GridEYEInit( I2C *i2c1_obj) {
     //Check comment about sdram in Doxygen main page before using new
 
-    i2c0_obj->frequency(400000);
+    //i2c0_obj->frequency(400000);
     i2c1_obj->frequency(400000);
 
-    grideye_sensor_t temp_sens1;    //Because we pass starting arguments to threads with a pointer we must be sure that
-    grideye_sensor_t temp_sens2;    //-> their memory contents don't change long enough for the threads to copy the data
+    //grideye_sensor_t temp_sens1;    //Because we pass starting arguments to threads with a pointer we must be sure that
+    //grideye_sensor_t temp_sens2;    //-> their memory contents don't change long enough for the threads to copy the data
     grideye_sensor_t temp_sens3;    //-> to local variables. So we create a temporary structure for each thread.
 
-    temp_sens1.i2c_obj = i2c0_obj;
-    temp_sens1.i2c_periph_num = 0;
-    temp_sens1.i2c_addr = GRIDEYE_I2C_ADDR_GND;
-    temp_sens1.grideye_num = GEYE_CENTER;
-    tGridEYECenter = new Thread(GridEYETask, (void *) &temp_sens1);
+    //temp_sens1.i2c_obj = i2c0_obj;
+    //temp_sens1.i2c_periph_num = 0;
+    //temp_sens1.i2c_addr = GRIDEYE_I2C_ADDR_GND;
+    //temp_sens1.grideye_num = GEYE_CENTER;
+    //tGridEYECenter = new Thread(GridEYETask, (void *) &temp_sens1);
 
-    temp_sens2.i2c_obj = i2c0_obj;
-    temp_sens2.i2c_periph_num = 0;
-    temp_sens2.i2c_addr = GRIDEYE_I2C_ADDR_VDD;
-    temp_sens2.grideye_num = GEYE_RIGHT;
-    tGridEYERight = new Thread(GridEYETask, (void *) &temp_sens2);
+    //temp_sens2.i2c_obj = i2c0_obj;
+    //temp_sens2.i2c_periph_num = 0;
+    //temp_sens2.i2c_addr = GRIDEYE_I2C_ADDR_VDD;
+    //temp_sens2.grideye_num = GEYE_RIGHT;
+    //tGridEYERight = new Thread(GridEYETask, (void *) &temp_sens2);
 
     temp_sens3.i2c_obj = i2c1_obj;
     temp_sens3.i2c_periph_num = 1;
@@ -84,10 +84,10 @@ void GridEYETask(void const *args) {
         Thread::signal_wait(GRIDEYE_I2C_SIGNAL);
 
         cmd[0] = GRIDEYE_I2C_THERM_ADDR;
-        i2c_lock(i2c_periph_num);
+        //i2c_lock(i2c_periph_num);
         i2c_obj->write(i2c_addr, cmd, 1, true); //Repeated start is true in i2c_obj->write, so it must be true in
         i2c_obj->read(i2c_addr, thermistor_echo, 2, true); //-> the following read, too.
-        i2c_unlock(i2c_periph_num);
+        //i2c_unlock(i2c_periph_num);
 
         if (therm_echo_uint16 & 0x800) {  //if negative
             thermistor_value = -0.0625 * (0x7FF & therm_echo_uint16);
@@ -103,10 +103,10 @@ void GridEYETask(void const *args) {
         temper_echo_uint16[0] = 0;
 
         cmd[0] = GRIDEYE_I2C_TEMP_ADDR;
-        i2c_lock(i2c_periph_num);
+        //i2c_lock(i2c_periph_num);
         i2c_obj->write(i2c_addr, cmd, 1, true);
         i2c_obj->read(i2c_addr, temper_echo, 2 * PIXELS_COUNT, true);
-        i2c_unlock(i2c_periph_num);
+        //i2c_unlock(i2c_periph_num);
 
         for (int i = 0; i < PIXELS_COUNT; ++i) {
             if (temper_echo_uint16[i] & 0x800) {  //if negative
@@ -120,7 +120,7 @@ void GridEYETask(void const *args) {
 
 #if ENABLE_RGB_LEDMATRIX
 
-        if (grideye_num == GEYE_CENTER) {
+        if (grideye_num == GEYE_LEFT) { //changed from CENTER
             char ledArray[64];
             int celsius;
 
@@ -157,36 +157,36 @@ void GridEYETask(void const *args) {
     }
 }
 
-void i2c_lock(uint8_t i2c_periph_num) {
-    switch (i2c_periph_num) {
-    case 0:
-        i2c0_mutex.lock();
-        break;
-    case 1:
-        i2c1_mutex.lock();
-        break;
-    }
-}
+//void i2c_lock(uint8_t i2c_periph_num) {
+//    switch (i2c_periph_num) {
+//    case 0:
+//        i2c0_mutex.lock();
+//        break;
+//    case 1:
+//        i2c1_mutex.lock();
+//        break;
+//    }
+//}
 
-void i2c_unlock(uint8_t i2c_periph_num) {
-    switch (i2c_periph_num) {
-    case 0:
-        i2c0_mutex.unlock();
-        break;
-    case 1:
-        i2c1_mutex.unlock();
-        break;
-    }
-}
+//void i2c_unlock(uint8_t i2c_periph_num) {
+//    switch (i2c_periph_num) {
+//    case 0:
+//        i2c0_mutex.unlock();
+//        break;
+//    case 1:
+//        i2c1_mutex.unlock();
+//        break;
+//    }
+//}
 
 void GridEYESignalClear(uint8_t grideye_num) {
     switch (grideye_num) {
-    case GEYE_CENTER:
-        tGridEYECenter->signal_clear(GRIDEYE_I2C_SIGNAL);
-        break;
-    case GEYE_RIGHT:
-        tGridEYERight->signal_clear(GRIDEYE_I2C_SIGNAL);
-        break;
+    //case GEYE_CENTER:
+    //    tGridEYECenter->signal_clear(GRIDEYE_I2C_SIGNAL);
+    //    break;
+    //case GEYE_RIGHT:
+    //    tGridEYERight->signal_clear(GRIDEYE_I2C_SIGNAL);
+    //    break;
     case GEYE_LEFT:
         tGridEYELeft->signal_clear(GRIDEYE_I2C_SIGNAL);
         break;
@@ -217,16 +217,16 @@ void GridEYESchedulerTask(void const *args) {
     while (true) {
         clearHealthyGridEYE();
 
-        if (GridEYEenabled(GEYE_CENTER))
-            tGridEYECenter->signal_set(GRIDEYE_I2C_SIGNAL);
+        //if (GridEYEenabled(GEYE_CENTER))
+        //    tGridEYECenter->signal_set(GRIDEYE_I2C_SIGNAL);
 
         Thread::wait(25);
         if (GridEYEenabled(GEYE_LEFT))
             tGridEYELeft->signal_set(GRIDEYE_I2C_SIGNAL);
 
         Thread::wait(25);
-        if (GridEYEenabled(GEYE_RIGHT))
-            tGridEYERight->signal_set(GRIDEYE_I2C_SIGNAL);
+        //if (GridEYEenabled(GEYE_RIGHT))
+        //  tGridEYERight->signal_set(GRIDEYE_I2C_SIGNAL);
 
         Thread::wait(40);
         tGridEYEHealth->signal_set(HEALTH_SIGNAL);

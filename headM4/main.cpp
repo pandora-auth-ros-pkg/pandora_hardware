@@ -22,9 +22,9 @@ int main(void) {
 
     CO2Init(p17, p18);  //p17=TX, p18=RX
 
-    I2C i2c0(p32, p31); //sda, scl
-    I2C i2c1(p9, p10);
-    GridEYEInit(&i2c0, &i2c1);
+    I2C i2c0(p32, p31); //sda, scl  (Sonars)
+    I2C i2c1(p9, p10);  //sda, scl  (Grideye)
+    GridEYEInit(&i2c1);
 
     USBInit();
 

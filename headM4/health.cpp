@@ -29,9 +29,9 @@
  * 1 if healty, 0 else */
 //@{
 static uint8_t CO2_healthy;
-static uint8_t GridEYECenter_healthy;
+//static uint8_t GridEYECenter_healthy;
 static uint8_t GridEYELeft_healthy;
-static uint8_t GridEYERight_healthy;
+//static uint8_t GridEYERight_healthy;
 //@}
 
 /** @name Repair loop index
@@ -39,7 +39,7 @@ static uint8_t GridEYERight_healthy;
  * peripheral is fixed */
 //@{
 static uint8_t CO2_FailIndex = 0;
-static uint8_t I2C0_FailIndex = 0;
+//static uint8_t I2C0_FailIndex = 0;
 static uint8_t I2C1_FailIndex = 0;
 //@}
 
@@ -47,9 +47,9 @@ static uint8_t I2C1_FailIndex = 0;
  * If a sensor fails to respond in time countdown times, it is disabled */
 //@{
 static uint8_t CO2_DisableCountdown = DISABLE_COUNTDOWN;
-static uint8_t GridEYECenter_DisableCountdown = DISABLE_COUNTDOWN;
+//static uint8_t GridEYECenter_DisableCountdown = DISABLE_COUNTDOWN;
 static uint8_t GridEYELeft_DisableCountdown = DISABLE_COUNTDOWN;
-static uint8_t GridEYERight_DisableCountdown = DISABLE_COUNTDOWN;
+//static uint8_t GridEYERight_DisableCountdown = DISABLE_COUNTDOWN;
 //@}
 
 /** @name Status Leds
@@ -57,7 +57,7 @@ static uint8_t GridEYERight_DisableCountdown = DISABLE_COUNTDOWN;
  * the leds blink faster for every sensor we add */
 //@{
 static DigitalOut CO2_LifeLED(LED3);
-static DigitalOut I2C0_LifeLED(LED1);
+//static DigitalOut I2C0_LifeLED(LED1);
 static DigitalOut I2C1_LifeLED(LED2);
 //@}
 
@@ -65,15 +65,15 @@ static DigitalOut I2C1_LifeLED(LED2);
  * Used to turn on or off the analog switches that control the I2C buses power supply
  * @see MAX4674ESE+ */
 //@{
-static DigitalOut I2C0_switch(p30);
-static DigitalOut I2C1_switch(p29);
+//static DigitalOut I2C0_switch(p30);
+//static DigitalOut I2C1_switch(p29);
 //@}
 
 static Mutex WDT_mutex; ///<Mutex that protects Watchdog feeding sequence
 
 void HealthInit() {
-    I2C0_switch = 0;    //Active Low
-    I2C1_switch = 0;    //Active Low
+//    I2C0_switch = 0;    //Active Low
+//    I2C1_switch = 0;    //Active Low
 #if !DEVELOPMENT
     LPC_WDT->TC = (int) ((WDT_MS / 1000) * (500000 / 4));
     LPC_WDT->MOD = (1 << WDRESET) | (1 << WDEN);    //enable watchdog reset
@@ -105,18 +105,18 @@ void GridEYEHealthTask(void const *args) {
 
         WDT_feed();
 
-        if (!GridEYECenter_healthy && GridEYECenter_DisableCountdown) {
-            GridEYECenter_DisableCountdown--;
-        }
-        if (!GridEYERight_healthy && GridEYERight_DisableCountdown) {
-            GridEYERight_DisableCountdown--;
-        }
-        if (!GridEYECenter_healthy && !GridEYERight_healthy) {
-            I2C0_FailIndex++;
-            if (I2C0_FailIndex == 1) {
-                USBGridEYEvaluesZero(GEYE_RIGHT);
-                USBGridEYEvaluesZero(GEYE_CENTER);
-            }
+        //if (!GridEYECenter_healthy && GridEYECenter_DisableCountdown) {
+        //    GridEYECenter_DisableCountdown--;
+        //}
+        //if (!GridEYERight_healthy && GridEYERight_DisableCountdown) {
+        //    GridEYERight_DisableCountdown--;
+        //}
+        //if (!GridEYECenter_healthy && !GridEYERight_healthy) {
+         //   I2C0_FailIndex++;
+         //   if (I2C0_FailIndex == 1) {
+         //       USBGridEYEvaluesZero(GEYE_RIGHT);
+         //       USBGridEYEvaluesZero(GEYE_CENTER);
+         //   }
 
             //Normally, when signal_wait() is called the signal flags get cleared automatically. But if the sensor is stuck
             //-> inside the main loop in GridEYETask(), signal flags are set again by GridEYESchedulerTask(). That means
@@ -124,10 +124,10 @@ void GridEYEHealthTask(void const *args) {
             //-> immediately, without waiting on signal_wait() for signal_set() from SchedulerTask().
             //We clear signal flags before attempting repair, so that in case of successful repair GridEYETask() doesn't
             //-> continue its loop before it takes the OK from GridEYESchedulerTask().
-            GridEYESignalClear(GEYE_RIGHT);
-            GridEYESignalClear(GEYE_CENTER);
-            repairI2C(I2C0_FailIndex, I2C_0);
-        }
+         //   GridEYESignalClear(GEYE_RIGHT);
+         //   GridEYESignalClear(GEYE_CENTER);
+         //   repairI2C(I2C0_FailIndex, I2C_0);
+        //}
         if (!GridEYELeft_healthy && GridEYELeft_DisableCountdown) {
             GridEYELeft_DisableCountdown--;
             I2C1_FailIndex++;
@@ -145,9 +145,9 @@ void clearHealthyCO2() {
 }
 
 void clearHealthyGridEYE() {
-    GridEYECenter_healthy = 0;
+   // GridEYECenter_healthy = 0;
     GridEYELeft_healthy = 0;
-    GridEYERight_healthy = 0;
+ //   GridEYERight_healthy = 0;
 }
 
 void HealthyCO2valueSet(float value) {
@@ -160,20 +160,20 @@ void HealthyCO2valueSet(float value) {
 
 void HealthyGridEYEvaluesSet(uint8_t values[], uint8_t grideye_num) {
     switch (grideye_num) {
-    case GEYE_CENTER:
-        GridEYECenter_healthy = 1;
-        I2C0_FailIndex = 0;
-        GridEYECenter_DisableCountdown = DISABLE_COUNTDOWN;
-        USBGridEYEvaluesSet(values, grideye_num);
-        I2C0_LifeLED = !I2C0_LifeLED;
-        break;
-    case GEYE_RIGHT:
-        GridEYERight_healthy = 1;
-        I2C0_FailIndex = 0;
-        GridEYERight_DisableCountdown = DISABLE_COUNTDOWN;
-        USBGridEYEvaluesSet(values, grideye_num);
-        I2C0_LifeLED = !I2C0_LifeLED;
-        break;
+  //  case GEYE_CENTER:
+  //      GridEYECenter_healthy = 1;
+  //      I2C0_FailIndex = 0;
+  //      GridEYECenter_DisableCountdown = DISABLE_COUNTDOWN;
+  //      USBGridEYEvaluesSet(values, grideye_num);
+   //     I2C0_LifeLED = !I2C0_LifeLED;
+  //      break;
+  //  case GEYE_RIGHT:
+  //      GridEYERight_healthy = 1;
+  //      I2C0_FailIndex = 0;
+  //      GridEYERight_DisableCountdown = DISABLE_COUNTDOWN;
+  //      USBGridEYEvaluesSet(values, grideye_num);
+  //      I2C0_LifeLED = !I2C0_LifeLED;
+  //      break;
     case GEYE_LEFT:
         GridEYELeft_healthy = 1;
         I2C1_FailIndex = 0;
@@ -188,10 +188,10 @@ void HealthyGridEYEvaluesSet(uint8_t values[], uint8_t grideye_num) {
 
 uint8_t GridEYEenabled(uint8_t grideye_num) {
     switch (grideye_num) {
-    case GEYE_CENTER:
-        return GridEYECenter_DisableCountdown;
-    case GEYE_RIGHT:
-        return GridEYERight_DisableCountdown;
+   // case GEYE_CENTER:
+   //     return GridEYECenter_DisableCountdown;
+   // case GEYE_RIGHT:
+   //     return GridEYERight_DisableCountdown;
     case GEYE_LEFT:
         return GridEYELeft_DisableCountdown;
     default:
@@ -235,15 +235,16 @@ void repairI2C(uint8_t index, int i2c_base) {
         i2c_periph->CONSET = 1 << I2C_START;
         i2c_periph->CONSET = 1 << I2C_STOP;
     } else if (index == 10) {
-        if (i2c_base == I2C_0) {
-            I2C0_switch = !I2C0_switch; //turn off I2C bus
-            Thread::wait(10);   //Probably only a few uSeconds are enough to turn off but I didn't test
-            I2C0_switch = !I2C0_switch; //turn on I2C bus
-        } else if (i2c_base == I2C_1) {
-            I2C1_switch = !I2C1_switch; //turn off I2C bus
-            Thread::wait(10);   //Probably only a few uSeconds are enough to turn off but I didn't test
-            I2C1_switch = !I2C1_switch; //turn on I2C bus
-        }
+       // if (i2c_base == I2C_0) {
+       //     I2C0_switch = !I2C0_switch; //turn off I2C bus
+       //     Thread::wait(10);   //Probably only a few uSeconds are enough to turn off but I didn't test
+       //     I2C0_switch = !I2C0_switch; //turn on I2C bus
+       // } else
+        //if (i2c_base == I2C_1) {
+         //   I2C1_switch = !I2C1_switch; //turn off I2C bus
+         //   Thread::wait(10);   //Probably only a few uSeconds are enough to turn off but I didn't test
+         //   I2C1_switch = !I2C1_switch; //turn on I2C bus
+    //    }
 
         Thread::wait(60); //Time to enable communication after setup is 50ms according to GridEYE datasheet
 
@@ -253,9 +254,9 @@ void repairI2C(uint8_t index, int i2c_base) {
     }
 
     //Determines the rate at which the repair measures are repeated (we can't know how long the cause of the problem lasts)
-    if (I2C0_FailIndex > 40) {
-        I2C0_FailIndex = 1;
-    }
+   // if (I2C0_FailIndex > 40) {
+    //    I2C0_FailIndex = 1;
+    //}
     if (I2C1_FailIndex > 40) {
         I2C1_FailIndex = 1;
     }
