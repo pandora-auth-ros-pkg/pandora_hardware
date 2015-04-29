@@ -26,6 +26,8 @@ int main(void) {
     I2C i2c1(p9, p10);  //sda, scl  (Grideye)
     GridEYEInit(&i2c1);
 
+    SonarInit(&i2c0);
+
     USBInit();
 
     HealthInit();
@@ -39,6 +41,8 @@ int main(void) {
     Thread tCO2Caller(CO2SchedulerTask);
 
     Thread tGridEYECaller(GridEYESchedulerTask);
+
+    Thread tSonarCaller(SonarSchedulerTask);
 
     Thread::wait(osWaitForever);
 }

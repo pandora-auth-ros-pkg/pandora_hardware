@@ -96,6 +96,8 @@ uint8_t CO2enabled();
  */
 void HealthyCO2valueSet(float value);
 
+void HealthySonarValueSet(uint16_t value, uint8_t sonar_num);
+
 /** @brief Called when a sensor is healthy to send received data to USB
  *
  * This function is called only when we had a healthy response from a sensor. It's used directly in place of

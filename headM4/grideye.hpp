@@ -79,7 +79,7 @@ void GridEYETask(void const *args);
  *
  * @param i2c_periph_num grideye_sensor_t::i2c_periph_num of the current sensor
  */
-//void i2c_lock(uint8_t i2c_periph_num);
+void i2c1_lock(uint8_t i2c_periph_num);
 
 /** @brief Unlocks access to I2C bus
  *
@@ -87,7 +87,7 @@ void GridEYETask(void const *args);
  *
  * @param i2c_periph_num grideye_sensor_t::i2c_periph_num of the current sensor
  */
-//void i2c_unlock(uint8_t i2c_periph_num);
+void i2c1_unlock(uint8_t i2c_periph_num);
 
 /** @brief Clears the signal from the indicated GridEYE sensor
  *

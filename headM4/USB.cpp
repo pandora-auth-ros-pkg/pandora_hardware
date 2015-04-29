@@ -1,5 +1,5 @@
 /** @file
- * @author Orestis Zachariadis
+ * @author Nikos Taras
  * @brief Implements USB communication with the PC.
  */
 #include "USB.hpp"
@@ -7,9 +7,15 @@
 /** @name Buffers that store the values to be send to PC */
 //@{
 static float uCO2value;	///<usb CO2 value buffer
+static uint16_t uEncoderValue;  ///<usb GridEYECenter values buffer
+static uint16_t uSonarLeftValue;    ///<usb GridEYECenter values buffer
+static uint16_t uSonarRightValue;   ///<usb GridEYECenter values buffer
+static uint16_t uBatteryMotorValue;
+static uint16_t uBatterySupplyValue;
 static uint8_t uGridEYECenterValues[PIXELS_COUNT];  ///<usb GridEYECenter values buffer
-static uint8_t uGridEYELeftValues[PIXELS_COUNT];    ///<usb GridEYECenter values buffer
-static uint8_t uGridEYERightValues[PIXELS_COUNT];   ///<usb GridEYECenter values buffer
+
+
+
 //@}
 
 static USBSerial *usb;	///<Pointer to the USBSerial class object that implements the USB communication
@@ -22,7 +28,6 @@ static Queue<uint8_t, 20> UsbRecvQueue;
 
 void USBInit() {
     usb = new USBSerial(20);	//blocks if USB not plugged in
-
     usb->attach(command_recv_isr);
 }
 
@@ -35,20 +40,41 @@ void command_recv_isr() {
     }
 }
 
+//TODO MODIFY THE CASES IN THE SWITCH BELOW
+//TODO UPDATE FUNCTION NAMES IN HEADER FILE(S)
+
 void USBTask(const void *args) {
+
+    //used for converting float to uint8_t
     union {
         float CO2value;
         uint8_t CO2value_uint8;
     };
-    uint8_t command;
 
+    //used for converting uint16_t to uint8_t
+    union {
+        uint16_t value16bit;
+        uint8_t value8bit;
+    };
+
+
+    uint8_t command;
+    DEBUG_PRINT(("USBTASK\r\n"));
     while (true) {
         command = UsbRecvQueue.get().value.v;
 
         switch (command) {
+
         case GEYE_CENTER_REQUEST:
+                    //writeBlock() waits for the host to connect
+                    usb->writeBlock(USBGridEYEvaluesGet(GEYE_LEFT), PIXELS_COUNT);
+                    usb->writeBlock(&command, 0);
+                    break;
+        case ENCODER_REQUEST:
+
+            value16bit = USBencoderValueGet();
             //writeBlock() waits for the host to connect
-            usb->writeBlock(USBGridEYEvaluesGet(GEYE_CENTER), PIXELS_COUNT);
+            usb->writeBlock(&value8bit, 2);
             //Because the array we send is a multiple of max packet size (64 bytes) a zero-lenth-packet (ZLP) is
             //-> required after the data packet. If we don't send the ZLP the read() in the PC program would
             //-> wait forever. I tried sending 128 bytes, but this time it worked without the ZLP. So, if read()
@@ -56,18 +82,37 @@ void USBTask(const void *args) {
             //To send a ZLP the second argument in writeBlock() must be 0. First argument can be anything.
             usb->writeBlock(&command, 0);
             break;
-        case GEYE_RIGHT_REQUEST:
-            usb->writeBlock(USBGridEYEvaluesGet(GEYE_RIGHT), PIXELS_COUNT);
+        case SONAR_RIGHT_REQUEST:
+
+            value16bit = USBSonarRightValueGet();
+            //usb->writeBlock(USBSonarValuesGet(SONAR_RIGHT), PIXELS_COUNT);
+            usb->writeBlock(&value8bit, 2);
             usb->writeBlock(&command, 0);
             break;
-        case GEYE_LEFT_REQUEST:
-            usb->writeBlock(USBGridEYEvaluesGet(GEYE_LEFT), PIXELS_COUNT);
+        case SONAR_LEFT_REQUEST:
+
+            value16bit = USBSonarLeftValueGet();
+            //usb->writeBlock(USBSonarValuesGet(SONAR_LEFT), 4);
+            usb->writeBlock(&value8bit, 2);
             usb->writeBlock(&command, 0);
             break;
         case CO2_REQUEST:
             CO2value = USBCO2valueGet();
             usb->writeBlock(&CO2value_uint8, 4);
+            usb->writeBlock(&command, 0);
             break;
+        case BATTERY_MOTOR_REQUEST:
+
+            value16bit = USBbatteryMotorValueGet();
+            usb->writeBlock(&value8bit, 2);
+            usb->writeBlock(&command, 0);
+            break;
+        case BATTERY_SUPPLY_REQUEST:
+
+            value16bit = USBbatterySupplyValueGet();
+            usb->writeBlock(&value8bit, 2);
+            usb->writeBlock(&command, 0);
+                    break;
         default:
             break;
         }
@@ -77,28 +122,16 @@ void USBTask(const void *args) {
 //A mutex may be required to protect set and get , but didn't have any problems without
 void USBGridEYEvaluesSet(uint8_t values[], uint8_t grideye_num) {
     switch (grideye_num) {
-    case GEYE_CENTER:
-        memcpy((void *) uGridEYECenterValues, (const void *) values, PIXELS_COUNT * sizeof(uint8_t));
-        break;
-    case GEYE_RIGHT:
-        memcpy((void *) uGridEYERightValues, (const void *) values, PIXELS_COUNT * sizeof(uint8_t));
-        break;
     case GEYE_LEFT:
-        memcpy((void *) uGridEYELeftValues, (const void *) values, PIXELS_COUNT * sizeof(uint8_t));
+        memcpy((void *) uGridEYECenterValues, (const void *) values, PIXELS_COUNT * sizeof(uint8_t));
         break;
     }
 }
 
 void USBGridEYEvaluesZero(uint8_t grideye_num) {
     switch (grideye_num) {
-    case GEYE_CENTER:
-        memset(uGridEYECenterValues, 0, PIXELS_COUNT * sizeof(uint8_t));
-        break;
-    case GEYE_RIGHT:
-        memset(uGridEYERightValues, 0, PIXELS_COUNT * sizeof(uint8_t));
-        break;
     case GEYE_LEFT:
-        memset(uGridEYELeftValues, 0, PIXELS_COUNT * sizeof(uint8_t));
+        memset(uGridEYECenterValues, 0, PIXELS_COUNT * sizeof(uint8_t));
         break;
     }
 }
@@ -106,23 +139,71 @@ void USBGridEYEvaluesZero(uint8_t grideye_num) {
 //A mutex may be required to protect set and get , but didn't have any problems without
 uint8_t * USBGridEYEvaluesGet(uint8_t grideye_num) {
     switch (grideye_num) {
-    case GEYE_CENTER:
-        return uGridEYECenterValues;
-        break;
-    case GEYE_RIGHT:
-        return uGridEYERightValues;
-        break;
     case GEYE_LEFT:
-        return uGridEYELeftValues;
+        return uGridEYECenterValues;
         break;
     }
     return uGridEYECenterValues;    //Shouldn't come here
 }
 
+//A mutex may be required to protect set and get , but didn't have any problems without
+void USBSonarValuesSet(uint16_t values, uint8_t sonar_num) {
+    switch (sonar_num) {
+    case SONAR_RIGHT:
+        uSonarRightValue = values;
+        break;
+    case SONAR_LEFT:
+        uSonarLeftValue = values;
+        break;
+    }
+}
+
+
+//getters and setters for CO2
 void USBCO2valueSet(float value) {
     uCO2value = value;
 }
 
 float USBCO2valueGet() {
     return uCO2value;
+}
+
+//getters and setters for encoder
+void USBencoderValueSet(uint16_t value) {
+    uEncoderValue = value;
+}
+
+uint16_t USBencoderValueGet() {
+    return uEncoderValue;
+}
+
+//getters and setters for battery
+void USBbatteryMotorValueSet(uint16_t value) {
+    uBatteryMotorValue = value;
+}
+
+uint16_t USBbatteryMotorValueGet() {
+    return uBatteryMotorValue;
+}
+
+void USBbatterySupplyValueSet(uint16_t value) {
+    uBatterySupplyValue = value;
+}
+
+uint16_t USBbatterySupplyValueGet() {
+    return uBatterySupplyValue;
+}
+
+
+//getters  for Sonar Left
+
+
+uint16_t USBSonarLeftValueGet() {
+    return uSonarLeftValue;
+}
+//getters for Sonar Right
+
+
+uint16_t USBSonarRightValueGet() {
+    return uSonarRightValue;
 }

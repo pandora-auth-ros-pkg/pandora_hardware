@@ -4,7 +4,7 @@
  */
 #include "grideye.hpp"
 
-static Mutex i2c0_mutex;    ///<The mutex that locks access to I2C0 peripheral
+//static Mutex i2c0_mutex;    ///<The mutex that locks access to I2C0 peripheral
 static Mutex i2c1_mutex;    ///<The mutex that locks access to I2C1 peripheral
 
 /** @name GridEYETask() threads */
@@ -84,10 +84,10 @@ void GridEYETask(void const *args) {
         Thread::signal_wait(GRIDEYE_I2C_SIGNAL);
 
         cmd[0] = GRIDEYE_I2C_THERM_ADDR;
-        //i2c_lock(i2c_periph_num);
+        i2c1_lock(i2c_periph_num);
         i2c_obj->write(i2c_addr, cmd, 1, true); //Repeated start is true in i2c_obj->write, so it must be true in
         i2c_obj->read(i2c_addr, thermistor_echo, 2, true); //-> the following read, too.
-        //i2c_unlock(i2c_periph_num);
+        i2c1_unlock(i2c_periph_num);
 
         if (therm_echo_uint16 & 0x800) {  //if negative
             thermistor_value = -0.0625 * (0x7FF & therm_echo_uint16);
@@ -103,10 +103,10 @@ void GridEYETask(void const *args) {
         temper_echo_uint16[0] = 0;
 
         cmd[0] = GRIDEYE_I2C_TEMP_ADDR;
-        //i2c_lock(i2c_periph_num);
+        i2c1_lock(i2c_periph_num);
         i2c_obj->write(i2c_addr, cmd, 1, true);
         i2c_obj->read(i2c_addr, temper_echo, 2 * PIXELS_COUNT, true);
-        //i2c_unlock(i2c_periph_num);
+        i2c1_unlock(i2c_periph_num);
 
         for (int i = 0; i < PIXELS_COUNT; ++i) {
             if (temper_echo_uint16[i] & 0x800) {  //if negative
@@ -157,27 +157,13 @@ void GridEYETask(void const *args) {
     }
 }
 
-//void i2c_lock(uint8_t i2c_periph_num) {
-//    switch (i2c_periph_num) {
-//    case 0:
-//        i2c0_mutex.lock();
-//        break;
-//    case 1:
-//        i2c1_mutex.lock();
-//        break;
-//    }
-//}
+void i2c1_lock(uint8_t i2c_periph_num) {
+        i2c1_mutex.lock();
+}
 
-//void i2c_unlock(uint8_t i2c_periph_num) {
-//    switch (i2c_periph_num) {
-//    case 0:
-//        i2c0_mutex.unlock();
-//        break;
-//    case 1:
-//        i2c1_mutex.unlock();
-//        break;
-//    }
-//}
+void i2c1_unlock(uint8_t i2c_periph_num) {
+        i2c1_mutex.unlock();
+}
 
 void GridEYESignalClear(uint8_t grideye_num) {
     switch (grideye_num) {
@@ -220,11 +206,10 @@ void GridEYESchedulerTask(void const *args) {
         //if (GridEYEenabled(GEYE_CENTER))
         //    tGridEYECenter->signal_set(GRIDEYE_I2C_SIGNAL);
 
-        Thread::wait(25);
+        Thread::wait(50);
         if (GridEYEenabled(GEYE_LEFT))
             tGridEYELeft->signal_set(GRIDEYE_I2C_SIGNAL);
 
-        Thread::wait(25);
         //if (GridEYEenabled(GEYE_RIGHT))
         //  tGridEYERight->signal_set(GRIDEYE_I2C_SIGNAL);
 
