@@ -64,10 +64,11 @@ void receiveEncoderData() {
 }
 
 void EncoderValueSet(uint16_t reading){
-    if (reading > 0 && reading <4096){
+    if (reading > 0 && reading <4096)
         HealthyEncoderValueSet(reading);
-    }
+    else
         USBencoderValueSet(0);
+
 }
 
 void EncoderSchedulerTask(void const *args) {
