@@ -10,6 +10,8 @@
 #include "USB.hpp"
 #include "health.hpp"
 #include "conf.h"
+#include "encoder.hpp"
+#include "battery.hpp"
 //#include "gpdma.h"
 //#include "dsp.h"
 
@@ -28,6 +30,10 @@ int main(void) {
 
     SonarInit(&i2c0);
 
+    EncoderInit(p11, p12, p13,p14); //NN, DO, SCL, CS
+
+    BatteryInit(p15,p16); //Motor Battery In, Supply Battery in (measurements)
+
     USBInit();
 
     HealthInit();
@@ -43,6 +49,10 @@ int main(void) {
     Thread tGridEYECaller(GridEYESchedulerTask);
 
     Thread tSonarCaller(SonarSchedulerTask);
+
+    Thread tEncoderCaller(EncoderSchedulerTask);
+
+    Thread tBatteryCaller(BatterySchedulerTask);
 
     Thread::wait(osWaitForever);
 }

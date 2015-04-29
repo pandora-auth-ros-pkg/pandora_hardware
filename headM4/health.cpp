@@ -59,6 +59,7 @@ static uint8_t GridEYELeft_DisableCountdown = DISABLE_COUNTDOWN;
 static DigitalOut CO2_LifeLED(LED3);
 static DigitalOut I2C0_LifeLED(LED1);
 static DigitalOut I2C1_LifeLED(LED2);
+static DigitalOut Enc_LifeLED(LED4);
 //@}
 
 /** @name Enables / Disables the I2C analog switches
@@ -161,6 +162,11 @@ void HealthyCO2valueSet(float value) {
 void HealthySonarValueSet(uint16_t value, uint8_t sonar_num){
     USBSonarValuesSet(value, sonar_num);
     I2C0_LifeLED = !I2C0_LifeLED;
+}
+
+void HealthyEncoderValueSet(uint16_t reading){
+    USBencoderValueSet(reading);
+    Enc_LifeLED = !Enc_LifeLED;
 }
 
 void HealthyGridEYEvaluesSet(uint8_t values[], uint8_t grideye_num) {
