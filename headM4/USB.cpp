@@ -114,6 +114,10 @@ void USBTask(const void *args) {
             usb->writeBlock(&command, 0);
                     break;
         default:
+            //should return NACK
+            value16bit = USB_NACK;
+            usb->writeBlock(&value8bit,2);
+            usb->writeBlock(&command, 0);
             break;
         }
     }

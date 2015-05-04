@@ -22,6 +22,8 @@
 #define GEYE_CENTER_REQUEST 7   ///<Requests temperature values from center GridEYE
 //@}
 
+#define USB_NACK 0xFFF1
+
 #define MAX_USB_BUFFER_SIZE 4
 
 /** @brief Initializes USB communication
