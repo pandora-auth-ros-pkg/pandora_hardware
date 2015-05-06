@@ -13,7 +13,7 @@
 
 /** @brief Enables debug output to USB Virtual Serial Port
  * @see http://mbed.org/handbook/SerialPC*/
-#define DEBUG_OUT 1
+#define DEBUG_OUT 0
 
 /** @brief Expression to print debug messages to USB Virtual Serial Port
  * @note DEBUG_OUT should be enabled
@@ -25,6 +25,6 @@
 #define DEBUG_PRINT(x)  if (DEBUG_OUT) printf x
 
 /** @brief Enables RGB LED Matrix for GridEYE temperature data output */
-#define ENABLE_RGB_LEDMATRIX 1
+#define ENABLE_RGB_LEDMATRIX 0
 
 #endif /* CONF_H_ */

@@ -42,7 +42,7 @@ int main(void) {
     Thread tStatistics(CpuLoadTask, NULL, osPriorityIdle);
 #endif
 
-    Thread tUSB(USBTask);
+    Thread tUSB(USBTask, NULL, osPriorityHigh);
 
     Thread tCO2Caller(CO2SchedulerTask);
 

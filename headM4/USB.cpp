@@ -24,10 +24,10 @@ static USBSerial *usb;	///<Pointer to the USBSerial class object that implements
  * @brief RTOS queue that stores incoming command packets.
  * USBTask() waits for incoming elements to this queue.
  */
-static Queue<uint8_t, 20> UsbRecvQueue;
+static Queue<uint8_t, 100> UsbRecvQueue;
 
 void USBInit() {
-    usb = new USBSerial(20);	//blocks if USB not plugged in
+    usb = new USBSerial(100);	//blocks if USB not plugged in
     usb->attach(command_recv_isr);
 }
 
@@ -35,8 +35,10 @@ void command_recv_isr() {
     uint8_t USBrecv;
 
     while (usb->available()) {
+        // DEBUG_PRINT(("R\n"));
         USBrecv = usb->_getc();
         UsbRecvQueue.put((uint8_t *) USBrecv);
+        // DEBUG_PRINT(("W\n"));
     }
 }
 
@@ -62,6 +64,19 @@ void USBTask(const void *args) {
     DEBUG_PRINT(("USBTASK\r\n"));
     while (true) {
         command = UsbRecvQueue.get().value.v;
+        if (command>0 && command<8){
+            //should return ACK
+                        value16bit = USB_ACK;
+                        usb->writeBlock(&value8bit,2);
+                        usb->writeBlock(&command, 0);
+        }
+        else{
+            //should return NACK
+                        value16bit = USB_NACK;
+                        usb->writeBlock(&value8bit,2);
+                        usb->writeBlock(&command, 0);
+                        continue;
+        }
 
         switch (command) {
 
@@ -114,10 +129,6 @@ void USBTask(const void *args) {
             usb->writeBlock(&command, 0);
                     break;
         default:
-            //should return NACK
-            value16bit = USB_NACK;
-            usb->writeBlock(&value8bit,2);
-            usb->writeBlock(&command, 0);
             break;
         }
     }

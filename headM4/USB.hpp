@@ -23,6 +23,7 @@
 //@}
 
 #define USB_NACK 0xFFF1
+#define USB_ACK 0x0001
 
 #define MAX_USB_BUFFER_SIZE 4
 
