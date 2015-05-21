@@ -245,7 +245,7 @@ void repairI2C(uint8_t index, int i2c_base) {
     } else if (index == 7) {
         i2c_periph->CONSET = 1 << I2C_START;
         i2c_periph->CONSET = 1 << I2C_STOP;
-    } else if (index == 10) {
+    } //else if (index == 10) {
        // if (i2c_base == I2C_0) {
        //     I2C0_switch = !I2C0_switch; //turn off I2C bus
        //     Thread::wait(10);   //Probably only a few uSeconds are enough to turn off but I didn't test
@@ -257,18 +257,18 @@ void repairI2C(uint8_t index, int i2c_base) {
          //   I2C1_switch = !I2C1_switch; //turn on I2C bus
     //    }
 
-        Thread::wait(60); //Time to enable communication after setup is 50ms according to GridEYE datasheet
+       // Thread::wait(60); //Time to enable communication after setup is 50ms according to GridEYE datasheet
 
         //Resets uC I2C state
-        i2c_periph->CONSET = 1 << I2C_START;
-        i2c_periph->CONSET = 1 << I2C_STOP;
-    }
+       // i2c_periph->CONSET = 1 << I2C_START;
+       //i2c_periph->CONSET = 1 << I2C_STOP;
+    //}
 
     //Determines the rate at which the repair measures are repeated (we can't know how long the cause of the problem lasts)
    // if (I2C0_FailIndex > 40) {
     //    I2C0_FailIndex = 1;
     //}
-    if (I2C1_FailIndex > 40) {
+    if (I2C1_FailIndex > 7) {
         I2C1_FailIndex = 1;
     }
 }

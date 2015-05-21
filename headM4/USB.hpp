@@ -22,6 +22,8 @@
 #define GEYE_CENTER_REQUEST 7   ///<Requests temperature values from center GridEYE
 //@}
 
+#define USB_TIMEOUT 3000   ///<Time in millisecond until reset (usb blocked).
+
 #define USB_NACK 0xFFF1
 #define USB_ACK 0x0001
 

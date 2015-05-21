@@ -14,9 +14,17 @@ static uint16_t uBatteryMotorValue;
 static uint16_t uBatterySupplyValue;
 static uint8_t uGridEYECenterValues[PIXELS_COUNT];  ///<usb GridEYECenter values buffer
 
+Mutex co2_m;
+Mutex encoder_m;
+Mutex battery_m;
+Mutex geye_m;
+Mutex sonar_m;
+Mutex usb_m;
 
 
 //@}
+
+// TODO Fill up the queue on purpose.
 
 static USBSerial *usb;	///<Pointer to the USBSerial class object that implements the USB communication
 
@@ -24,17 +32,18 @@ static USBSerial *usb;	///<Pointer to the USBSerial class object that implements
  * @brief RTOS queue that stores incoming command packets.
  * USBTask() waits for incoming elements to this queue.
  */
-static Queue<uint8_t, 100> UsbRecvQueue;
+static Queue<uint8_t, 128> UsbRecvQueue;
 
 void USBInit() {
-    usb = new USBSerial(100);	//blocks if USB not plugged in
+    usb = new USBSerial(128);	//blocks if USB not plugged in
     usb->attach(command_recv_isr);
 }
 
 void command_recv_isr() {
     uint8_t USBrecv;
-
+    uint8_t i=0;
     while (usb->available()) {
+
         // DEBUG_PRINT(("R\n"));
         USBrecv = usb->_getc();
         UsbRecvQueue.put((uint8_t *) USBrecv);
@@ -64,6 +73,7 @@ void USBTask(const void *args) {
     DEBUG_PRINT(("USBTASK\r\n"));
     while (true) {
         command = UsbRecvQueue.get().value.v;
+        DEBUG_PRINT(("R"));
         if (command>0 && command<8){
             //should return ACK
                         value16bit = USB_ACK;
@@ -127,10 +137,12 @@ void USBTask(const void *args) {
             value16bit = USBbatterySupplyValueGet();
             usb->writeBlock(&value8bit, 2);
             usb->writeBlock(&command, 0);
-                    break;
+            break;
         default:
             break;
         }
+        DEBUG_PRINT(("W"));
+        DEBUG_PRINT(("%d",sizeof(UsbRecvQueue)));
     }
 }
 
@@ -163,6 +175,7 @@ uint8_t * USBGridEYEvaluesGet(uint8_t grideye_num) {
 
 //A mutex may be required to protect set and get , but didn't have any problems without
 void USBSonarValuesSet(uint16_t values, uint8_t sonar_num) {
+
     switch (sonar_num) {
     case SONAR_RIGHT:
         uSonarRightValue = values;
