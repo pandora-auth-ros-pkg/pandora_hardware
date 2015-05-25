@@ -23,6 +23,6 @@ void CpuLoadTask(void const *args) {
             }
             tLast = tNow;
         } while (tNow - tStart < dt);
-        //DEBUG_PRINT(("Load = %5.2f %%\r\n", 100.0 - 100.0 * (float) tAccumul / dt)); //TODO Send over USB ?
+        DEBUG_PRINT(("Load = %5.2f %%\r\n", 100.0 - 100.0 * (float) tAccumul / dt)); //TODO Send over USB ?
     }
 }

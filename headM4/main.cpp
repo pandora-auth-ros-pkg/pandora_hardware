@@ -12,6 +12,7 @@
 #include "conf.h"
 #include "encoder.hpp"
 #include "battery.hpp"
+#include "watcher.hpp"
 //#include "gpdma.h"
 //#include "dsp.h"
 
@@ -21,6 +22,8 @@
  */
 int main(void) {
     DEBUG_PRINT(("Start\r\n"));
+
+    WatcherInit();
 
     CO2Init(p17, p18);  //p17=TX, p18=RX
 
@@ -39,14 +42,16 @@ int main(void) {
     HealthInit();
 
 #if DEVELOPMENT
-    Thread tStatistics(CpuLoadTask, NULL, osPriorityIdle);
+    //Thread tStatistics(CpuLoadTask, NULL, osPriorityIdle);
 #endif
 
-    Thread tUSB(USBTask, NULL, osPriorityHigh);
+    Thread tWatcher(WatcherTask);
+
+    Thread tUSB(USBTask);
 
     Thread tCO2Caller(CO2SchedulerTask);
 
-    Thread tGridEYECaller(GridEYESchedulerTask);
+    //Thread tGridEYECaller(GridEYESchedulerTask);
 
     Thread tSonarCaller(SonarSchedulerTask);
 

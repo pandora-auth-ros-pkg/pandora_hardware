@@ -1,5 +1,5 @@
 /** @file
- * @author Orestis Zachariadis
+ * @author Nikos Taras
  * @brief Includes, defines and function prototypes used for the CO2 sensor
  */
 #ifndef CO2_HPP_

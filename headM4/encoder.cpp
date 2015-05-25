@@ -16,7 +16,7 @@ static PinName DO;  //Data out, MISO spi
 static PinName SCL; //SPI Clock
 static DigitalOut *CS; // Chip Select, this pin is Defined Here!
 
-#define ENCODER_OFFSET 445
+static Mutex encoder_mutex;
 
 
 void EncoderInit(PinName pin1, PinName pin2, PinName pin3, PinName pin4){
@@ -33,8 +33,8 @@ void EncoderInit(PinName pin1, PinName pin2, PinName pin3, PinName pin4){
 void receiveEncoderData() {
     //Check comment about sdram in Doxygen main page before using new
     SPI encoderSPI(NN, DO, SCL);
-    //The mosi pin of the SPI is not needed. So it's Not Connected (NC)
-    //encoderSPI = new SPI(NC, DO, SCL);
+    // The mosi pin of the SPI is not needed. So it's Not Connected (NC)
+    // encoderSPI = new SPI(NC, DO, SCL);
     // Setup the spi for 12 bit data, mode 3.
     // In fact, the encoder communicates with 10 bits SPI,
     // but we have to use 12 bit and the first two must be
@@ -43,8 +43,10 @@ void receiveEncoderData() {
     encoderSPI.frequency(500000);
 
     uint16_t encoderReading = 5000;
+    encoder_mutex.lock();
     //Select the device by setting chip select low
     *CS = 0;
+
 
     //Send a dummy byte to receive the contents of the shift register
     encoderReading = encoderSPI.write(0b0);
@@ -52,6 +54,7 @@ void receiveEncoderData() {
     // Deselect the device
     *CS = 1;
 
+    encoder_mutex.unlock();
     // Here we keep only the last 10bits of the SPI communication according
     // to the encoder datasheet.
     encoderReading &= 0b001111111111;

@@ -9,6 +9,7 @@
 #include "rtos.h"
 #include "health.hpp"
 #include "conf.h"
+#include "USB.hpp"
 
 
 

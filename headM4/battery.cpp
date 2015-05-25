@@ -7,7 +7,7 @@
 
 #include "battery.hpp"
 
-
+static Mutex battery_mutex;
 
 static PinName MB;  //Motor Battery voltage pin
 static PinName SB;  //Supply Battery voltage pin
@@ -22,8 +22,8 @@ static uint16_t * motorSamples;
 static uint16_t * supplySamples;
 
 
-#define BATTERY_OFFSET 190
-#define MAX_SAMPLES 10
+//#define BATTERY_OFFSET 190
+#define MAX_SAMPLES 20
 
 
 
@@ -48,9 +48,10 @@ void receiveBatteryData() {
 
     float reading1, reading2;
 
+    battery_mutex.lock();
     reading1 = ADCmotor->read();
     reading2 = ADCsupply->read();
-
+    battery_mutex.unlock();
     batteryMotorReading = (uint16_t) 4096*reading1;
     batterySupplyReading =(uint16_t) 4096*reading2;
 

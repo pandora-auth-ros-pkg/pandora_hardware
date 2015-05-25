@@ -42,6 +42,11 @@ void USBInit();
  */
 void command_recv_isr();
 
+uint32_t getLastReceivedTime();
+
+bool usbActive();
+
+
 /** @brief Interprets incoming USB commands and responds accordingly
  *
  */

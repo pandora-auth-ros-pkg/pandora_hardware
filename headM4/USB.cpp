@@ -14,12 +14,17 @@ static uint16_t uBatteryMotorValue;
 static uint16_t uBatterySupplyValue;
 static uint8_t uGridEYECenterValues[PIXELS_COUNT];  ///<usb GridEYECenter values buffer
 
+static uint32_t tLastReceived;
+static bool communicationStarted = false;
+
 Mutex co2_m;
 Mutex encoder_m;
 Mutex battery_m;
 Mutex geye_m;
 Mutex sonar_m;
 Mutex usb_m;
+
+static bool received;
 
 
 //@}
@@ -36,20 +41,34 @@ static Queue<uint8_t, 128> UsbRecvQueue;
 
 void USBInit() {
     usb = new USBSerial(128);	//blocks if USB not plugged in
+    communicationStarted = false;
     usb->attach(command_recv_isr);
+
 }
+
 
 void command_recv_isr() {
+
     uint8_t USBrecv;
     uint8_t i=0;
+    communicationStarted = true;
+    tLastReceived = us_ticker_read();
+    DEBUG_PRINT(("A:%d%\r\n",usb->available()));
     while (usb->available()) {
-
-        // DEBUG_PRINT(("R\n"));
         USBrecv = usb->_getc();
         UsbRecvQueue.put((uint8_t *) USBrecv);
-        // DEBUG_PRINT(("W\n"));
     }
 }
+
+
+uint32_t getLastReceivedTime(){
+    return tLastReceived;
+}
+
+bool usbActive(){
+    return communicationStarted;
+}
+
 
 //TODO MODIFY THE CASES IN THE SWITCH BELOW
 //TODO UPDATE FUNCTION NAMES IN HEADER FILE(S)
@@ -73,7 +92,10 @@ void USBTask(const void *args) {
     DEBUG_PRINT(("USBTASK\r\n"));
     while (true) {
         command = UsbRecvQueue.get().value.v;
-        DEBUG_PRINT(("R"));
+        //if (usb->readable()){          // start if
+        //    command = usb->scanf("%c",&command);
+        //    received = false;
+        //DEBUG_PRINT(("R"));
         if (command>0 && command<8){
             //should return ACK
                         value16bit = USB_ACK;
@@ -141,16 +163,19 @@ void USBTask(const void *args) {
         default:
             break;
         }
-        DEBUG_PRINT(("W"));
-        DEBUG_PRINT(("%d",sizeof(UsbRecvQueue)));
-    }
+        //DEBUG_PRINT(("W"));
+        //DEBUG_PRINT(("%d",sizeof(UsbRecvQueue)));
+        //} // end if
+    } //end while
 }
 
 //A mutex may be required to protect set and get , but didn't have any problems without
 void USBGridEYEvaluesSet(uint8_t values[], uint8_t grideye_num) {
     switch (grideye_num) {
     case GEYE_LEFT:
+        // geye_m.lock();
         memcpy((void *) uGridEYECenterValues, (const void *) values, PIXELS_COUNT * sizeof(uint8_t));
+        // geye_m.unlock();
         break;
     }
 }

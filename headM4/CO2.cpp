@@ -1,5 +1,5 @@
 /** @file
- * @author Orestis Zachariadis
+ * @author Nikos Taras
  * @brief Implements CO2 sensor functionality
  */
 #include "CO2.hpp"

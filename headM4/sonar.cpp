@@ -46,6 +46,8 @@ void SonarInit(I2C *i2c0_obj) {
 
 
 
+// TODO Create Sonar Health function. On reconnect, I2C should start again.
+
 void SonarTask(void const *args) {
     const sonar_sensor_t * sonar = (const sonar_sensor_t *) args;
 

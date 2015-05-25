@@ -57,8 +57,8 @@ static uint8_t GridEYELeft_DisableCountdown = DISABLE_COUNTDOWN;
  * the leds blink faster for every sensor we add */
 //@{
 static DigitalOut CO2_LifeLED(LED3);
-static DigitalOut I2C0_LifeLED(LED1);
-static DigitalOut I2C1_LifeLED(LED2);
+static DigitalOut I2C0_LifeLED(LED1); // Sonars
+//static DigitalOut I2C1_LifeLED(LED2); // Grideye
 static DigitalOut Enc_LifeLED(LED4);
 //@}
 
@@ -190,7 +190,7 @@ void HealthyGridEYEvaluesSet(uint8_t values[], uint8_t grideye_num) {
         I2C1_FailIndex = 0;
         GridEYELeft_DisableCountdown = DISABLE_COUNTDOWN;
         USBGridEYEvaluesSet(values, grideye_num);
-        I2C1_LifeLED = !I2C1_LifeLED;
+        //I2C1_LifeLED = !I2C1_LifeLED;
         break;
     default:
         return;
