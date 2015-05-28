@@ -22,7 +22,7 @@
  */
 int main(void) {
     DEBUG_PRINT(("Start\r\n"));
-
+// TODO HealthySonarValuesSet in order to use DisableCountdown.
     WatcherInit();
 
     CO2Init(p17, p18);  //p17=TX, p18=RX

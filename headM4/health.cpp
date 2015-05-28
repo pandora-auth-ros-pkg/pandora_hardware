@@ -33,6 +33,8 @@ static uint8_t CO2_healthy;
 static uint8_t GridEYELeft_healthy;
 //static uint8_t GridEYERight_healthy;
 //@}
+static uint8_t SonarLeft_healthy;
+static uint8_t SonarRight_healthy;
 
 /** @name Repair loop index
  * Holds the index for the repair  loop. It is used to cycle through the different repair measures until the sensor or
@@ -41,7 +43,11 @@ static uint8_t GridEYELeft_healthy;
 static uint8_t CO2_FailIndex = 0;
 //static uint8_t I2C0_FailIndex = 0;
 static uint8_t I2C1_FailIndex = 0;
+static uint8_t I2C0_FailIndex = 0;
+
 //@}
+
+
 
 /** @name Countdown until a sensor is disabled
  * If a sensor fails to respond in time countdown times, it is disabled */
@@ -49,6 +55,8 @@ static uint8_t I2C1_FailIndex = 0;
 static uint8_t CO2_DisableCountdown = DISABLE_COUNTDOWN;
 //static uint8_t GridEYECenter_DisableCountdown = DISABLE_COUNTDOWN;
 static uint8_t GridEYELeft_DisableCountdown = DISABLE_COUNTDOWN;
+static uint8_t SonarLeft_DisableCountdown = DISABLE_COUNTDOWN;
+static uint8_t SonarRight_DisableCountdown = DISABLE_COUNTDOWN;
 //static uint8_t GridEYERight_DisableCountdown = DISABLE_COUNTDOWN;
 //@}
 
@@ -141,6 +149,38 @@ void GridEYEHealthTask(void const *args) {
     }
 }
 
+void SonarHealthTask(void const *args) {
+    while (true) {
+        Thread::signal_wait(HEALTH_SIGNAL);
+
+        WDT_feed();
+
+        if (!SonarRight_healthy && SonarRight_DisableCountdown) {
+            SonarRight_DisableCountdown--;
+        }
+        if (!SonarLeft_healthy && SonarLeft_DisableCountdown) {
+            SonarLeft_DisableCountdown--;
+        }
+        if (!SonarRight_healthy && !SonarLeft_healthy) {
+            I2C0_FailIndex++;
+            if (I2C0_FailIndex == 1) {
+                USBSonarValuesSet(0,GEYE_RIGHT);
+                USBSonarValuesSet(0,GEYE_CENTER);
+            }
+
+            //Normally, when signal_wait() is called the signal flags get cleared automatically. But if the sensor is stuck
+            //-> inside the main loop in GridEYETask(), signal flags are set again by GridEYESchedulerTask(). That means
+            //-> when a repair manages to unstuck the sensor, the request for new data from the sensor will start
+            //-> immediately, without waiting on signal_wait() for signal_set() from SchedulerTask().
+            //We clear signal flags before attempting repair, so that in case of successful repair GridEYETask() doesn't
+            //-> continue its loop before it takes the OK from GridEYESchedulerTask().
+            SonarSignalClear(SONAR_RIGHT);
+            SonarSignalClear(SONAR_LEFT);
+            repairI2C(I2C0_FailIndex, I2C_0);
+        }
+    }
+}
+
 void clearHealthyCO2() {
     CO2_healthy = 0;
 }
@@ -148,6 +188,13 @@ void clearHealthyCO2() {
 void clearHealthyGridEYE() {
    // GridEYECenter_healthy = 0;
     GridEYELeft_healthy = 0;
+ //   GridEYERight_healthy = 0;
+}
+
+void clearHealthySonar() {
+   // GridEYECenter_healthy = 0;
+    SonarLeft_healthy = 0;
+    SonarRight_healthy = 0;
  //   GridEYERight_healthy = 0;
 }
 
@@ -205,6 +252,20 @@ uint8_t GridEYEenabled(uint8_t grideye_num) {
    //     return GridEYERight_DisableCountdown;
     case GEYE_LEFT:
         return GridEYELeft_DisableCountdown;
+    default:
+        return 1;
+    }
+    return 1;
+}
+
+uint8_t SonarEnabled(uint8_t sonar_num) {
+    switch (sonar_num) {
+   // case GEYE_CENTER:
+   //     return GridEYECenter_DisableCountdown;
+    case SONAR_RIGHT:
+        return SonarRight_DisableCountdown;
+    case SONAR_LEFT:
+        return SonarLeft_DisableCountdown;
     default:
         return 1;
     }

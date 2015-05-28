@@ -14,7 +14,7 @@ static Thread *tSonarLeft;    ///<Thread pointer for left GridEYE sensor's Sonar
 static Thread *tSonarRight;   ///<Thread pointer for right GridEYE sensor's SonarTask()
 //@}
 
-//static Thread *tSonarHealth;  ///<Thread pointer for SonarHealthTask()
+static Thread *tSonarHealth;  ///<Thread pointer for SonarHealthTask()
 
 void SonarInit(I2C *i2c0_obj) {
     //Check comment about sdram in Doxygen main page before using new
@@ -39,7 +39,7 @@ void SonarInit(I2C *i2c0_obj) {
 
 
 
-    //tSonarHealth = new Thread(SonarHealthTask);
+    tSonarHealth = new Thread(SonarHealthTask);
     Thread::wait(5);    //We must wait some time before the function ends or temp_sens? will be destroyed
                         //-> before the threads assign them to local variables. (I tested with 1ms and it was OK)
 }
@@ -52,7 +52,7 @@ void SonarTask(void const *args) {
     const sonar_sensor_t * sonar = (const sonar_sensor_t *) args;
 
     I2C *i2c_obj = sonar->i2c_obj;
-    uint8_t i2c_periph_num = sonar->i2c_periph_num;
+    // uint8_t i2c_periph_num = sonar->i2c_periph_num;
     uint8_t i2c_addr = sonar->i2c_addr;
     uint8_t sonar_number = sonar->sonar_num;
 
@@ -93,7 +93,6 @@ void SonarTask(void const *args) {
         read_ack = i2c_obj->read(i2c_addr, data, 4);            // receive the reading and store it in the "data" array
         i2c0_unlock();
 
-        //TODO SonarValuesSet()
         dist_reading = (data[2]<<8) + data[3];
         if (!read_ack)
           SonarValueSet(dist_reading, sonar_number);
@@ -101,7 +100,7 @@ void SonarTask(void const *args) {
           SonarValueSet(0,sonar_number);
 
         read_ack = -10;
-        SonarSignalClear(sonar_number);
+        //SonarSignalClear(sonar_number);
 
     }
 }
@@ -129,6 +128,8 @@ void SonarSignalClear(uint8_t grideye_num) {
     }
 }
 
+// TODO Add mechanism for I2C ACK/NACK to Set Zero values when a Sonar is disconnected.
+
 void SonarValueSet(uint16_t value, uint8_t sonar_num) {
     if (value>0 && value<512){
         HealthySonarValueSet(value, sonar_num);
@@ -142,17 +143,22 @@ void SonarValueSet(uint16_t value, uint8_t sonar_num) {
 void SonarSchedulerTask(void const *args) {
     //I2C sensors in the same I2C bus have maximum distance ie 50ms in a 100ms loop
     while (true) {
-       // clearHealthySonar();
-       // if (SonarEnabled(SONAR_LEFT))
+       clearHealthySonar();
        Thread::wait(25);
-       tSonarLeft->signal_set(SONAR_I2C_SIGNAL);
-       Thread::wait(50);
-       // if (SonarEnabled(SONAR_RIGHT))
-       tSonarRight->signal_set(SONAR_I2C_SIGNAL);
+       if (SonarEnabled(SONAR_LEFT)){
+           tSonarLeft->signal_set(SONAR_I2C_SIGNAL);
+           Thread::wait(50);
+       }
 
-       //Thread::wait(1);
-       // tSonarHealth->signal_set(HEALTH_SIGNAL);
+       if (SonarEnabled(SONAR_RIGHT)){
+           tSonarRight->signal_set(SONAR_I2C_SIGNAL);
+           Thread::wait(10);
+       }
 
-        Thread::wait(25); //changed from 100
+       tSonarHealth->signal_set(HEALTH_SIGNAL);
+
+        Thread::wait(15); //changed from 100
+
+       }
     }
 }

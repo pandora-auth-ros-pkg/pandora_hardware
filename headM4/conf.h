@@ -9,7 +9,7 @@
  *
  * If 1 we are in development phase eg watchdog disabled, cpu load monitoring enabled, HardFault leads to blinking
  * leds instead of resetting the processor etc */
-#define DEVELOPMENT 1
+#define DEVELOPMENT 0
 
 /** @brief Enables debug output to USB Virtual Serial Port
  * @see http://mbed.org/handbook/SerialPC*/

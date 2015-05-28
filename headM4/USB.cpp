@@ -17,14 +17,10 @@ static uint8_t uGridEYECenterValues[PIXELS_COUNT];  ///<usb GridEYECenter values
 static uint32_t tLastReceived;
 static bool communicationStarted = false;
 
-Mutex co2_m;
-Mutex encoder_m;
-Mutex battery_m;
-Mutex geye_m;
-Mutex sonar_m;
-Mutex usb_m;
+Mutex USB_mutex;
 
-static bool received;
+
+
 
 
 //@}
@@ -50,7 +46,6 @@ void USBInit() {
 void command_recv_isr() {
 
     uint8_t USBrecv;
-    uint8_t i=0;
     communicationStarted = true;
     tLastReceived = us_ticker_read();
     DEBUG_PRINT(("A:%d%\r\n",usb->available()));
@@ -70,9 +65,6 @@ bool usbActive(){
 }
 
 
-//TODO MODIFY THE CASES IN THE SWITCH BELOW
-//TODO UPDATE FUNCTION NAMES IN HEADER FILE(S)
-
 void USBTask(const void *args) {
 
     //used for converting float to uint8_t
@@ -89,24 +81,25 @@ void USBTask(const void *args) {
 
 
     uint8_t command;
-    DEBUG_PRINT(("USBTASK\r\n"));
+
     while (true) {
         command = UsbRecvQueue.get().value.v;
-        //if (usb->readable()){          // start if
-        //    command = usb->scanf("%c",&command);
-        //    received = false;
         //DEBUG_PRINT(("R"));
         if (command>0 && command<8){
             //should return ACK
                         value16bit = USB_ACK;
+                        USB_mutex.lock();
                         usb->writeBlock(&value8bit,2);
                         usb->writeBlock(&command, 0);
+                        USB_mutex.unlock();
         }
         else{
             //should return NACK
                         value16bit = USB_NACK;
+                        USB_mutex.lock();
                         usb->writeBlock(&value8bit,2);
                         usb->writeBlock(&command, 0);
+                        USB_mutex.unlock();
                         continue;
         }
 
@@ -114,13 +107,16 @@ void USBTask(const void *args) {
 
         case GEYE_CENTER_REQUEST:
                     //writeBlock() waits for the host to connect
+                    USB_mutex.lock();
                     usb->writeBlock(USBGridEYEvaluesGet(GEYE_LEFT), PIXELS_COUNT);
                     usb->writeBlock(&command, 0);
+                    USB_mutex.unlock();
                     break;
         case ENCODER_REQUEST:
-
+            USB_mutex.lock();
             value16bit = USBencoderValueGet();
             //writeBlock() waits for the host to connect
+
             usb->writeBlock(&value8bit, 2);
             //Because the array we send is a multiple of max packet size (64 bytes) a zero-lenth-packet (ZLP) is
             //-> required after the data packet. If we don't send the ZLP the read() in the PC program would
@@ -128,43 +124,49 @@ void USBTask(const void *args) {
             //-> blocks while waiting for a packet multiple of max packet size try ZLP.
             //To send a ZLP the second argument in writeBlock() must be 0. First argument can be anything.
             usb->writeBlock(&command, 0);
+            USB_mutex.unlock();
             break;
         case SONAR_RIGHT_REQUEST:
-
+            USB_mutex.lock();
             value16bit = USBSonarRightValueGet();
             //usb->writeBlock(USBSonarValuesGet(SONAR_RIGHT), PIXELS_COUNT);
             usb->writeBlock(&value8bit, 2);
             usb->writeBlock(&command, 0);
+            USB_mutex.unlock();
             break;
         case SONAR_LEFT_REQUEST:
-
+            USB_mutex.lock();
             value16bit = USBSonarLeftValueGet();
             //usb->writeBlock(USBSonarValuesGet(SONAR_LEFT), 4);
             usb->writeBlock(&value8bit, 2);
             usb->writeBlock(&command, 0);
+            USB_mutex.unlock();
             break;
         case CO2_REQUEST:
+            USB_mutex.lock();
             CO2value = USBCO2valueGet();
             usb->writeBlock(&CO2value_uint8, 4);
             usb->writeBlock(&command, 0);
+            USB_mutex.unlock();
             break;
         case BATTERY_MOTOR_REQUEST:
-
+            USB_mutex.lock();
             value16bit = USBbatteryMotorValueGet();
             usb->writeBlock(&value8bit, 2);
             usb->writeBlock(&command, 0);
+            USB_mutex.unlock();
             break;
         case BATTERY_SUPPLY_REQUEST:
-
+            USB_mutex.lock();
             value16bit = USBbatterySupplyValueGet();
             usb->writeBlock(&value8bit, 2);
             usb->writeBlock(&command, 0);
+            USB_mutex.unlock();
             break;
         default:
             break;
         }
         //DEBUG_PRINT(("W"));
-        //DEBUG_PRINT(("%d",sizeof(UsbRecvQueue)));
         //} // end if
     } //end while
 }

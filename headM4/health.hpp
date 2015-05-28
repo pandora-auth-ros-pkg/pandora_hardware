@@ -52,6 +52,8 @@ void CO2HealthTask(void const *args);
  */
 void GridEYEHealthTask(void const *args);
 
+void SonarHealthTask(void const *args);
+
 /** @brief Clears CO2 healthy status
  *
  * Sets the healthy status of a sensor to zero. We must do this before triggering the sensor.
@@ -76,6 +78,9 @@ void clearHealthyGridEYE();
  * @returns true if selected sensor is enabled, false otherwise
  */
 uint8_t GridEYEenabled(uint8_t grideye_num);
+
+uint8_t SonarEnabled(uint8_t sonar_num);
+
 
 /** @brief Checks if CO2 sensor is enabled.
  *
